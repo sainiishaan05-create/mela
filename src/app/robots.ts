@@ -7,6 +7,6 @@ export default function robots(): MetadataRoute.Robots {
       allow: '/',
       disallow: ['/dashboard', '/admin'],
     },
-    sitemap: 'https://mela.ca/sitemap.xml',
+    sitemap: 'https://melaa.ca/sitemap.xml',
   }
 }

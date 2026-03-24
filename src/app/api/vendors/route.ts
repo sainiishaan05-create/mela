@@ -61,7 +61,7 @@ export async function POST(req: Request) {
 
     // Welcome email to vendor
     await resend.emails.send({
-      from: 'Mela <hello@mela.ca>',
+      from: 'Mela <hello@melaa.ca>',
       to: email,
       subject: `Welcome to Mela, ${name}! 🎉`,
       html: `

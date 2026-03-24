@@ -65,7 +65,7 @@ export async function GET(req: Request) {
         } catch { /* non-blocking */ }
 
         await resend.emails.send({
-          from: 'Mela Agent <agent@mela.ca>',
+          from: 'Mela Agent <agent@melaa.ca>',
           to: vendor.email,
           subject: `You have ${leads.length} new inquiry${leads.length > 1 ? 's' : ''} today 🎉`,
           html: `
@@ -97,7 +97,7 @@ export async function GET(req: Request) {
         if (!vendor?.email) continue
 
         await resend.emails.send({
-          from: 'Mela Agent <agent@mela.ca>',
+          from: 'Mela Agent <agent@melaa.ca>',
           to: vendor.email,
           subject: `⏰ ${vendorLeads.length} inquiry${vendorLeads.length > 1 ? 's' : ''} waiting 48h+ — don't lose these leads`,
           html: `

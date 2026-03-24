@@ -115,7 +115,7 @@ export default function PricingPage() {
       </div>
 
       <div className="mt-12 text-center text-gray-400 text-sm">
-        Questions? Email us at <a href="mailto:hello@mela.ca" className="text-[#E8760A]">hello@mela.ca</a>
+        Questions? Email us at <a href="mailto:hello@melaa.ca" className="text-[#E8760A]">hello@melaa.ca</a>
       </div>
     </div>
   )

@@ -20,7 +20,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Mela — South Asian Wedding Vendors in GTA',
     description: 'Find the best South Asian wedding photographers, decorators, caterers, DJs and more in the Greater Toronto Area.',
-    url: 'https://mela.ca',
+    url: 'https://melaa.ca',
     siteName: 'Mela',
     locale: 'en_CA',
     type: 'website',

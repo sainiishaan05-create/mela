@@ -1,7 +1,7 @@
 import { MetadataRoute } from 'next'
 import { createClient } from '@supabase/supabase-js'
 
-const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://mela.ca'
+const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://melaa.ca'
 
 function getSupabase() {
   return createClient(

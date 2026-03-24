@@ -41,7 +41,7 @@ export default async function VendorProfilePage({ params }: Props) {
 
   const v = vendor as Vendor
 
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://mela.ca'
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://melaa.ca'
 
   const jsonLd = {
     '@context': 'https://schema.org',

@@ -65,7 +65,7 @@ Write a short, warm reply email (3-4 sentences) from the vendor. Be culturally w
     // Send notification email to vendor with AI-drafted reply
     if (vendor.email) {
       await resend.emails.send({
-        from: 'Mela <leads@mela.ca>',
+        from: 'Mela <leads@melaa.ca>',
         to: vendor.email,
         subject: `New inquiry from ${buyer_name} — ${event_type}`,
         html: `
@@ -93,7 +93,7 @@ Write a short, warm reply email (3-4 sentences) from the vendor. Be culturally w
 
     // Send confirmation email to buyer
     await resend.emails.send({
-      from: 'Mela <hello@mela.ca>',
+      from: 'Mela <hello@melaa.ca>',
       to: buyer_email,
       subject: `Your inquiry to ${vendor.name} has been sent!`,
       html: `
