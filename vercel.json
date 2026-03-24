@@ -9,6 +9,7 @@
     { "path": "/api/agents/revenue?token=mela_agent_2024_secret",     "schedule": "0 8 * * 5"    },
     { "path": "/api/agents/optimizer?token=mela_agent_2024_secret",   "schedule": "0 10 * * *"   },
     { "path": "/api/agents/market?token=mela_agent_2024_secret",      "schedule": "0 7 * * 1"    },
-    { "path": "/api/agents/strategist?token=mela_agent_2024_secret",  "schedule": "0 6 * * 0"    }
+    { "path": "/api/agents/strategist?token=mela_agent_2024_secret",  "schedule": "0 6 * * 0"    },
+    { "path": "/api/agents/wealth?token=mela_agent_2024_secret",      "schedule": "0 9 1 * *"    }
   ]
 }
