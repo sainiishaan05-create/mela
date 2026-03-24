@@ -1,0 +1,8 @@
+{
+  "crons": [
+    {
+      "path": "/api/agent?token=mela_agent_2024_secret",
+      "schedule": "0 9 * * *"
+    }
+  ]
+}
