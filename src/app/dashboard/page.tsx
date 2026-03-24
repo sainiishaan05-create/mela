@@ -2,6 +2,7 @@ import { createClient } from '@/lib/supabase/server'
 import type { Metadata } from 'next'
 import { formatDistanceToNow } from 'date-fns'
 import Link from 'next/link'
+import { redirect } from 'next/navigation'
 import { BadgeCheck, Mail, Eye, TrendingUp } from 'lucide-react'
 
 export const metadata: Metadata = { title: 'Vendor Dashboard | Mela' }
@@ -9,12 +10,16 @@ export const metadata: Metadata = { title: 'Vendor Dashboard | Mela' }
 export default async function DashboardPage() {
   const supabase = await createClient()
 
-  // For now show the first active vendor — auth will lock this to the logged-in vendor
+  const { data: { user } } = await supabase.auth.getUser()
+
+  if (!user) {
+    redirect('/login')
+  }
+
   const { data: vendor } = await supabase
     .from('vendors')
     .select('*, category:categories(*), city:cities(*)')
-    .eq('is_active', true)
-    .limit(1)
+    .eq('email', user.email)
     .single()
 
   if (!vendor) {

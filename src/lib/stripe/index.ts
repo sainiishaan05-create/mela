@@ -5,8 +5,8 @@ export const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
 })
 
 export const PLANS = {
-  basic: { name: 'Basic', price: 9900, priceId: '' },   // $99/mo — fill priceId after creating in Stripe dashboard
-  premium: { name: 'Premium', price: 24900, priceId: '' }, // $249/mo
+  basic: { name: 'Basic', price: 9900, priceId: 'price_1TETtdQbR0KbHqJRgoBpb5w7' },
+  premium: { name: 'Premium', price: 24900, priceId: 'price_1TETtdQbR0KbHqJRTIIBB7aW' },
 }
 
 export type PlanKey = keyof typeof PLANS

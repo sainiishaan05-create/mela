@@ -17,6 +17,19 @@ const inter = Inter({
 export const metadata: Metadata = {
   title: 'Mela — South Asian Wedding Vendors in GTA',
   description: 'Find the best South Asian wedding photographers, decorators, caterers, DJs and more in the Greater Toronto Area.',
+  openGraph: {
+    title: 'Mela — South Asian Wedding Vendors in GTA',
+    description: 'Find the best South Asian wedding photographers, decorators, caterers, DJs and more in the Greater Toronto Area.',
+    url: 'https://mela.ca',
+    siteName: 'Mela',
+    locale: 'en_CA',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Mela — South Asian Wedding Vendors in GTA',
+    description: 'Find the best South Asian wedding photographers, decorators, caterers, DJs and more in the Greater Toronto Area.',
+  },
 }
 
 export default function RootLayout({

@@ -10,11 +10,11 @@ export const metadata: Metadata = {
 }
 
 interface Props {
-  searchParams: Promise<{ category?: string; city?: string }>
+  searchParams: Promise<{ category?: string; city?: string; search?: string }>
 }
 
 export default async function VendorsPage({ searchParams }: Props) {
-  const { category, city } = await searchParams
+  const { category, city, search } = await searchParams
   const supabase = await createClient()
 
   let query = supabase
@@ -33,9 +33,16 @@ export default async function VendorsPage({ searchParams }: Props) {
     supabase.from('cities').select('*').order('name'),
   ])
 
+  const searchLower = search?.trim().toLowerCase()
+
   const filteredVendors = (vendors as Vendor[] ?? []).filter((v) => {
     if (category && v.category?.slug !== category) return false
     if (city && v.city?.slug !== city) return false
+    if (searchLower) {
+      const nameMatch = v.name?.toLowerCase().includes(searchLower)
+      const descMatch = v.description?.toLowerCase().includes(searchLower)
+      if (!nameMatch && !descMatch) return false
+    }
     return true
   })
 
@@ -106,7 +113,10 @@ export default async function VendorsPage({ searchParams }: Props) {
         </div>
       ) : (
         <>
-          <p className="text-sm text-gray-400 mb-4">{filteredVendors.length} vendor{filteredVendors.length !== 1 ? 's' : ''} found</p>
+          <p className="text-sm text-gray-400 mb-4">
+            {filteredVendors.length} vendor{filteredVendors.length !== 1 ? 's' : ''} found
+            {search?.trim() ? ` for "${search.trim()}"` : ''}
+          </p>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {filteredVendors.map((vendor) => (
               <VendorCard key={vendor.id} vendor={vendor} />

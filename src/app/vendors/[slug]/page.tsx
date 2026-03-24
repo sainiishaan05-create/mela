@@ -3,7 +3,7 @@ import { notFound } from 'next/navigation'
 import type { Metadata } from 'next'
 import type { Vendor } from '@/types'
 import LeadForm from '@/components/vendors/LeadForm'
-import { MapPin, Globe, BadgeCheck, Phone } from 'lucide-react'
+import { MapPin, Globe, BadgeCheck, Phone, MessageCircle } from 'lucide-react'
 
 interface Props {
   params: Promise<{ slug: string }>
@@ -41,8 +41,29 @@ export default async function VendorProfilePage({ params }: Props) {
 
   const v = vendor as Vendor
 
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://mela.ca'
+
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'LocalBusiness',
+    name: v.name,
+    description: v.description ?? `${v.name} is a South Asian wedding ${v.category?.name} serving ${v.city?.name}.`,
+    address: {
+      '@type': 'PostalAddress',
+      addressLocality: v.city?.name ?? '',
+      addressRegion: 'ON',
+      addressCountry: 'CA',
+    },
+    url: `${siteUrl}/vendors/${slug}`,
+  }
+
   return (
-    <div className="max-w-5xl mx-auto px-4 py-10">
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+      <div className="max-w-5xl mx-auto px-4 py-10">
       <div className="grid md:grid-cols-3 gap-8">
         {/* Main content */}
         <div className="md:col-span-2">
@@ -114,6 +135,17 @@ export default async function VendorProfilePage({ params }: Props) {
                 </a>
               )}
             </div>
+            {v.phone && (
+              <a
+                href={`https://wa.me/1${v.phone.replace(/\D/g, '')}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center justify-center gap-2 w-full bg-[#25D366] hover:bg-[#1ebe5d] transition-colors text-white font-medium rounded-lg px-4 py-2.5 text-sm"
+              >
+                <MessageCircle className="w-4 h-4" />
+                Chat on WhatsApp
+              </a>
+            )}
           </div>
 
           {/* Lead form */}
@@ -125,5 +157,6 @@ export default async function VendorProfilePage({ params }: Props) {
         </div>
       </div>
     </div>
+    </>
   )
 }

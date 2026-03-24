@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import { createClient } from '@/lib/supabase/server'
 import type { Category, City } from '@/types'
+import SearchBar from '@/components/ui/SearchBar'
 
 export default async function HomePage() {
   const supabase = await createClient()
@@ -20,9 +21,12 @@ export default async function HomePage() {
             <span className="text-[#E8760A]">South Asian</span>{' '}
             Wedding Vendors
           </h1>
-          <p className="text-gray-300 text-lg md:text-xl mb-10 max-w-2xl mx-auto">
+          <p className="text-gray-300 text-lg md:text-xl mb-8 max-w-2xl mx-auto">
             Discover trusted photographers, decorators, caterers, and more — all serving the South Asian community in the GTA.
           </p>
+          <div className="w-full max-w-xl mx-auto mb-8">
+            <SearchBar />
+          </div>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link
               href="/vendors"
