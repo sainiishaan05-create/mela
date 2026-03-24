@@ -320,8 +320,8 @@ export async function GET(req: Request) {
     // Count supply (vendors) by category+city
     const supply: Record<string, number> = {}
     for (const v of activeVendors ?? []) {
-      const cat = (v.category as { name: string } | null)?.name
-      const city = (v.city as { name: string } | null)?.name
+      const cat = (v.category as unknown as { name: string } | null)?.name
+      const city = (v.city as unknown as { name: string } | null)?.name
       if (cat && city) {
         const key = `${cat} in ${city}`
         supply[key] = (supply[key] ?? 0) + 1
