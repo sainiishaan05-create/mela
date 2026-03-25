@@ -36,7 +36,7 @@ export default function VendorSignupForm({ categories, cities }: Props) {
       <div className="text-center py-8">
         <p className="text-5xl mb-4">🎉</p>
         <h2 className="font-[family-name:var(--font-playfair)] text-2xl font-bold mb-2">You're listed!</h2>
-        <p className="text-gray-500">Your business is now live on Mela. Buyers can start finding you right away.</p>
+        <p className="text-gray-500">Your business is now live on Melaa. Buyers can start finding you right away.</p>
       </div>
     )
   }

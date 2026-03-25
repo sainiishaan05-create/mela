@@ -15,7 +15,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { data: c } = await supabase.from('cities').select('*').eq('slug', city).single()
   if (!c) return { title: 'Not Found' }
   return {
-    title: `South Asian Wedding Vendors in ${c.name} | Mela`,
+    title: `South Asian Wedding Vendors in ${c.name} | Melaa`,
     description: `Find South Asian wedding photographers, decorators, caterers and more in ${c.name}, Ontario.`,
   }
 }

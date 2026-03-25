@@ -44,7 +44,7 @@ export async function POST(req: Request) {
       messages: [
         {
           role: 'user',
-          content: `Write a short ${platform} outreach message to ${businessName}, a South Asian wedding ${category} in ${city}, inviting them to list on Mela (melaa.ca) for free. Warm, direct, South Asian community tone. Under 80 words. No hashtags.`,
+          content: `Write a short ${platform} outreach message to ${businessName}, a South Asian wedding ${category} in ${city}, inviting them to list on Melaa (melaa.ca) for free. Warm, direct, South Asian community tone. Under 80 words. No hashtags.`,
         },
       ],
     })

@@ -15,7 +15,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { data: cat } = await supabase.from('categories').select('*').eq('slug', category).single()
   if (!cat) return { title: 'Not Found' }
   return {
-    title: `South Asian Wedding ${cat.name} in GTA | Mela`,
+    title: `South Asian Wedding ${cat.name} in GTA | Melaa`,
     description: `Find the best South Asian wedding ${cat.name.toLowerCase()} in Brampton, Mississauga, Toronto and across the GTA.`,
   }
 }
@@ -58,7 +58,7 @@ export default async function CategoryPage({ params }: Props) {
         <div className="text-center py-20">
           <p className="text-5xl mb-4">{(cat as Category).icon}</p>
           <h2 className="font-[family-name:var(--font-playfair)] text-2xl font-bold mb-2">No {(cat as Category).name} yet</h2>
-          <p className="text-gray-500 mb-6">Be the first {(cat as Category).name.toLowerCase()} on Mela!</p>
+          <p className="text-gray-500 mb-6">Be the first {(cat as Category).name.toLowerCase()} on Melaa!</p>
           <Link href="/list-your-business" className="bg-[#E8760A] text-white px-6 py-3 rounded-full font-medium hover:bg-[#d06a09] transition-colors">
             List Your Business
           </Link>

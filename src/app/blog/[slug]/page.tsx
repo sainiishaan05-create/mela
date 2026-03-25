@@ -82,12 +82,12 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
   if (!post) {
     return {
-      title: 'Post Not Found | Mela Blog',
+      title: 'Post Not Found | Melaa Blog',
     }
   }
 
   return {
-    title: `${post.title} | Mela Blog`,
+    title: `${post.title} | Melaa Blog`,
     description: post.excerpt,
     openGraph: {
       title: post.title,
@@ -195,7 +195,7 @@ export default async function BlogPostPage({ params }: PageProps) {
                 href={relatedCategory.href}
                 className="font-[family-name:var(--font-playfair)] text-xl font-bold text-[#E8760A] hover:underline"
               >
-                Browse {relatedCategory.label} on Mela →
+                Browse {relatedCategory.label} on Melaa →
               </Link>
             </div>
           )}
@@ -205,7 +205,7 @@ export default async function BlogPostPage({ params }: PageProps) {
       {/* CTA Banner */}
       <section className="bg-[#E8760A] text-white py-14 px-4 text-center">
         <h2 className="font-[family-name:var(--font-playfair)] text-3xl md:text-4xl font-bold mb-4">
-          Find {categoryLabel} vendors on Mela
+          Find {categoryLabel} vendors on Melaa
         </h2>
         <p className="text-orange-100 text-lg mb-8 max-w-xl mx-auto">
           Discover trusted South Asian wedding vendors across the GTA — verified,

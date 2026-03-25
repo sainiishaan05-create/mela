@@ -1,5 +1,5 @@
 /**
- * Mela AI Agent — runs every 6 hours via Vercel Cron
+ * Melaa AI Agent — runs every 6 hours via Vercel Cron
  *
  * Equity-building tasks:
  * 1.  Daily lead digest to vendors
@@ -76,7 +76,7 @@ export async function GET(req: Request) {
         if (!vendor?.email) continue
         const msg = await aiText(`One warm motivating sentence for wedding vendor "${vendor.name}" who got ${leads.length} new inquiry(ies) today on Melaa.ca.`)
         await resend.emails.send({
-          from: 'Mela Agent <agent@melaa.ca>',
+          from: 'Melaa Agent <agent@melaa.ca>',
           to: vendor.email,
           subject: `You have ${leads.length} new inquiry${leads.length > 1 ? 's' : ''} today 🎉`,
           html: `<div style="font-family:sans-serif;max-width:600px;margin:0 auto">
@@ -107,7 +107,7 @@ export async function GET(req: Request) {
         const vendor = vendorLeads[0].vendor
         if (!vendor?.email) continue
         await resend.emails.send({
-          from: 'Mela Agent <agent@melaa.ca>',
+          from: 'Melaa Agent <agent@melaa.ca>',
           to: vendor.email,
           subject: `⏰ ${vendorLeads.length} inquiry${vendorLeads.length > 1 ? 's' : ''} waiting 48h+`,
           html: `<div style="font-family:sans-serif;max-width:600px;margin:0 auto">
@@ -140,7 +140,7 @@ export async function GET(req: Request) {
           const count = countByVendor[vendor.id]
           const pitch = await aiText(`2-sentence upgrade pitch for "${vendor.name}", free-tier wedding vendor on Melaa.ca who got ${count} leads this week. Push Basic ($99/mo) for priority + verified badge. Warm, direct.`)
           await resend.emails.send({
-            from: 'Mela <hello@melaa.ca>',
+            from: 'Melaa <hello@melaa.ca>',
             to: vendor.email,
             subject: `${count} leads this week — you're ready to upgrade 🚀`,
             html: `<div style="font-family:sans-serif;max-width:600px;margin:0 auto">
@@ -167,13 +167,13 @@ export async function GET(req: Request) {
       for (const vendor of vendors ?? []) {
         let subject = '', html = ''
         if (daysAgo === 1) {
-          subject = `Welcome to Mela, ${vendor.name} 👋`
+          subject = `Welcome to Melaa, ${vendor.name} 👋`
           html = `<div style="font-family:sans-serif;max-width:600px;margin:0 auto">
             <h2 style="color:#E8760A">You're live on Melaa.ca!</h2>
             <p>Your profile is now visible to South Asian families across the GTA.</p>
             <ol><li>View your profile: <a href="${SITE}/vendors/${vendor.slug}">${SITE}/vendors/${vendor.slug}</a></li>
             <li>Share it on your Instagram stories</li>
-            <li>Ask past clients to send inquiries through Mela to build reputation</li></ol>
+            <li>Ask past clients to send inquiries through Melaa to build reputation</li></ol>
             <a href="${SITE}/dashboard" style="background:#E8760A;color:white;padding:10px 20px;border-radius:20px;text-decoration:none;display:inline-block;margin-top:12px">Go to Dashboard →</a>
           </div>`
         } else if (daysAgo === 3) {
@@ -184,14 +184,14 @@ export async function GET(req: Request) {
             <a href="${SITE}/pricing" style="background:#E8760A;color:white;padding:10px 20px;border-radius:20px;text-decoration:none;display:inline-block;margin-top:12px">See Upgrade Options →</a>
           </div>`
         } else {
-          subject = `1 week on Mela — here's how to get more leads`
+          subject = `1 week on Melaa — here's how to get more leads`
           html = `<div style="font-family:sans-serif;max-width:600px;margin:0 auto">
             <h2 style="color:#E8760A">You've been live 1 week!</h2>
-            <ul><li>Add a portfolio description</li><li>Link Mela in your Instagram bio</li><li>Upgrade to appear at the top of your category</li></ul>
+            <ul><li>Add a portfolio description</li><li>Link Melaa in your Instagram bio</li><li>Upgrade to appear at the top of your category</li></ul>
             <a href="${SITE}/pricing" style="background:#E8760A;color:white;padding:10px 20px;border-radius:20px;text-decoration:none;display:inline-block;margin-top:12px">Upgrade →</a>
           </div>`
         }
-        await resend.emails.send({ from: 'Ishaan at Mela <hello@melaa.ca>', to: vendor.email, subject, html })
+        await resend.emails.send({ from: 'Ishaan at Melaa <hello@melaa.ca>', to: vendor.email, subject, html })
         results.push(`welcome_day${daysAgo}:${vendor.name}`)
       }
     }
@@ -206,7 +206,7 @@ export async function GET(req: Request) {
       if (!lead.email) continue
       const followUp = await aiText(`2-sentence follow-up to ${lead.business_name}, a ${lead.category} in ${lead.city}, about listing free on Melaa.ca. Friendly, no pressure.`)
       await resend.emails.send({
-        from: 'Ishaan at Mela <hello@melaa.ca>',
+        from: 'Ishaan at Melaa <hello@melaa.ca>',
         to: lead.email,
         subject: `Following up — free listing on Melaa.ca`,
         html: `<div style="font-family:sans-serif;max-width:600px;margin:0 auto"><p>${followUp}</p>
@@ -241,9 +241,9 @@ export async function GET(req: Request) {
       .lte('subscription_end_date', in7Days).gte('subscription_end_date', new Date().toISOString())
     for (const vendor of atRisk ?? []) {
       await resend.emails.send({
-        from: 'Ishaan at Mela <hello@melaa.ca>',
+        from: 'Ishaan at Melaa <hello@melaa.ca>',
         to: vendor.email,
-        subject: `Your Mela ${vendor.tier} subscription renews in 7 days`,
+        subject: `Your Melaa ${vendor.tier} subscription renews in 7 days`,
         html: `<div style="font-family:sans-serif;max-width:600px;margin:0 auto">
           <h2 style="color:#E8760A">Thanks for being a ${vendor.tier} member!</h2>
           <p>Your subscription renews in 7 days. You'll keep your verified badge, priority placement, and direct inquiries from GTA families.</p>
@@ -337,7 +337,7 @@ export async function GET(req: Request) {
     if (gaps.length > 0) {
       const gapRows = gaps.map(([key, d]) => `<tr><td style="padding:8px;border-bottom:1px solid #eee">${key}</td><td style="padding:8px;border-bottom:1px solid #eee;color:#E8760A;font-weight:bold">${d} leads</td><td style="padding:8px;border-bottom:1px solid #eee;color:#666">${supply[key] ?? 0} vendors</td></tr>`).join('')
       await resend.emails.send({
-        from: 'Mela Agent <agent@melaa.ca>',
+        from: 'Melaa Agent <agent@melaa.ca>',
         to: ADMIN_EMAIL,
         subject: `📊 Weekly Supply/Demand Gap Report — ${gaps.length} opportunities`,
         html: `<div style="font-family:sans-serif;max-width:600px;margin:0 auto">
@@ -388,9 +388,9 @@ export async function GET(req: Request) {
     )
 
     await resend.emails.send({
-      from: 'Mela Agent <agent@melaa.ca>',
+      from: 'Melaa Agent <agent@melaa.ca>',
       to: ADMIN_EMAIL,
-      subject: `📈 Mela Weekly Report — ${newVendors} new vendors, ${newLeads} leads`,
+      subject: `📈 Melaa Weekly Report — ${newVendors} new vendors, ${newLeads} leads`,
       html: `<div style="font-family:sans-serif;max-width:600px;margin:0 auto">
         <h2 style="color:#E8760A">Weekly Intelligence Report</h2>
         <p style="font-style:italic;color:#666">${summary}</p>
@@ -430,7 +430,7 @@ export async function GET(req: Request) {
       if (!lead.buyer_email || !catSlug) continue
 
       await resend.emails.send({
-        from: 'Mela <hello@melaa.ca>',
+        from: 'Melaa <hello@melaa.ca>',
         to: lead.buyer_email,
         subject: `Still looking for a vendor, ${lead.buyer_name?.split(' ')[0] ?? 'there'}?`,
         html: `<div style="font-family:sans-serif;max-width:600px;margin:0 auto">

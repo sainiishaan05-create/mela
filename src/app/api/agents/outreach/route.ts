@@ -85,7 +85,7 @@ export async function GET(req: Request) {
       `).join('')
 
       await resend.emails.send({
-        from: 'Mela Outreach <agent@melaa.ca>',
+        from: 'Melaa Outreach <agent@melaa.ca>',
         to: ADMIN_EMAIL,
         subject: `📬 Today's Outreach Kit — ${pending.length} vendors ready to contact`,
         html: `<div style="font-family:sans-serif;max-width:680px;margin:0 auto">
@@ -93,7 +93,7 @@ export async function GET(req: Request) {
           <p>Copy-paste these messages to each vendor on Instagram, WhatsApp, or email. Mark them as contacted in <a href="${SITE}/admin/outreach">your outreach tracker</a>.</p>
           ${kitHtml}
           <a href="${SITE}/admin/outreach" style="background:#E8760A;color:white;padding:12px 24px;border-radius:20px;text-decoration:none;display:inline-block;margin-top:8px">Update Statuses →</a>
-          <p style="color:#999;font-size:12px;margin-top:20px">Mela Outreach Agent · ${now.toDateString()}</p>
+          <p style="color:#999;font-size:12px;margin-top:20px">Melaa Outreach Agent · ${now.toDateString()}</p>
         </div>`,
       })
 
@@ -119,7 +119,7 @@ export async function GET(req: Request) {
   for (const target of emailTargets ?? []) {
     const emailBody = await ai(`Write a warm 3-sentence cold email to ${target.business_name}, a ${target.category ?? 'South Asian wedding vendor'} in ${target.city ?? 'GTA'}, inviting them to list for FREE on Melaa.ca. South Asian community tone. End with a clear CTA.`)
     await resend.emails.send({
-      from: 'Ishaan at Mela <hello@melaa.ca>',
+      from: 'Ishaan at Melaa <hello@melaa.ca>',
       to: target.email,
       subject: `Free listing for ${target.business_name} on Melaa.ca`,
       html: `<div style="font-family:sans-serif;max-width:600px;margin:0 auto">
@@ -145,7 +145,7 @@ export async function GET(req: Request) {
       : 0
 
     await resend.emails.send({
-      from: 'Mela Outreach <agent@melaa.ca>',
+      from: 'Melaa Outreach <agent@melaa.ca>',
       to: ADMIN_EMAIL,
       subject: `📊 Outreach Pipeline Report — ${counts.listed} vendors converted`,
       html: `<div style="font-family:sans-serif;max-width:600px;margin:0 auto">

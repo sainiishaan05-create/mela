@@ -131,7 +131,7 @@ export async function GET(req: Request) {
     Calculate their ROI: one extra booking pays for a year of Premium. Sign as "Ishaan, Founder".`)
 
     await resend.emails.send({
-      from: 'Ishaan at Mela <hello@melaa.ca>',
+      from: 'Ishaan at Melaa <hello@melaa.ca>',
       to: vendor.email,
       subject: `${vendor.name} — ready for Premium? (one booking pays for a year)`,
       html: `<div style="font-family:sans-serif;max-width:600px;margin:0 auto">
@@ -144,7 +144,7 @@ export async function GET(req: Request) {
 
   // ── Task 3: Weekly P&L report to founder ─────────────────────────────────
   await resend.emails.send({
-    from: 'Mela Revenue <agent@melaa.ca>',
+    from: 'Melaa Revenue <agent@melaa.ca>',
     to: ADMIN_EMAIL,
     subject: `💰 Weekly Revenue Report — $${mrr} MRR · ${vendorGrowthRate > 0 ? '📈' : '📊'} ${vendorGrowthRate > 0 ? '+' : ''}${vendorGrowthRate}% growth`,
     html: `<div style="font-family:sans-serif;max-width:650px;margin:0 auto">
@@ -191,7 +191,7 @@ export async function GET(req: Request) {
         <a href="${SITE}/admin" style="background:#1A1A1A;color:white;padding:10px 20px;border-radius:20px;text-decoration:none;display:inline-block;margin-right:8px">Admin Dashboard</a>
         <a href="${SITE}/pricing" style="background:#E8760A;color:white;padding:10px 20px;border-radius:20px;text-decoration:none;display:inline-block">Pricing Page</a>
       </div>
-      <p style="color:#999;font-size:12px;margin-top:24px">Mela Revenue Agent · ${now.toDateString()}</p>
+      <p style="color:#999;font-size:12px;margin-top:24px">Melaa Revenue Agent · ${now.toDateString()}</p>
     </div>`,
   })
   results.push(`revenue_report:$${mrr}_mrr`)

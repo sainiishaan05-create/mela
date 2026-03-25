@@ -46,7 +46,7 @@ const ai = new Anthropic({ apiKey: env.ANTHROPIC_API_KEY })
 const mail = new Resend(env.RESEND_API_KEY)
 const SITE = env.NEXT_PUBLIC_SITE_URL ?? 'https://melaa.ca'
 const ADMIN = env.ADMIN_EMAIL ?? ''
-const BASIC = 99, PREMIUM = 249, MULTIPLE = 8
+const BASIC = 49, PREMIUM = 297, MULTIPLE = 8, REGULAR = 197
 
 // ── Utilities ─────────────────────────────────────────────────────────────────
 const log = (dept, msg) => console.log(`[${new Date().toISOString()}] [${dept.toUpperCase()}] ${msg}`)
@@ -63,7 +63,7 @@ async function claude(prompt, maxTokens = 200) {
   } catch (e) { return '' }
 }
 
-async function send(to, subject, html, from = `Mela <hello@melaa.ca>`) {
+async function send(to, subject, html, from = `Melaa <hello@melaa.ca>`) {
   try {
     await mail.emails.send({ from, to, subject, html })
     return true
@@ -146,16 +146,17 @@ async function deptSales() {
         const pitch = await claude(
           `Write a 2-paragraph urgent upgrade email to ${v.name}, a ${cat} in ${city}.
           They JUST got an inquiry on Melaa.ca's free plan — this is their hot window.
-          Push Basic at $99/mo = $3.30/day. FOMO: this lead could convert. Sign as Ishaan.`, 250
+          Push Founding Member rate: $49/mo (regular $197/mo), locked forever, free for 90 days. FOMO: this lead could book a competitor. Sign as Ishaan.`, 250
         )
         await send(
           v.email,
           `${v.name} — you just got an inquiry. Here's how to get 3x more`,
           `<div style="font-family:sans-serif;max-width:600px;margin:0 auto">
             ${pitch.split('\n\n').map(p => `<p style="line-height:1.7;color:#333">${p}</p>`).join('')}
-            <div style="text-align:center;margin:20px 0;padding:20px;background:#fafaf7;border-radius:12px">
-              <p style="font-size:32px;font-weight:bold;color:#E8760A;margin:0">$3.30<span style="font-size:16px;color:#999">/day</span></p>
-              <p style="color:#666;margin:4px 0">Basic Plan · Cancel anytime</p>
+            <div style="text-align:center;margin:20px 0;padding:20px;background:#1A1A1A;border-radius:12px">
+              <p style="font-size:12px;color:#E8760A;margin:0;text-transform:uppercase;letter-spacing:1px">Founding Vendor Rate</p>
+              <p style="font-size:36px;font-weight:bold;color:white;margin:4px 0">$49<span style="font-size:16px;color:#999">/mo</span></p>
+              <p style="color:#666;margin:0;font-size:12px"><s style="color:#999">$197/mo</s> · Free 90 days · Locked forever · Cancel anytime</p>
             </div>
             <a href="${SITE}/pricing" style="display:block;text-align:center;background:#E8760A;color:white;padding:14px;border-radius:12px;text-decoration:none;font-weight:bold;font-size:16px">Upgrade Now →</a>
           </div>`
@@ -183,7 +184,7 @@ async function deptSales() {
       const tip = await claude(`One specific tip for ${v.name} (${v.category?.name ?? 'wedding vendor'}) to get their first lead on Melaa.ca. 1 sentence, actionable.`, 80)
       await send(
         v.email,
-        `Quick tip to get your first inquiry on Mela`,
+        `Quick tip to get your first inquiry on Melaa`,
         `<div style="font-family:sans-serif;max-width:600px;margin:0 auto">
           <h2 style="color:#E8760A">Hi ${v.name.split(' ')[0]}!</h2>
           <p>We noticed you haven't gotten any leads yet. Here's what top vendors do differently:</p>
@@ -292,7 +293,7 @@ async function deptRevenueMonitor() {
       const celebration = await claude(`Write a 2-sentence celebration message for crossing $${crossedMilestone} MRR at Melaa.ca. Energetic, founder-to-founder tone.`, 100)
       await send(
         ADMIN,
-        `🎉 MILESTONE: Mela just crossed $${crossedMilestone.toLocaleString()} MRR!`,
+        `🎉 MILESTONE: Melaa just crossed $${crossedMilestone.toLocaleString()} MRR!`,
         `<div style="font-family:sans-serif;max-width:600px;margin:0 auto">
           <div style="background:#E8760A;border-radius:16px;padding:32px;text-align:center;margin-bottom:20px">
             <p style="font-size:48px;margin:0">🎉</p>
@@ -301,7 +302,7 @@ async function deptRevenueMonitor() {
           </div>
           <p style="color:#333;line-height:1.7">${celebration}</p>
         </div>`,
-        'Mela Revenue Monitor <agent@melaa.ca>'
+        'Melaa Revenue Monitor <agent@melaa.ca>'
       )
       log(dept, `MILESTONE CROSSED: $${crossedMilestone} MRR`)
     }
@@ -323,7 +324,7 @@ async function deptMarketing() {
     const topics = [
       `Why South Asian families trust Melaa.ca to find wedding vendors in GTA`,
       `${season} wedding season is here — are you ready? Tips for South Asian couples`,
-      `Behind the scenes: how verified vendors on Mela get 3x more leads`,
+      `Behind the scenes: how verified vendors on Melaa get 3x more leads`,
     ]
 
     for (const topic of topics) {
@@ -391,7 +392,7 @@ async function deptGrowth() {
         `Know another wedding vendor? Earn a free month`,
         `<div style="font-family:sans-serif;max-width:600px;margin:0 auto">
           <h2 style="color:#E8760A">Refer a vendor, get 1 month free</h2>
-          <p>Share your referral link with any wedding vendor in GTA. When they list on Mela, you get a free month.</p>
+          <p>Share your referral link with any wedding vendor in GTA. When they list on Melaa, you get a free month.</p>
           <div style="background:#fafaf7;padding:16px;border-radius:8px;margin:16px 0">
             <p style="margin:0;font-size:12px;color:#666">Your link:</p>
             <p style="margin:4px 0 0;font-family:monospace;color:#E8760A">${SITE}/list-your-business?ref=${v.id.slice(0,8)}</p>
@@ -494,7 +495,7 @@ async function deptIntelligence() {
         ${gaps.map(([k, d]) => `<p>• <strong>${k}</strong> — ${d} leads, only ${supply[k] ?? 0} vendors</p>`).join('')}
         <a href="${SITE}/admin/outreach" style="background:#E8760A;color:white;padding:10px 20px;border-radius:20px;text-decoration:none;display:inline-block;margin-top:8px">Start Outreach →</a>
       </div>`,
-      'Mela Intelligence <agent@melaa.ca>'
+      'Melaa Intelligence <agent@melaa.ca>'
     )
     log(dept, `report sent: ${gaps.length} gaps, insight generated`)
     await dbLog(dept, 'intelligence_report', { gaps: gaps.length, vendors, leads, paid })
@@ -534,7 +535,7 @@ async function deptWealth() {
         }).join('')}
         <a href="${SITE}/admin/team" style="background:#E8760A;color:white;padding:10px 20px;border-radius:20px;text-decoration:none;display:inline-block;margin-top:8px">Team Dashboard →</a>
       </div>`,
-      'Mela Wealth Agent <agent@melaa.ca>'
+      'Melaa Wealth Agent <agent@melaa.ca>'
     )
     log(dept, `daily snapshot: MRR=${$(mrr)} Valuation=${$(valuation)}`)
   } catch (e) { log(dept, `error: ${e.message}`) }

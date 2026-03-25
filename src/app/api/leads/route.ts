@@ -65,12 +65,12 @@ Write a short, warm reply email (3-4 sentences) from the vendor. Be culturally w
     // Send notification email to vendor with AI-drafted reply
     if (vendor.email) {
       await resend.emails.send({
-        from: 'Mela <leads@melaa.ca>',
+        from: 'Melaa <leads@melaa.ca>',
         to: vendor.email,
         subject: `New inquiry from ${buyer_name} — ${event_type}`,
         html: `
           <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto;">
-            <h2 style="color: #E8760A;">New inquiry on Mela 🎉</h2>
+            <h2 style="color: #E8760A;">New inquiry on Melaa 🎉</h2>
             <p>You have a new inquiry from <strong>${buyer_name}</strong></p>
             <table style="width:100%; border-collapse:collapse; margin: 16px 0;">
               <tr><td style="padding:8px; color:#666;">Name</td><td style="padding:8px;"><strong>${buyer_name}</strong></td></tr>
@@ -93,7 +93,7 @@ Write a short, warm reply email (3-4 sentences) from the vendor. Be culturally w
 
     // Send confirmation email to buyer
     await resend.emails.send({
-      from: 'Mela <hello@melaa.ca>',
+      from: 'Melaa <hello@melaa.ca>',
       to: buyer_email,
       subject: `Your inquiry to ${vendor.name} has been sent!`,
       html: `
@@ -101,7 +101,7 @@ Write a short, warm reply email (3-4 sentences) from the vendor. Be culturally w
           <h2 style="color: #E8760A;">Inquiry sent! 🎉</h2>
           <p>Hi ${buyer_name},</p>
           <p>Your inquiry to <strong>${vendor.name}</strong> has been sent. They'll be in touch soon!</p>
-          <p style="color:#666;">In the meantime, browse more vendors on Mela.</p>
+          <p style="color:#666;">In the meantime, browse more vendors on Melaa.</p>
           <a href="${process.env.NEXT_PUBLIC_SITE_URL}/vendors" style="background:#E8760A; color:white; padding:12px 24px; border-radius:24px; text-decoration:none; display:inline-block; margin-top:8px;">Browse More Vendors</a>
         </div>
       `,

@@ -18,8 +18,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   ])
   if (!cat || !c) return { title: 'Not Found' }
   return {
-    title: `South Asian Wedding ${cat.name} in ${c.name} | Mela`,
-    description: `Find the best South Asian wedding ${cat.name.toLowerCase()} in ${c.name}, Ontario. Browse verified vendors on Mela.`,
+    title: `South Asian Wedding ${cat.name} in ${c.name} | Melaa`,
+    description: `Find the best South Asian wedding ${cat.name.toLowerCase()} in ${c.name}, Ontario. Browse verified vendors on Melaa.`,
   }
 }
 

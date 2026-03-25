@@ -6,7 +6,7 @@
  *
  * Financial tasks:
  * 1. Feature ROI analysis — which features drive the most upgrades, which are dead weight
- * 2. Viral loop identification — where vendors/buyers naturally share Mela, amplify those
+ * 2. Viral loop identification — where vendors/buyers naturally share Melaa, amplify those
  * 3. Funnel leakage report — where are vendors dropping off before upgrading
  * 4. Next 3 features to build ranked by revenue impact
  * 5. Cohort retention analysis — do vendors stay or leave after month 1, 2, 3
@@ -82,7 +82,7 @@ export async function GET(req: Request) {
   const noLeads = freeVendors.filter(v => !leadsByVendor[v.id]).length
   const hasLeads = freeVendors.filter(v => (leadsByVendor[v.id] ?? 0) > 0).length
 
-  // Viral loop data: vendors with Instagram (they'll share their Mela profile)
+  // Viral loop data: vendors with Instagram (they'll share their Melaa profile)
   const withInstagram = (allVendors ?? []).filter(v => v.instagram).length
   const viralCoefficient = (allVendors ?? []).length > 0
     ? Math.round((withInstagram / (allVendors ?? []).length) * 100) : 0
@@ -126,8 +126,8 @@ export async function GET(req: Request) {
     `Identify 3 viral loops for Melaa.ca, a South Asian wedding vendor marketplace.
 
     Current natural virality:
-    - Vendors share their Mela profile link in their Instagram bio
-    - Buyers tell friends about vendors they found on Mela
+    - Vendors share their Melaa profile link in their Instagram bio
+    - Buyers tell friends about vendors they found on Melaa
     - ${viralCoefficient}% of vendors have Instagram linked
 
     For each viral loop:
@@ -170,7 +170,7 @@ export async function GET(req: Request) {
 
   // ── Send full strategic memo to founder ───────────────────────────────────
   await resend.emails.send({
-    from: 'Mela Strategist <agent@melaa.ca>',
+    from: 'Melaa Strategist <agent@melaa.ca>',
     to: ADMIN_EMAIL,
     subject: `🧠 Weekly Strategy Memo — What to build, what to kill, where to grow`,
     html: `<div style="font-family:sans-serif;max-width:680px;margin:0 auto">
@@ -215,13 +215,13 @@ export async function GET(req: Request) {
       <div style="background:#1A1A1A;border-radius:12px;padding:20px;margin-top:24px">
         <p style="margin:0;color:white;font-weight:bold">Viral Coefficient Snapshot</p>
         <p style="margin:4px 0 0;color:#E8760A;font-size:28px;font-weight:bold">${viralCoefficient}%</p>
-        <p style="margin:4px 0 0;color:#999;font-size:12px">of vendors have Instagram linked → will share their Mela profile link</p>
+        <p style="margin:4px 0 0;color:#999;font-size:12px">of vendors have Instagram linked → will share their Melaa profile link</p>
       </div>
 
       <div style="margin-top:24px">
         <a href="${SITE}/admin" style="background:#E8760A;color:white;padding:10px 20px;border-radius:20px;text-decoration:none;display:inline-block">Admin Dashboard →</a>
       </div>
-      <p style="color:#999;font-size:12px;margin-top:20px">Mela Product Strategist Agent · ${now.toDateString()}</p>
+      <p style="color:#999;font-size:12px;margin-top:20px">Melaa Product Strategist Agent · ${now.toDateString()}</p>
     </div>`,
   })
   results.push('strategy_memo:sent')

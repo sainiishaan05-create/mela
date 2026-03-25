@@ -3,7 +3,7 @@ import Link from 'next/link'
 import { blogPosts } from '@/lib/blog'
 
 export const metadata: Metadata = {
-  title: 'South Asian Wedding Planning Blog | Mela',
+  title: 'South Asian Wedding Planning Blog | Melaa',
   description:
     'Expert advice, local guides, and vendor tips for planning your South Asian wedding in the GTA — covering Brampton, Mississauga, Toronto, and beyond.',
 }
@@ -37,7 +37,7 @@ export default function BlogIndexPage() {
       <section className="bg-[#1A1A1A] text-white py-16 px-4">
         <div className="max-w-4xl mx-auto text-center">
           <p className="text-[#E8760A] font-semibold uppercase tracking-widest text-sm mb-3">
-            The Mela Blog
+            The Melaa Blog
           </p>
           <h1 className="font-[family-name:var(--font-playfair)] text-4xl md:text-5xl font-bold mb-4 leading-tight">
             South Asian Wedding Planning{' '}

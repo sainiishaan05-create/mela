@@ -51,7 +51,7 @@ for (const v of freeVendors ?? []) {
   Limited time, exclusive, community feel. Sign as Ishaan. Max 120 words.`, 200)
 
   await mail.emails.send({
-    from: 'Ishaan at Mela <hello@melaa.ca>',
+    from: 'Ishaan at Melaa <hello@melaa.ca>',
     to: v.email,
     subject: `${v.name} — Founding Member offer (only for you, expires soon)`,
     html: `<div style="font-family:sans-serif;max-width:600px;margin:0 auto">
@@ -116,8 +116,8 @@ const igTopics = [
   'How to choose a mehndi artist for your wedding',
   '3 questions every couple should ask their caterer',
   'Trending mandap decoration styles for South Asian weddings in GTA 2025',
-  'Why verified vendors on Mela get 3x more leads',
-  'Share your Mela profile in your Instagram bio — here is how',
+  'Why verified vendors on Melaa get 3x more leads',
+  'Share your Melaa profile in your Instagram bio — here is how',
 ]
 
 for (let i = 0; i < igTopics.length; i++) {
@@ -161,7 +161,7 @@ const plan = await claude(
 
 if (ADMIN) {
   await mail.emails.send({
-    from: 'Mela Activation <agent@melaa.ca>',
+    from: 'Melaa Activation <agent@melaa.ca>',
     to: ADMIN,
     subject: `🚀 Revenue activation complete — your 48h action plan inside`,
     html: `<div style="font-family:sans-serif;max-width:650px;margin:0 auto">

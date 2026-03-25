@@ -47,7 +47,7 @@ export async function GET(req: Request) {
   const hour = now.getUTCHours()
 
   // ── Task 1: Hot window upgrade — 2-5 leads in 7 days, still free ─────────
-  // This is the highest-converting moment. Vendor has proof Mela works, not yet paying.
+  // This is the highest-converting moment. Vendor has proof Melaa works, not yet paying.
   const weekAgo = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString()
   const { data: recentLeads } = await supabase
     .from('leads').select('vendor_id').gte('created_at', weekAgo)
@@ -73,26 +73,25 @@ export async function GET(req: Request) {
       const catName = (vendor.category as unknown as { name: string } | null)?.name ?? 'wedding services'
       const cityName = (vendor.city as unknown as { name: string } | null)?.name ?? 'GTA'
 
-      // Price anchor: reframe cost as daily
-      const email = await ai(`Write a 3-paragraph sales email to ${vendor.name}, a ${catName} in ${cityName}.
-      They got ${count} leads this week on Mela's free plan.
-      Frame the upgrade: Basic is $99/mo = $3.30/day = less than a coffee.
-      With a verified badge + priority listing they'll likely get 2-3x more leads.
-      Use FOMO: other ${catName}s in ${cityName} are upgrading and will outrank them.
-      Sign as Ishaan. Max 150 words.`)
+      // Price anchor: Founding Vendor offer
+      const email = await ai(`Write a 2-paragraph urgent sales email to ${vendor.name}, a ${catName} in ${cityName}.
+      They got ${count} leads this week on Melaa's free plan — real proof the platform works.
+      Offer: Founding Vendor rate $49/mo (regular $197/mo), locked forever, free for 90 days, no credit card.
+      FOMO: limited spots, other ${catName}s in ${cityName} are locking this in now.
+      Sign as Ishaan. Max 120 words.`)
 
       await resend.emails.send({
-        from: 'Ishaan at Mela <hello@melaa.ca>',
+        from: 'Ishaan at Melaa <hello@melaa.ca>',
         to: vendor.email,
-        subject: `${count} leads this week for $3.30/day — here's the math`,
+        subject: `${count} leads this week — lock in $49/mo before spots fill`,
         html: `<div style="font-family:sans-serif;max-width:600px;margin:0 auto">
           ${email.split('\n\n').map(p => `<p style="line-height:1.7;color:#333">${p}</p>`).join('')}
-          <div style="background:#fafaf7;border-radius:12px;padding:20px;margin:20px 0;text-align:center">
-            <p style="margin:0;font-size:13px;color:#666">Basic Plan</p>
-            <p style="margin:4px 0;font-size:36px;font-weight:bold;color:#E8760A">$3.30<span style="font-size:16px;color:#999">/day</span></p>
-            <p style="margin:0;font-size:12px;color:#999">$99/month · cancel anytime</p>
+          <div style="background:#1A1A1A;border-radius:12px;padding:20px;margin:20px 0;text-align:center">
+            <p style="margin:0;font-size:12px;color:#E8760A;text-transform:uppercase;letter-spacing:1px">Founding Vendor Rate</p>
+            <p style="margin:4px 0;font-size:36px;font-weight:bold;color:white">$49<span style="font-size:16px;color:#999">/mo</span></p>
+            <p style="margin:0;font-size:12px;color:#666"><s style="color:#999">$197/mo</s> · Free 90 days · Locked forever · Cancel anytime</p>
           </div>
-          <a href="${SITE}/pricing" style="background:#E8760A;color:white;padding:14px 28px;border-radius:24px;text-decoration:none;display:block;text-align:center;font-weight:bold;font-size:15px;margin-top:8px">Upgrade for $3.30/day →</a>
+          <a href="${SITE}/pricing" style="background:#E8760A;color:white;padding:14px 28px;border-radius:24px;text-decoration:none;display:block;text-align:center;font-weight:bold;font-size:15px;margin-top:8px">Claim Founding Rate →</a>
         </div>`,
       })
       results.push(`hot_window:${vendor.name}(${count}_leads)`)
@@ -114,7 +113,7 @@ export async function GET(req: Request) {
       const catName = (vendor.category as unknown as { name: string } | null)?.name ?? 'your category'
 
       await resend.emails.send({
-        from: 'Ishaan at Mela <hello@melaa.ca>',
+        from: 'Ishaan at Melaa <hello@melaa.ca>',
         to: vendor.email,
         subject: `Get featured on Melaa.ca homepage — $49/mo add-on`,
         html: `<div style="font-family:sans-serif;max-width:600px;margin:0 auto">
@@ -131,7 +130,7 @@ export async function GET(req: Request) {
           </div>
           <p style="color:#333">Most featured vendors see <strong>3-5x more inquiries</strong>. One extra booking per month covers this entirely.</p>
           <p>Interested? Just reply "YES" and I'll activate it for you today.</p>
-          <p style="color:#444">— Ishaan, Founder of Mela</p>
+          <p style="color:#444">— Ishaan, Founder of Melaa</p>
         </div>`,
       })
       results.push(`featured_upsell:${vendor.name}`)
@@ -160,12 +159,12 @@ export async function GET(req: Request) {
     for (const vendor of ghostedPaid.slice(0, 5)) {
       if (!vendor.email) continue
       await resend.emails.send({
-        from: 'Ishaan at Mela <hello@melaa.ca>',
+        from: 'Ishaan at Melaa <hello@melaa.ca>',
         to: vendor.email,
         subject: `${vendor.name} — are you getting your leads?`,
         html: `<div style="font-family:sans-serif;max-width:600px;margin:0 auto">
           <h2 style="color:#E8760A">Quick check-in</h2>
-          <p style="color:#333;line-height:1.7">Hi ${vendor.name.split(' ')[0]}, I noticed you haven't replied to any recent inquiries on Mela. I want to make sure you're getting value from your ${vendor.tier} subscription.</p>
+          <p style="color:#333;line-height:1.7">Hi ${vendor.name.split(' ')[0]}, I noticed you haven't replied to any recent inquiries on Melaa. I want to make sure you're getting value from your ${vendor.tier} subscription.</p>
           <p>A few things that might help:</p>
           <ul style="color:#444;line-height:2">
             <li>Check your spam folder for lead notifications</li>
@@ -205,7 +204,7 @@ export async function GET(req: Request) {
     }, 0) ?? 0
 
     await resend.emails.send({
-      from: 'Mela Optimizer <agent@melaa.ca>',
+      from: 'Melaa Optimizer <agent@melaa.ca>',
       to: ADMIN_EMAIL,
       subject: `💡 Revenue Optimizer: ${totalOpportunities} opportunities this week`,
       html: `<div style="font-family:sans-serif;max-width:600px;margin:0 auto">

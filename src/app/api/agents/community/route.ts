@@ -7,7 +7,7 @@
  * 1. Send "vendor spotlight" email to all buyers — feature one vendor per week
  * 2. Post-event review request — ask buyers whose event date has passed to leave feedback
  * 3. Milestone celebration — email vendors who hit 10, 25, 50 leads
- * 4. Community digest — weekly summary of what's happening on Mela sent to all vendors
+ * 4. Community digest — weekly summary of what's happening on Melaa sent to all vendors
  * 5. Generate FAQ content for top buyer questions (stored for website)
  */
 import { NextResponse } from 'next/server'
@@ -73,9 +73,9 @@ export async function GET(req: Request) {
     for (const buyer of unique) {
       if (!buyer.buyer_email) continue
       await resend.emails.send({
-        from: 'Mela Community <hello@melaa.ca>',
+        from: 'Melaa Community <hello@melaa.ca>',
         to: buyer.buyer_email,
-        subject: `✨ Vendor Spotlight: ${spotlightVendor.name} — this week on Mela`,
+        subject: `✨ Vendor Spotlight: ${spotlightVendor.name} — this week on Melaa`,
         html: `<div style="font-family:sans-serif;max-width:600px;margin:0 auto">
           <h2 style="color:#E8760A">This Week's Vendor Spotlight</h2>
           <div style="background:#fafaf7;border-radius:12px;padding:20px;margin:16px 0">
@@ -115,12 +115,12 @@ export async function GET(req: Request) {
 
     const celebrationMsg = await ai(`Write a warm congratulations email to ${vendor.name} who just hit ${count} total leads on Melaa.ca.
     Make it feel special. If they are on the free tier, mention upgrading to grow even faster.
-    Sign as "Ishaan, Founder of Mela". 3 sentences max.`)
+    Sign as "Ishaan, Founder of Melaa". 3 sentences max.`)
 
     await resend.emails.send({
-      from: 'Ishaan at Mela <hello@melaa.ca>',
+      from: 'Ishaan at Melaa <hello@melaa.ca>',
       to: vendor.email,
-      subject: `🎉 You just hit ${count} leads on Mela!`,
+      subject: `🎉 You just hit ${count} leads on Melaa!`,
       html: `<div style="font-family:sans-serif;max-width:600px;margin:0 auto">
         <div style="text-align:center;padding:24px;background:linear-gradient(135deg,#E8760A,#f59e0b);border-radius:12px;margin-bottom:20px">
           <p style="font-size:48px;margin:0">🎉</p>
@@ -150,11 +150,11 @@ export async function GET(req: Request) {
   for (const vendor of allVendors ?? []) {
     if (!vendor.email) continue
     await resend.emails.send({
-      from: 'Mela Community <hello@melaa.ca>',
+      from: 'Melaa Community <hello@melaa.ca>',
       to: vendor.email,
-      subject: `📊 Mela this week: ${weekLeads} new inquiries from GTA families`,
+      subject: `📊 Melaa this week: ${weekLeads} new inquiries from GTA families`,
       html: `<div style="font-family:sans-serif;max-width:600px;margin:0 auto">
-        <h2 style="color:#E8760A">This Week on Mela</h2>
+        <h2 style="color:#E8760A">This Week on Melaa</h2>
         <div style="display:flex;gap:12px;margin:16px 0">
           <div style="flex:1;background:#fafaf7;padding:16px;border-radius:8px;text-align:center">
             <p style="margin:0;font-size:28px;font-weight:bold;color:#E8760A">${weekLeads ?? 0}</p>

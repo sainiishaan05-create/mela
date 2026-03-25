@@ -12,7 +12,7 @@ async function main() {
 
   // Basic — $99/month
   const basicProduct = await stripe.products.create({
-    name: 'Mela Basic',
+    name: 'Melaa Basic',
   })
 
   const basicPrice = await stripe.prices.create({
@@ -24,7 +24,7 @@ async function main() {
 
   // Premium — $249/month
   const premiumProduct = await stripe.products.create({
-    name: 'Mela Premium',
+    name: 'Melaa Premium',
   })
 
   const premiumPrice = await stripe.prices.create({

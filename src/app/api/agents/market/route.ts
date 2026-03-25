@@ -6,7 +6,7 @@
  * Financial tasks:
  * 1. Competitive pricing analysis — generate report vs WeddingWire, Thumbtack, Shaadi.com
  * 2. Market sizing — estimate TAM/SAM from lead volume × category × GTA population
- * 3. Unfair advantage report — what Mela can do that big platforms can't
+ * 3. Unfair advantage report — what Melaa can do that big platforms can't
  * 4. New revenue stream ideas — identify monetization gaps (vendor insurance, consultations, etc.)
  * 5. Seasonal demand forecast — predict lead volume spikes and prep vendors/inventory
  * 6. Category expansion opportunities — which new vendor types would buyers pay for
@@ -89,12 +89,12 @@ export async function GET(req: Request) {
     Top categories: ${topCats.slice(0, 5).map(([c, n]) => `${c}(${n} leads/mo)`).join(', ')}.
     Top cities: ${topCities.slice(0, 4).map(([c, n]) => `${c}(${n} leads/mo)`).join(', ')}.
 
-    Compare Mela against: WeddingWire ($50-200/mo), Thumbtack (pay-per-lead $15-50 each), Shaadi.com, Google/Instagram (free but no discovery).
+    Compare Melaa against: WeddingWire ($50-200/mo), Thumbtack (pay-per-lead $15-50 each), Shaadi.com, Google/Instagram (free but no discovery).
 
     Write a market analysis covering:
-    1. Mela's 3 unfair advantages vs each competitor
-    2. Where Mela is currently underpriced and what premium tiers could look like
-    3. One new revenue stream Mela could launch in 30 days
+    1. Melaa's 3 unfair advantages vs each competitor
+    2. Where Melaa is currently underpriced and what premium tiers could look like
+    3. One new revenue stream Melaa could launch in 30 days
 
     Be specific, financial, strategic. Under 300 words.`, 500
   )
@@ -104,12 +104,12 @@ export async function GET(req: Request) {
     `Do a quick market sizing for Melaa.ca, a South Asian wedding vendor directory in GTA.
     Facts: ~30,000 South Asian weddings happen in GTA each year. Average wedding spend $50,000.
     Vendors per wedding: ~8-12 (photographer, caterer, decorator, DJ, mehndi, etc.)
-    Mela charges vendors $99-249/month.
+    Melaa charges vendors $99-249/month.
 
     Calculate:
     - TAM (total addressable market — all South Asian wedding vendor spend in GTA)
     - SAM (serviceable — vendors who would list on a directory)
-    - SOM (what Mela can realistically capture in year 1-2)
+    - SOM (what Melaa can realistically capture in year 1-2)
     - What MRR looks like at 1%, 5%, 10% market penetration
     Show the math. Under 200 words.`, 400
   )
@@ -157,7 +157,7 @@ export async function GET(req: Request) {
 
   // ── Send full report to founder ───────────────────────────────────────────
   await resend.emails.send({
-    from: 'Mela Market Analyst <agent@melaa.ca>',
+    from: 'Melaa Market Analyst <agent@melaa.ca>',
     to: ADMIN_EMAIL,
     subject: `🔍 Weekly Market Intelligence Report — ${now.toDateString()}`,
     html: `<div style="font-family:sans-serif;max-width:680px;margin:0 auto">
@@ -198,7 +198,7 @@ export async function GET(req: Request) {
         <a href="${SITE}/admin" style="background:#1A1A1A;color:white;padding:10px 20px;border-radius:20px;text-decoration:none;display:inline-block;margin-right:8px">Admin Dashboard</a>
         <a href="${SITE}/admin/outreach" style="background:#E8760A;color:white;padding:10px 20px;border-radius:20px;text-decoration:none;display:inline-block">Run Outreach →</a>
       </div>
-      <p style="color:#999;font-size:12px;margin-top:20px">Mela Market Analyst Agent · ${now.toDateString()}</p>
+      <p style="color:#999;font-size:12px;margin-top:20px">Melaa Market Analyst Agent · ${now.toDateString()}</p>
     </div>`,
   })
   results.push('market_report:sent')

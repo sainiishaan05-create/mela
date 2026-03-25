@@ -5,7 +5,7 @@ export default function Footer() {
     <footer className="bg-[#1A1A1A] text-gray-400 mt-16">
       <div className="max-w-6xl mx-auto px-4 py-12 grid grid-cols-2 md:grid-cols-4 gap-8">
         <div className="col-span-2 md:col-span-1">
-          <p className="font-[family-name:var(--font-playfair)] text-2xl font-bold text-[#E8760A] mb-2">Mela</p>
+          <p className="font-[family-name:var(--font-playfair)] text-2xl font-bold text-[#E8760A] mb-2">Melaa</p>
           <p className="text-sm">South Asian wedding vendors in the Greater Toronto Area.</p>
         </div>
         <div>
@@ -36,7 +36,7 @@ export default function Footer() {
         </div>
       </div>
       <div className="border-t border-gray-800 text-center text-xs py-4">
-        © {new Date().getFullYear()} Mela. All rights reserved.
+        © {new Date().getFullYear()} Melaa. All rights reserved.
       </div>
     </footer>
   )

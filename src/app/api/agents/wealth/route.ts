@@ -117,13 +117,13 @@ export async function GET(req: Request) {
     const valueOfOneBasicForMember = Math.round((member.equity_pct / 100) * valuePerBasicVendor)
 
     const personalNote = await ai(
-      `Write a 2-sentence personal, motivating note for ${member.name} (${member.role}) at a startup called Mela.
+      `Write a 2-sentence personal, motivating note for ${member.name} (${member.role}) at a startup called Melaa.
       Their ${member.equity_pct}% equity stake is now worth ${currency(equityValue)}, up ${mrrGrowth}% from last month.
       Warm, founder-to-team tone. Acknowledge their contribution to building this.`
     )
 
     await resend.emails.send({
-      from: 'Ishaan at Mela <hello@melaa.ca>',
+      from: 'Ishaan at Melaa <hello@melaa.ca>',
       to: member.email,
       subject: `📈 Your monthly equity update — ${currency(equityValue)} and growing`,
       html: `<div style="font-family:sans-serif;max-width:600px;margin:0 auto">
@@ -132,7 +132,7 @@ export async function GET(req: Request) {
           <p style="margin:0;font-size:12px;color:#E8760A;text-transform:uppercase;letter-spacing:2px">Your Equity Statement</p>
           <p style="margin:8px 0 0;font-size:13px;color:#999">${now.toLocaleString('default', { month: 'long', year: 'numeric' })}</p>
           <p style="margin:12px 0 0;font-size:48px;font-weight:bold;color:white">${currency(equityValue)}</p>
-          <p style="margin:4px 0 0;font-size:14px;color:#E8760A">${member.equity_pct}% of Mela</p>
+          <p style="margin:4px 0 0;font-size:14px;color:#E8760A">${member.equity_pct}% of Melaa</p>
           ${mrrGrowth > 0 ? `<p style="margin:8px 0 0;font-size:13px;color:#4ade80">↑ Up ${mrrGrowth}% from last month</p>` : ''}
         </div>
 
@@ -210,7 +210,7 @@ export async function GET(req: Request) {
     const totalAllocated = (teamMembers ?? []).reduce((s: number, m: { equity_pct: number }) => s + m.equity_pct, 0)
 
     await resend.emails.send({
-      from: 'Mela Wealth Agent <agent@melaa.ca>',
+      from: 'Melaa Wealth Agent <agent@melaa.ca>',
       to: ADMIN_EMAIL,
       subject: `💰 Monthly Cap Table — Company valued at ${currency(valuation)}`,
       html: `<div style="font-family:sans-serif;max-width:650px;margin:0 auto">

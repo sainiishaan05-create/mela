@@ -61,14 +61,14 @@ export async function POST(req: Request) {
 
     // Welcome email to vendor
     await resend.emails.send({
-      from: 'Mela <hello@melaa.ca>',
+      from: 'Melaa <hello@melaa.ca>',
       to: email,
-      subject: `Welcome to Mela, ${name}! 🎉`,
+      subject: `Welcome to Melaa, ${name}! 🎉`,
       html: `
         <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto;">
-          <h2 style="color: #E8760A;">Welcome to Mela! 🎉</h2>
+          <h2 style="color: #E8760A;">Welcome to Melaa! 🎉</h2>
           <p>Hi there,</p>
-          <p><strong>${name}</strong> is now live on Mela. South Asian families across the GTA can now discover you!</p>
+          <p><strong>${name}</strong> is now live on Melaa. South Asian families across the GTA can now discover you!</p>
           <p>Your profile is at: <a href="${process.env.NEXT_PUBLIC_SITE_URL}/vendors/${slug}">${process.env.NEXT_PUBLIC_SITE_URL}/vendors/${slug}</a></p>
           <h3>What happens next?</h3>
           <ul>
@@ -77,7 +77,7 @@ export async function POST(req: Request) {
             <li>We'll even include an AI-drafted reply to help you respond quickly</li>
           </ul>
           <p>Questions? Just reply to this email.</p>
-          <p>— The Mela Team</p>
+          <p>— The Melaa Team</p>
         </div>
       `,
     })

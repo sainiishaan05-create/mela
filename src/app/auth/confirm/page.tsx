@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import type { Metadata } from 'next'
 
-export const metadata: Metadata = { title: 'Confirm Your Email | Mela' }
+export const metadata: Metadata = { title: 'Confirm Your Email | Melaa' }
 
 export default function AuthConfirmPage() {
   return (

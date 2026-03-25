@@ -29,7 +29,7 @@ When meeting with potential photographers, ask specifically about their experien
 
 Budget is a real consideration for most families. South Asian wedding photography in Brampton typically ranges from $3,000 to $8,000+ for multi-day coverage. While it may be tempting to book the lowest quote, remember that you cannot re-do your wedding day. Investing in a skilled South Asian wedding photographer means investing in heirlooms your family will treasure for decades.
 
-Finally, check online reviews specifically mentioning South Asian weddings. Platforms like Google, WeddingWire, and Mela feature real feedback from South Asian families in Brampton and the greater GTA who have worked with these vendors firsthand. Consistent praise for cultural understanding, reliability, and stunning imagery is the clearest signal that a photographer is worth booking.`,
+Finally, check online reviews specifically mentioning South Asian weddings. Platforms like Google, WeddingWire, and Melaa feature real feedback from South Asian families in Brampton and the greater GTA who have worked with these vendors firsthand. Consistent praise for cultural understanding, reliability, and stunning imagery is the clearest signal that a photographer is worth booking.`,
   },
   {
     slug: 'south-asian-wedding-decorators-mississauga',
@@ -86,7 +86,7 @@ Finally, give yourself grace. South Asian weddings are joyful, chaotic, emotiona
     category: 'mehndi-artists',
     content: `Mehndi — the application of intricate henna designs to the bride's hands and feet — is one of the most visually stunning and emotionally meaningful traditions in a South Asian wedding. Whether you are planning a Punjabi, Gujarati, Pakistani, or Tamil wedding in the GTA, your mehndi ceremony deserves a skilled artist who can transform natural henna into art that will last through your wedding day and beyond.
 
-The GTA is home to some of North America's most talented mehndi artists, many of whom have trained in India, Pakistan, or the UK before setting up their practices in cities like Brampton, Mississauga, Toronto, and Markham. When searching for a mehndi artist for your South Asian wedding, start by exploring portfolios on Instagram and Mela — these platforms give you the clearest sense of an artist's style and quality.
+The GTA is home to some of North America's most talented mehndi artists, many of whom have trained in India, Pakistan, or the UK before setting up their practices in cities like Brampton, Mississauga, Toronto, and Markham. When searching for a mehndi artist for your South Asian wedding, start by exploring portfolios on Instagram and Melaa — these platforms give you the clearest sense of an artist's style and quality.
 
 Mehndi styles vary significantly, and choosing an artist whose signature style matches your aesthetic is important. Arabic mehndi features large floral motifs with open spaces and bold lines. Indian bridal mehndi tends to be denser, with intricate paisley patterns, peacock motifs, and figurative elements that sometimes tell the love story of the couple. Moroccan mehndi is geometric and minimalist. Pakistani bridal mehndi often blends Arabic and Indian elements. Ask your artist which styles they specialize in and request to see examples of their work in your preferred style.
 
@@ -353,7 +353,7 @@ Tip 6: Discuss your specific cultural and religious requirements openly. Differe
 
 Tip 7: Verify their equipment and backup systems. Professional wedding photography requires professional equipment. Ask your photographer what camera systems they use, whether they shoot with dual memory card slots (which write simultaneously to provide a backup in case of card failure), and what backup bodies they carry in case of equipment failure on the wedding day. Equipment failure at a wedding is rare but catastrophic — verify these systems before you sign.
 
-Tip 8: Read reviews from South Asian couples specifically. General photography reviews are less useful than reviews from families whose South Asian weddings the photographer has shot. Look for reviews on Google, Mela, and WeddingWire that specifically mention multi-day South Asian events, cultural sensitivity, ability to handle large family portrait sessions, and overall reliability. Patterns of praise or concern across multiple reviews are highly predictive of your own experience.
+Tip 8: Read reviews from South Asian couples specifically. General photography reviews are less useful than reviews from families whose South Asian weddings the photographer has shot. Look for reviews on Google, Melaa, and WeddingWire that specifically mention multi-day South Asian events, cultural sensitivity, ability to handle large family portrait sessions, and overall reliability. Patterns of praise or concern across multiple reviews are highly predictive of your own experience.
 
 Tip 9: Clarify the full scope of deliverables in your contract. Your contract should specify exactly what you are receiving: the number of edited images, the file formats, the delivery method (online gallery, USB, or both), whether prints or albums are included, how long the photographer retains your files, and whether you have commercial use rights to your own photos. Verbal promises are not enforceable — everything should be in writing.
 

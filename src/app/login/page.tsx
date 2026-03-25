@@ -78,7 +78,7 @@ export default function LoginPage() {
             marginBottom: '2rem',
           }}
         >
-          Sign in to your Mela vendor account
+          Sign in to your Melaa vendor account
         </p>
 
         <form onSubmit={handleSubmit} noValidate>

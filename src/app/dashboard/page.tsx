@@ -5,7 +5,7 @@ import Link from 'next/link'
 import { redirect } from 'next/navigation'
 import { BadgeCheck, Mail, Eye, TrendingUp } from 'lucide-react'
 
-export const metadata: Metadata = { title: 'Vendor Dashboard | Mela' }
+export const metadata: Metadata = { title: 'Vendor Dashboard | Melaa' }
 
 export default async function DashboardPage() {
   const supabase = await createClient()
