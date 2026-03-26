@@ -3,11 +3,11 @@ import VendorCard from '@/components/vendors/VendorCard'
 import type { Vendor, Category, City } from '@/types'
 import Link from 'next/link'
 import type { Metadata } from 'next'
-import { SlidersHorizontal } from 'lucide-react'
+import { SlidersHorizontal, MapPin, Sparkles } from 'lucide-react'
 
 export const metadata: Metadata = {
   title: 'Find South Asian Wedding Vendors in GTA | Melaa',
-  description: 'Browse 60+ trusted South Asian wedding vendors in Brampton, Mississauga, Toronto and across the GTA. Photographers, caterers, decorators, mehndi artists and more.',
+  description: 'Browse 2,700+ trusted South Asian wedding vendors in Brampton, Mississauga, Toronto and across the GTA. Photographers, caterers, decorators, mehndi artists and more.',
 }
 
 const PAGE_SIZE = 48
@@ -34,31 +34,25 @@ export default async function VendorsPage({ searchParams }: Props) {
     .select('*, category:categories(*), city:cities(*)', { count: 'exact' })
     .eq('is_active', true)
 
-  // Server-side category filter
   if (category && activeCategory) {
     query = query.eq('category_id', activeCategory.id)
   }
 
-  // Server-side city filter
   if (city && activeCity) {
     query = query.eq('city_id', activeCity.id)
   }
 
-  // Server-side search filter
   const searchLower = search?.trim().toLowerCase()
   if (searchLower) {
     query = query.or(`name.ilike.%${searchLower}%,description.ilike.%${searchLower}%`)
   }
 
-  // Sort
   if (sort === 'newest') {
     query = query.order('created_at', { ascending: false })
   } else {
-    // Default: featured first, then by created_at
     query = query.order('is_featured', { ascending: false }).order('tier').order('created_at', { ascending: false })
   }
 
-  // Pagination: limit to PAGE_SIZE per page
   const from = (page - 1) * PAGE_SIZE
   const to = from + PAGE_SIZE - 1
   query = query.range(from, to)
@@ -67,17 +61,58 @@ export default async function VendorsPage({ searchParams }: Props) {
 
   const filteredVendors = (vendors as Vendor[] ?? [])
   const totalVendors = totalCount ?? 0
+  const totalPages = Math.ceil(totalVendors / PAGE_SIZE)
+  const hasActiveFilters = !!(category || city || search)
+
+  // Build paginated URL helper
+  function pageUrl(p: number) {
+    const params = new URLSearchParams({
+      ...(category ? { category } : {}),
+      ...(city ? { city } : {}),
+      ...(search ? { search } : {}),
+      ...(sort ? { sort } : {}),
+      ...(p > 1 ? { page: String(p) } : {}),
+    })
+    const qs = params.toString()
+    return `/vendors${qs ? `?${qs}` : ''}`
+  }
+
+  // Build page number array with ellipsis: e.g. [1, 2, 3, '...', 58]
+  function getPageNumbers(current: number, total: number): (number | '...')[] {
+    if (total <= 7) return Array.from({ length: total }, (_, i) => i + 1)
+    const pages: (number | '...')[] = []
+    const delta = 2
+    const left = current - delta
+    const right = current + delta
+
+    for (let i = 1; i <= total; i++) {
+      if (i === 1 || i === total || (i >= left && i <= right)) {
+        pages.push(i)
+      } else if (i === left - 1 || i === right + 1) {
+        pages.push('...')
+      }
+    }
+    return pages
+  }
+
+  const pageNumbers = getPageNumbers(page, totalPages)
 
   return (
     <div className="min-h-screen bg-[#FAFAF7]">
-      {/* Header bar */}
-      <div className="bg-white border-b border-gray-100 sticky top-16 z-40">
-        <div className="max-w-7xl mx-auto px-4 py-3">
+
+      {/* ── Sticky category + city pill bar ── */}
+      <div className="glass sticky top-16 z-40 border-b border-white/60">
+        <div className="max-w-7xl mx-auto px-4 py-3 space-y-2">
+
           {/* Category pills */}
-          <div className="flex gap-2 overflow-x-auto pb-1 scrollbar-hide">
+          <div className="flex gap-2 overflow-x-auto pb-0.5 scrollbar-hide">
             <Link
               href={city ? `/vendors?city=${city}` : '/vendors'}
-              className={`shrink-0 px-4 py-2 rounded-full text-sm font-medium transition-all ${!category ? 'bg-[#1A1A1A] text-white' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'}`}
+              className={`shrink-0 px-4 py-1.5 rounded-full text-sm font-semibold transition-all duration-200 ${
+                !category
+                  ? 'bg-[#111111] text-white shadow-sm'
+                  : 'bg-white/70 text-gray-500 border border-gray-200/80 hover:border-gray-300 hover:text-gray-800'
+              }`}
             >
               All Categories
             </Link>
@@ -85,9 +120,42 @@ export default async function VendorsPage({ searchParams }: Props) {
               <Link
                 key={cat.slug}
                 href={`/vendors?category=${cat.slug}${city ? `&city=${city}` : ''}`}
-                className={`shrink-0 flex items-center gap-1.5 px-4 py-2 rounded-full text-sm font-medium transition-all ${category === cat.slug ? 'bg-[#E8760A] text-white' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'}`}
+                className={`shrink-0 flex items-center gap-1.5 px-4 py-1.5 rounded-full text-sm font-semibold transition-all duration-200 ${
+                  category === cat.slug
+                    ? 'bg-[#E8760A] text-white shadow-saffron'
+                    : 'bg-white/70 text-gray-500 border border-gray-200/80 hover:border-[#E8760A]/40 hover:text-[#E8760A]'
+                }`}
               >
-                <span>{cat.icon}</span> {cat.name}
+                <span className="text-base leading-none">{cat.icon}</span>
+                {cat.name}
+              </Link>
+            ))}
+          </div>
+
+          {/* City pills — visible on mobile (sidebar handles desktop) */}
+          <div className="flex gap-2 overflow-x-auto pb-0.5 scrollbar-hide lg:hidden">
+            <Link
+              href={category ? `/vendors?category=${category}` : '/vendors'}
+              className={`shrink-0 flex items-center gap-1 px-3 py-1 rounded-full text-xs font-semibold transition-all duration-200 ${
+                !city
+                  ? 'bg-[#E8760A]/15 text-[#E8760A] border border-[#E8760A]/30'
+                  : 'bg-white/70 text-gray-500 border border-gray-200/80 hover:border-[#E8760A]/40 hover:text-[#E8760A]'
+              }`}
+            >
+              <MapPin className="w-3 h-3" />
+              All Cities
+            </Link>
+            {(cities as City[] ?? []).map((c) => (
+              <Link
+                key={c.slug}
+                href={`/vendors?city=${c.slug}${category ? `&category=${category}` : ''}`}
+                className={`shrink-0 flex items-center gap-1 px-3 py-1 rounded-full text-xs font-semibold transition-all duration-200 ${
+                  city === c.slug
+                    ? 'bg-[#E8760A]/15 text-[#E8760A] border border-[#E8760A]/30'
+                    : 'bg-white/70 text-gray-500 border border-gray-200/80 hover:border-[#E8760A]/40 hover:text-[#E8760A]'
+                }`}
+              >
+                {c.name}
               </Link>
             ))}
           </div>
@@ -95,43 +163,76 @@ export default async function VendorsPage({ searchParams }: Props) {
       </div>
 
       <div className="max-w-7xl mx-auto px-4 py-8 flex gap-8">
-        {/* SIDEBAR FILTERS */}
-        <aside className="hidden lg:block w-56 shrink-0">
-          <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-5 sticky top-36">
-            <div className="flex items-center gap-2 mb-4">
-              <SlidersHorizontal className="w-4 h-4 text-gray-400" />
-              <h3 className="font-semibold text-sm text-gray-700">Filter by City</h3>
-            </div>
 
-            <div className="space-y-1">
-              <Link
-                href={category ? `/vendors?category=${category}` : '/vendors'}
-                className={`block px-3 py-2 rounded-lg text-sm transition-colors ${!city ? 'bg-[#E8760A]/10 text-[#E8760A] font-semibold' : 'text-gray-600 hover:bg-gray-50'}`}
-              >
-                All Cities
-              </Link>
-              {(cities as City[] ?? []).map((c) => (
+        {/* ── SIDEBAR ── */}
+        <aside className="hidden lg:block w-60 shrink-0">
+          <div className="bg-white rounded-2xl shadow-premium p-6 sticky top-36 space-y-6">
+
+            {/* City filter */}
+            <div>
+              <div className="flex items-center gap-2 mb-3">
+                <span className="w-1.5 h-1.5 rounded-full bg-[#E8760A]" />
+                <h3 className="font-semibold text-xs uppercase tracking-widest text-gray-400">
+                  Filter by City
+                </h3>
+              </div>
+              <div className="space-y-0.5">
                 <Link
-                  key={c.slug}
-                  href={`/vendors?city=${c.slug}${category ? `&category=${category}` : ''}`}
-                  className={`block px-3 py-2 rounded-lg text-sm transition-colors ${city === c.slug ? 'bg-[#E8760A]/10 text-[#E8760A] font-semibold' : 'text-gray-600 hover:bg-gray-50'}`}
+                  href={category ? `/vendors?category=${category}` : '/vendors'}
+                  className={`flex items-center gap-2 px-3 py-2 rounded-xl text-sm transition-all duration-150 ${
+                    !city
+                      ? 'bg-[#E8760A]/10 text-[#E8760A] font-semibold'
+                      : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900'
+                  }`}
                 >
-                  {c.name}
+                  <MapPin className="w-3.5 h-3.5 opacity-60" />
+                  All Cities
                 </Link>
-              ))}
+                {(cities as City[] ?? []).map((c) => (
+                  <Link
+                    key={c.slug}
+                    href={`/vendors?city=${c.slug}${category ? `&category=${category}` : ''}`}
+                    className={`flex items-center gap-2 px-3 py-2 rounded-xl text-sm transition-all duration-150 ${
+                      city === c.slug
+                        ? 'bg-[#E8760A]/10 text-[#E8760A] font-semibold'
+                        : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900'
+                    }`}
+                  >
+                    <span className="w-1 h-1 rounded-full bg-current opacity-40 shrink-0" />
+                    {c.name}
+                  </Link>
+                ))}
+              </div>
             </div>
 
-            <div className="border-t border-gray-100 mt-4 pt-4">
-              <h3 className="font-semibold text-sm text-gray-700 mb-3">Sort By</h3>
-              <div className="space-y-1">
+            {/* Divider */}
+            <div className="h-px bg-gray-100" />
+
+            {/* Sort */}
+            <div>
+              <div className="flex items-center gap-2 mb-3">
+                <span className="w-1.5 h-1.5 rounded-full bg-[#111111]" />
+                <h3 className="font-semibold text-xs uppercase tracking-widest text-gray-400">
+                  Sort By
+                </h3>
+              </div>
+              <div className="space-y-0.5">
                 {[
                   { value: '', label: 'Recommended' },
                   { value: 'newest', label: 'Newest First' },
                 ].map(opt => (
                   <Link
                     key={opt.value}
-                    href={`/vendors?${new URLSearchParams({ ...(category ? {category} : {}), ...(city ? {city} : {}), ...(opt.value ? {sort: opt.value} : {}) }).toString()}`}
-                    className={`block px-3 py-2 rounded-lg text-sm transition-colors ${sort === opt.value || (!sort && !opt.value) ? 'bg-[#E8760A]/10 text-[#E8760A] font-semibold' : 'text-gray-600 hover:bg-gray-50'}`}
+                    href={`/vendors?${new URLSearchParams({
+                      ...(category ? { category } : {}),
+                      ...(city ? { city } : {}),
+                      ...(opt.value ? { sort: opt.value } : {}),
+                    }).toString()}`}
+                    className={`block px-3 py-2 rounded-xl text-sm transition-all duration-150 ${
+                      sort === opt.value || (!sort && !opt.value)
+                        ? 'bg-[#111111]/8 text-[#111111] font-semibold'
+                        : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900'
+                    }`}
                   >
                     {opt.label}
                   </Link>
@@ -139,136 +240,200 @@ export default async function VendorsPage({ searchParams }: Props) {
               </div>
             </div>
 
-            {(category || city || search) && (
-              <div className="border-t border-gray-100 mt-4 pt-4">
-                <Link href="/vendors" className="text-xs text-red-500 hover:text-red-600 font-medium">
-                  ✕ Clear all filters
+            {/* Clear filters */}
+            {hasActiveFilters && (
+              <>
+                <div className="h-px bg-gray-100" />
+                <Link
+                  href="/vendors"
+                  className="flex items-center gap-1.5 text-xs text-red-400 hover:text-red-500 font-medium transition-colors"
+                >
+                  <span>✕</span> Clear all filters
                 </Link>
-              </div>
+              </>
             )}
           </div>
         </aside>
 
-        {/* MAIN CONTENT */}
+        {/* ── MAIN CONTENT ── */}
         <div className="flex-1 min-w-0">
-          {/* Results header */}
-          <div className="flex items-center justify-between mb-6">
-            <div>
-              <h1 className="font-[family-name:var(--font-playfair)] text-2xl font-bold text-gray-900">
-                {activeCategory
-                  ? `${activeCategory.icon} ${activeCategory.name}`
-                  : 'All South Asian Wedding Vendors'}
-                {activeCity ? ` in ${activeCity.name}` : ' in GTA'}
-              </h1>
-              <p className="text-sm text-gray-500 mt-0.5">
-                {totalVendors > PAGE_SIZE
-                  ? `Showing ${filteredVendors.length} of ${totalVendors} vendors${search?.trim() ? ` for "${search.trim()}"` : ''} — use filters to narrow down`
-                  : `${totalVendors} vendor${totalVendors !== 1 ? 's' : ''} found${search?.trim() ? ` for "${search.trim()}"` : ''}`}
-              </p>
-            </div>
 
-            {/* Mobile city filter */}
-            <div className="lg:hidden">
-              <select
-                className="text-sm border border-gray-200 rounded-lg px-3 py-2 text-gray-600 bg-white"
-                value={city ?? ''}
-                onChange={(e) => {
-                  const url = e.target.value
-                    ? `/vendors?city=${e.target.value}${category ? `&category=${category}` : ''}`
-                    : `/vendors${category ? `?category=${category}` : ''}`
-                  window.location.href = url
-                }}
-              >
-                <option value="">All Cities</option>
-                {(cities as City[] ?? []).map(c => (
-                  <option key={c.slug} value={c.slug}>{c.name}</option>
-                ))}
-              </select>
+          {/* Results header */}
+          <div className="mb-6">
+            <h1 className="font-[family-name:var(--font-playfair)] text-2xl md:text-3xl font-bold text-[#111111] leading-tight">
+              {activeCategory
+                ? <>{activeCategory.icon} {activeCategory.name}</>
+                : 'South Asian Wedding Vendors'}
+              {activeCity ? (
+                <span className="text-gray-400 font-normal"> in {activeCity.name}</span>
+              ) : (
+                <span className="text-gray-400 font-normal"> across the GTA</span>
+              )}
+            </h1>
+            <div className="flex items-center gap-3 mt-1.5">
+              <p className="text-sm text-gray-500">
+                {totalVendors > PAGE_SIZE
+                  ? `Showing ${filteredVendors.length} of `
+                  : ''}
+                <span className="font-semibold text-[#111111]">{totalVendors}</span>
+                {' '}vendor{totalVendors !== 1 ? 's' : ''}
+                {search?.trim() ? ` for "${search.trim()}"` : ''}
+              </p>
             </div>
           </div>
 
-          {/* Active filters */}
-          {(category || city || search) && (
-            <div className="flex flex-wrap gap-2 mb-6">
+          {/* Active filters banner */}
+          {hasActiveFilters && (
+            <div className="flex flex-wrap items-center gap-2 mb-5 px-4 py-3 bg-[#E8760A]/6 border border-[#E8760A]/15 rounded-xl">
+              <Sparkles className="w-3.5 h-3.5 text-[#E8760A] shrink-0" />
+              <span className="text-xs text-gray-500 font-medium">Active filters:</span>
               {category && activeCategory && (
-                <span className="inline-flex items-center gap-1.5 bg-[#E8760A]/10 text-[#E8760A] text-xs font-semibold px-3 py-1.5 rounded-full">
+                <span className="inline-flex items-center gap-1.5 bg-white text-[#E8760A] text-xs font-semibold px-3 py-1 rounded-full border border-[#E8760A]/20 shadow-sm">
                   {activeCategory.icon} {activeCategory.name}
-                  <Link href={city ? `/vendors?city=${city}` : '/vendors'} className="hover:opacity-70">✕</Link>
+                  <Link href={city ? `/vendors?city=${city}` : '/vendors'} className="hover:opacity-60 transition-opacity ml-0.5">✕</Link>
                 </span>
               )}
               {city && activeCity && (
-                <span className="inline-flex items-center gap-1.5 bg-blue-50 text-blue-700 text-xs font-semibold px-3 py-1.5 rounded-full">
+                <span className="inline-flex items-center gap-1.5 bg-white text-blue-600 text-xs font-semibold px-3 py-1 rounded-full border border-blue-100 shadow-sm">
                   📍 {activeCity.name}
-                  <Link href={category ? `/vendors?category=${category}` : '/vendors'} className="hover:opacity-70">✕</Link>
+                  <Link href={category ? `/vendors?category=${category}` : '/vendors'} className="hover:opacity-60 transition-opacity ml-0.5">✕</Link>
                 </span>
               )}
               {search && (
-                <span className="inline-flex items-center gap-1.5 bg-gray-100 text-gray-700 text-xs font-semibold px-3 py-1.5 rounded-full">
+                <span className="inline-flex items-center gap-1.5 bg-white text-gray-700 text-xs font-semibold px-3 py-1 rounded-full border border-gray-200 shadow-sm">
                   🔍 &ldquo;{search}&rdquo;
-                  <Link href={`/vendors?${new URLSearchParams({...(category?{category}:{}), ...(city?{city}:{})}).toString()}`} className="hover:opacity-70">✕</Link>
+                  <Link
+                    href={`/vendors?${new URLSearchParams({ ...(category ? { category } : {}), ...(city ? { city } : {}) }).toString()}`}
+                    className="hover:opacity-60 transition-opacity ml-0.5"
+                  >✕</Link>
                 </span>
               )}
+              <Link href="/vendors" className="ml-auto text-xs text-gray-400 hover:text-red-500 transition-colors font-medium">
+                Clear all
+              </Link>
             </div>
           )}
 
-          {/* Results grid */}
+          {/* Results grid / empty state */}
           {filteredVendors.length === 0 ? (
-            <div className="text-center py-24 bg-white rounded-2xl border border-gray-100">
-              <p className="text-5xl mb-4">🔍</p>
-              <h2 className="font-[family-name:var(--font-playfair)] text-2xl font-bold mb-2">No vendors found</h2>
-              <p className="text-gray-500 mb-6">Be the first vendor in this category!</p>
-              <Link
-                href="/list-your-business"
-                className="bg-[#E8760A] text-white px-6 py-3 rounded-full font-medium hover:bg-[#d06a09] transition-colors"
-              >
-                List Your Business Free
-              </Link>
+            <div className="text-center py-24 bg-white rounded-2xl shadow-premium border border-gray-50">
+              <div className="text-6xl mb-5 animate-fade-up">
+                {activeCategory?.icon ?? '🔍'}
+              </div>
+              <h2 className="font-[family-name:var(--font-playfair)] text-2xl font-bold text-[#111111] mb-2 animate-fade-up delay-100">
+                No vendors found
+              </h2>
+              <p className="text-gray-400 text-sm mb-2 animate-fade-up delay-150">
+                {search
+                  ? `No results for "${search}". Try a different search term.`
+                  : 'No vendors match the selected filters yet.'}
+              </p>
+              <div className="flex flex-col sm:flex-row gap-3 justify-center mt-6 animate-fade-up delay-200">
+                {hasActiveFilters && (
+                  <Link
+                    href="/vendors"
+                    className="inline-block border border-gray-200 text-gray-600 px-6 py-2.5 rounded-full text-sm font-medium hover:border-gray-300 transition-colors"
+                  >
+                    Clear Filters
+                  </Link>
+                )}
+                <Link
+                  href="/list-your-business"
+                  className="btn-primary inline-block bg-[#E8760A] text-white px-6 py-2.5 rounded-full text-sm font-semibold"
+                >
+                  List Your Business Free
+                </Link>
+              </div>
             </div>
           ) : (
             <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-5">
               {filteredVendors.map((vendor) => (
-                <VendorCard key={vendor.id} vendor={vendor} />
+                <div key={vendor.id} className="animate-fade-up">
+                  <VendorCard vendor={vendor} />
+                </div>
               ))}
             </div>
           )}
 
-          {/* Pagination */}
-          {totalVendors > PAGE_SIZE && (
-            <div className="flex items-center justify-center gap-2 mt-10">
-              {page > 1 && (
-                <Link
-                  href={`/vendors?${new URLSearchParams({ ...(category ? { category } : {}), ...(city ? { city } : {}), ...(search ? { search } : {}), ...(sort ? { sort } : {}), page: String(page - 1) }).toString()}`}
-                  className="px-4 py-2 rounded-lg border border-gray-200 text-sm text-gray-600 hover:border-[#E8760A] hover:text-[#E8760A] transition-colors"
-                >
-                  ← Previous
-                </Link>
-              )}
-              <span className="text-sm text-gray-500">
-                Page {page} of {Math.ceil(totalVendors / PAGE_SIZE)}
-              </span>
-              {page < Math.ceil(totalVendors / PAGE_SIZE) && (
-                <Link
-                  href={`/vendors?${new URLSearchParams({ ...(category ? { category } : {}), ...(city ? { city } : {}), ...(search ? { search } : {}), ...(sort ? { sort } : {}), page: String(page + 1) }).toString()}`}
-                  className="px-4 py-2 rounded-lg border border-gray-200 text-sm text-gray-600 hover:border-[#E8760A] hover:text-[#E8760A] transition-colors"
-                >
-                  Next →
-                </Link>
-              )}
-            </div>
+          {/* ── Pagination ── */}
+          {totalPages > 1 && (
+            <nav className="flex items-center justify-center gap-1.5 mt-12" aria-label="Pagination">
+              {/* Prev */}
+              <Link
+                href={page > 1 ? pageUrl(page - 1) : '#'}
+                aria-disabled={page === 1}
+                className={`flex items-center gap-1.5 px-4 py-2 rounded-xl text-sm font-medium transition-all duration-150 ${
+                  page === 1
+                    ? 'text-gray-300 pointer-events-none'
+                    : 'text-gray-600 hover:bg-white hover:shadow-sm hover:text-[#E8760A] border border-transparent hover:border-gray-100'
+                }`}
+              >
+                ← Prev
+              </Link>
+
+              {/* Page numbers */}
+              <div className="flex items-center gap-1">
+                {pageNumbers.map((p, i) =>
+                  p === '...' ? (
+                    <span key={`ellipsis-${i}`} className="px-2 py-2 text-sm text-gray-300 select-none">
+                      …
+                    </span>
+                  ) : (
+                    <Link
+                      key={p}
+                      href={pageUrl(p)}
+                      className={`w-9 h-9 flex items-center justify-center rounded-xl text-sm font-medium transition-all duration-150 ${
+                        p === page
+                          ? 'bg-[#111111] text-white shadow-sm'
+                          : 'text-gray-600 hover:bg-white hover:shadow-sm hover:text-[#E8760A] border border-transparent hover:border-gray-100'
+                      }`}
+                    >
+                      {p}
+                    </Link>
+                  )
+                )}
+              </div>
+
+              {/* Next */}
+              <Link
+                href={page < totalPages ? pageUrl(page + 1) : '#'}
+                aria-disabled={page === totalPages}
+                className={`flex items-center gap-1.5 px-4 py-2 rounded-xl text-sm font-medium transition-all duration-150 ${
+                  page === totalPages
+                    ? 'text-gray-300 pointer-events-none'
+                    : 'text-gray-600 hover:bg-white hover:shadow-sm hover:text-[#E8760A] border border-transparent hover:border-gray-100'
+                }`}
+              >
+                Next →
+              </Link>
+            </nav>
           )}
 
-          {/* Bottom CTA */}
+          {/* ── Bottom CTA ── */}
           {filteredVendors.length > 0 && (
-            <div className="mt-12 bg-gradient-to-br from-orange-50 to-amber-50 rounded-2xl p-8 text-center border border-orange-100">
-              <p className="text-[#E8760A] text-sm font-bold uppercase tracking-widest mb-2">Are you a vendor?</p>
-              <h3 className="font-[family-name:var(--font-playfair)] text-2xl font-bold mb-3">
-                Get listed on Melaa for free
-              </h3>
-              <p className="text-gray-600 text-sm mb-5">
-                90 days free, then lock in the Founding Vendor rate of $49/mo forever (normally $197/mo).
+            <div className="mt-14 relative overflow-hidden bg-[#111111] rounded-2xl p-10 text-center shadow-premium">
+              {/* Subtle orange radial glow */}
+              <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
+                <div className="w-96 h-48 rounded-full bg-[#E8760A] opacity-10 blur-3xl" />
+              </div>
+
+              <p className="relative text-[#E8760A] text-xs font-bold uppercase tracking-[0.2em] mb-3">
+                Are you a vendor?
               </p>
-              <Link href="/list-your-business"
-                className="inline-block bg-[#E8760A] text-white font-bold px-8 py-3 rounded-full hover:bg-[#d06a09] transition-colors">
+              <h3 className="relative font-[family-name:var(--font-playfair)] text-2xl md:text-3xl font-bold text-white mb-3">
+                Get listed on{' '}
+                <span className="gradient-text">Melaa</span>
+                {' '}for free
+              </h3>
+              <p className="relative text-gray-400 text-sm mb-7 max-w-sm mx-auto leading-relaxed">
+                90 days free, then lock in the Founding Vendor rate of{' '}
+                <span className="text-white font-semibold">$49/mo forever</span>{' '}
+                (normally $197/mo).
+              </p>
+              <Link
+                href="/list-your-business"
+                className="btn-primary relative inline-block bg-[#E8760A] text-white font-bold px-8 py-3.5 rounded-full shadow-saffron text-sm"
+              >
                 Claim My Spot →
               </Link>
             </div>
