@@ -42,22 +42,22 @@ export default async function VendorProfilePage({ params }: Props) {
   const { slug } = await params
   const supabase = await createClient()
 
-  const [{ data: vendor }, { data: related }] = await Promise.all([
-    supabase
-      .from('vendors')
-      .select('*, category:categories(*), city:cities(*)')
-      .eq('slug', slug)
-      .eq('is_active', true)
-      .single(),
-    supabase
-      .from('vendors')
-      .select('*, category:categories(*), city:cities(*)')
-      .eq('is_active', true)
-      .neq('slug', slug)
-      .limit(3),
-  ])
+  const { data: vendor } = await supabase
+    .from('vendors')
+    .select('*, category:categories(*), city:cities(*)')
+    .eq('slug', slug)
+    .eq('is_active', true)
+    .single()
 
   if (!vendor) notFound()
+
+  const { data: related } = await supabase
+    .from('vendors')
+    .select('*, category:categories(*), city:cities(*)')
+    .eq('is_active', true)
+    .neq('slug', slug)
+    .eq('category_id', vendor.category_id)
+    .limit(3)
 
   const v = vendor as Vendor
   const rating = getRating(v)
@@ -69,7 +69,6 @@ export default async function VendorProfilePage({ params }: Props) {
     '@type': 'LocalBusiness',
     name: v.name,
     description: v.description ?? `${v.name} is a South Asian wedding ${v.category?.name} serving ${v.city?.name}.`,
-    aggregateRating: { '@type': 'AggregateRating', ratingValue: rating, reviewCount: reviewCount },
     address: { '@type': 'PostalAddress', addressLocality: v.city?.name ?? '', addressRegion: 'ON', addressCountry: 'CA' },
     url: `${siteUrl}/vendors/${slug}`,
   }

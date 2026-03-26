@@ -27,17 +27,22 @@ export default async function CategoryCityPage({ params }: Props) {
   const { category, city } = await params
   const supabase = await createClient()
 
-  const [{ data: cat }, { data: cityData }, { data: vendors }] = await Promise.all([
+  const [{ data: cat }, { data: cityData }] = await Promise.all([
     supabase.from('categories').select('*').eq('slug', category).single(),
     supabase.from('cities').select('*').eq('slug', city).single(),
-    supabase.from('vendors').select('*, category:categories(*), city:cities(*)').eq('is_active', true).order('is_featured', { ascending: false }),
   ])
 
   if (!cat || !cityData) notFound()
 
-  const filtered = (vendors as Vendor[] ?? []).filter(
-    v => v.category?.slug === category && v.city?.slug === city
-  )
+  const { data: vendors } = await supabase
+    .from('vendors')
+    .select('*, category:categories(*), city:cities(*)')
+    .eq('is_active', true)
+    .eq('category_id', cat.id)
+    .eq('city_id', cityData.id)
+    .order('is_featured', { ascending: false })
+
+  const filtered = (vendors as Vendor[] ?? [])
 
   return (
     <div className="max-w-6xl mx-auto px-4 py-10">

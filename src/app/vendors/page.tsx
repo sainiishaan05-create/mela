@@ -10,18 +10,45 @@ export const metadata: Metadata = {
   description: 'Browse 60+ trusted South Asian wedding vendors in Brampton, Mississauga, Toronto and across the GTA. Photographers, caterers, decorators, mehndi artists and more.',
 }
 
+const PAGE_SIZE = 48
+
 interface Props {
-  searchParams: Promise<{ category?: string; city?: string; search?: string; sort?: string }>
+  searchParams: Promise<{ category?: string; city?: string; search?: string; sort?: string; page?: string }>
 }
 
 export default async function VendorsPage({ searchParams }: Props) {
-  const { category, city, search, sort } = await searchParams
+  const { category, city, search, sort, page: pageParam } = await searchParams
+  const page = Math.max(1, parseInt(pageParam ?? '1', 10))
   const supabase = await createClient()
+
+  const [{ data: categories }, { data: cities }] = await Promise.all([
+    supabase.from('categories').select('*').order('name'),
+    supabase.from('cities').select('*').order('name'),
+  ])
+
+  const activeCategory = (categories as Category[] ?? []).find(c => c.slug === category)
+  const activeCity = (cities as City[] ?? []).find(c => c.slug === city)
 
   let query = supabase
     .from('vendors')
-    .select('*, category:categories(*), city:cities(*)')
+    .select('*, category:categories(*), city:cities(*)', { count: 'exact' })
     .eq('is_active', true)
+
+  // Server-side category filter
+  if (category && activeCategory) {
+    query = query.eq('category_id', activeCategory.id)
+  }
+
+  // Server-side city filter
+  if (city && activeCity) {
+    query = query.eq('city_id', activeCity.id)
+  }
+
+  // Server-side search filter
+  const searchLower = search?.trim().toLowerCase()
+  if (searchLower) {
+    query = query.or(`name.ilike.%${searchLower}%,description.ilike.%${searchLower}%`)
+  }
 
   // Sort
   if (sort === 'newest') {
@@ -31,27 +58,15 @@ export default async function VendorsPage({ searchParams }: Props) {
     query = query.order('is_featured', { ascending: false }).order('tier').order('created_at', { ascending: false })
   }
 
-  const [{ data: vendors }, { data: categories }, { data: cities }] = await Promise.all([
-    query,
-    supabase.from('categories').select('*').order('name'),
-    supabase.from('cities').select('*').order('name'),
-  ])
+  // Pagination: limit to PAGE_SIZE per page
+  const from = (page - 1) * PAGE_SIZE
+  const to = from + PAGE_SIZE - 1
+  query = query.range(from, to)
 
-  const searchLower = search?.trim().toLowerCase()
+  const { data: vendors, count: totalCount } = await query
 
-  const filteredVendors = (vendors as Vendor[] ?? []).filter((v) => {
-    if (category && v.category?.slug !== category) return false
-    if (city && v.city?.slug !== city) return false
-    if (searchLower) {
-      const nameMatch = v.name?.toLowerCase().includes(searchLower)
-      const descMatch = v.description?.toLowerCase().includes(searchLower)
-      if (!nameMatch && !descMatch) return false
-    }
-    return true
-  })
-
-  const activeCategory = (categories as Category[] ?? []).find(c => c.slug === category)
-  const activeCity = (cities as City[] ?? []).find(c => c.slug === city)
+  const filteredVendors = (vendors as Vendor[] ?? [])
+  const totalVendors = totalCount ?? 0
 
   return (
     <div className="min-h-screen bg-[#FAFAF7]">
@@ -146,8 +161,9 @@ export default async function VendorsPage({ searchParams }: Props) {
                 {activeCity ? ` in ${activeCity.name}` : ' in GTA'}
               </h1>
               <p className="text-sm text-gray-500 mt-0.5">
-                {filteredVendors.length} vendor{filteredVendors.length !== 1 ? 's' : ''} found
-                {search?.trim() ? ` for "${search.trim()}"` : ''}
+                {totalVendors > PAGE_SIZE
+                  ? `Showing ${filteredVendors.length} of ${totalVendors} vendors${search?.trim() ? ` for "${search.trim()}"` : ''} — use filters to narrow down`
+                  : `${totalVendors} vendor${totalVendors !== 1 ? 's' : ''} found${search?.trim() ? ` for "${search.trim()}"` : ''}`}
               </p>
             </div>
 
@@ -213,6 +229,31 @@ export default async function VendorsPage({ searchParams }: Props) {
               {filteredVendors.map((vendor) => (
                 <VendorCard key={vendor.id} vendor={vendor} />
               ))}
+            </div>
+          )}
+
+          {/* Pagination */}
+          {totalVendors > PAGE_SIZE && (
+            <div className="flex items-center justify-center gap-2 mt-10">
+              {page > 1 && (
+                <Link
+                  href={`/vendors?${new URLSearchParams({ ...(category ? { category } : {}), ...(city ? { city } : {}), ...(search ? { search } : {}), ...(sort ? { sort } : {}), page: String(page - 1) }).toString()}`}
+                  className="px-4 py-2 rounded-lg border border-gray-200 text-sm text-gray-600 hover:border-[#E8760A] hover:text-[#E8760A] transition-colors"
+                >
+                  ← Previous
+                </Link>
+              )}
+              <span className="text-sm text-gray-500">
+                Page {page} of {Math.ceil(totalVendors / PAGE_SIZE)}
+              </span>
+              {page < Math.ceil(totalVendors / PAGE_SIZE) && (
+                <Link
+                  href={`/vendors?${new URLSearchParams({ ...(category ? { category } : {}), ...(city ? { city } : {}), ...(search ? { search } : {}), ...(sort ? { sort } : {}), page: String(page + 1) }).toString()}`}
+                  className="px-4 py-2 rounded-lg border border-gray-200 text-sm text-gray-600 hover:border-[#E8760A] hover:text-[#E8760A] transition-colors"
+                >
+                  Next →
+                </Link>
+              )}
             </div>
           )}
 
