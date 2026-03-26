@@ -2,22 +2,28 @@ import Link from 'next/link'
 
 const CATEGORIES = [
   { label: 'Photographers', href: '/category/photographers' },
+  { label: 'Videographers', href: '/category/videographers' },
   { label: 'Caterers', href: '/category/catering' },
   { label: 'Decorators', href: '/category/decorators' },
   { label: 'Mehndi Artists', href: '/category/mehndi-artists' },
   { label: 'DJ & Entertainment', href: '/category/djs-entertainment' },
   { label: 'Makeup Artists', href: '/category/makeup-artists' },
   { label: 'Bridal Wear', href: '/category/bridal-wear' },
-  { label: 'Wedding Venues', href: '/category/wedding-venues' },
 ]
 
 const CITIES = [
+  { label: 'Toronto', href: '/city/toronto' },
   { label: 'Brampton', href: '/city/brampton' },
   { label: 'Mississauga', href: '/city/mississauga' },
-  { label: 'Toronto', href: '/city/toronto' },
   { label: 'Markham', href: '/city/markham' },
   { label: 'Vaughan', href: '/city/vaughan' },
   { label: 'Scarborough', href: '/city/scarborough' },
+  { label: 'Oakville', href: '/city/oakville' },
+  { label: 'Etobicoke', href: '/city/etobicoke' },
+  { label: 'Thornhill', href: '/city/thornhill' },
+  { label: 'North York', href: '/city/north-york' },
+  { label: 'Newmarket', href: '/city/newmarket' },
+  { label: 'Hamilton', href: '/city/hamilton' },
 ]
 
 const VENDOR_LINKS = [
@@ -73,7 +79,7 @@ export default function Footer() {
           <div>
             <p className="text-white text-sm font-semibold mb-4 tracking-wide">Categories</p>
             <ul className="space-y-2.5">
-              {CATEGORIES.slice(0, 6).map(({ label, href }) => (
+              {CATEGORIES.map(({ label, href }) => (
                 <li key={href}>
                   <Link href={href} className="text-sm text-gray-500 hover:text-white transition-colors duration-150">
                     {label}
@@ -95,6 +101,7 @@ export default function Footer() {
                 </li>
               ))}
             </ul>
+            <Link href="/vendors" className="text-xs text-[#E8760A] hover:underline mt-3 inline-block">View all 30 cities →</Link>
           </div>
 
           {/* For Vendors */}

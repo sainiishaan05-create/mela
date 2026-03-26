@@ -23,7 +23,7 @@ const HOW_IT_WORKS = [
     step: '01',
     icon: '🔍',
     title: 'Search your category',
-    desc: 'Browse by vendor type and city — 14 categories across 8 GTA cities.',
+    desc: 'Browse by vendor type and city — 20+ categories across 30+ Ontario cities.',
     color: 'from-blue-50 to-indigo-50',
     accent: 'text-indigo-500',
   },
@@ -201,7 +201,7 @@ export default async function HomePage() {
             {[
               { value: `${vendorCount?.toLocaleString() ?? '1,268'}+`, label: 'Verified Vendors', sub: 'across the GTA' },
               { value: `${leadCount?.toLocaleString() ?? '0'}+`, label: 'Couple Inquiries', sub: 'sent to vendors' },
-              { value: '8', label: 'Cities Covered', sub: 'in Ontario' },
+              { value: '30+', label: 'Cities Covered', sub: 'across Ontario' },
               { value: '100%', label: 'Free to Browse', sub: 'no signup needed' },
             ].map(s => (
               <div key={s.label} className="bg-white/5 border border-white/8 rounded-2xl p-4 text-center backdrop-blur-sm hover:bg-white/8 transition-colors duration-200">
@@ -285,19 +285,53 @@ export default async function HomePage() {
           <div className="text-center mb-12">
             <p className="text-[#E8760A] text-xs font-bold uppercase tracking-widest mb-3">Coverage</p>
             <h2 className="font-[family-name:var(--font-playfair)] text-4xl font-bold mb-3">Search by City</h2>
-            <p className="text-gray-500">Vendors serving the entire Greater Toronto Area</p>
+            <p className="text-gray-500">Vendors serving 30+ cities across the GTA &amp; surrounding Ontario</p>
           </div>
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-            {(cities as City[] ?? []).map((city) => (
+          {/* Primary cities grid */}
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3 mb-4">
+            {([
+              { name: 'Toronto',       slug: 'toronto' },
+              { name: 'Brampton',      slug: 'brampton' },
+              { name: 'Mississauga',   slug: 'mississauga' },
+              { name: 'Markham',       slug: 'markham' },
+              { name: 'Vaughan',       slug: 'vaughan' },
+              { name: 'Scarborough',   slug: 'scarborough' },
+              { name: 'Richmond Hill', slug: 'richmond-hill' },
+              { name: 'Oakville',      slug: 'oakville' },
+              { name: 'Etobicoke',     slug: 'etobicoke' },
+              { name: 'North York',    slug: 'north-york' },
+              { name: 'Thornhill',     slug: 'thornhill' },
+              { name: 'Woodbridge',    slug: 'woodbridge' },
+            ] as { name: string; slug: string }[]).map((city) => (
               <Link key={city.slug} href={`/city/${city.slug}`}
-                className="group relative bg-white border border-gray-100 rounded-2xl p-5 text-center shadow-premium card-interactive hover:border-[#E8760A]/30 overflow-hidden"
+                className="group relative bg-white border border-gray-100 rounded-2xl p-4 text-center shadow-premium card-interactive hover:border-[#E8760A]/30 overflow-hidden"
               >
                 <div className="absolute inset-0 bg-gradient-to-br from-[#E8760A]/4 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                <MapPin className="w-5 h-5 text-gray-300 group-hover:text-[#E8760A] mx-auto mb-2.5 transition-colors duration-200 relative z-10" />
-                <p className="font-bold text-gray-800 group-hover:text-[#E8760A] transition-colors duration-200 text-sm relative z-10">{city.name}</p>
-                <p className="text-[10px] text-gray-400 mt-0.5 relative z-10">Ontario, Canada</p>
+                <MapPin className="w-4 h-4 text-gray-300 group-hover:text-[#E8760A] mx-auto mb-2 transition-colors duration-200 relative z-10" />
+                <p className="font-bold text-gray-800 group-hover:text-[#E8760A] transition-colors duration-200 text-xs relative z-10 leading-tight">{city.name}</p>
               </Link>
             ))}
+          </div>
+          {/* Secondary cities - smaller pill style */}
+          <div className="flex flex-wrap gap-2 justify-center mb-6">
+            {([
+              'Ajax','Pickering','Oshawa','Whitby','Burlington','Milton',
+              'Caledon','Newmarket','Aurora','Hamilton','Kitchener','Waterloo',
+              'Cambridge','Guelph','Stouffville','Georgetown','Barrie',
+            ] as string[]).map(name => (
+              <Link key={name} href={`/city/${name.toLowerCase()}`}
+                className="px-4 py-1.5 bg-white border border-gray-200 rounded-full text-xs font-medium text-gray-600 hover:border-[#E8760A]/40 hover:text-[#E8760A] transition-all duration-200 shadow-sm"
+              >
+                {name}
+              </Link>
+            ))}
+          </div>
+          <div className="text-center">
+            <Link href="/vendors"
+              className="inline-flex items-center gap-1.5 text-sm font-semibold text-[#E8760A] hover:underline">
+              Browse all vendors by city
+              <ArrowRight className="w-3.5 h-3.5" />
+            </Link>
           </div>
         </div>
       </section>

@@ -3,7 +3,9 @@ import VendorCard from '@/components/vendors/VendorCard'
 import type { Vendor, Category, City } from '@/types'
 import Link from 'next/link'
 import type { Metadata } from 'next'
-import { SlidersHorizontal, MapPin, Sparkles } from 'lucide-react'
+import { MapPin, Sparkles } from 'lucide-react'
+import MobileFilterButton from '@/components/ui/MobileFilterButton'
+import CitySearch from '@/components/ui/CitySearch'
 
 export const metadata: Metadata = {
   title: 'Find South Asian Wedding Vendors in GTA | Melaa',
@@ -13,11 +15,11 @@ export const metadata: Metadata = {
 const PAGE_SIZE = 48
 
 interface Props {
-  searchParams: Promise<{ category?: string; city?: string; search?: string; sort?: string; page?: string }>
+  searchParams: Promise<{ category?: string; city?: string; search?: string; sort?: string; page?: string; badge?: string }>
 }
 
 export default async function VendorsPage({ searchParams }: Props) {
-  const { category, city, search, sort, page: pageParam } = await searchParams
+  const { category, city, search, sort, page: pageParam, badge } = await searchParams
   const page = Math.max(1, parseInt(pageParam ?? '1', 10))
   const supabase = await createClient()
 
@@ -53,6 +55,10 @@ export default async function VendorsPage({ searchParams }: Props) {
     query = query.order('is_featured', { ascending: false }).order('tier').order('created_at', { ascending: false })
   }
 
+  if (badge === 'featured') query = query.eq('is_featured', true)
+  if (badge === 'premium') query = query.eq('tier', 'premium')
+  if (badge === 'verified') query = query.eq('is_verified', true)
+
   const from = (page - 1) * PAGE_SIZE
   const to = from + PAGE_SIZE - 1
   query = query.range(from, to)
@@ -62,7 +68,7 @@ export default async function VendorsPage({ searchParams }: Props) {
   const filteredVendors = (vendors as Vendor[] ?? [])
   const totalVendors = totalCount ?? 0
   const totalPages = Math.ceil(totalVendors / PAGE_SIZE)
-  const hasActiveFilters = !!(category || city || search)
+  const hasActiveFilters = !!(category || city || search || badge)
 
   // Build paginated URL helper
   function pageUrl(p: number) {
@@ -71,6 +77,7 @@ export default async function VendorsPage({ searchParams }: Props) {
       ...(city ? { city } : {}),
       ...(search ? { search } : {}),
       ...(sort ? { sort } : {}),
+      ...(badge ? { badge } : {}),
       ...(p > 1 ? { page: String(p) } : {}),
     })
     const qs = params.toString()
@@ -159,6 +166,19 @@ export default async function VendorsPage({ searchParams }: Props) {
               </Link>
             ))}
           </div>
+
+          {/* Mobile filter button */}
+          <div className="flex items-center justify-between lg:hidden pt-1 pb-1">
+            <MobileFilterButton
+              categories={(categories as Category[] ?? []).map(c => ({ ...c, icon: c.icon ?? '' }))}
+              cities={cities as City[] ?? []}
+              activeCategory={category}
+              activeCity={city}
+              activeSort={sort}
+              search={search}
+            />
+            <span className="text-xs text-gray-400">{totalVendors} vendors</span>
+          </div>
         </div>
       </div>
 
@@ -168,41 +188,13 @@ export default async function VendorsPage({ searchParams }: Props) {
         <aside className="hidden lg:block w-60 shrink-0">
           <div className="bg-white rounded-2xl shadow-premium p-6 sticky top-36 space-y-6">
 
-            {/* City filter */}
+            {/* City filter with search */}
             <div>
               <div className="flex items-center gap-2 mb-3">
                 <span className="w-1.5 h-1.5 rounded-full bg-[#E8760A]" />
-                <h3 className="font-semibold text-xs uppercase tracking-widest text-gray-400">
-                  Filter by City
-                </h3>
+                <h3 className="font-semibold text-xs uppercase tracking-widest text-gray-400">City</h3>
               </div>
-              <div className="space-y-0.5">
-                <Link
-                  href={category ? `/vendors?category=${category}` : '/vendors'}
-                  className={`flex items-center gap-2 px-3 py-2 rounded-xl text-sm transition-all duration-150 ${
-                    !city
-                      ? 'bg-[#E8760A]/10 text-[#E8760A] font-semibold'
-                      : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900'
-                  }`}
-                >
-                  <MapPin className="w-3.5 h-3.5 opacity-60" />
-                  All Cities
-                </Link>
-                {(cities as City[] ?? []).map((c) => (
-                  <Link
-                    key={c.slug}
-                    href={`/vendors?city=${c.slug}${category ? `&category=${category}` : ''}`}
-                    className={`flex items-center gap-2 px-3 py-2 rounded-xl text-sm transition-all duration-150 ${
-                      city === c.slug
-                        ? 'bg-[#E8760A]/10 text-[#E8760A] font-semibold'
-                        : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900'
-                    }`}
-                  >
-                    <span className="w-1 h-1 rounded-full bg-current opacity-40 shrink-0" />
-                    {c.name}
-                  </Link>
-                ))}
-              </div>
+              <CitySearch cities={cities as City[] ?? []} activeCity={city} activeCategory={category} />
             </div>
 
             {/* Divider */}
@@ -226,6 +218,7 @@ export default async function VendorsPage({ searchParams }: Props) {
                     href={`/vendors?${new URLSearchParams({
                       ...(category ? { category } : {}),
                       ...(city ? { city } : {}),
+                      ...(badge ? { badge } : {}),
                       ...(opt.value ? { sort: opt.value } : {}),
                     }).toString()}`}
                     className={`block px-3 py-2 rounded-xl text-sm transition-all duration-150 ${
@@ -238,6 +231,40 @@ export default async function VendorsPage({ searchParams }: Props) {
                   </Link>
                 ))}
               </div>
+            </div>
+
+            {/* Divider */}
+            <div className="h-px bg-gray-100" />
+
+            {/* Tier filter */}
+            <div>
+              <div className="flex items-center gap-2 mb-3">
+                <span className="w-1.5 h-1.5 rounded-full bg-amber-400" />
+                <h3 className="font-semibold text-xs uppercase tracking-widest text-gray-400">Vendor Type</h3>
+              </div>
+              {[
+                { value: '', label: 'All Vendors' },
+                { value: 'featured', label: '⭐ Featured Only' },
+                { value: 'premium', label: '🔥 Premium' },
+                { value: 'verified', label: '✓ Verified' },
+              ].map(opt => (
+                <Link
+                  key={opt.value}
+                  href={`/vendors?${new URLSearchParams({
+                    ...(category ? { category } : {}),
+                    ...(city ? { city } : {}),
+                    ...(sort ? { sort } : {}),
+                    ...(opt.value ? { badge: opt.value } : {}),
+                  }).toString()}`}
+                  className={`block px-3 py-2 rounded-xl text-sm transition-all duration-150 ${
+                    badge === opt.value || (!badge && !opt.value)
+                      ? 'bg-[#111111]/8 text-[#111111] font-semibold'
+                      : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900'
+                  }`}
+                >
+                  {opt.label}
+                </Link>
+              ))}
             </div>
 
             {/* Clear filters */}
@@ -290,20 +317,29 @@ export default async function VendorsPage({ searchParams }: Props) {
               {category && activeCategory && (
                 <span className="inline-flex items-center gap-1.5 bg-white text-[#E8760A] text-xs font-semibold px-3 py-1 rounded-full border border-[#E8760A]/20 shadow-sm">
                   {activeCategory.icon} {activeCategory.name}
-                  <Link href={city ? `/vendors?city=${city}` : '/vendors'} className="hover:opacity-60 transition-opacity ml-0.5">✕</Link>
+                  <Link href={`/vendors?${new URLSearchParams({ ...(city ? { city } : {}), ...(sort ? { sort } : {}), ...(badge ? { badge } : {}) }).toString()}`} className="hover:opacity-60 transition-opacity ml-0.5">✕</Link>
                 </span>
               )}
               {city && activeCity && (
                 <span className="inline-flex items-center gap-1.5 bg-white text-blue-600 text-xs font-semibold px-3 py-1 rounded-full border border-blue-100 shadow-sm">
                   📍 {activeCity.name}
-                  <Link href={category ? `/vendors?category=${category}` : '/vendors'} className="hover:opacity-60 transition-opacity ml-0.5">✕</Link>
+                  <Link href={`/vendors?${new URLSearchParams({ ...(category ? { category } : {}), ...(sort ? { sort } : {}), ...(badge ? { badge } : {}) }).toString()}`} className="hover:opacity-60 transition-opacity ml-0.5">✕</Link>
                 </span>
               )}
               {search && (
                 <span className="inline-flex items-center gap-1.5 bg-white text-gray-700 text-xs font-semibold px-3 py-1 rounded-full border border-gray-200 shadow-sm">
                   🔍 &ldquo;{search}&rdquo;
                   <Link
-                    href={`/vendors?${new URLSearchParams({ ...(category ? { category } : {}), ...(city ? { city } : {}) }).toString()}`}
+                    href={`/vendors?${new URLSearchParams({ ...(category ? { category } : {}), ...(city ? { city } : {}), ...(sort ? { sort } : {}), ...(badge ? { badge } : {}) }).toString()}`}
+                    className="hover:opacity-60 transition-opacity ml-0.5"
+                  >✕</Link>
+                </span>
+              )}
+              {badge && (
+                <span className="inline-flex items-center gap-1.5 bg-white text-amber-600 text-xs font-semibold px-3 py-1 rounded-full border border-amber-100 shadow-sm">
+                  {badge === 'featured' ? '⭐ Featured' : badge === 'premium' ? '🔥 Premium' : '✓ Verified'}
+                  <Link
+                    href={`/vendors?${new URLSearchParams({ ...(category ? { category } : {}), ...(city ? { city } : {}), ...(sort ? { sort } : {}) }).toString()}`}
                     className="hover:opacity-60 transition-opacity ml-0.5"
                   >✕</Link>
                 </span>

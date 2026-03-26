@@ -1,23 +1,55 @@
 'use client'
 
 import Link from 'next/link'
-import { Search, Menu, X, Sparkles } from 'lucide-react'
-import { useState, useEffect } from 'react'
+import { Search, Menu, X, Sparkles, ChevronDown, MapPin } from 'lucide-react'
+import { useState, useEffect, useRef } from 'react'
 import { usePathname } from 'next/navigation'
 
-const NAV_LINKS = [
-  { href: '/vendors', label: 'Find Vendors' },
-  { href: '/category/photographers', label: 'Photographers' },
-  { href: '/category/catering', label: 'Caterers' },
-  { href: '/category/decorators', label: 'Decorators' },
-  { href: '/category/mehndi-artists', label: 'Mehndi' },
-  { href: '/pricing', label: 'Pricing' },
+const CATEGORIES_NAV = [
+  { label: 'Photographers', href: '/category/photographers', icon: '📸' },
+  { label: 'Videographers', href: '/category/videographers', icon: '🎬' },
+  { label: 'Caterers', href: '/category/catering', icon: '🍽️' },
+  { label: 'Decorators', href: '/category/decorators', icon: '💐' },
+  { label: 'Mehndi Artists', href: '/category/mehndi-artists', icon: '🌿' },
+  { label: 'Makeup Artists', href: '/category/makeup-artists', icon: '💄' },
+  { label: 'DJs & Entertainment', href: '/category/djs-entertainment', icon: '🎵' },
+  { label: 'Wedding Venues', href: '/category/wedding-venues', icon: '🏛️' },
+  { label: 'Bridal Wear', href: '/category/bridal-wear', icon: '👗' },
+  { label: 'Jewellery', href: '/category/jewellery', icon: '💎' },
+  { label: 'Mandap & Stages', href: '/category/mandap-stages', icon: '🛕' },
+  { label: 'Wedding Planners', href: '/category/wedding-planners', icon: '📋' },
+]
+
+const CITIES_NAV = [
+  'Toronto', 'Brampton', 'Mississauga', 'Markham', 'Vaughan', 'Scarborough',
+  'Richmond Hill', 'Oakville', 'Etobicoke', 'North York', 'Thornhill', 'Woodbridge',
+  'Ajax', 'Pickering', 'Oshawa', 'Whitby', 'Burlington', 'Milton',
+  'Caledon', 'Newmarket', 'Aurora', 'Hamilton', 'Kitchener', 'Waterloo',
+  'Cambridge', 'Guelph', 'Stouffville', 'Georgetown', 'Barrie',
+]
+
+const POPULAR_SEARCHES = [
+  { label: 'South Asian Photographers', href: '/category/photographers' },
+  { label: 'Mehndi Artists Near Me', href: '/category/mehndi-artists' },
+  { label: 'Indian Wedding Caterers', href: '/category/catering' },
+  { label: 'Bridal Makeup Artists', href: '/category/makeup-artists' },
+  { label: 'Wedding Mandap Decorators', href: '/category/mandap-stages' },
+  { label: 'Bollywood DJs', href: '/category/djs-entertainment' },
 ]
 
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
+  const [browseOpen, setBrowseOpen] = useState(false)
+  const [citiesOpen, setCitiesOpen] = useState(false)
+  const [mobileBrowseOpen, setMobileBrowseOpen] = useState(false)
+  const [mobileCitiesOpen, setMobileCitiesOpen] = useState(false)
   const pathname = usePathname()
+
+  const browseRef = useRef<HTMLDivElement>(null)
+  const citiesRef = useRef<HTMLDivElement>(null)
+  const browseTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
+  const citiesTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 12)
@@ -25,8 +57,26 @@ export default function Header() {
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
-  // Close menu on route change
-  useEffect(() => { setMenuOpen(false) }, [pathname])
+  useEffect(() => {
+    setMenuOpen(false)
+    setBrowseOpen(false)
+    setCitiesOpen(false)
+  }, [pathname])
+
+  const openBrowse = () => {
+    if (browseTimer.current) clearTimeout(browseTimer.current)
+    setBrowseOpen(true)
+  }
+  const closeBrowse = () => {
+    browseTimer.current = setTimeout(() => setBrowseOpen(false), 120)
+  }
+  const openCities = () => {
+    if (citiesTimer.current) clearTimeout(citiesTimer.current)
+    setCitiesOpen(true)
+  }
+  const closeCities = () => {
+    citiesTimer.current = setTimeout(() => setCitiesOpen(false), 120)
+  }
 
   return (
     <>
@@ -50,27 +100,156 @@ export default function Header() {
 
           {/* Desktop nav */}
           <nav className="hidden md:flex items-center gap-0.5 text-sm text-gray-600">
-            {NAV_LINKS.map(({ href, label }) => {
-              const isActive =
-                pathname === href ||
-                (href !== '/vendors' && href !== '/pricing' && pathname.startsWith(href))
-              return (
-                <Link
-                  key={href}
-                  href={href}
-                  className={`relative px-3 py-2 rounded-lg font-medium transition-all duration-200 ${
-                    isActive
-                      ? 'text-[#E8760A] bg-[#E8760A]/8'
-                      : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50'
-                  }`}
-                >
-                  {label}
-                  {isActive && (
-                    <span className="absolute bottom-0.5 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full bg-[#E8760A]" />
-                  )}
-                </Link>
-              )
-            })}
+
+            {/* Browse dropdown */}
+            <div
+              ref={browseRef}
+              className="relative"
+              onMouseEnter={openBrowse}
+              onMouseLeave={closeBrowse}
+            >
+              <button
+                className={`flex items-center gap-1 px-3 py-2 rounded-lg font-medium transition-all duration-200 ${
+                  browseOpen
+                    ? 'text-[#E8760A] bg-[#E8760A]/8'
+                    : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50'
+                }`}
+                aria-expanded={browseOpen}
+                aria-haspopup="true"
+              >
+                Browse
+                <ChevronDown
+                  className={`w-3.5 h-3.5 transition-transform duration-200 ${browseOpen ? 'rotate-180' : ''}`}
+                />
+              </button>
+
+              {/* Browse mega-dropdown */}
+              <div
+                onMouseEnter={openBrowse}
+                onMouseLeave={closeBrowse}
+                style={{
+                  opacity: browseOpen ? 1 : 0,
+                  transform: browseOpen ? 'translateY(0)' : 'translateY(-4px)',
+                  pointerEvents: browseOpen ? 'auto' : 'none',
+                  transition: 'opacity 200ms ease, transform 200ms ease',
+                }}
+                className="absolute top-full left-1/2 -translate-x-1/2 mt-2 w-[720px] bg-white rounded-2xl shadow-2xl border border-gray-100 p-6 z-50"
+                role="menu"
+              >
+                <div className="flex gap-6">
+                  {/* Left: categories grid */}
+                  <div className="flex-[2]">
+                    <p className="text-xs font-semibold text-gray-400 uppercase tracking-widest mb-3">Categories</p>
+                    <div className="grid grid-cols-3 gap-1">
+                      {CATEGORIES_NAV.map(({ label, href, icon }) => (
+                        <Link
+                          key={href}
+                          href={href}
+                          role="menuitem"
+                          className="flex items-center gap-3 p-3 rounded-xl text-sm font-medium text-gray-700 hover:bg-[#E8760A]/8 hover:text-[#E8760A] transition-all duration-150"
+                        >
+                          <span className="text-base leading-none">{icon}</span>
+                          <span className="leading-tight">{label}</span>
+                        </Link>
+                      ))}
+                    </div>
+                    <div className="mt-3 pt-3 border-t border-gray-100">
+                      <Link
+                        href="/vendors"
+                        className="text-sm font-semibold text-[#E8760A] hover:underline"
+                      >
+                        View All Vendors →
+                      </Link>
+                    </div>
+                  </div>
+
+                  {/* Right: popular searches */}
+                  <div className="flex-[1] border-l border-gray-100 pl-6">
+                    <p className="text-xs font-semibold text-gray-400 uppercase tracking-widest mb-3">Popular Searches</p>
+                    <ul className="space-y-1">
+                      {POPULAR_SEARCHES.map(({ label, href }) => (
+                        <li key={href}>
+                          <Link
+                            href={href}
+                            role="menuitem"
+                            className="block text-sm text-gray-600 hover:text-[#E8760A] py-1.5 px-2 rounded-lg hover:bg-[#E8760A]/5 transition-all duration-150"
+                          >
+                            {label}
+                          </Link>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Cities dropdown */}
+            <div
+              ref={citiesRef}
+              className="relative"
+              onMouseEnter={openCities}
+              onMouseLeave={closeCities}
+            >
+              <button
+                className={`flex items-center gap-1 px-3 py-2 rounded-lg font-medium transition-all duration-200 ${
+                  citiesOpen
+                    ? 'text-[#E8760A] bg-[#E8760A]/8'
+                    : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50'
+                }`}
+                aria-expanded={citiesOpen}
+                aria-haspopup="true"
+              >
+                Cities
+                <ChevronDown
+                  className={`w-3.5 h-3.5 transition-transform duration-200 ${citiesOpen ? 'rotate-180' : ''}`}
+                />
+              </button>
+
+              {/* Cities dropdown panel */}
+              <div
+                onMouseEnter={openCities}
+                onMouseLeave={closeCities}
+                style={{
+                  opacity: citiesOpen ? 1 : 0,
+                  transform: citiesOpen ? 'translateY(0)' : 'translateY(-4px)',
+                  pointerEvents: citiesOpen ? 'auto' : 'none',
+                  transition: 'opacity 200ms ease, transform 200ms ease',
+                }}
+                className="absolute top-full left-1/2 -translate-x-1/2 mt-2 w-[480px] bg-white rounded-2xl shadow-2xl border border-gray-100 p-6 z-50"
+                role="menu"
+              >
+                <p className="text-xs font-semibold text-gray-400 uppercase tracking-widest mb-4">Browse by City</p>
+                <div className="grid grid-cols-3 gap-1">
+                  {CITIES_NAV.map((city) => {
+                    const slug = city.toLowerCase().replace(/ /g, '-')
+                    return (
+                      <Link
+                        key={city}
+                        href={`/city/${slug}`}
+                        role="menuitem"
+                        className="flex items-center gap-1.5 text-sm text-gray-600 hover:text-[#E8760A] py-1.5 px-2 rounded-lg hover:bg-gray-50 transition-all duration-150"
+                      >
+                        <MapPin className="w-3 h-3 text-gray-400 shrink-0" />
+                        {city}
+                      </Link>
+                    )
+                  })}
+                </div>
+              </div>
+            </div>
+
+            {/* Pricing — direct link */}
+            <Link
+              href="/pricing"
+              className={`px-3 py-2 rounded-lg font-medium transition-all duration-200 ${
+                pathname === '/pricing'
+                  ? 'text-[#E8760A] bg-[#E8760A]/8'
+                  : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50'
+              }`}
+            >
+              Pricing
+            </Link>
           </nav>
 
           {/* Right actions */}
@@ -120,7 +299,7 @@ export default function Header() {
 
       {/* Mobile drawer */}
       <div
-        className={`fixed top-16 left-0 right-0 z-40 bg-white/95 backdrop-blur-xl border-b border-gray-100 shadow-xl md:hidden transition-all duration-300 ease-[cubic-bezier(0.25,0.46,0.45,0.94)] ${
+        className={`fixed top-16 left-0 right-0 z-40 bg-white/95 backdrop-blur-xl border-b border-gray-100 shadow-xl md:hidden transition-all duration-300 ease-[cubic-bezier(0.25,0.46,0.45,0.94)] overflow-y-auto max-h-[calc(100dvh-4rem)] ${
           menuOpen
             ? 'opacity-100 translate-y-0 pointer-events-auto'
             : 'opacity-0 -translate-y-3 pointer-events-none'
@@ -128,26 +307,102 @@ export default function Header() {
         aria-hidden={!menuOpen}
       >
         <nav className="max-w-7xl mx-auto px-4 py-4 flex flex-col gap-1">
-          {NAV_LINKS.map(({ href, label }, i) => {
-            const isActive =
-              pathname === href ||
-              (href !== '/vendors' && href !== '/pricing' && pathname.startsWith(href))
-            return (
-              <Link
-                key={href}
-                href={href}
-                onClick={() => setMenuOpen(false)}
-                className={`px-4 py-3.5 rounded-xl text-sm font-medium transition-all duration-200 ${
-                  isActive
-                    ? 'bg-[#E8760A]/10 text-[#E8760A] font-semibold'
-                    : 'text-gray-700 hover:bg-gray-50 hover:text-[#E8760A]'
-                }`}
-                style={{ animationDelay: `${i * 40}ms` }}
-              >
-                {label}
-              </Link>
-            )
-          })}
+
+          {/* Browse all vendors */}
+          <Link
+            href="/vendors"
+            onClick={() => setMenuOpen(false)}
+            className="px-4 py-3.5 rounded-xl text-sm font-medium text-gray-700 hover:bg-gray-50 hover:text-[#E8760A] transition-all duration-200"
+          >
+            Browse All Vendors
+          </Link>
+
+          {/* Categories accordion */}
+          <div>
+            <button
+              onClick={() => setMobileBrowseOpen(prev => !prev)}
+              className="w-full flex items-center justify-between px-4 py-3.5 rounded-xl text-sm font-medium text-gray-700 hover:bg-gray-50 transition-all duration-200"
+              aria-expanded={mobileBrowseOpen}
+            >
+              <span>Categories</span>
+              <ChevronDown
+                className={`w-4 h-4 text-gray-400 transition-transform duration-200 ${mobileBrowseOpen ? 'rotate-180' : ''}`}
+              />
+            </button>
+            <div
+              style={{
+                maxHeight: mobileBrowseOpen ? '600px' : '0',
+                overflow: 'hidden',
+                transition: 'max-height 300ms ease',
+              }}
+            >
+              <div className="pb-2 px-2">
+                {CATEGORIES_NAV.map(({ label, href, icon }) => (
+                  <Link
+                    key={href}
+                    href={href}
+                    onClick={() => setMenuOpen(false)}
+                    className="flex items-center gap-3 px-4 py-3 rounded-xl text-sm text-gray-600 hover:bg-[#E8760A]/8 hover:text-[#E8760A] transition-all duration-150"
+                  >
+                    <span className="text-base">{icon}</span>
+                    {label}
+                  </Link>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          {/* Cities accordion */}
+          <div>
+            <button
+              onClick={() => setMobileCitiesOpen(prev => !prev)}
+              className="w-full flex items-center justify-between px-4 py-3.5 rounded-xl text-sm font-medium text-gray-700 hover:bg-gray-50 transition-all duration-200"
+              aria-expanded={mobileCitiesOpen}
+            >
+              <span>Cities</span>
+              <ChevronDown
+                className={`w-4 h-4 text-gray-400 transition-transform duration-200 ${mobileCitiesOpen ? 'rotate-180' : ''}`}
+              />
+            </button>
+            <div
+              style={{
+                maxHeight: mobileCitiesOpen ? '600px' : '0',
+                overflow: 'hidden',
+                transition: 'max-height 300ms ease',
+              }}
+            >
+              <div className="pb-2 px-2 grid grid-cols-2 gap-0.5">
+                {CITIES_NAV.map((city) => {
+                  const slug = city.toLowerCase().replace(/ /g, '-')
+                  return (
+                    <Link
+                      key={city}
+                      href={`/city/${slug}`}
+                      onClick={() => setMenuOpen(false)}
+                      className="flex items-center gap-1.5 px-4 py-2.5 rounded-xl text-sm text-gray-600 hover:bg-gray-50 hover:text-[#E8760A] transition-all duration-150"
+                    >
+                      <MapPin className="w-3 h-3 text-gray-400 shrink-0" />
+                      {city}
+                    </Link>
+                  )
+                })}
+              </div>
+            </div>
+          </div>
+
+          {/* Pricing */}
+          <Link
+            href="/pricing"
+            onClick={() => setMenuOpen(false)}
+            className={`px-4 py-3.5 rounded-xl text-sm font-medium transition-all duration-200 ${
+              pathname === '/pricing'
+                ? 'bg-[#E8760A]/10 text-[#E8760A] font-semibold'
+                : 'text-gray-700 hover:bg-gray-50 hover:text-[#E8760A]'
+            }`}
+          >
+            Pricing
+          </Link>
+
           <div className="pt-3 pb-2 border-t border-gray-100 mt-2">
             <Link
               href="/list-your-business"
