@@ -45,7 +45,10 @@ export default function VendorCard({ vendor }: VendorCardProps) {
   const rating = getRealRating(vendor)
   const reviews = getRealReviewCount(vendor)
   const hasRating = rating !== null && reviews !== null
-  const coverImage = (vendor as any).cover_image as string | undefined
+  const coverImage =
+    (vendor.portfolio_images && vendor.portfolio_images.length > 0)
+      ? vendor.portfolio_images[0]
+      : ((vendor as any).cover_image as string | undefined)
   const icon = vendor.category?.icon ?? undefined
   const gradient = getGradient(icon)
 

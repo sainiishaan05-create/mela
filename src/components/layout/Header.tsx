@@ -7,17 +7,23 @@ import { usePathname } from 'next/navigation'
 
 const CATEGORIES_NAV = [
   { label: 'Photographers', href: '/category/photographers', icon: '📸' },
-  { label: 'Videographers', href: '/category/videographers', icon: '🎬' },
-  { label: 'Caterers', href: '/category/catering', icon: '🍽️' },
-  { label: 'Decorators', href: '/category/decorators', icon: '💐' },
+  { label: 'Videographers', href: '/category/videographers', icon: '🎥' },
+  { label: 'Catering', href: '/category/catering', icon: '🍽️' },
+  { label: 'Decorators', href: '/category/decorators', icon: '🌸' },
   { label: 'Mehndi Artists', href: '/category/mehndi-artists', icon: '🌿' },
   { label: 'Makeup Artists', href: '/category/makeup-artists', icon: '💄' },
   { label: 'DJs & Entertainment', href: '/category/djs-entertainment', icon: '🎵' },
   { label: 'Wedding Venues', href: '/category/wedding-venues', icon: '🏛️' },
   { label: 'Bridal Wear', href: '/category/bridal-wear', icon: '👗' },
-  { label: 'Jewellery', href: '/category/jewellery', icon: '💎' },
-  { label: 'Mandap & Stages', href: '/category/mandap-stages', icon: '🛕' },
+  { label: 'Mandap Rental', href: '/category/mandap-rental', icon: '🏛️' },
   { label: 'Wedding Planners', href: '/category/wedding-planners', icon: '📋' },
+  { label: 'Florists', href: '/category/florists', icon: '💐' },
+  { label: 'Invitations & Cards', href: '/category/invitations', icon: '💌' },
+  { label: 'Sweets & Mithai', href: '/category/sweets-mithai', icon: '🍬' },
+  { label: 'Sound & Lighting', href: '/category/sound-lighting', icon: '💡' },
+  { label: 'Transportation', href: '/category/transportation', icon: '🚗' },
+  { label: 'Cake & Desserts', href: '/category/cakes-desserts', icon: '🎂' },
+  { label: 'Priest Services', href: '/category/priest-services', icon: '🕉️' },
 ]
 
 const CITIES_NAV = [
@@ -239,6 +245,18 @@ export default function Header() {
               </div>
             </div>
 
+            {/* Blog */}
+            <Link
+              href="/blog"
+              className={`px-3 py-2 rounded-lg font-medium transition-all duration-200 ${
+                pathname.startsWith('/blog')
+                  ? 'text-[#E8760A] bg-[#E8760A]/8'
+                  : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50'
+              }`}
+            >
+              Blog
+            </Link>
+
             {/* Pricing — direct link */}
             <Link
               href="/pricing"
@@ -390,6 +408,19 @@ export default function Header() {
             </div>
           </div>
 
+          {/* Blog */}
+          <Link
+            href="/blog"
+            onClick={() => setMenuOpen(false)}
+            className={`px-4 py-3.5 rounded-xl text-sm font-medium transition-all duration-200 ${
+              pathname.startsWith('/blog')
+                ? 'bg-[#E8760A]/10 text-[#E8760A] font-semibold'
+                : 'text-gray-700 hover:bg-gray-50 hover:text-[#E8760A]'
+            }`}
+          >
+            Blog
+          </Link>
+
           {/* Pricing */}
           <Link
             href="/pricing"
@@ -401,6 +432,15 @@ export default function Header() {
             }`}
           >
             Pricing
+          </Link>
+
+          {/* Newsletter */}
+          <Link
+            href="/subscribe"
+            onClick={() => setMenuOpen(false)}
+            className="px-4 py-3.5 rounded-xl text-sm font-medium text-gray-700 hover:bg-gray-50 hover:text-[#E8760A] transition-all duration-200"
+          >
+            Newsletter
           </Link>
 
           <div className="pt-3 pb-2 border-t border-gray-100 mt-2">
