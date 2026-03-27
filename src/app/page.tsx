@@ -16,6 +16,10 @@ const TRENDING_SEARCHES = [
   { label: '💐 Decorators', href: '/category/decorators' },
   { label: '🏛️ Venues', href: '/category/wedding-venues' },
   { label: '🎬 Videographers', href: '/category/videographers' },
+  { label: '💎 Jewellery', href: '/category/jewellery' },
+  { label: '🥁 Dhol Players', href: '/category/dhol-players' },
+  { label: '💇 Hair Stylists', href: '/category/hair-stylists' },
+  { label: '🎤 Sangeet', href: '/category/sangeet-entertainment' },
 ]
 
 const HOW_IT_WORKS = [
@@ -23,7 +27,7 @@ const HOW_IT_WORKS = [
     step: '01',
     icon: '🔍',
     title: 'Search your category',
-    desc: 'Browse by vendor type and city — 20+ categories across 30+ Ontario cities.',
+    desc: 'Browse by vendor type and city — 33 categories across 55+ Ontario cities.',
     color: 'from-blue-50 to-indigo-50',
     accent: 'text-indigo-500',
   },
@@ -425,6 +429,99 @@ export default async function HomePage() {
                 </div>
               </div>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ═══════════════════════════════════════
+          BROWSE BY CITY
+      ═══════════════════════════════════════ */}
+      <section className="py-20 px-4 sm:px-6 bg-white">
+        <div className="max-w-6xl mx-auto">
+          <div className="text-center mb-12">
+            <p className="text-[#E8760A] text-xs font-bold uppercase tracking-widest mb-3">Serving All of Ontario</p>
+            <h2 className="font-[family-name:var(--font-playfair)] text-3xl md:text-4xl font-bold text-[#111111] mb-3">
+              Find Vendors Near You
+            </h2>
+            <p className="text-gray-500 max-w-xl mx-auto text-base">
+              From Brampton to Burlington, Markham to Mississauga — South Asian wedding vendors across 55+ Ontario cities.
+            </p>
+          </div>
+
+          {/* GTA Core */}
+          <div className="mb-8">
+            <p className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-4">🏙️ GTA Core</p>
+            <div className="flex flex-wrap gap-2.5">
+              {[
+                { name: 'Toronto', slug: 'toronto', emoji: '🏙️' },
+                { name: 'Brampton', slug: 'brampton', emoji: '🌆' },
+                { name: 'Mississauga', slug: 'mississauga', emoji: '🌇' },
+                { name: 'Markham', slug: 'markham', emoji: '🏘️' },
+                { name: 'Vaughan', slug: 'vaughan', emoji: '🌃' },
+                { name: 'Scarborough', slug: 'scarborough', emoji: '🌉' },
+                { name: 'Richmond Hill', slug: 'richmond-hill', emoji: '🏡' },
+                { name: 'Oakville', slug: 'oakville', emoji: '⛵' },
+                { name: 'Etobicoke', slug: 'etobicoke', emoji: '🏛️' },
+                { name: 'North York', slug: 'north-york', emoji: '🌆' },
+                { name: 'Thornhill', slug: 'thornhill', emoji: '🌿' },
+                { name: 'Woodbridge', slug: 'woodbridge', emoji: '🌳' },
+                { name: 'Malton', slug: 'malton', emoji: '✈️' },
+                { name: 'Port Credit', slug: 'port-credit', emoji: '⚓' },
+                { name: 'Streetsville', slug: 'streetsville', emoji: '🏘️' },
+              ].map(city => (
+                <Link key={city.slug} href={`/city/${city.slug}`}
+                  className="flex items-center gap-2 px-4 py-2.5 rounded-xl border border-gray-200 bg-white text-sm font-medium text-gray-700 hover:border-[#E8760A] hover:text-[#E8760A] hover:bg-[#E8760A]/5 transition-all duration-200 shadow-sm hover:shadow-md">
+                  <span className="text-base">{city.emoji}</span>
+                  {city.name}
+                </Link>
+              ))}
+            </div>
+          </div>
+
+          {/* Surrounding Areas */}
+          <div>
+            <p className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-4">🗺️ Surrounding Areas</p>
+            <div className="flex flex-wrap gap-2">
+              {[
+                'Ajax', 'Pickering', 'Oshawa', 'Whitby', 'Burlington', 'Milton',
+                'Halton Hills', 'Caledon', 'Bolton', 'King City', 'Kleinburg',
+                'Newmarket', 'Aurora', 'Bradford', 'Barrie', 'Innisfil',
+                'Hamilton', 'Brantford', 'Kitchener', 'Waterloo', 'Cambridge',
+                'Guelph', 'Stouffville', 'Georgetown', 'Peterborough',
+                'St. Catharines', 'Niagara Falls', 'London', 'Windsor',
+              ].map(city => (
+                <Link key={city}
+                  href={`/city/${city.toLowerCase().replace(/ /g, '-').replace(/\./g, '')}`}
+                  className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl border border-gray-100 bg-gray-50 text-sm text-gray-600 hover:border-[#E8760A]/30 hover:text-[#E8760A] hover:bg-[#E8760A]/5 transition-all duration-200">
+                  <MapPin className="w-3 h-3 shrink-0" />
+                  {city}
+                </Link>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ═══════════════════════════════════════
+          NEWSLETTER STRIP
+      ═══════════════════════════════════════ */}
+      <section className="py-16 px-4 sm:px-6 bg-gradient-to-r from-[#E8760A] to-[#d4600a]">
+        <div className="max-w-4xl mx-auto flex flex-col md:flex-row items-center gap-8 text-center md:text-left">
+          <div className="flex-1">
+            <p className="text-white/80 text-sm font-semibold uppercase tracking-widest mb-2">Free Newsletter</p>
+            <h2 className="text-2xl md:text-3xl font-bold text-white mb-2 font-[family-name:var(--font-playfair)]">
+              Get Weekly Vendor Spotlights
+            </h2>
+            <p className="text-white/70 text-sm leading-relaxed">
+              Join 1,200+ South Asian couples. Planning guides, exclusive deals, and the best vendors in the GTA — every week.
+            </p>
+          </div>
+          <div className="shrink-0">
+            <Link href="/subscribe"
+              className="inline-flex items-center gap-2 bg-white text-[#E8760A] font-bold px-8 py-3.5 rounded-full text-sm shadow-lg hover:shadow-xl transition-all duration-200 hover:-translate-y-0.5">
+              Subscribe Free
+              <ArrowRight className="w-4 h-4" />
+            </Link>
           </div>
         </div>
       </section>

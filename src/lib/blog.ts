@@ -870,4 +870,171 @@ Wedding venues in these communities tend toward hotel ballrooms, banquet halls i
 
 Regardless of where in the GTA you are planning your South Asian wedding, Melaa's vendor directory allows you to search by city and category to find vendors with established presences in your area — and to read reviews from other families in your community who have worked with these vendors firsthand.`,
   },
+  {
+    slug: 'south-asian-bridal-jewellery-guide-canada',
+    title: 'The Complete Guide to Bridal Jewellery for South Asian Weddings in Canada',
+    excerpt: 'From kundan to polki, temple jewellery to contemporary gold sets — choosing the right bridal jewellery for your South Asian wedding is one of the most personal decisions you will make. Here is everything you need to know.',
+    date: '2026-01-10',
+    category: 'bridal-wear',
+    coverImage: 'https://images.unsplash.com/photo-1601121141461-9d6647bef0a7?w=1200&h=630&fit=crop&q=80',
+    readTime: 9,
+    author: 'Melaa Editorial Team',
+    tags: ['jewellery', 'bridal', 'kundan', 'gold', 'guide'],
+    content: `Bridal jewellery for a South Asian wedding is not simply an accessory — it is a statement of identity, tradition, and family legacy. Whether you are a Punjabi bride choosing an elaborate kundan set with matching maang tikka and passa, a Gujarati bride selecting a traditional temple-style set, a Tamil bride wearing temple jewellery gold, or a contemporary bride blending Western and South Asian aesthetics, the jewellery you wear on your wedding day will be one of the most photographed and most discussed aspects of your entire look.
+
+Understanding the major jewellery traditions represented across Canada's South Asian communities is the first step. Kundan jewellery, characterized by its flat-cut gemstones set in 24-karat gold foil, is one of the most popular choices among North Indian and Pakistani brides in the GTA. The rich, opulent look photographs beautifully and pairs well with both heavily embellished and more minimalist bridal lehengas. Polki jewellery, made from uncut diamonds set in gold, offers a similarly luxurious aesthetic with a slightly more textured, organic appearance.
+
+Temple jewellery, traditionally associated with South Indian bridal customs — particularly Tamil, Telugu, and Kannada traditions — features deities and religious motifs worked in gold. Contemporary South Indian brides in cities like Toronto and Mississauga often blend temple jewellery with modern design elements, creating sets that honour tradition while feeling personal and wearable.
+
+For brides from Pakistani backgrounds, the choker-and-jhoomar combination — a layered choker necklace paired with a side-hanging head ornament — has remained consistently popular. Pakistani bridal jewellery often features heavier use of rubies, emeralds, and sapphires alongside gold, creating a colourful, maximalist look.
+
+Shopping for bridal jewellery in Canada has become increasingly sophisticated. Toronto and Brampton are home to several established South Asian jewellery retailers carrying both traditional designs and more contemporary interpretations. Many families also travel to source jewellery — either visiting India or Pakistan during family trips, or purchasing from trusted jewellers in Dubai or the UK where selections and prices may differ significantly.
+
+When shopping for bridal jewellery in Canada, price varies enormously depending on whether you choose genuine gold and gemstones or high-quality imitation jewellery. Genuine 22-karat gold sets for bridal use can range from $5,000 to well over $50,000 depending on weight, craftsmanship, and gemstone quality. Beautifully crafted imitation jewellery — sometimes called "artificial" or "fashion" jewellery — has improved dramatically in quality and can provide a stunning look for $200 to $2,000.
+
+Many brides choose a combination: genuine gold pieces for items of lasting value (like stacking bangles or a mangalsutra) paired with high-quality imitation pieces for statement items like large kundan sets that they may only wear once. This hybrid approach allows you to manage budget without compromising on the overall visual impact of your bridal look.`,
+  },
+  {
+    slug: 'dhol-players-baraat-guide-toronto-gta',
+    title: 'How to Book Dhol Players for Your Baraat in Toronto & the GTA',
+    excerpt: 'The dhol is the heartbeat of a South Asian baraat. Here is everything you need to know to book the right dhol player — and make your wedding entrance unforgettable.',
+    date: '2026-01-25',
+    category: 'djs-entertainment',
+    city: 'toronto',
+    coverImage: 'https://images.unsplash.com/photo-1506157786151-b8491531f063?w=1200&h=630&fit=crop&q=80',
+    readTime: 7,
+    author: 'Melaa Editorial Team',
+    tags: ['dhol', 'baraat', 'entertainment', 'toronto', 'brampton'],
+    content: `There is nothing quite like the sound of the dhol to signal that something extraordinary is about to happen. For South Asian couples in the GTA, the baraat — the groom's wedding procession — is one of the most anticipated moments of the entire celebration, and the dhol player is at the centre of it. Getting this right matters.
+
+A good dhol player does much more than beat a drum. They read the energy of the crowd, escalate the tempo at key moments, interact with dancers and guests, coordinate with the groom's party, and keep the procession moving with purpose and joy. An experienced baraat dhol player has performed at hundreds of South Asian weddings across the GTA and knows how to handle every situation — from streets in front of Brampton and Mississauga banquet halls to hotel lobbies and outdoor venue entrances.
+
+When booking a dhol player for your baraat in Toronto or the GTA, start at least four to six months in advance. Peak wedding season (May through October and December through February) sees high demand, and the best-known dhol players are often booked out well ahead. For Saturdays in peak season, booking eight to twelve months ahead is not unusual for particularly sought-after performers.
+
+Price varies based on experience, reputation, and duration. A single dhol player for a one to two hour baraat and reception entrance typically costs between $300 and $800 in the GTA. More elaborate bookings — multiple dhol players, bhangra dancers accompanying the dhol, extended coverage including the mendhi or sangeet — can run significantly higher. Some families book a dhol player for the baraat only; others want coverage across multiple events of the wedding weekend.
+
+Ask your dhol player whether they travel and whether they are comfortable performing in the specific venue context. A dhol player who primarily works outdoor baraats may not know how to modulate for an indoor hotel lobby where sound carries differently. Ask about their experience at your specific venue or in similar venue types.
+
+Bhangra coordination is another consideration. If your baraat includes choreographed bhangra, the dhol player needs to coordinate timing with whoever choreographed the dance, understand the cues, and be prepared to maintain consistent tempo for the choreographed sections while allowing improvisation during open dancing. Not all dhol players are experienced with formal choreography.
+
+For sangeet and mendhi events, a dhol player adds enormous energy to the celebration. The more informal nature of these events allows a skilled dhol player to move through the crowd, respond to guests, and create spontaneous moments of joy that a DJ or background music simply cannot replicate.`,
+  },
+  {
+    slug: 'best-south-asian-caterers-brampton-mississauga',
+    title: 'Best South Asian Wedding Caterers in Brampton & Mississauga',
+    excerpt: 'South Asian wedding catering is its own art form. Here is what separates exceptional caterers from average ones — and what to look for when booking for your GTA wedding.',
+    date: '2026-02-05',
+    category: 'catering',
+    city: 'brampton',
+    coverImage: 'https://images.unsplash.com/photo-1555244162-803834f70033?w=1200&h=630&fit=crop&q=80',
+    readTime: 10,
+    author: 'Melaa Editorial Team',
+    tags: ['catering', 'food', 'brampton', 'mississauga', 'halal'],
+    content: `Food is the soul of a South Asian wedding. Guests will remember the biryani long after the flowers have wilted and the decor has been packed away. Choosing the right caterer for your South Asian wedding in Brampton or Mississauga is one of the highest-stakes decisions you will make — and one that deserves serious research and early planning.
+
+The South Asian wedding catering landscape in the GTA is rich and varied. Punjabi-style catering operations — serving dal makhani, shahi paneer, butter chicken, naan, and rice dishes to crowds of 300 to 800 guests — form the backbone of the market. But the community is far more diverse than this. Gujarati vegetarian caterers, Tamil and South Indian specialists, Pakistani halal caterers, and fusion operations that bridge South Asian and Western food traditions all have strong presences in Brampton and Mississauga.
+
+When beginning your search, the most important question is alignment between your catering needs and the caterer's specialization. If your family primarily eats Punjabi food and you expect that style of service, look for caterers with deep experience in Punjabi wedding menus. If your family is vegetarian and follows Jain dietary practices, you need a caterer who genuinely understands the restrictions — not simply one who says they can accommodate vegetarian.
+
+Halal certification matters enormously for Muslim families and is a key filter in Brampton and Mississauga's South Asian wedding market. Ask caterers whether they hold formal halal certification or simply source halal meat. The distinction is significant for many families, and a reputable caterer will be transparent about their certification status and sourcing.
+
+Scale is another critical consideration. South Asian weddings in Brampton and Mississauga regularly host 400 to 600 guests, with some events reaching 800 to 1,000 or more. A caterer who excels at intimate events of 150 people may not have the logistics, staffing, or equipment to execute at this scale without quality declining. Ask specifically about the largest South Asian weddings they have catered and the systems they have in place for managing large-scale service.
+
+Tastings are essential. Never book a caterer without attending a tasting — either at a dedicated event they host for prospective clients or at an actual wedding they are catering (with permission). Food photographed for a website tells you nothing about flavour, seasoning, or freshness. A tasting gives you a direct experience of how their food actually tastes and how their service team operates.
+
+Per-person pricing for South Asian wedding catering in Brampton and Mississauga typically ranges from $35 to $80+ per person, depending on menu complexity, service style (buffet versus stationed versus plated), number of courses, and whether the caterer is also providing rentals, staffing, and setup. Be cautious of unusually low pricing — high-quality ingredients and skilled kitchen staff have real costs, and a caterer significantly undercutting the market may be cutting corners somewhere.`,
+  },
+  {
+    slug: 'mehndi-night-planning-guide-gta',
+    title: 'Planning a Perfect Mehndi Night: A Complete Guide for GTA Families',
+    excerpt: 'The mehndi celebration is one of the most joyful events of a South Asian wedding weekend. Here is how to plan it beautifully — from finding the right mehndi artists to setting the perfect atmosphere.',
+    date: '2026-02-18',
+    category: 'mehndi-artists',
+    coverImage: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1200&h=630&fit=crop&q=80',
+    readTime: 8,
+    author: 'Melaa Editorial Team',
+    tags: ['mehndi', 'mendhi night', 'planning', 'bridal', 'GTA'],
+    content: `The mehndi night — also called the mendhi or henna celebration — is one of the most intimate, joyful, and culturally rich events of a South Asian wedding weekend. Whether you are planning an intimate gathering of 30 close family members in a home or a full-scale event for 200 guests at a banquet hall, the mehndi night requires careful planning to get right.
+
+The centrepiece of the mehndi night is, of course, the mehndi itself. For the bride, this typically means several hours of detailed, intricate bridal mehndi application — often beginning with the back of the hands and wrists, then up the forearms, followed by the feet. Elaborate bridal mehndi designs can take four to eight hours to apply fully, which means the mehndi artist for the bride often begins working hours before guests arrive or during the early part of the event.
+
+Booking your bridal mehndi artist is one of the most time-sensitive bookings you will make. The best mehndi artists in Brampton, Mississauga, and across the GTA are genuinely in demand and book up a year or more in advance for peak wedding season dates. Do not leave this booking until six months before your wedding — you risk finding that every artist you want is already taken.
+
+When choosing a mehndi artist, portfolio quality is everything. Look for consistent, precise linework, complex patterns that show genuine skill, and evidence of experience with the specific style you want — whether that is traditional Indian bridal mehndi with fine, intricate detail, Pakistani-style designs with bold floral patterns and heavy coverage, Gulf-inspired Arabic mehndi with elegant geometric motifs, or contemporary styles that blend these traditions.
+
+Guest mehndi is a separate consideration from bridal mehndi. Most families arrange for additional mehndi artists to be present at the event so that guests — both female and male — can have small designs applied to their hands. Budgeting for this typically means hiring one additional artist per 40 to 60 guests. These artists work more quickly and apply simpler designs, but their quality still matters for the overall atmosphere of the event.
+
+Mehndi nights also involve music, food, and dancing. Many families hire a DJ or a live musician — sometimes a tumbi or dholki player — to perform during the event. The food is typically lighter than the main reception: chaat, samosas, mithai, and snack stations rather than a full buffet. The atmosphere is warm, intimate, and focused on celebration with close family.
+
+Colour and decor for mehndi nights have evolved significantly. The traditional yellow and orange colour palette — representing turmeric and marigolds — remains popular, but contemporary mehndi nights in the GTA increasingly feature blush pink, sage green, or jewel-toned palettes. Floral installations, fairy lights, floor cushion setups, and lounge furniture create an atmosphere that photographs beautifully and feels both traditional and modern.`,
+  },
+  {
+    slug: 'south-asian-wedding-venues-gta-guide',
+    title: 'Best South Asian Wedding Venues in the GTA: What to Look For',
+    excerpt: 'Choosing the right venue is the single most important decision in wedding planning. This guide covers what South Asian couples should specifically look for when evaluating GTA banquet halls and event spaces.',
+    date: '2026-02-28',
+    category: 'wedding-venues',
+    coverImage: 'https://images.unsplash.com/photo-1519167758481-83f550bb49b3?w=1200&h=630&fit=crop&q=80',
+    readTime: 11,
+    author: 'Melaa Editorial Team',
+    tags: ['venues', 'banquet hall', 'GTA', 'brampton', 'mississauga', 'toronto'],
+    content: `The venue is the foundation on which every other element of your South Asian wedding is built. The size, location, layout, facilities, and policies of your venue will shape every subsequent vendor decision you make — from your caterer and decorator to your photographer and DJ. Getting this right from the start makes everything else easier.
+
+South Asian weddings in the GTA have specific requirements that not all venues understand or accommodate. Guest counts for South Asian weddings regularly run large — 300 to 600 guests is common, with many families hosting 700 to 1,000 or more for major events. Your venue needs genuine capacity for these numbers, not theoretical maximum capacity that requires every seat to be filled with no room for movement, dancing, or the natural flow of a South Asian celebration.
+
+Kitchen access and catering policies are critical. South Asian families frequently work with outside caterers — either because their preferred caterer is not on the venue's approved list, or because they want the freedom to choose specialists in their specific food traditions. Always ask whether a venue allows outside caterers, and if so, what kitchen access and setup time they provide. Some venues charge significant corkage or "outside catering" fees; factor these into your total cost comparison.
+
+Parking is a more important factor than many couples initially realize. South Asian weddings often involve guests arriving in waves — during cocktail hour, at the start of the main reception, and throughout the evening. A venue with inadequate parking creates real stress for guests and can set a negative tone before the celebration even begins. Look for venues with parking for at least 60 to 70% of your expected guest count in close proximity.
+
+Liquor licensing and bar policies vary significantly across GTA venues. Some banquet halls are licensed and provide their own bar service; others allow families to bring in their own alcohol through an event permit. Some South Asian families prefer fully dry events; make sure your venue accommodates this without restriction. Understanding the exact bar policy, associated fees, and any minimum spending requirements before signing is essential.
+
+Mandap placement flexibility matters for Hindu and Sikh ceremonies. A venue that says it can accommodate a mandap but has ceiling height limitations, sprinkler systems that cannot be disabled, or structural elements that limit where a mandap can be placed will create problems for your decorator. Ask specifically about ceiling clearance (you want at least 16 to 20 feet for elaborate mandap constructions), anchor points for draping and installations, and any fire suppression system restrictions.
+
+Multi-day and multi-event packages are offered by some GTA banquet halls and represent significant value for families planning mehndi, sangeet, wedding, and reception events at the same location. The logistics of keeping everything at one venue — parking, familiarity, vendor coordination — can offset a higher per-event cost. Ask any venue you are considering seriously about multi-day pricing.`,
+  },
+  {
+    slug: 'bridal-makeup-south-asian-brides-toronto',
+    title: 'Bridal Makeup Guide for South Asian Brides in Toronto & the GTA',
+    excerpt: 'Your bridal look deserves a makeup artist who truly understands South Asian skin tones, traditions, and photography. Here is what to look for and how to prepare.',
+    date: '2026-03-05',
+    category: 'makeup-artists',
+    city: 'toronto',
+    coverImage: 'https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?w=1200&h=630&fit=crop&q=80',
+    readTime: 9,
+    author: 'Melaa Editorial Team',
+    tags: ['makeup', 'bridal', 'south asian', 'toronto', 'skin tones'],
+    content: `South Asian bridal makeup is a specialized craft. A makeup artist who excels at Western bridal looks may not have the experience, products, or understanding necessary to create a stunning South Asian bridal look that photographs beautifully across multiple lighting conditions, flatters your specific skin tone, and holds up across an 8 to 14 hour celebration day.
+
+The first thing to understand is that South Asian skin tones span an enormous range — from the palest shades seen across the subcontinent to the deepest, richest browns. A skilled South Asian bridal makeup artist has worked extensively across this range and understands that product selection, colour theory, and technique all need to be adapted for each individual client. An artist who always uses the same foundation formula or the same eyeshadow palette regardless of the client's colouring is not the right artist for you.
+
+Longevity is a non-negotiable requirement for South Asian bridal makeup. You will be in your makeup from early morning preparation through a day that may include a religious ceremony, photography sessions, a reception lasting many hours, and late-night dancing. Your makeup needs to look fresh at hour twelve the same way it looked at hour one. Experienced South Asian bridal artists know which products and setting techniques provide this longevity and specifically test their work for durability.
+
+Trial appointments are absolutely essential for South Asian brides. Do not trust any makeup artist who tells you a trial is optional or unnecessary. Your trial is the time to establish your look, identify any skin reactions, test product longevity, and make adjustments so that your wedding day look is exactly what you want. Book your trial three to four months before your wedding date, and treat it as seriously as the wedding day itself.
+
+During your trial, bring references — photos of looks you love, your bridal outfit colours, any jewellery you plan to wear, and any specific element you want incorporated. Great South Asian bridal artists will ask detailed questions about your preferences, your outfit, the venue lighting, and the overall aesthetic of your wedding before beginning.
+
+Hair coordination matters. Many South Asian brides work with a combined makeup and hair artist, which ensures the two elements are cohesive and eliminates the coordination overhead of managing two separate bookings. If you are working with separate artists, ensure they have coordinated in advance and agree on scheduling, space requirements, and the overall look.`,
+  },
+  {
+    slug: 'south-asian-wedding-dj-hiring-guide',
+    title: 'How to Hire the Perfect DJ for Your South Asian Wedding',
+    excerpt: 'The DJ sets the energy for your entire reception. Here is how South Asian couples in the GTA should evaluate, audition, and book the right DJ for their celebration.',
+    date: '2026-03-12',
+    category: 'djs-entertainment',
+    coverImage: 'https://images.unsplash.com/photo-1571266028243-d220c6af5583?w=1200&h=630&fit=crop&q=80',
+    readTime: 8,
+    author: 'Melaa Editorial Team',
+    tags: ['DJ', 'entertainment', 'reception', 'music', 'bollywood'],
+    content: `The DJ at your South Asian wedding reception does far more than play music. They are the energy manager of your entire evening — reading the room, coordinating with your MC, timing music to key events like cake cutting and first dance, managing sound levels across a room that may hold hundreds of people, and keeping the dance floor full across four to six hours of celebration.
+
+South Asian weddings have specific music requirements that set them apart from any other event type. A great South Asian wedding DJ needs to have deep knowledge of Bollywood — both classic songs that resonate with older guests and current chart-toppers that get younger guests on the floor. They need to know Punjabi bhangra and how to seamlessly transition between it and Bollywood. If your family includes Gujarati guests, they need to know garba and dandiya. Tamil guests may want some Tamil film music. Pakistani families often want a specific blend that includes Lollywood music alongside Bollywood.
+
+The ability to read a room and make decisions in real time separates excellent South Asian wedding DJs from adequate ones. When the uncle-and-aunties crowd is on the dance floor, play songs they love. When the younger crowd takes over, shift accordingly. When someone requests a specific song, know whether it fits the current energy or whether playing it will kill the momentum. These judgment calls, made constantly across hours, determine whether your reception feels electric or flat.
+
+Equipment quality matters significantly. A DJ bringing consumer-grade speakers and a personal laptop to a 400-person South Asian wedding is not going to deliver the sound quality that event deserves. Ask specifically about their speaker setup, how many channels they run, their backup system for equipment failure, and whether they provide their own lighting or whether lighting needs to be sourced separately.
+
+Coordination with your wedding timeline is non-negotiable. Your DJ should receive a detailed timeline at least two weeks before the wedding and confirm their understanding of every timed element — entrance music, first dance, parent dances, cake cutting, bouquet toss, and any other programmed moments. They should also have emergency contact numbers for your coordinator, decorator, and photographer so they can adapt if the timeline shifts.
+
+MC services are often bundled with DJ packages, but the quality of MC services varies enormously. An MC who is bilingual — able to make announcements in Punjabi or Hindi as well as English — adds significant value at a South Asian reception where older guests may be more comfortable with announcements in their first language. Ask your prospective DJ about their MC experience and whether they can provide references specifically for their MC work, not just their DJing.`,
+  },
 ]

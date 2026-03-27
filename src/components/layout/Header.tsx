@@ -5,34 +5,63 @@ import { Search, Menu, X, Sparkles, ChevronDown, MapPin } from 'lucide-react'
 import { useState, useEffect, useRef } from 'react'
 import { usePathname } from 'next/navigation'
 
+// Categories grouped for mega-menu display
 const CATEGORIES_NAV = [
-  { label: 'Photographers', href: '/category/photographers', icon: '📸' },
-  { label: 'Videographers', href: '/category/videographers', icon: '🎥' },
-  { label: 'Catering', href: '/category/catering', icon: '🍽️' },
-  { label: 'Decorators', href: '/category/decorators', icon: '🌸' },
-  { label: 'Mehndi Artists', href: '/category/mehndi-artists', icon: '🌿' },
-  { label: 'Makeup Artists', href: '/category/makeup-artists', icon: '💄' },
-  { label: 'DJs & Entertainment', href: '/category/djs-entertainment', icon: '🎵' },
-  { label: 'Wedding Venues', href: '/category/wedding-venues', icon: '🏛️' },
-  { label: 'Bridal Wear', href: '/category/bridal-wear', icon: '👗' },
-  { label: 'Mandap Rental', href: '/category/mandap-rental', icon: '🏛️' },
-  { label: 'Wedding Planners', href: '/category/wedding-planners', icon: '📋' },
-  { label: 'Florists', href: '/category/florists', icon: '💐' },
-  { label: 'Invitations & Cards', href: '/category/invitations', icon: '💌' },
-  { label: 'Sweets & Mithai', href: '/category/sweets-mithai', icon: '🍬' },
-  { label: 'Sound & Lighting', href: '/category/sound-lighting', icon: '💡' },
-  { label: 'Transportation', href: '/category/transportation', icon: '🚗' },
-  { label: 'Cake & Desserts', href: '/category/cakes-desserts', icon: '🎂' },
-  { label: 'Priest Services', href: '/category/priest-services', icon: '🕉️' },
+  // Capture
+  { label: 'Photographers', href: '/category/photographers', icon: '📸', group: 'Capture & Media' },
+  { label: 'Videographers', href: '/category/videographers', icon: '🎥', group: 'Capture & Media' },
+  { label: 'Photo Booths', href: '/category/photo-booths', icon: '🎭', group: 'Capture & Media' },
+  // Beauty
+  { label: 'Makeup Artists', href: '/category/makeup-artists', icon: '💄', group: 'Beauty & Style' },
+  { label: 'Mehndi Artists', href: '/category/mehndi-artists', icon: '🌿', group: 'Beauty & Style' },
+  { label: 'Hair Stylists', href: '/category/hair-stylists', icon: '💇', group: 'Beauty & Style' },
+  { label: 'Nail Artists', href: '/category/nail-artists', icon: '💅', group: 'Beauty & Style' },
+  { label: 'Bridal Fitness', href: '/category/bridal-fitness', icon: '🧘', group: 'Beauty & Style' },
+  // Venue & Decor
+  { label: 'Wedding Venues', href: '/category/wedding-venues', icon: '🏛️', group: 'Venue & Decor' },
+  { label: 'Decorators', href: '/category/decorators', icon: '🌸', group: 'Venue & Decor' },
+  { label: 'Mandap Rental', href: '/category/mandap-rental', icon: '🕌', group: 'Venue & Decor' },
+  { label: 'Florists', href: '/category/florists', icon: '💐', group: 'Venue & Decor' },
+  { label: 'Sound & Lighting', href: '/category/sound-lighting', icon: '💡', group: 'Venue & Decor' },
+  { label: 'Tent Rentals', href: '/category/tent-rentals', icon: '⛺', group: 'Venue & Decor' },
+  { label: 'Linen & Furniture', href: '/category/linen-furniture', icon: '🪑', group: 'Venue & Decor' },
+  // Food & Sweets
+  { label: 'Catering', href: '/category/catering', icon: '🍽️', group: 'Food & Sweets' },
+  { label: 'Sweets & Mithai', href: '/category/sweets-mithai', icon: '🍬', group: 'Food & Sweets' },
+  { label: 'Cake & Desserts', href: '/category/cakes-desserts', icon: '🎂', group: 'Food & Sweets' },
+  // Entertainment
+  { label: 'DJs & Entertainment', href: '/category/djs-entertainment', icon: '🎵', group: 'Entertainment' },
+  { label: 'Dhol Players & Bhangra', href: '/category/dhol-players', icon: '🥁', group: 'Entertainment' },
+  { label: 'Sangeet Entertainment', href: '/category/sangeet-entertainment', icon: '🎤', group: 'Entertainment' },
+  { label: 'Baraat & Entertainment', href: '/category/baraat-entertainment', icon: '🐎', group: 'Entertainment' },
+  // Fashion & More
+  { label: 'Bridal Wear', href: '/category/bridal-wear', icon: '👗', group: 'Fashion & More' },
+  { label: 'Jewellery', href: '/category/jewellery', icon: '💎', group: 'Fashion & More' },
+  { label: 'Invitations & Cards', href: '/category/invitations', icon: '💌', group: 'Fashion & More' },
+  { label: 'Transportation', href: '/category/transportation', icon: '🚗', group: 'Fashion & More' },
+  { label: 'Priest Services', href: '/category/priest-services', icon: '🕉️', group: 'Fashion & More' },
+  { label: 'Wedding Planners', href: '/category/wedding-planners', icon: '📋', group: 'Fashion & More' },
+  { label: 'Honeymoon Travel', href: '/category/honeymoon-travel', icon: '✈️', group: 'Fashion & More' },
 ]
 
-const CITIES_NAV = [
+// GTA Core cities shown first, then surrounding areas
+const CITIES_NAV_GTA = [
   'Toronto', 'Brampton', 'Mississauga', 'Markham', 'Vaughan', 'Scarborough',
   'Richmond Hill', 'Oakville', 'Etobicoke', 'North York', 'Thornhill', 'Woodbridge',
-  'Ajax', 'Pickering', 'Oshawa', 'Whitby', 'Burlington', 'Milton',
-  'Caledon', 'Newmarket', 'Aurora', 'Hamilton', 'Kitchener', 'Waterloo',
-  'Cambridge', 'Guelph', 'Stouffville', 'Georgetown', 'Barrie',
+  'Malton', 'Port Credit', 'Streetsville', 'Meadowvale', 'Concord', 'Maple',
 ]
+
+const CITIES_NAV_SURROUNDING = [
+  'Ajax', 'Pickering', 'Oshawa', 'Whitby', 'Bowmanville',
+  'Burlington', 'Milton', 'Halton Hills', 'Georgetown',
+  'Caledon', 'Bolton', 'King City', 'Kleinburg', 'Nobleton',
+  'Newmarket', 'Aurora', 'Bradford', 'East Gwillimbury', 'Innisfil', 'Barrie',
+  'Hamilton', 'Brantford', 'Kitchener', 'Waterloo', 'Cambridge', 'Guelph',
+  'Stouffville', 'Uxbridge', 'Peterborough',
+  'St. Catharines', 'Niagara Falls', 'London', 'Windsor',
+]
+
+const CITIES_NAV = [...CITIES_NAV_GTA, ...CITIES_NAV_SURROUNDING]
 
 const POPULAR_SEARCHES = [
   { label: 'South Asian Photographers', href: '/category/photographers' },
@@ -139,37 +168,45 @@ export default function Header() {
                   pointerEvents: browseOpen ? 'auto' : 'none',
                   transition: 'opacity 200ms ease, transform 200ms ease',
                 }}
-                className="absolute top-full left-1/2 -translate-x-1/2 mt-2 w-[720px] bg-white rounded-2xl shadow-2xl border border-gray-100 p-6 z-50"
+                className="absolute top-full left-0 mt-2 w-[860px] bg-white rounded-2xl shadow-2xl border border-gray-100 p-6 z-50"
                 role="menu"
               >
-                <div className="flex gap-6">
-                  {/* Left: categories grid */}
-                  <div className="flex-[2]">
-                    <p className="text-xs font-semibold text-gray-400 uppercase tracking-widest mb-3">Categories</p>
-                    <div className="grid grid-cols-3 gap-1">
-                      {CATEGORIES_NAV.map(({ label, href, icon }) => (
-                        <Link
-                          key={href}
-                          href={href}
-                          role="menuitem"
-                          className="flex items-center gap-3 p-3 rounded-xl text-sm font-medium text-gray-700 hover:bg-[#E8760A]/8 hover:text-[#E8760A] transition-all duration-150"
-                        >
-                          <span className="text-base leading-none">{icon}</span>
-                          <span className="leading-tight">{label}</span>
-                        </Link>
-                      ))}
+                {/* Group headers */}
+                <div className="grid grid-cols-5 gap-6">
+                  {(['Capture & Media', 'Beauty & Style', 'Venue & Decor', 'Food & Sweets', 'Entertainment'] as const).map((grp) => (
+                    <div key={grp}>
+                      <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-2">{grp}</p>
+                      <div className="space-y-0.5">
+                        {CATEGORIES_NAV.filter(c => c.group === grp).map(({ label, href, icon }) => (
+                          <Link
+                            key={href}
+                            href={href}
+                            role="menuitem"
+                            className="flex items-center gap-2 py-1.5 px-2 rounded-lg text-sm text-gray-700 hover:bg-[#E8760A]/8 hover:text-[#E8760A] transition-all duration-150"
+                          >
+                            <span className="text-sm leading-none">{icon}</span>
+                            <span className="leading-tight text-xs">{label}</span>
+                          </Link>
+                        ))}
+                      </div>
                     </div>
-                    <div className="mt-3 pt-3 border-t border-gray-100">
-                      <Link
-                        href="/vendors"
-                        className="text-sm font-semibold text-[#E8760A] hover:underline"
-                      >
-                        View All Vendors →
-                      </Link>
-                    </div>
-                  </div>
-
-                  {/* Right: popular searches */}
+                  ))}
+                </div>
+                {/* Fashion & More row + CTA */}
+                <div className="mt-4 pt-4 border-t border-gray-100 flex items-center gap-4 flex-wrap">
+                  <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest shrink-0">Fashion & More</p>
+                  {CATEGORIES_NAV.filter(c => c.group === 'Fashion & More').map(({ label, href, icon }) => (
+                    <Link key={href} href={href} role="menuitem"
+                      className="flex items-center gap-1.5 py-1.5 px-3 rounded-full text-xs text-gray-700 bg-gray-50 hover:bg-[#E8760A]/8 hover:text-[#E8760A] transition-all duration-150 border border-gray-100">
+                      <span>{icon}</span>{label}
+                    </Link>
+                  ))}
+                  <Link href="/vendors" className="ml-auto text-sm font-semibold text-[#E8760A] hover:underline shrink-0">
+                    All Vendors →
+                  </Link>
+                </div>
+                {/* Hidden popular searches placeholder — kept for structure */}
+                <div className="hidden">
                   <div className="flex-[1] border-l border-gray-100 pl-6">
                     <p className="text-xs font-semibold text-gray-400 uppercase tracking-widest mb-3">Popular Searches</p>
                     <ul className="space-y-1">
@@ -222,25 +259,43 @@ export default function Header() {
                   pointerEvents: citiesOpen ? 'auto' : 'none',
                   transition: 'opacity 200ms ease, transform 200ms ease',
                 }}
-                className="absolute top-full left-1/2 -translate-x-1/2 mt-2 w-[480px] bg-white rounded-2xl shadow-2xl border border-gray-100 p-6 z-50"
+                className="absolute top-full -right-4 mt-2 w-[620px] bg-white rounded-2xl shadow-2xl border border-gray-100 p-6 z-50"
                 role="menu"
               >
-                <p className="text-xs font-semibold text-gray-400 uppercase tracking-widest mb-4">Browse by City</p>
-                <div className="grid grid-cols-3 gap-1">
-                  {CITIES_NAV.map((city) => {
-                    const slug = city.toLowerCase().replace(/ /g, '-')
-                    return (
-                      <Link
-                        key={city}
-                        href={`/city/${slug}`}
-                        role="menuitem"
-                        className="flex items-center gap-1.5 text-sm text-gray-600 hover:text-[#E8760A] py-1.5 px-2 rounded-lg hover:bg-gray-50 transition-all duration-150"
-                      >
-                        <MapPin className="w-3 h-3 text-gray-400 shrink-0" />
-                        {city}
-                      </Link>
-                    )
-                  })}
+                <div className="grid grid-cols-2 gap-6">
+                  <div>
+                    <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-3">🏙️ GTA Core</p>
+                    <div className="grid grid-cols-2 gap-x-2">
+                      {CITIES_NAV_GTA.map((city) => {
+                        const slug = city.toLowerCase().replace(/ /g, '-').replace(/\./g, '')
+                        return (
+                          <Link key={city} href={`/city/${slug}`} role="menuitem"
+                            className="flex items-center gap-1.5 text-xs text-gray-600 hover:text-[#E8760A] py-1.5 px-2 rounded-lg hover:bg-gray-50 transition-all duration-150">
+                            <MapPin className="w-2.5 h-2.5 text-gray-400 shrink-0" />{city}
+                          </Link>
+                        )
+                      })}
+                    </div>
+                  </div>
+                  <div>
+                    <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-3">🗺️ Surrounding Areas</p>
+                    <div className="grid grid-cols-2 gap-x-2 max-h-52 overflow-y-auto scrollbar-hide">
+                      {CITIES_NAV_SURROUNDING.map((city) => {
+                        const slug = city.toLowerCase().replace(/ /g, '-').replace(/\./g, '')
+                        return (
+                          <Link key={city} href={`/city/${slug}`} role="menuitem"
+                            className="flex items-center gap-1.5 text-xs text-gray-600 hover:text-[#E8760A] py-1.5 px-2 rounded-lg hover:bg-gray-50 transition-all duration-150">
+                            <MapPin className="w-2.5 h-2.5 text-gray-400 shrink-0" />{city}
+                          </Link>
+                        )
+                      })}
+                    </div>
+                  </div>
+                </div>
+                <div className="mt-4 pt-3 border-t border-gray-100">
+                  <Link href="/vendors" className="text-xs font-semibold text-[#E8760A] hover:underline">
+                    Browse all vendors across Ontario →
+                  </Link>
                 </div>
               </div>
             </div>
