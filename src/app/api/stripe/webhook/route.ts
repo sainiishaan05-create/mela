@@ -2,7 +2,6 @@ import { NextRequest, NextResponse } from 'next/server'
 import Stripe from 'stripe'
 import { stripe } from '@/lib/stripe'
 import { createClient as createServiceClient } from '@supabase/supabase-js'
-import { createClient } from '@/lib/supabase/server'
 
 export const dynamic = 'force-dynamic'
 
@@ -30,7 +29,7 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: message }, { status: 400 })
   }
 
-  const supabase = await createClient()
+  const supabase = getServiceClient()
 
   switch (event.type) {
     case 'checkout.session.completed': {
@@ -49,8 +48,7 @@ export async function POST(req: NextRequest) {
 
       // If this is a claim flow, mark listing as claimed
       if (flow === 'claim' && vendorId) {
-        const serviceClient = getServiceClient()
-        await serviceClient
+        await supabase
           .from('vendors')
           .update({
             claim_status: 'claimed',
