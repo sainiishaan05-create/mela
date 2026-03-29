@@ -34,6 +34,11 @@ export interface Vendor {
   is_featured: boolean
   is_active: boolean
   stripe_customer_id: string | null
+  claim_status: 'unclaimed' | 'pending' | 'claimed'
+  claim_email: string | null
+  claimed_by_user_id: string | null
+  claim_token: string | null
+  claim_token_expires_at: string | null
   created_at: string
   // Joined fields
   category?: Category

@@ -42,13 +42,14 @@ export async function POST(req: Request) {
     const token = randomBytes(32).toString('hex')
     const expiresAt = new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString()
 
-    // Store token + expiry, set claim_status = 'pending'
+    // Store token + expiry, set claim_status = 'pending', save claimant email
     const { error: updateError } = await supabase
       .from('vendors')
       .update({
         claim_token: token,
         claim_token_expires_at: expiresAt,
         claim_status: 'pending',
+        claim_email: email,
       })
       .eq('id', vendor.id)
 

@@ -23,7 +23,7 @@ export async function GET(req: NextRequest) {
   // 1. Look up vendor by claim_token
   const { data: vendor, error: lookupError } = await supabase
     .from('vendors')
-    .select('id, name, slug, email, claim_token, claim_token_expires_at')
+    .select('id, name, slug, claim_email, claim_token, claim_token_expires_at')
     .eq('claim_token', token)
     .single()
 
@@ -40,16 +40,21 @@ export async function GET(req: NextRequest) {
     return NextResponse.redirect(`${siteUrl}/claim/${vendor.slug}?error=token_expired`)
   }
 
-  // 3. Create or retrieve Supabase Auth user for the vendor email
+  // 3. Create or retrieve Supabase Auth user using claimant email (not vendor.email which may be null)
+  const claimEmail = vendor.claim_email
+  if (!claimEmail) {
+    return NextResponse.redirect(`${siteUrl}/claim/${vendor.slug}?error=missing_claim_email`)
+  }
+
   const { data: listData } = await supabase.auth.admin.listUsers()
-  const existingUser = listData?.users?.find((u) => u.email === vendor.email)
+  const existingUser = listData?.users?.find((u) => u.email === claimEmail)
   let userId: string
 
   if (existingUser) {
     userId = existingUser.id
   } else {
     const { data: createdUser, error: createError } = await supabase.auth.admin.createUser({
-      email: vendor.email,
+      email: claimEmail,
       email_confirm: true,
     })
     if (createError || !createdUser?.user) {
