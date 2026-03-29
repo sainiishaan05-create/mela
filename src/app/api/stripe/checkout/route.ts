@@ -3,7 +3,7 @@ import { stripe, PLANS, PlanKey } from '@/lib/stripe'
 
 export async function POST(req: NextRequest) {
   try {
-    const { plan, vendorId } = (await req.json()) as { plan: PlanKey; vendorId: string }
+    const { plan, vendorId, userId } = (await req.json()) as { plan: PlanKey; vendorId: string; userId?: string }
 
     const selectedPlan = PLANS[plan]
     if (!selectedPlan) {
@@ -21,6 +21,8 @@ export async function POST(req: NextRequest) {
       metadata: {
         vendorId,
         plan,
+        ...(userId ? { userId } : {}),
+        flow: 'vendor_upgrade',
       },
       success_url: `${process.env.NEXT_PUBLIC_SITE_URL}/dashboard?upgraded=1`,
       cancel_url: `${process.env.NEXT_PUBLIC_SITE_URL}/pricing`,
