@@ -46,12 +46,13 @@ export async function POST(req: NextRequest) {
           .eq('id', vendorId)
       }
 
-      // If this is a claim flow, mark listing as claimed
+      // If this is a claim flow, mark listing as claimed and verified
       if (flow === 'claim' && vendorId) {
         await supabase
           .from('vendors')
           .update({
             claim_status: 'claimed',
+            is_verified: true,
             ...(userId ? { claimed_by_user_id: userId } : {}),
           })
           .eq('id', vendorId)
