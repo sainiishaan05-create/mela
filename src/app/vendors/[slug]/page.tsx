@@ -162,10 +162,17 @@ export default async function VendorProfilePage({ params }: Props) {
                         {v.city.name}, Ontario
                       </span>
                     )}
-                    <span className="inline-flex items-center gap-1.5 bg-emerald-50 text-emerald-700 text-xs font-bold px-3 py-1.5 rounded-full border border-emerald-100">
-                      <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse-soft" />
-                      New Vendor
-                    </span>
+                    {v.claim_status === 'claimed' ? (
+                      <span className="inline-flex items-center gap-1.5 bg-emerald-50 text-emerald-700 text-xs font-bold px-3 py-1.5 rounded-full border border-emerald-100">
+                        <CheckCircle2 className="w-3.5 h-3.5 text-emerald-500" />
+                        Verified Business
+                      </span>
+                    ) : (
+                      <span className="inline-flex items-center gap-1.5 bg-emerald-50 text-emerald-700 text-xs font-bold px-3 py-1.5 rounded-full border border-emerald-100">
+                        <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse-soft" />
+                        New Vendor
+                      </span>
+                    )}
                     <span className="inline-flex items-center gap-1.5 text-xs text-gray-400 bg-gray-50 px-3 py-1.5 rounded-full">
                       <Clock className="w-3 h-3" />
                       Free to contact
@@ -292,15 +299,32 @@ export default async function VendorProfilePage({ params }: Props) {
                 <LeadForm vendorId={v.id} vendorName={v.name} />
               </div>
 
-              {/* Claim profile */}
-              <div className="bg-gradient-to-br from-[#E8760A]/5 to-amber-50/50 border border-[#E8760A]/15 rounded-3xl p-5">
-                <p className="text-xs font-bold text-[#E8760A] uppercase tracking-widest mb-1.5">Are you this vendor?</p>
-                <p className="text-xs text-gray-500 leading-relaxed mb-3">Claim this profile to add photos, update details and receive leads directly to your inbox.</p>
-                <Link href="/list-your-business"
-                  className="inline-flex items-center gap-1 text-xs font-bold text-[#E8760A] hover:gap-2 transition-all duration-200">
-                  Claim your profile <ArrowUpRight className="w-3 h-3" />
-                </Link>
-              </div>
+              {/* Claim / Verified CTA */}
+              {v.claim_status !== 'claimed' ? (
+                <div className="bg-gradient-to-br from-[#E8760A]/5 to-amber-50/50 border border-[#E8760A]/20 rounded-3xl p-5">
+                  <p className="text-xs font-bold text-[#E8760A] uppercase tracking-widest mb-1.5">Is this your business?</p>
+                  <p className="text-sm text-gray-600 leading-relaxed mb-4">
+                    Take control of your listing, respond to inquiries, and start growing — from $49/mo.
+                  </p>
+                  <Link
+                    href={`/claim/${slug}`}
+                    className="flex items-center justify-center gap-2 w-full bg-[#E8760A] hover:bg-[#d06a09] text-white font-bold rounded-2xl px-4 py-3 text-sm transition-colors duration-200 shadow-[0_4px_16px_rgba(232,118,10,0.3)]"
+                  >
+                    Claim Your Listing
+                    <ArrowUpRight className="w-4 h-4" />
+                  </Link>
+                </div>
+              ) : (
+                <div className="bg-gradient-to-br from-emerald-50 to-green-50 border border-emerald-100 rounded-3xl p-5 flex items-center gap-3">
+                  <div className="w-10 h-10 bg-emerald-100 rounded-full flex items-center justify-center shrink-0">
+                    <CheckCircle2 className="w-5 h-5 text-emerald-600" />
+                  </div>
+                  <div>
+                    <p className="text-sm font-bold text-emerald-800">Verified Business</p>
+                    <p className="text-xs text-emerald-600 mt-0.5">This listing is managed by the owner</p>
+                  </div>
+                </div>
+              )}
             </div>
           </div>
 
