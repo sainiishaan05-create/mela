@@ -54,7 +54,6 @@ export async function POST(req: NextRequest) {
           .from('vendors')
           .update({
             claim_status: 'claimed',
-            claimed: true,
             ...(userId ? { claimed_by_user_id: userId } : {}),
           })
           .eq('id', vendorId)

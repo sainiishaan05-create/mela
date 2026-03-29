@@ -71,6 +71,7 @@ export async function GET(req: NextRequest) {
         vendorId: vendor.id,
         userId,
         flow: 'claim',
+        plan: 'basic',
       },
       success_url: `${siteUrl}/dashboard?claimed=1`,
       cancel_url: `${siteUrl}/claim/${vendor.slug}`,
