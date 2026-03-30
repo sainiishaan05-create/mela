@@ -36,14 +36,14 @@ export default function Footer() {
   return (
     <footer className="bg-[#111111] text-gray-400 relative overflow-hidden">
       {/* Subtle glow top */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-px bg-gradient-to-r from-transparent via-[#E8760A]/30 to-transparent" />
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-px bg-gradient-to-r from-transparent via-[#C8A96A]/30 to-transparent" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 pt-16 pb-10">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-10 mb-14">
 
           {/* Brand */}
           <div className="col-span-2 md:col-span-1 space-y-4">
-            <Link href="/" className="font-[family-name:var(--font-playfair)] text-3xl font-bold text-[#E8760A] block hover:opacity-80 transition-opacity">
+            <Link href="/" className="font-[family-name:var(--font-playfair)] text-3xl font-bold text-[#C8A96A] block hover:opacity-80 transition-opacity">
               Melaa
             </Link>
             <p className="text-sm text-gray-500 leading-relaxed max-w-[200px]">
@@ -54,7 +54,7 @@ export default function Footer() {
                 href="https://instagram.com/melaa.ca"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-9 h-9 rounded-xl bg-white/5 hover:bg-[#E8760A]/15 border border-white/8 hover:border-[#E8760A]/30 flex items-center justify-center transition-all duration-200"
+                className="w-9 h-9 rounded-xl bg-white/5 hover:bg-[#C8A96A]/15 border border-white/8 hover:border-[#C8A96A]/30 flex items-center justify-center transition-all duration-200"
                 aria-label="Instagram"
               >
                 <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
@@ -65,7 +65,7 @@ export default function Footer() {
                 href="https://tiktok.com/@melaa.ca"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-9 h-9 rounded-xl bg-white/5 hover:bg-[#E8760A]/15 border border-white/8 hover:border-[#E8760A]/30 flex items-center justify-center transition-all duration-200"
+                className="w-9 h-9 rounded-xl bg-white/5 hover:bg-[#C8A96A]/15 border border-white/8 hover:border-[#C8A96A]/30 flex items-center justify-center transition-all duration-200"
                 aria-label="TikTok"
               >
                 <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
@@ -101,7 +101,7 @@ export default function Footer() {
                 </li>
               ))}
             </ul>
-            <Link href="/vendors" className="text-xs text-[#E8760A] hover:underline mt-3 inline-block">View all 30 cities →</Link>
+            <Link href="/vendors" className="text-xs text-[#C8A96A] hover:underline mt-3 inline-block">View all 30 cities →</Link>
           </div>
 
           {/* For Vendors */}
@@ -117,12 +117,12 @@ export default function Footer() {
               ))}
             </ul>
             {/* Vendor CTA */}
-            <div className="mt-6 p-4 rounded-2xl border border-[#E8760A]/20 bg-[#E8760A]/8">
-              <p className="text-xs text-[#E8760A] font-semibold mb-1">Founding Vendor Rate</p>
+            <div className="mt-6 p-4 rounded-2xl border border-[#C8A96A]/20 bg-[#C8A96A]/8">
+              <p className="text-xs text-[#C8A96A] font-semibold mb-1">Founding Vendor Rate</p>
               <p className="text-xs text-gray-400 mb-3">Lock in $49/mo forever — only 23 spots left</p>
               <Link
                 href="/list-your-business"
-                className="inline-block text-xs font-bold text-white bg-[#E8760A] hover:bg-[#d06a09] px-3 py-2 rounded-lg transition-colors duration-200"
+                className="inline-block text-xs font-bold text-white bg-[#C8A96A] hover:bg-[#d06a09] px-3 py-2 rounded-lg transition-colors duration-200"
               >
                 Claim Spot →
               </Link>

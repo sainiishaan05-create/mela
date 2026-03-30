@@ -223,7 +223,7 @@ export default function Header() {
                           <Link
                             href={href}
                             role="menuitem"
-                            className="block text-sm text-gray-600 hover:text-[#E8760A] py-1.5 px-2 rounded-lg hover:bg-[#E8760A]/5 transition-all duration-150"
+                            className="block text-sm text-gray-600 hover:text-[#C8A96A] py-1.5 px-2 rounded-lg hover:bg-[#C8A96A]/5 transition-all duration-150"
                           >
                             {label}
                           </Link>

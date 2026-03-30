@@ -25,7 +25,7 @@ export default function CitySearch({ cities, activeCity, activeCategory }: CityS
         placeholder="Search cities..."
         value={citySearch}
         onChange={e => setCitySearch(e.target.value)}
-        className="w-full px-3 py-2 text-sm border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#E8760A]/20 focus:border-[#E8760A] outline-none mb-2"
+        className="w-full px-3 py-2 text-sm border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#C8A96A]/20 focus:border-[#C8A96A] outline-none mb-2"
       />
 
       {/* City list */}
@@ -34,7 +34,7 @@ export default function CitySearch({ cities, activeCity, activeCategory }: CityS
           href={activeCategory ? `/vendors?category=${activeCategory}` : '/vendors'}
           className={`flex items-center gap-2 px-3 py-2 rounded-xl text-sm transition-all duration-150 ${
             !activeCity
-              ? 'bg-[#E8760A]/10 text-[#E8760A] font-semibold'
+              ? 'bg-[#C8A96A]/10 text-[#C8A96A] font-semibold'
               : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900'
           }`}
         >
@@ -47,7 +47,7 @@ export default function CitySearch({ cities, activeCity, activeCategory }: CityS
             href={`/vendors?city=${c.slug}${activeCategory ? `&category=${activeCategory}` : ''}`}
             className={`flex items-center gap-2 px-3 py-2 rounded-xl text-sm transition-all duration-150 ${
               activeCity === c.slug
-                ? 'bg-[#E8760A]/10 text-[#E8760A] font-semibold'
+                ? 'bg-[#C8A96A]/10 text-[#C8A96A] font-semibold'
                 : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900'
             }`}
           >

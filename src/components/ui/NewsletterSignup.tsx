@@ -50,8 +50,8 @@ export default function NewsletterSignup({ variant = 'dark' }: NewsletterSignupP
         : 'bg-[#FAFAF7] text-[#1A1A1A]'
 
   const inputClass = isDark
-    ? 'bg-white/10 border border-white/20 text-white placeholder-white/50 focus:border-[#E8760A] focus:bg-white/15'
-    : 'bg-white border border-gray-200 text-[#1A1A1A] placeholder-gray-400 focus:border-[#E8760A]'
+    ? 'bg-white/10 border border-white/20 text-white placeholder-white/50 focus:border-[#C8A96A] focus:bg-white/15'
+    : 'bg-white border border-gray-200 text-[#1A1A1A] placeholder-gray-400 focus:border-[#C8A96A]'
 
   const subtextClass = isDark ? 'text-white/60' : 'text-gray-500'
   const labelClass = isDark ? 'text-white/80' : 'text-gray-600'
@@ -63,7 +63,7 @@ export default function NewsletterSignup({ variant = 'dark' }: NewsletterSignupP
         <div
           aria-hidden
           className="pointer-events-none absolute -top-24 -right-24 w-64 h-64 rounded-full opacity-10"
-          style={{ background: 'radial-gradient(circle, #E8760A 0%, transparent 70%)' }}
+          style={{ background: 'radial-gradient(circle, #C8A96A 0%, transparent 70%)' }}
         />
       )}
 
@@ -74,7 +74,7 @@ export default function NewsletterSignup({ variant = 'dark' }: NewsletterSignupP
             <span className="text-2xl" role="img" aria-label="hibiscus">🌺</span>
             <span
               className="text-xs font-semibold uppercase tracking-widest"
-              style={{ color: '#E8760A' }}
+              style={{ color: '#C8A96A' }}
             >
               Newsletter
             </span>
@@ -94,12 +94,12 @@ export default function NewsletterSignup({ variant = 'dark' }: NewsletterSignupP
         {status === 'success' && (
           <div
             className="rounded-xl px-6 py-5 animate-fade-up"
-            style={{ background: 'rgba(232,118,10,0.12)', border: '1px solid rgba(232,118,10,0.3)' }}
+            style={{ background: 'rgba(200,169,106,0.12)', border: '1px solid rgba(200,169,106,0.3)' }}
           >
             <div className="flex items-center gap-3">
               <span className="text-2xl">🎉</span>
               <div>
-                <p className="font-semibold" style={{ color: '#E8760A' }}>
+                <p className="font-semibold" style={{ color: '#C8A96A' }}>
                   You&apos;re in!
                 </p>
                 <p className={`text-sm ${subtextClass}`}>{message}</p>
@@ -133,7 +133,7 @@ export default function NewsletterSignup({ variant = 'dark' }: NewsletterSignupP
                 type="submit"
                 disabled={status === 'loading' || !email}
                 className="btn-primary shrink-0 rounded-xl px-6 py-3 text-sm font-semibold text-white transition-all duration-200 disabled:opacity-60 disabled:cursor-not-allowed disabled:transform-none"
-                style={{ background: '#E8760A' }}
+                style={{ background: '#C8A96A' }}
               >
                 {status === 'loading' ? (
                   <span className="flex items-center gap-2">
@@ -180,7 +180,7 @@ export default function NewsletterSignup({ variant = 'dark' }: NewsletterSignupP
             { icon: '✓', text: 'Unsubscribe anytime' },
           ].map(({ icon, text }) => (
             <span key={text} className="flex items-center gap-1.5">
-              <span style={{ color: '#E8760A' }} className="font-bold">
+              <span style={{ color: '#C8A96A' }} className="font-bold">
                 {icon}
               </span>
               {text}

@@ -85,11 +85,11 @@ export default function PricingPage() {
       {/* ── Hero ── */}
       <section className="bg-[#111111] text-white relative overflow-hidden">
         <div className="absolute inset-0 opacity-15"
-          style={{ background: 'radial-gradient(ellipse at 30% 50%, #E8760A 0%, transparent 60%)' }} />
+          style={{ background: 'radial-gradient(ellipse at 30% 50%, #C8A96A 0%, transparent 60%)' }} />
         <div className="absolute inset-0 opacity-[0.03]"
           style={{ backgroundImage: 'linear-gradient(rgba(255,255,255,0.4) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.4) 1px, transparent 1px)', backgroundSize: '48px 48px' }} />
         <div className="relative max-w-4xl mx-auto px-4 sm:px-6 py-20 text-center">
-          <p className="text-[#E8760A] text-xs font-bold uppercase tracking-widest mb-4">Pricing</p>
+          <p className="text-[#C8A96A] text-xs font-bold uppercase tracking-widest mb-4">Pricing</p>
           <h1 className="font-[family-name:var(--font-playfair)] text-4xl sm:text-5xl md:text-6xl font-bold mb-5">
             Simple, Honest Pricing
           </h1>
@@ -99,11 +99,11 @@ export default function PricingPage() {
           {spotsLeft > 0 && (
             <div className="inline-flex items-center gap-2.5 bg-white/8 border border-white/15 text-sm px-5 py-2.5 rounded-full backdrop-blur-sm">
               <span className="relative flex h-2 w-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#E8760A] opacity-75" />
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-[#E8760A]" />
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#C8A96A] opacity-75" />
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-[#C8A96A]" />
               </span>
               <span className="text-gray-300">
-                Only <span className="text-[#E8760A] font-bold">{spotsLeft} founding spots</span> remaining at $49/mo
+                Only <span className="text-[#C8A96A] font-bold">{spotsLeft} founding spots</span> remaining at $49/mo
               </span>
             </div>
           )}
@@ -117,13 +117,13 @@ export default function PricingPage() {
             <div key={plan.name}
               className={`relative bg-white rounded-3xl border-2 p-8 transition-all duration-300 ${
                 plan.primary
-                  ? 'border-[#E8760A] shadow-saffron md:scale-105 md:-my-4'
+                  ? 'border-[#C8A96A] shadow-saffron md:scale-105 md:-my-4'
                   : 'border-gray-100 shadow-premium hover:shadow-premium-hover'
               }`}
             >
               {plan.badge && (
                 <div className="absolute -top-3.5 left-1/2 -translate-x-1/2">
-                  <span className="inline-flex items-center gap-1.5 bg-[#E8760A] text-white text-xs font-bold px-4 py-1.5 rounded-full shadow-saffron whitespace-nowrap">
+                  <span className="inline-flex items-center gap-1.5 bg-[#C8A96A] text-white text-xs font-bold px-4 py-1.5 rounded-full shadow-saffron whitespace-nowrap">
                     <span className="w-1.5 h-1.5 rounded-full bg-white/80 animate-pulse-soft" />
                     {plan.badge}
                   </span>
@@ -137,7 +137,7 @@ export default function PricingPage() {
               )}
               <p className="font-[family-name:var(--font-playfair)] text-xl font-bold mb-2">{plan.name}</p>
               <div className="flex items-end gap-1.5 mb-1">
-                <span className={`font-bold leading-none ${plan.primary ? 'text-5xl text-[#E8760A]' : 'text-4xl text-gray-900'}`}>
+                <span className={`font-bold leading-none ${plan.primary ? 'text-5xl text-[#C8A96A]' : 'text-4xl text-gray-900'}`}>
                   {plan.price}
                 </span>
                 <span className="text-gray-400 text-sm mb-1">{plan.period}</span>
@@ -146,8 +146,8 @@ export default function PricingPage() {
               <ul className="space-y-3 mb-8">
                 {plan.features.map(f => (
                   <li key={f} className="flex items-start gap-3 text-sm">
-                    <div className={`w-5 h-5 rounded-full flex items-center justify-center shrink-0 mt-0.5 ${plan.primary ? 'bg-[#E8760A]/10' : 'bg-gray-100'}`}>
-                      <CheckCircle2 className={`w-3 h-3 ${plan.primary ? 'text-[#E8760A]' : 'text-gray-500'}`} />
+                    <div className={`w-5 h-5 rounded-full flex items-center justify-center shrink-0 mt-0.5 ${plan.primary ? 'bg-[#C8A96A]/10' : 'bg-gray-100'}`}>
+                      <CheckCircle2 className={`w-3 h-3 ${plan.primary ? 'text-[#C8A96A]' : 'text-gray-500'}`} />
                     </div>
                     <span className="text-gray-600 leading-snug">{f}</span>
                   </li>
@@ -155,7 +155,7 @@ export default function PricingPage() {
               </ul>
               <Link href={plan.href}
                 className={`btn-primary flex items-center justify-center gap-2 w-full font-bold py-3.5 rounded-2xl text-sm transition-colors ${
-                  plan.primary ? 'bg-[#E8760A] text-white shadow-saffron' : 'border border-gray-200 text-gray-700 hover:border-[#E8760A] hover:text-[#E8760A]'
+                  plan.primary ? 'bg-[#C8A96A] text-white shadow-saffron' : 'border border-gray-200 text-gray-700 hover:border-[#C8A96A] hover:text-[#C8A96A]'
                 }`}>
                 {plan.cta}
                 {plan.primary && <ArrowRight className="w-4 h-4" />}
@@ -184,7 +184,7 @@ export default function PricingPage() {
       <section className="max-w-4xl mx-auto px-4 sm:px-6 pb-16">
         <div className="bg-white rounded-3xl border border-gray-100 shadow-premium overflow-hidden">
           <div className="flex flex-col sm:flex-row">
-            <div className="bg-[#E8760A] p-8 flex items-center justify-center sm:w-36 shrink-0">
+            <div className="bg-[#C8A96A] p-8 flex items-center justify-center sm:w-36 shrink-0">
               <span className="text-5xl">🛡️</span>
             </div>
             <div className="p-8">
@@ -211,7 +211,7 @@ export default function PricingPage() {
         </div>
         <div className="text-center mt-12 p-6 bg-white rounded-2xl border border-gray-100 shadow-premium">
           <p className="text-gray-500 text-sm mb-1">Still have questions?</p>
-          <a href="mailto:hello@melaa.ca" className="text-[#E8760A] font-semibold hover:underline">hello@melaa.ca</a>
+          <a href="mailto:hello@melaa.ca" className="text-[#C8A96A] font-semibold hover:underline">hello@melaa.ca</a>
           <p className="text-gray-400 text-xs mt-1">We reply within 2 hours</p>
         </div>
       </section>

@@ -59,8 +59,8 @@ export default function VerifyClient() {
   if (status === 'loading') {
     return (
       <div className="text-center">
-        <div className="w-16 h-16 bg-[#E8760A]/10 rounded-full flex items-center justify-center mx-auto mb-4">
-          <Loader2 className="w-8 h-8 text-[#E8760A] animate-spin" />
+        <div className="w-16 h-16 bg-[#C8A96A]/10 rounded-full flex items-center justify-center mx-auto mb-4">
+          <Loader2 className="w-8 h-8 text-[#C8A96A] animate-spin" />
         </div>
         <h2 className="font-[family-name:var(--font-playfair)] text-xl font-bold text-[#1A1A1A] mb-2">
           Verifying your email…
@@ -82,14 +82,14 @@ export default function VerifyClient() {
       {vendorSlug ? (
         <Link
           href={`/claim/${vendorSlug}`}
-          className="inline-flex items-center gap-2 bg-[#E8760A] text-white font-semibold py-2.5 px-6 rounded-xl text-sm hover:bg-[#d16a09] transition"
+          className="inline-flex items-center gap-2 bg-[#C8A96A] text-white font-semibold py-2.5 px-6 rounded-xl text-sm hover:bg-[#d16a09] transition"
         >
           Try again
         </Link>
       ) : (
         <Link
           href="/"
-          className="inline-flex items-center gap-2 text-[#E8760A] hover:underline text-sm font-medium"
+          className="inline-flex items-center gap-2 text-[#C8A96A] hover:underline text-sm font-medium"
         >
           Go back to Melaa
         </Link>

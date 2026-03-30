@@ -64,7 +64,7 @@ export default async function TeamPage() {
     <div className="mx-auto max-w-screen-xl px-4 py-10 sm:px-6 lg:px-8">
       {/* Header */}
       <div className="mb-2 flex items-center gap-3">
-        <div className="h-8 w-1 rounded-full bg-[#E8760A]" />
+        <div className="h-8 w-1 rounded-full bg-[#C8A96A]" />
         <h1 className="font-[family-name:var(--font-playfair)] text-3xl font-bold text-[#1A1A1A]">
           Team Wealth Dashboard
         </h1>
@@ -75,7 +75,7 @@ export default async function TeamPage() {
 
       {/* Core Valuation Block */}
       <section className="mb-8 rounded-2xl bg-[#1A1A1A] p-8 text-white">
-        <p className="mb-1 text-sm font-medium uppercase tracking-widest text-[#E8760A]">
+        <p className="mb-1 text-sm font-medium uppercase tracking-widest text-[#C8A96A]">
           Implied Company Valuation
         </p>
         <p className="mb-1 font-[family-name:var(--font-playfair)] text-5xl font-bold">
@@ -106,7 +106,7 @@ export default async function TeamPage() {
         <div className="grid grid-cols-3 gap-4">
           <div className="rounded-xl bg-[#FAFAF7] p-4 text-center">
             <p className="text-xs font-medium uppercase tracking-wide text-[#6B6B6B]">Projected MRR</p>
-            <p className="mt-1 text-2xl font-bold text-[#E8760A]">{currency(projectedMRR12)}</p>
+            <p className="mt-1 text-2xl font-bold text-[#C8A96A]">{currency(projectedMRR12)}</p>
             <p className="text-xs text-[#6B6B6B]">at current {monthlyGrowthRate.toFixed(1)}%/mo growth</p>
           </div>
           <div className="rounded-xl bg-[#FAFAF7] p-4 text-center">
@@ -165,7 +165,7 @@ export default async function TeamPage() {
                     <td className="whitespace-nowrap px-4 py-3 font-medium text-[#1A1A1A]">{member.name}</td>
                     <td className="whitespace-nowrap px-4 py-3 text-[#6B6B6B]">{member.role}</td>
                     <td className="whitespace-nowrap px-4 py-3">
-                      <span className="font-bold text-[#E8760A]">{member.equity_pct}%</span>
+                      <span className="font-bold text-[#C8A96A]">{member.equity_pct}%</span>
                     </td>
                     <td className="whitespace-nowrap px-4 py-3">
                       <div className="font-semibold text-[#1A1A1A]">{currency(equityValue)}</div>
@@ -212,7 +212,7 @@ export default async function TeamPage() {
                   </div>
                   <div className="text-right shrink-0">
                     <p className="text-xs text-[#6B6B6B]">Implied valuation</p>
-                    <p className="text-xl font-bold text-[#E8760A]">{currency(mValuation)}</p>
+                    <p className="text-xl font-bold text-[#C8A96A]">{currency(mValuation)}</p>
                     <p className="text-xs text-[#6B6B6B]">at {VALUATION_MULTIPLE}x ARR</p>
                   </div>
                 </div>
@@ -237,7 +237,7 @@ export default async function TeamPage() {
       </section>
 
       {/* What we need to hit next milestone */}
-      <section className="mb-8 rounded-2xl border border-[#E8760A] bg-orange-50 p-6">
+      <section className="mb-8 rounded-2xl border border-[#C8A96A] bg-[#F5ECD7] p-6">
         <h2 className="mb-3 text-lg font-semibold text-[#1A1A1A]">Focus: What moves the valuation</h2>
         <div className="grid gap-3 sm:grid-cols-3">
           {[
@@ -259,7 +259,7 @@ export default async function TeamPage() {
           ].map(item => (
             <div key={item.action} className="rounded-xl bg-white p-4 border border-[#E5E5E0]">
               <p className="font-semibold text-[#1A1A1A]">{item.action}</p>
-              <p className="mt-1 text-lg font-bold text-[#E8760A]">{item.impact}</p>
+              <p className="mt-1 text-lg font-bold text-[#C8A96A]">{item.impact}</p>
               <p className="text-xs text-[#6B6B6B]">{item.note}</p>
             </div>
           ))}
@@ -271,7 +271,7 @@ export default async function TeamPage() {
         <Link href="/admin" className="rounded-full bg-[#1A1A1A] px-5 py-2 text-sm font-medium text-white hover:bg-[#333]">
           ← Admin Dashboard
         </Link>
-        <Link href="/admin/outreach" className="rounded-full bg-[#E8760A] px-5 py-2 text-sm font-medium text-white hover:bg-[#cf6809]">
+        <Link href="/admin/outreach" className="rounded-full bg-[#C8A96A] px-5 py-2 text-sm font-medium text-white hover:bg-[#cf6809]">
           Run Outreach →
         </Link>
       </div>

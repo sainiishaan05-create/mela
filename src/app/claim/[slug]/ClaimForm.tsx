@@ -74,7 +74,7 @@ export default function ClaimForm({ slug, vendorName }: ClaimFormProps) {
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           placeholder="you@business.com"
-          className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-[#E8760A]/30 focus:border-[#E8760A] text-sm transition"
+          className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-[#C8A96A]/30 focus:border-[#C8A96A] text-sm transition"
           disabled={status === 'loading'}
         />
       </div>
@@ -86,7 +86,7 @@ export default function ClaimForm({ slug, vendorName }: ClaimFormProps) {
       <button
         type="submit"
         disabled={status === 'loading' || !email.trim()}
-        className="w-full flex items-center justify-center gap-2 bg-[#E8760A] hover:bg-[#d16a09] text-white font-semibold py-3 px-6 rounded-xl transition disabled:opacity-50 disabled:cursor-not-allowed"
+        className="w-full flex items-center justify-center gap-2 bg-[#C8A96A] hover:bg-[#d16a09] text-white font-semibold py-3 px-6 rounded-xl transition disabled:opacity-50 disabled:cursor-not-allowed"
       >
         {status === 'loading' ? (
           <Loader2 className="w-4 h-4 animate-spin" />

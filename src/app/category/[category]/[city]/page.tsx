@@ -47,7 +47,7 @@ export default async function CategoryCityPage({ params }: Props) {
   return (
     <div className="max-w-6xl mx-auto px-4 py-10">
       <div className="text-sm text-gray-400 mb-4">
-        <Link href={`/category/${category}`} className="hover:text-[#E8760A]">{cat.name}</Link> → {cityData.name}
+        <Link href={`/category/${category}`} className="hover:text-[#C8A96A]">{cat.name}</Link> → {cityData.name}
       </div>
       <div className="mb-8">
         <p className="text-4xl mb-3">{cat.icon}</p>
@@ -62,7 +62,7 @@ export default async function CategoryCityPage({ params }: Props) {
           <p className="text-5xl mb-4">{cat.icon}</p>
           <h2 className="font-[family-name:var(--font-playfair)] text-2xl font-bold mb-2">No {cat.name} in {cityData.name} yet</h2>
           <p className="text-gray-500 mb-6">Be the first!</p>
-          <Link href="/list-your-business" className="bg-[#E8760A] text-white px-6 py-3 rounded-full font-medium hover:bg-[#d06a09] transition-colors">
+          <Link href="/list-your-business" className="bg-[#C8A96A] text-white px-6 py-3 rounded-full font-medium hover:bg-[#d06a09] transition-colors">
             List Your Business
           </Link>
         </div>

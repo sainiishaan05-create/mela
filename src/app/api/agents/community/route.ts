@@ -77,12 +77,12 @@ export async function GET(req: Request) {
         to: buyer.buyer_email,
         subject: `✨ Vendor Spotlight: ${spotlightVendor.name} — this week on Melaa`,
         html: `<div style="font-family:sans-serif;max-width:600px;margin:0 auto">
-          <h2 style="color:#E8760A">This Week's Vendor Spotlight</h2>
+          <h2 style="color:#C8A96A">This Week's Vendor Spotlight</h2>
           <div style="background:#fafaf7;border-radius:12px;padding:20px;margin:16px 0">
             <h3 style="margin:0 0 8px;color:#1A1A1A">${spotlightVendor.name}</h3>
-            <p style="margin:0 0 4px;color:#E8760A;font-size:13px">${catName} · ${cityName}</p>
+            <p style="margin:0 0 4px;color:#C8A96A;font-size:13px">${catName} · ${cityName}</p>
             <p style="margin:8px 0 0;color:#444;line-height:1.6">${spotlightCopy}</p>
-            <a href="${SITE}/vendors/${spotlightVendor.slug}" style="background:#E8760A;color:white;padding:8px 16px;border-radius:20px;text-decoration:none;display:inline-block;margin-top:12px;font-size:13px">View Profile →</a>
+            <a href="${SITE}/vendors/${spotlightVendor.slug}" style="background:#C8A96A;color:white;padding:8px 16px;border-radius:20px;text-decoration:none;display:inline-block;margin-top:12px;font-size:13px">View Profile →</a>
           </div>
           <div style="border-top:1px solid #e5e5e0;padding-top:16px;margin-top:16px">
             <p style="margin:0 0 6px;font-weight:bold;color:#1A1A1A">💡 Wedding Planning Tip</p>
@@ -122,13 +122,13 @@ export async function GET(req: Request) {
       to: vendor.email,
       subject: `🎉 You just hit ${count} leads on Melaa!`,
       html: `<div style="font-family:sans-serif;max-width:600px;margin:0 auto">
-        <div style="text-align:center;padding:24px;background:linear-gradient(135deg,#E8760A,#f59e0b);border-radius:12px;margin-bottom:20px">
+        <div style="text-align:center;padding:24px;background:linear-gradient(135deg,#C8A96A,#f59e0b);border-radius:12px;margin-bottom:20px">
           <p style="font-size:48px;margin:0">🎉</p>
           <h2 style="color:white;margin:8px 0">${count} Leads!</h2>
           <p style="color:rgba(255,255,255,0.9);margin:0">${vendor.name}</p>
         </div>
         ${celebrationMsg.split('\n').map(p => `<p style="color:#333;line-height:1.6">${p}</p>`).join('')}
-        ${vendor.tier === 'free' ? `<a href="${SITE}/pricing" style="background:#E8760A;color:white;padding:10px 20px;border-radius:20px;text-decoration:none;display:inline-block;margin-top:8px">Upgrade to Get More →</a>` : ''}
+        ${vendor.tier === 'free' ? `<a href="${SITE}/pricing" style="background:#C8A96A;color:white;padding:10px 20px;border-radius:20px;text-decoration:none;display:inline-block;margin-top:8px">Upgrade to Get More →</a>` : ''}
       </div>`,
     })
     results.push(`milestone:${vendor.name}:${count}_leads`)
@@ -154,10 +154,10 @@ export async function GET(req: Request) {
       to: vendor.email,
       subject: `📊 Melaa this week: ${weekLeads} new inquiries from GTA families`,
       html: `<div style="font-family:sans-serif;max-width:600px;margin:0 auto">
-        <h2 style="color:#E8760A">This Week on Melaa</h2>
+        <h2 style="color:#C8A96A">This Week on Melaa</h2>
         <div style="display:flex;gap:12px;margin:16px 0">
           <div style="flex:1;background:#fafaf7;padding:16px;border-radius:8px;text-align:center">
-            <p style="margin:0;font-size:28px;font-weight:bold;color:#E8760A">${weekLeads ?? 0}</p>
+            <p style="margin:0;font-size:28px;font-weight:bold;color:#C8A96A">${weekLeads ?? 0}</p>
             <p style="margin:4px 0 0;font-size:12px;color:#666">Buyer inquiries</p>
           </div>
           <div style="flex:1;background:#fafaf7;padding:16px;border-radius:8px;text-align:center">
@@ -169,7 +169,7 @@ export async function GET(req: Request) {
           <p style="font-weight:bold;margin:0 0 6px">💡 Vendor Tip of the Week</p>
           <p style="color:#444;line-height:1.6;margin:0">${digestTip}</p>
         </div>
-        <a href="${SITE}/dashboard" style="background:#E8760A;color:white;padding:10px 20px;border-radius:20px;text-decoration:none;display:inline-block;margin-top:16px">Check My Leads →</a>
+        <a href="${SITE}/dashboard" style="background:#C8A96A;color:white;padding:10px 20px;border-radius:20px;text-decoration:none;display:inline-block;margin-top:16px">Check My Leads →</a>
         <p style="color:#bbb;font-size:11px;margin-top:16px">Reply to unsubscribe.</p>
       </div>`,
     })

@@ -49,7 +49,7 @@ export default async function ClaimPage({ params }: Props) {
     return (
       <div className="min-h-screen bg-[#FAFAF7] flex items-center justify-center px-4">
         <div className="max-w-md w-full text-center">
-          <div className="w-16 h-16 bg-orange-100 rounded-full flex items-center justify-center mx-auto mb-4">
+          <div className="w-16 h-16 bg-[#F5ECD7] rounded-full flex items-center justify-center mx-auto mb-4">
             <span className="text-3xl">🔒</span>
           </div>
           <h1 className="font-[family-name:var(--font-playfair)] text-2xl font-bold text-[#1A1A1A] mb-2">
@@ -60,7 +60,7 @@ export default async function ClaimPage({ params }: Props) {
           </p>
           <Link
             href={`/vendors/${slug}`}
-            className="inline-flex items-center gap-2 text-[#E8760A] hover:underline text-sm font-medium"
+            className="inline-flex items-center gap-2 text-[#C8A96A] hover:underline text-sm font-medium"
           >
             <ArrowLeft className="w-4 h-4" />
             Back to listing
@@ -84,7 +84,7 @@ export default async function ClaimPage({ params }: Props) {
         {/* Back link */}
         <Link
           href={`/vendors/${slug}`}
-          className="inline-flex items-center gap-1.5 text-gray-400 hover:text-[#E8760A] text-sm mb-8 transition"
+          className="inline-flex items-center gap-1.5 text-gray-400 hover:text-[#C8A96A] text-sm mb-8 transition"
         >
           <ArrowLeft className="w-4 h-4" />
           Back to listing
@@ -92,7 +92,7 @@ export default async function ClaimPage({ params }: Props) {
 
         {/* Header */}
         <div className="text-center mb-8">
-          <div className="inline-flex items-center gap-2 bg-[#E8760A]/10 text-[#E8760A] text-xs font-semibold px-3 py-1.5 rounded-full mb-4 uppercase tracking-widest">
+          <div className="inline-flex items-center gap-2 bg-[#C8A96A]/10 text-[#C8A96A] text-xs font-semibold px-3 py-1.5 rounded-full mb-4 uppercase tracking-widest">
             Claim Your Listing
           </div>
           <h1 className="font-[family-name:var(--font-playfair)] text-3xl md:text-4xl font-bold text-[#1A1A1A] mb-3">

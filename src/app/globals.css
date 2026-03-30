@@ -2,9 +2,9 @@
 
 :root {
   /* Legacy (kept for backward compat) */
-  --saffron: #E8760A;
-  --saffron-dark: #C9640A;
-  --saffron-light: #FFF0E0;
+  --saffron: #C8A96A;
+  --saffron-dark: #B8954F;
+  --saffron-light: #F5ECD7;
   --ivory: #FAFAF7;
   --charcoal: #1A1A1A;
   --charcoal-soft: #2C2C2C;
@@ -120,7 +120,7 @@ body {
 
 /* ---------- Gradient Text ---------- */
 .gradient-text {
-  background: linear-gradient(135deg, #E8760A 0%, #F5A623 50%, #E8760A 100%);
+  background: linear-gradient(135deg, #C8A96A 0%, #D4B97A 50%, #C8A96A 100%);
   background-size: 200% auto;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -129,7 +129,7 @@ body {
 }
 
 .gradient-text-warm {
-  background: linear-gradient(135deg, #FF6B35 0%, #E8760A 40%, #F5A623 100%);
+  background: linear-gradient(135deg, #B8954F 0%, #C8A96A 40%, #D4B97A 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -161,20 +161,20 @@ body {
 .shadow-premium-hover {
   box-shadow:
     0 2px 4px rgba(0,0,0,0.04),
-    0 8px 24px rgba(232,118,10,0.12),
+    0 8px 24px rgba(200,169,106,0.12),
     0 24px 48px rgba(0,0,0,0.08);
 }
 
 .shadow-saffron {
   box-shadow:
-    0 4px 16px rgba(232,118,10,0.25),
-    0 12px 32px rgba(232,118,10,0.12);
+    0 4px 16px rgba(200,169,106,0.25),
+    0 12px 32px rgba(200,169,106,0.12);
 }
 
 .shadow-saffron-lg {
   box-shadow:
-    0 8px 24px rgba(232,118,10,0.3),
-    0 20px 48px rgba(232,118,10,0.15);
+    0 8px 24px rgba(200,169,106,0.3),
+    0 20px 48px rgba(200,169,106,0.15);
 }
 
 /* ---------- Interactive Card Base ---------- */
@@ -187,7 +187,7 @@ body {
 .card-interactive:hover {
   transform: translateY(-4px);
   box-shadow:
-    0 8px 24px rgba(232,118,10,0.1),
+    0 8px 24px rgba(200,169,106,0.1),
     0 24px 48px rgba(0,0,0,0.08);
 }
 
@@ -211,7 +211,7 @@ body {
 
 .btn-primary:hover {
   transform: translateY(-1px) scale(1.02);
-  box-shadow: 0 8px 24px rgba(232,118,10,0.35), 0 2px 8px rgba(232,118,10,0.2);
+  box-shadow: 0 8px 24px rgba(200,169,106,0.35), 0 2px 8px rgba(200,169,106,0.2);
 }
 
 .btn-primary:hover::before {

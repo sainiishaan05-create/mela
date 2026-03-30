@@ -66,7 +66,7 @@ export async function POST(req: Request) {
       subject: `Welcome to Melaa, ${name}! 🎉`,
       html: `
         <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto;">
-          <h2 style="color: #E8760A;">Welcome to Melaa! 🎉</h2>
+          <h2 style="color: #C8A96A;">Welcome to Melaa! 🎉</h2>
           <p>Hi there,</p>
           <p><strong>${name}</strong> is now live on Melaa. South Asian families across the GTA can now discover you!</p>
           <p>Your profile is at: <a href="${process.env.NEXT_PUBLIC_SITE_URL}/vendors/${slug}">${process.env.NEXT_PUBLIC_SITE_URL}/vendors/${slug}</a></p>

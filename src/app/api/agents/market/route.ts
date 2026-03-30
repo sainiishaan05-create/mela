@@ -161,7 +161,7 @@ export async function GET(req: Request) {
     to: ADMIN_EMAIL,
     subject: `🔍 Weekly Market Intelligence Report — ${now.toDateString()}`,
     html: `<div style="font-family:sans-serif;max-width:680px;margin:0 auto">
-      <h2 style="color:#E8760A">Market Intelligence Report</h2>
+      <h2 style="color:#C8A96A">Market Intelligence Report</h2>
       <p style="color:#666;font-size:13px">${now.toDateString()} · Melaa.ca</p>
 
       <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin:20px 0">
@@ -171,7 +171,7 @@ export async function GET(req: Request) {
         </div>
         <div style="background:#fafaf7;padding:12px;border-radius:8px;text-align:center">
           <p style="margin:0;font-size:11px;color:#999;text-transform:uppercase">Total Leads</p>
-          <p style="margin:4px 0 0;font-size:24px;font-weight:bold;color:#E8760A">${totalLeads}</p>
+          <p style="margin:4px 0 0;font-size:24px;font-weight:bold;color:#C8A96A">${totalLeads}</p>
         </div>
         <div style="background:#fafaf7;padding:12px;border-radius:8px;text-align:center">
           <p style="margin:0;font-size:11px;color:#999;text-transform:uppercase">Paid Conversion</p>
@@ -179,24 +179,24 @@ export async function GET(req: Request) {
         </div>
       </div>
 
-      <h3 style="border-bottom:2px solid #E8760A;padding-bottom:6px">⚔️ Competitive Analysis</h3>
+      <h3 style="border-bottom:2px solid #C8A96A;padding-bottom:6px">⚔️ Competitive Analysis</h3>
       <div style="background:#fafaf7;padding:16px;border-radius:8px;white-space:pre-wrap;font-size:13px;color:#333;line-height:1.7">${competitiveReport}</div>
 
-      <h3 style="border-bottom:2px solid #E8760A;padding-bottom:6px;margin-top:24px">📐 Market Sizing (TAM/SAM/SOM)</h3>
+      <h3 style="border-bottom:2px solid #C8A96A;padding-bottom:6px;margin-top:24px">📐 Market Sizing (TAM/SAM/SOM)</h3>
       <div style="background:#fafaf7;padding:16px;border-radius:8px;white-space:pre-wrap;font-size:13px;color:#333;line-height:1.7">${marketSizing}</div>
 
-      <h3 style="border-bottom:2px solid #E8760A;padding-bottom:6px;margin-top:24px">💰 New Revenue Streams</h3>
+      <h3 style="border-bottom:2px solid #C8A96A;padding-bottom:6px;margin-top:24px">💰 New Revenue Streams</h3>
       <div style="background:#fafaf7;padding:16px;border-radius:8px;white-space:pre-wrap;font-size:13px;color:#333;line-height:1.7">${newStreams}</div>
 
-      <h3 style="border-bottom:2px solid #E8760A;padding-bottom:6px;margin-top:24px">📅 Seasonal Demand Forecast</h3>
+      <h3 style="border-bottom:2px solid #C8A96A;padding-bottom:6px;margin-top:24px">📅 Seasonal Demand Forecast</h3>
       <div style="background:#fafaf7;padding:16px;border-radius:8px;white-space:pre-wrap;font-size:13px;color:#333;line-height:1.7">${seasonalForecast}</div>
 
-      <h3 style="border-bottom:2px solid #E8760A;padding-bottom:6px;margin-top:24px">🚀 Category Expansion Opportunities</h3>
+      <h3 style="border-bottom:2px solid #C8A96A;padding-bottom:6px;margin-top:24px">🚀 Category Expansion Opportunities</h3>
       <div style="background:#fafaf7;padding:16px;border-radius:8px;white-space:pre-wrap;font-size:13px;color:#333;line-height:1.7">${expansion}</div>
 
       <div style="margin-top:24px">
         <a href="${SITE}/admin" style="background:#1A1A1A;color:white;padding:10px 20px;border-radius:20px;text-decoration:none;display:inline-block;margin-right:8px">Admin Dashboard</a>
-        <a href="${SITE}/admin/outreach" style="background:#E8760A;color:white;padding:10px 20px;border-radius:20px;text-decoration:none;display:inline-block">Run Outreach →</a>
+        <a href="${SITE}/admin/outreach" style="background:#C8A96A;color:white;padding:10px 20px;border-radius:20px;text-decoration:none;display:inline-block">Run Outreach →</a>
       </div>
       <p style="color:#999;font-size:12px;margin-top:20px">Melaa Market Analyst Agent · ${now.toDateString()}</p>
     </div>`,

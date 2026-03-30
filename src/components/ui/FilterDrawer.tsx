@@ -129,8 +129,8 @@ export default function FilterDrawer({
                 onClick={() => setSelectedCategory('')}
                 className={`flex items-center gap-2 px-3 py-2.5 rounded-xl text-sm font-medium transition-all duration-150 border ${
                   !selectedCategory
-                    ? 'bg-[#E8760A] text-white shadow-saffron border-[#E8760A]'
-                    : 'bg-white border-gray-200 text-gray-700 hover:border-[#E8760A]/40'
+                    ? 'bg-[#C8A96A] text-white shadow-saffron border-[#C8A96A]'
+                    : 'bg-white border-gray-200 text-gray-700 hover:border-[#C8A96A]/40'
                 }`}
               >
                 <span className="text-base leading-none">✨</span>
@@ -142,8 +142,8 @@ export default function FilterDrawer({
                   onClick={() => setSelectedCategory(cat.slug)}
                   className={`flex items-center gap-2 px-3 py-2.5 rounded-xl text-sm font-medium transition-all duration-150 border ${
                     selectedCategory === cat.slug
-                      ? 'bg-[#E8760A] text-white shadow-saffron border-[#E8760A]'
-                      : 'bg-gray-50 border-gray-200 text-gray-700 hover:border-[#E8760A]/40'
+                      ? 'bg-[#C8A96A] text-white shadow-saffron border-[#C8A96A]'
+                      : 'bg-gray-50 border-gray-200 text-gray-700 hover:border-[#C8A96A]/40'
                   }`}
                 >
                   <span className="text-base leading-none">{cat.icon}</span>
@@ -167,7 +167,7 @@ export default function FilterDrawer({
               placeholder="Search cities..."
               value={citySearch}
               onChange={e => setCitySearch(e.target.value)}
-              className="w-full px-3 py-2 text-sm border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#E8760A]/20 focus:border-[#E8760A] outline-none mb-3"
+              className="w-full px-3 py-2 text-sm border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#C8A96A]/20 focus:border-[#C8A96A] outline-none mb-3"
             />
             {/* City list */}
             <div className="max-h-44 overflow-y-auto space-y-1 pr-1">
@@ -175,7 +175,7 @@ export default function FilterDrawer({
                 onClick={() => setSelectedCity('')}
                 className={`w-full text-left px-3 py-2 rounded-xl text-sm transition-all duration-150 ${
                   !selectedCity
-                    ? 'bg-[#E8760A]/10 text-[#E8760A] font-semibold'
+                    ? 'bg-[#C8A96A]/10 text-[#C8A96A] font-semibold'
                     : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900'
                 }`}
               >
@@ -187,7 +187,7 @@ export default function FilterDrawer({
                   onClick={() => setSelectedCity(c.slug)}
                   className={`w-full text-left px-3 py-2 rounded-xl text-sm transition-all duration-150 ${
                     selectedCity === c.slug
-                      ? 'bg-[#E8760A]/10 text-[#E8760A] font-semibold'
+                      ? 'bg-[#C8A96A]/10 text-[#C8A96A] font-semibold'
                       : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900'
                   }`}
                 >
@@ -231,7 +231,7 @@ export default function FilterDrawer({
           {/* Apply button */}
           <button
             onClick={handleApply}
-            className="w-full bg-[#E8760A] text-white font-bold py-4 rounded-2xl shadow-saffron text-base transition-opacity hover:opacity-90 active:opacity-80"
+            className="w-full bg-[#C8A96A] text-white font-bold py-4 rounded-2xl shadow-saffron text-base transition-opacity hover:opacity-90 active:opacity-80"
           >
             Show Results →
           </button>

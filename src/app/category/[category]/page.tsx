@@ -55,7 +55,7 @@ export default async function CategoryPage({ params, searchParams }: Props) {
       <section className="relative bg-[#111111] overflow-hidden">
         {/* Radial glow behind the icon */}
         <div className="pointer-events-none absolute inset-0 flex items-start justify-center pt-10">
-          <div className="w-80 h-40 rounded-full bg-[#E8760A] opacity-10 blur-3xl" />
+          <div className="w-80 h-40 rounded-full bg-[#C8A96A] opacity-10 blur-3xl" />
         </div>
 
         <div className="relative max-w-6xl mx-auto px-4 pt-14 pb-10 text-center">
@@ -77,7 +77,7 @@ export default async function CategoryPage({ params, searchParams }: Props) {
 
           {/* Vendor count badge */}
           <div className="inline-flex items-center gap-2 bg-white/8 border border-white/12 rounded-full px-4 py-1.5 mb-8 animate-fade-up delay-200">
-            <span className="w-2 h-2 rounded-full bg-[#E8760A]" />
+            <span className="w-2 h-2 rounded-full bg-[#C8A96A]" />
             <span className="text-white text-sm font-semibold">
               {vendorCount} vendor{vendorCount !== 1 ? 's' : ''} in the GTA
             </span>
@@ -87,7 +87,7 @@ export default async function CategoryPage({ params, searchParams }: Props) {
           <div className="flex flex-wrap justify-center gap-2 animate-fade-up delay-300">
             <Link
               href={`/category/${category}`}
-              className="flex items-center gap-1.5 px-4 py-1.5 rounded-full text-sm font-semibold bg-[#E8760A] text-white shadow-saffron transition-all duration-200 hover:opacity-90"
+              className="flex items-center gap-1.5 px-4 py-1.5 rounded-full text-sm font-semibold bg-[#C8A96A] text-white shadow-saffron transition-all duration-200 hover:opacity-90"
             >
               <MapPin className="w-3.5 h-3.5" />
               All Cities
@@ -126,7 +126,7 @@ export default async function CategoryPage({ params, searchParams }: Props) {
               </Link>
               <Link
                 href="/list-your-business"
-                className="btn-primary inline-block bg-[#E8760A] text-white px-6 py-2.5 rounded-full text-sm font-semibold shadow-saffron"
+                className="btn-primary inline-block bg-[#C8A96A] text-white px-6 py-2.5 rounded-full text-sm font-semibold shadow-saffron"
               >
                 List Your Business Free
               </Link>
@@ -154,12 +154,12 @@ export default async function CategoryPage({ params, searchParams }: Props) {
         {/* ── Bottom CTA ── */}
         {filteredVendors.length > 0 && (
           <div className="mt-14 relative overflow-hidden bg-[#111111] rounded-2xl p-10 text-center shadow-premium">
-            {/* Subtle orange radial glow */}
+            {/* Subtle gold radial glow */}
             <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
-              <div className="w-96 h-48 rounded-full bg-[#E8760A] opacity-10 blur-3xl" />
+              <div className="w-96 h-48 rounded-full bg-[#C8A96A] opacity-10 blur-3xl" />
             </div>
 
-            <p className="relative text-[#E8760A] text-xs font-bold uppercase tracking-[0.2em] mb-3">
+            <p className="relative text-[#C8A96A] text-xs font-bold uppercase tracking-[0.2em] mb-3">
               Are you a {typedCat.name.toLowerCase()}?
             </p>
             <h3 className="relative font-[family-name:var(--font-playfair)] text-2xl md:text-3xl font-bold text-white mb-3">
@@ -174,7 +174,7 @@ export default async function CategoryPage({ params, searchParams }: Props) {
             </p>
             <Link
               href="/list-your-business"
-              className="btn-primary relative inline-block bg-[#E8760A] text-white font-bold px-8 py-3.5 rounded-full shadow-saffron text-sm"
+              className="btn-primary relative inline-block bg-[#C8A96A] text-white font-bold px-8 py-3.5 rounded-full shadow-saffron text-sm"
             >
               Claim My Spot →
             </Link>

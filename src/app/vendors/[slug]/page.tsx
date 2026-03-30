@@ -78,13 +78,13 @@ export default async function VendorProfilePage({ params }: Props) {
         {/* ── Breadcrumb ── */}
         <div className="bg-white border-b border-gray-100">
           <div className="max-w-6xl mx-auto px-4 sm:px-6 py-3 flex items-center gap-2 text-xs text-gray-400 overflow-x-auto scrollbar-hide">
-            <Link href="/" className="hover:text-[#E8760A] transition-colors whitespace-nowrap">Home</Link>
+            <Link href="/" className="hover:text-[#C8A96A] transition-colors whitespace-nowrap">Home</Link>
             <ChevronRight className="w-3 h-3 shrink-0" />
-            <Link href="/vendors" className="hover:text-[#E8760A] transition-colors whitespace-nowrap">Vendors</Link>
+            <Link href="/vendors" className="hover:text-[#C8A96A] transition-colors whitespace-nowrap">Vendors</Link>
             {v.category && (
               <>
                 <ChevronRight className="w-3 h-3 shrink-0" />
-                <Link href={`/category/${v.category.slug}`} className="hover:text-[#E8760A] transition-colors whitespace-nowrap">{v.category.name}</Link>
+                <Link href={`/category/${v.category.slug}`} className="hover:text-[#C8A96A] transition-colors whitespace-nowrap">{v.category.name}</Link>
               </>
             )}
             <ChevronRight className="w-3 h-3 shrink-0" />
@@ -94,7 +94,7 @@ export default async function VendorProfilePage({ params }: Props) {
 
         <div className="max-w-6xl mx-auto px-4 sm:px-6 py-8">
           <Link href="/vendors"
-            className="inline-flex items-center gap-1.5 text-sm text-gray-500 hover:text-[#E8760A] transition-colors mb-6 group">
+            className="inline-flex items-center gap-1.5 text-sm text-gray-500 hover:text-[#C8A96A] transition-colors mb-6 group">
             <ArrowLeft className="w-4 h-4 group-hover:-translate-x-0.5 transition-transform" />
             Back to vendors
           </Link>
@@ -114,7 +114,7 @@ export default async function VendorProfilePage({ params }: Props) {
                   <div className="absolute w-24 h-24 rounded-full border border-white/10" />
                   {/* Radial glow */}
                   <div className="absolute inset-0 opacity-20"
-                    style={{ background: 'radial-gradient(circle at 50% 50%, #E8760A 0%, transparent 65%)' }} />
+                    style={{ background: 'radial-gradient(circle at 50% 50%, #C8A96A 0%, transparent 65%)' }} />
                   {/* Icon */}
                   <div className="relative z-10 w-24 h-24 rounded-3xl bg-white/10 backdrop-blur-sm border border-white/20 flex items-center justify-center text-5xl shadow-lg">
                     {v.category?.icon ?? '🏪'}
@@ -134,7 +134,7 @@ export default async function VendorProfilePage({ params }: Props) {
                   {/* Verified */}
                   {v.is_verified && (
                     <div className="absolute top-4 right-4 bg-white/15 backdrop-blur-sm rounded-full px-3 py-1.5 border border-white/20 flex items-center gap-1.5">
-                      <BadgeCheck className="w-4 h-4 text-[#E8760A]" />
+                      <BadgeCheck className="w-4 h-4 text-[#C8A96A]" />
                       <span className="text-xs font-semibold text-white">Verified</span>
                     </div>
                   )}
@@ -146,7 +146,7 @@ export default async function VendorProfilePage({ params }: Props) {
                 <div className="p-6 sm:p-8">
                   {v.category && (
                     <Link href={`/category/${v.category.slug}`}
-                      className="inline-flex items-center gap-1 text-xs font-bold text-[#E8760A] uppercase tracking-widest hover:underline mb-3">
+                      className="inline-flex items-center gap-1 text-xs font-bold text-[#C8A96A] uppercase tracking-widest hover:underline mb-3">
                       {v.category.icon} {v.category.name}
                       <ArrowUpRight className="w-3 h-3" />
                     </Link>
@@ -235,38 +235,38 @@ export default async function VendorProfilePage({ params }: Props) {
                 <div className="space-y-2.5 mb-5">
                   {v.phone && (
                     <a href={`tel:${v.phone}`}
-                      className="flex items-center gap-3 p-3 rounded-2xl bg-gray-50 hover:bg-orange-50 hover:border-[#E8760A]/20 border border-transparent transition-all duration-200 group">
+                      className="flex items-center gap-3 p-3 rounded-2xl bg-gray-50 hover:bg-[#F5ECD7] hover:border-[#C8A96A]/20 border border-transparent transition-all duration-200 group">
                       <div className="w-9 h-9 bg-white rounded-xl flex items-center justify-center shadow-sm shrink-0">
-                        <Phone className="w-4 h-4 text-[#E8760A]" />
+                        <Phone className="w-4 h-4 text-[#C8A96A]" />
                       </div>
                       <div>
                         <p className="text-[10px] text-gray-400 font-semibold uppercase tracking-wide">Phone</p>
-                        <p className="text-sm font-semibold text-gray-800 group-hover:text-[#E8760A] transition-colors">{v.phone}</p>
+                        <p className="text-sm font-semibold text-gray-800 group-hover:text-[#C8A96A] transition-colors">{v.phone}</p>
                       </div>
                     </a>
                   )}
                   {v.website && (
                     <a href={v.website} target="_blank" rel="noopener noreferrer"
-                      className="flex items-center gap-3 p-3 rounded-2xl bg-gray-50 hover:bg-orange-50 border border-transparent hover:border-[#E8760A]/20 transition-all duration-200 group">
+                      className="flex items-center gap-3 p-3 rounded-2xl bg-gray-50 hover:bg-[#F5ECD7] border border-transparent hover:border-[#C8A96A]/20 transition-all duration-200 group">
                       <div className="w-9 h-9 bg-white rounded-xl flex items-center justify-center shadow-sm shrink-0">
-                        <Globe className="w-4 h-4 text-[#E8760A]" />
+                        <Globe className="w-4 h-4 text-[#C8A96A]" />
                       </div>
                       <div className="min-w-0">
                         <p className="text-[10px] text-gray-400 font-semibold uppercase tracking-wide">Website</p>
-                        <p className="text-sm font-semibold text-gray-800 group-hover:text-[#E8760A] transition-colors truncate">Visit Website</p>
+                        <p className="text-sm font-semibold text-gray-800 group-hover:text-[#C8A96A] transition-colors truncate">Visit Website</p>
                       </div>
                       <ArrowUpRight className="w-3.5 h-3.5 text-gray-400 ml-auto shrink-0" />
                     </a>
                   )}
                   {v.instagram && (
                     <a href={`https://instagram.com/${v.instagram.replace('@', '')}`} target="_blank" rel="noopener noreferrer"
-                      className="flex items-center gap-3 p-3 rounded-2xl bg-gray-50 hover:bg-orange-50 border border-transparent hover:border-[#E8760A]/20 transition-all duration-200 group">
+                      className="flex items-center gap-3 p-3 rounded-2xl bg-gray-50 hover:bg-[#F5ECD7] border border-transparent hover:border-[#C8A96A]/20 transition-all duration-200 group">
                       <div className="w-9 h-9 bg-white rounded-xl flex items-center justify-center shadow-sm shrink-0">
-                        <span className="text-[#E8760A] text-sm">📷</span>
+                        <span className="text-[#C8A96A] text-sm">📷</span>
                       </div>
                       <div className="min-w-0">
                         <p className="text-[10px] text-gray-400 font-semibold uppercase tracking-wide">Instagram</p>
-                        <p className="text-sm font-semibold text-gray-800 group-hover:text-[#E8760A] transition-colors truncate">@{v.instagram.replace('@', '')}</p>
+                        <p className="text-sm font-semibold text-gray-800 group-hover:text-[#C8A96A] transition-colors truncate">@{v.instagram.replace('@', '')}</p>
                       </div>
                     </a>
                   )}
@@ -281,7 +281,7 @@ export default async function VendorProfilePage({ params }: Props) {
                 )}
                 {v.phone && (
                   <a href={`tel:${v.phone}`}
-                    className="flex items-center justify-center gap-2 w-full border border-gray-200 hover:border-[#E8760A] hover:text-[#E8760A] text-gray-700 font-semibold rounded-2xl px-4 py-3 text-sm transition-all duration-200 mb-3">
+                    className="flex items-center justify-center gap-2 w-full border border-gray-200 hover:border-[#C8A96A] hover:text-[#C8A96A] text-gray-700 font-semibold rounded-2xl px-4 py-3 text-sm transition-all duration-200 mb-3">
                     <Phone className="w-4 h-4" />
                     Call Now
                   </a>
@@ -301,14 +301,14 @@ export default async function VendorProfilePage({ params }: Props) {
 
               {/* Claim / Verified CTA */}
               {v.claim_status !== 'claimed' ? (
-                <div className="bg-gradient-to-br from-[#E8760A]/5 to-amber-50/50 border border-[#E8760A]/20 rounded-3xl p-5">
-                  <p className="text-xs font-bold text-[#E8760A] uppercase tracking-widest mb-1.5">Is this your business?</p>
+                <div className="bg-gradient-to-br from-[#C8A96A]/5 to-[#FDF6E9]/50 border border-[#C8A96A]/20 rounded-3xl p-5">
+                  <p className="text-xs font-bold text-[#C8A96A] uppercase tracking-widest mb-1.5">Is this your business?</p>
                   <p className="text-sm text-gray-600 leading-relaxed mb-4">
                     Take control of your listing, respond to inquiries, and start growing — from $49/mo.
                   </p>
                   <Link
                     href={`/claim/${slug}`}
-                    className="flex items-center justify-center gap-2 w-full bg-[#E8760A] hover:bg-[#d06a09] text-white font-bold rounded-2xl px-4 py-3 text-sm transition-colors duration-200 shadow-[0_4px_16px_rgba(232,118,10,0.3)]"
+                    className="flex items-center justify-center gap-2 w-full bg-[#C8A96A] hover:bg-[#d06a09] text-white font-bold rounded-2xl px-4 py-3 text-sm transition-colors duration-200 shadow-[0_4px_16px_rgba(200,169,106,0.3)]"
                   >
                     Claim Your Listing
                     <ArrowUpRight className="w-4 h-4" />
@@ -337,7 +337,7 @@ export default async function VendorProfilePage({ params }: Props) {
                 </h2>
                 {v.category && (
                   <Link href={`/category/${v.category.slug}`}
-                    className="text-sm font-semibold text-[#E8760A] hover:underline hidden sm:block">
+                    className="text-sm font-semibold text-[#C8A96A] hover:underline hidden sm:block">
                     See all →
                   </Link>
                 )}

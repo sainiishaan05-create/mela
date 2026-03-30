@@ -174,10 +174,10 @@ export async function GET(req: Request) {
     to: ADMIN_EMAIL,
     subject: `🧠 Weekly Strategy Memo — What to build, what to kill, where to grow`,
     html: `<div style="font-family:sans-serif;max-width:680px;margin:0 auto">
-      <h2 style="color:#E8760A">Weekly Product Strategy Memo</h2>
+      <h2 style="color:#C8A96A">Weekly Product Strategy Memo</h2>
       <p style="color:#666;font-size:13px">${now.toDateString()} · For Ishaan, Founder of Melaa.ca</p>
 
-      <h3 style="border-bottom:2px solid #E8760A;padding-bottom:6px">🔍 Funnel Leakage Analysis</h3>
+      <h3 style="border-bottom:2px solid #C8A96A;padding-bottom:6px">🔍 Funnel Leakage Analysis</h3>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:12px 0">
         <div style="background:#fafaf7;padding:12px;border-radius:8px;text-align:center">
           <p style="margin:0;font-size:11px;color:#999;text-transform:uppercase">No Profile Set Up</p>
@@ -192,7 +192,7 @@ export async function GET(req: Request) {
       </div>
       <div style="background:#fafaf7;padding:16px;border-radius:8px;white-space:pre-wrap;font-size:13px;color:#333;line-height:1.7">${funnelLeakage}</div>
 
-      <h3 style="border-bottom:2px solid #E8760A;padding-bottom:6px;margin-top:24px">📊 Cohort Conversion (last 6 months)</h3>
+      <h3 style="border-bottom:2px solid #C8A96A;padding-bottom:6px;margin-top:24px">📊 Cohort Conversion (last 6 months)</h3>
       <table style="width:100%;border-collapse:collapse">
         <thead><tr style="background:#1A1A1A;color:white">
           <th style="padding:10px;text-align:left">Cohort</th>
@@ -203,23 +203,23 @@ export async function GET(req: Request) {
         <tbody>${cohortRows}</tbody>
       </table>
 
-      <h3 style="border-bottom:2px solid #E8760A;padding-bottom:6px;margin-top:24px">⭐ Feature ROI Analysis</h3>
+      <h3 style="border-bottom:2px solid #C8A96A;padding-bottom:6px;margin-top:24px">⭐ Feature ROI Analysis</h3>
       <div style="background:#fafaf7;padding:16px;border-radius:8px;white-space:pre-wrap;font-size:13px;color:#333;line-height:1.7">${featureROI}</div>
 
-      <h3 style="border-bottom:2px solid #E8760A;padding-bottom:6px;margin-top:24px">🔨 Next 3 Features to Build (ranked by revenue impact)</h3>
+      <h3 style="border-bottom:2px solid #C8A96A;padding-bottom:6px;margin-top:24px">🔨 Next 3 Features to Build (ranked by revenue impact)</h3>
       <div style="background:#fafaf7;padding:16px;border-radius:8px;white-space:pre-wrap;font-size:13px;color:#333;line-height:1.7">${nextFeatures}</div>
 
-      <h3 style="border-bottom:2px solid #E8760A;padding-bottom:6px;margin-top:24px">🔄 Viral Loops to Engineer</h3>
+      <h3 style="border-bottom:2px solid #C8A96A;padding-bottom:6px;margin-top:24px">🔄 Viral Loops to Engineer</h3>
       <div style="background:#fafaf7;padding:16px;border-radius:8px;white-space:pre-wrap;font-size:13px;color:#333;line-height:1.7">${viralLoops}</div>
 
       <div style="background:#1A1A1A;border-radius:12px;padding:20px;margin-top:24px">
         <p style="margin:0;color:white;font-weight:bold">Viral Coefficient Snapshot</p>
-        <p style="margin:4px 0 0;color:#E8760A;font-size:28px;font-weight:bold">${viralCoefficient}%</p>
+        <p style="margin:4px 0 0;color:#C8A96A;font-size:28px;font-weight:bold">${viralCoefficient}%</p>
         <p style="margin:4px 0 0;color:#999;font-size:12px">of vendors have Instagram linked → will share their Melaa profile link</p>
       </div>
 
       <div style="margin-top:24px">
-        <a href="${SITE}/admin" style="background:#E8760A;color:white;padding:10px 20px;border-radius:20px;text-decoration:none;display:inline-block">Admin Dashboard →</a>
+        <a href="${SITE}/admin" style="background:#C8A96A;color:white;padding:10px 20px;border-radius:20px;text-decoration:none;display:inline-block">Admin Dashboard →</a>
       </div>
       <p style="color:#999;font-size:12px;margin-top:20px">Melaa Product Strategist Agent · ${now.toDateString()}</p>
     </div>`,

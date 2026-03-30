@@ -136,7 +136,7 @@ export async function GET(req: Request) {
       subject: `${vendor.name} — ready for Premium? (one booking pays for a year)`,
       html: `<div style="font-family:sans-serif;max-width:600px;margin:0 auto">
         ${pitch.split('\n\n').map(p => `<p style="color:#333;line-height:1.6">${p}</p>`).join('')}
-        <a href="${SITE}/pricing" style="background:#E8760A;color:white;padding:12px 24px;border-radius:20px;text-decoration:none;display:inline-block;margin-top:16px;font-weight:bold">Upgrade to Premium →</a>
+        <a href="${SITE}/pricing" style="background:#C8A96A;color:white;padding:12px 24px;border-radius:20px;text-decoration:none;display:inline-block;margin-top:16px;font-weight:bold">Upgrade to Premium →</a>
       </div>`,
     })
     results.push(`premium_pitch:${vendor.name}`)
@@ -148,7 +148,7 @@ export async function GET(req: Request) {
     to: ADMIN_EMAIL,
     subject: `💰 Weekly Revenue Report — $${mrr} MRR · ${vendorGrowthRate > 0 ? '📈' : '📊'} ${vendorGrowthRate > 0 ? '+' : ''}${vendorGrowthRate}% growth`,
     html: `<div style="font-family:sans-serif;max-width:650px;margin:0 auto">
-      <h2 style="color:#E8760A">Weekly Revenue Intelligence</h2>
+      <h2 style="color:#C8A96A">Weekly Revenue Intelligence</h2>
 
       <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin:20px 0">
         <div style="background:#fafaf7;padding:16px;border-radius:8px;text-align:center">
@@ -161,7 +161,7 @@ export async function GET(req: Request) {
         </div>
         <div style="background:#fafaf7;padding:16px;border-radius:8px;text-align:center">
           <p style="margin:0;font-size:11px;color:#999;text-transform:uppercase">Avg LTV</p>
-          <p style="margin:4px 0 0;font-size:28px;font-weight:bold;color:#E8760A">$${avgLTV.toLocaleString()}</p>
+          <p style="margin:4px 0 0;font-size:28px;font-weight:bold;color:#C8A96A">$${avgLTV.toLocaleString()}</p>
         </div>
       </div>
 
@@ -176,8 +176,8 @@ export async function GET(req: Request) {
 
       <h3>📈 MRR Forecast</h3>
       <table style="width:100%;border-collapse:collapse;margin:8px 0">
-        <tr style="background:#fafaf7"><td style="padding:10px">30 days</td><td style="padding:10px;text-align:right;font-weight:bold;color:#E8760A">$${forecast30.toLocaleString()}</td></tr>
-        <tr><td style="padding:10px">60 days</td><td style="padding:10px;text-align:right;font-weight:bold;color:#E8760A">$${forecast60.toLocaleString()}</td></tr>
+        <tr style="background:#fafaf7"><td style="padding:10px">30 days</td><td style="padding:10px;text-align:right;font-weight:bold;color:#C8A96A">$${forecast30.toLocaleString()}</td></tr>
+        <tr><td style="padding:10px">60 days</td><td style="padding:10px;text-align:right;font-weight:bold;color:#C8A96A">$${forecast60.toLocaleString()}</td></tr>
         <tr style="background:#fafaf7"><td style="padding:10px">90 days</td><td style="padding:10px;text-align:right;font-weight:bold;color:#16a34a">$${forecast90.toLocaleString()}</td></tr>
       </table>
 
@@ -189,7 +189,7 @@ export async function GET(req: Request) {
 
       <div style="margin-top:20px">
         <a href="${SITE}/admin" style="background:#1A1A1A;color:white;padding:10px 20px;border-radius:20px;text-decoration:none;display:inline-block;margin-right:8px">Admin Dashboard</a>
-        <a href="${SITE}/pricing" style="background:#E8760A;color:white;padding:10px 20px;border-radius:20px;text-decoration:none;display:inline-block">Pricing Page</a>
+        <a href="${SITE}/pricing" style="background:#C8A96A;color:white;padding:10px 20px;border-radius:20px;text-decoration:none;display:inline-block">Pricing Page</a>
       </div>
       <p style="color:#999;font-size:12px;margin-top:24px">Melaa Revenue Agent · ${now.toDateString()}</p>
     </div>`,

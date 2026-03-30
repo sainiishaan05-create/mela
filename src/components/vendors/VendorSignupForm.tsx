@@ -49,7 +49,7 @@ export default function VendorSignupForm({ categories, cities }: Props) {
         placeholder={placeholder}
         value={form[key]}
         onChange={e => setForm(f => ({ ...f, [key]: e.target.value }))}
-        className="w-full border border-gray-200 rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:border-[#E8760A]"
+        className="w-full border border-gray-200 rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:border-[#C8A96A]"
       />
     </div>
   )
@@ -66,7 +66,7 @@ export default function VendorSignupForm({ categories, cities }: Props) {
           required
           value={form.category_id}
           onChange={e => setForm(f => ({ ...f, category_id: e.target.value }))}
-          className="w-full border border-gray-200 rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:border-[#E8760A]"
+          className="w-full border border-gray-200 rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:border-[#C8A96A]"
         >
           <option value="">Select a category</option>
           {categories.map(c => <option key={c.id} value={c.id}>{c.icon} {c.name}</option>)}
@@ -79,7 +79,7 @@ export default function VendorSignupForm({ categories, cities }: Props) {
           required
           value={form.city_id}
           onChange={e => setForm(f => ({ ...f, city_id: e.target.value }))}
-          className="w-full border border-gray-200 rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:border-[#E8760A]"
+          className="w-full border border-gray-200 rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:border-[#C8A96A]"
         >
           <option value="">Select a city</option>
           {cities.map(c => <option key={c.id} value={c.id}>{c.name}</option>)}
@@ -93,7 +93,7 @@ export default function VendorSignupForm({ categories, cities }: Props) {
           placeholder="Describe your services, experience, and what makes you special..."
           value={form.description}
           onChange={e => setForm(f => ({ ...f, description: e.target.value }))}
-          className="w-full border border-gray-200 rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:border-[#E8760A] resize-none"
+          className="w-full border border-gray-200 rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:border-[#C8A96A] resize-none"
         />
       </div>
 
@@ -105,7 +105,7 @@ export default function VendorSignupForm({ categories, cities }: Props) {
       <button
         type="submit"
         disabled={status === 'loading'}
-        className="w-full bg-[#E8760A] text-white font-semibold py-3 rounded-xl hover:bg-[#d06a09] transition-colors disabled:opacity-60 text-base"
+        className="w-full bg-[#C8A96A] text-white font-semibold py-3 rounded-xl hover:bg-[#d06a09] transition-colors disabled:opacity-60 text-base"
       >
         {status === 'loading' ? 'Submitting...' : 'List My Business Free →'}
       </button>

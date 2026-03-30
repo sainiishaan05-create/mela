@@ -284,10 +284,10 @@ export default function OutreachPage() {
   // ── Render ─────────────────────────────────────────────────────────────────
 
   const inputClass =
-    'w-full rounded-lg border border-[#E5E5E0] bg-white px-3 py-2 text-sm text-[#1A1A1A] placeholder-[#ADADAD] focus:border-[#E8760A] focus:outline-none focus:ring-1 focus:ring-[#E8760A] transition-colors'
+    'w-full rounded-lg border border-[#E5E5E0] bg-white px-3 py-2 text-sm text-[#1A1A1A] placeholder-[#ADADAD] focus:border-[#C8A96A] focus:outline-none focus:ring-1 focus:ring-[#C8A96A] transition-colors'
 
   const selectClass =
-    'w-full rounded-lg border border-[#E5E5E0] bg-white px-3 py-2 text-sm text-[#1A1A1A] focus:border-[#E8760A] focus:outline-none focus:ring-1 focus:ring-[#E8760A] transition-colors'
+    'w-full rounded-lg border border-[#E5E5E0] bg-white px-3 py-2 text-sm text-[#1A1A1A] focus:border-[#C8A96A] focus:outline-none focus:ring-1 focus:ring-[#C8A96A] transition-colors'
 
   const platformContactLabel: Record<Platform, string> = {
     instagram: 'Instagram Handle',
@@ -305,7 +305,7 @@ export default function OutreachPage() {
     <div className="mx-auto max-w-screen-xl px-4 py-10 sm:px-6 lg:px-8">
       {/* Header */}
       <div className="mb-8 flex items-center gap-3">
-        <div className="h-8 w-1 rounded-full bg-[#E8760A]" />
+        <div className="h-8 w-1 rounded-full bg-[#C8A96A]" />
         <div>
           <h1 className="font-[family-name:var(--font-playfair)] text-3xl font-bold text-[#1A1A1A]">
             Vendor Outreach
@@ -326,7 +326,7 @@ export default function OutreachPage() {
           {/* Business Name */}
           <div className="flex flex-col gap-1.5">
             <label className="text-xs font-semibold uppercase tracking-wide text-[#6B6B6B]">
-              Business Name <span className="text-[#E8760A]">*</span>
+              Business Name <span className="text-[#C8A96A]">*</span>
             </label>
             <input
               type="text"
@@ -410,7 +410,7 @@ export default function OutreachPage() {
             <button
               onClick={() => void handleGenerate()}
               disabled={generating || !businessName.trim()}
-              className="w-full rounded-lg bg-[#E8760A] px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-[#cf6809] disabled:cursor-not-allowed disabled:opacity-50 focus:outline-none focus:ring-2 focus:ring-[#E8760A] focus:ring-offset-1"
+              className="w-full rounded-lg bg-[#C8A96A] px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-[#cf6809] disabled:cursor-not-allowed disabled:opacity-50 focus:outline-none focus:ring-2 focus:ring-[#C8A96A] focus:ring-offset-1"
             >
               {generating ? 'Generating…' : 'Generate Message'}
             </button>
@@ -430,7 +430,7 @@ export default function OutreachPage() {
               </label>
               <button
                 onClick={() => void handleCopy()}
-                className="inline-flex items-center gap-1.5 rounded-md border border-[#E5E5E0] bg-[#FAFAF7] px-3 py-1 text-xs font-semibold text-[#1A1A1A] transition-colors hover:bg-[#E5E5E0] focus:outline-none focus:ring-2 focus:ring-[#E8760A] focus:ring-offset-1"
+                className="inline-flex items-center gap-1.5 rounded-md border border-[#E5E5E0] bg-[#FAFAF7] px-3 py-1 text-xs font-semibold text-[#1A1A1A] transition-colors hover:bg-[#E5E5E0] focus:outline-none focus:ring-2 focus:ring-[#C8A96A] focus:ring-offset-1"
               >
                 {copied ? 'Copied!' : 'Copy Message'}
               </button>
@@ -478,7 +478,7 @@ export default function OutreachPage() {
           <button
             onClick={() => void fetchRecords()}
             disabled={loadingRecords}
-            className="rounded-md border border-[#E5E5E0] bg-[#FAFAF7] px-3 py-1.5 text-xs font-semibold text-[#1A1A1A] transition-colors hover:bg-[#E5E5E0] disabled:opacity-50 focus:outline-none focus:ring-2 focus:ring-[#E8760A] focus:ring-offset-1"
+            className="rounded-md border border-[#E5E5E0] bg-[#FAFAF7] px-3 py-1.5 text-xs font-semibold text-[#1A1A1A] transition-colors hover:bg-[#E5E5E0] disabled:opacity-50 focus:outline-none focus:ring-2 focus:ring-[#C8A96A] focus:ring-offset-1"
           >
             {loadingRecords ? 'Loading…' : 'Refresh'}
           </button>

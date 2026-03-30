@@ -54,7 +54,7 @@ export default function SubscribePage() {
           className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] opacity-20 pointer-events-none"
           style={{
             background:
-              'radial-gradient(ellipse at 50% 0%, #E8760A 0%, transparent 70%)',
+              'radial-gradient(ellipse at 50% 0%, #C8A96A 0%, transparent 70%)',
           }}
         />
         {/* Decorative dots */}
@@ -73,7 +73,7 @@ export default function SubscribePage() {
             <span className="text-base" role="img" aria-label="hibiscus">🌺</span>
             <span
               className="text-xs font-semibold uppercase tracking-widest"
-              style={{ color: '#E8760A' }}
+              style={{ color: '#C8A96A' }}
             >
               Free Newsletter
             </span>
@@ -159,7 +159,7 @@ function MiniSubscribeForm() {
       <a
         href="#signup-top"
         className="btn-primary inline-flex items-center gap-2 rounded-xl px-8 py-3.5 text-sm font-semibold text-white shadow-saffron"
-        style={{ background: '#E8760A' }}
+        style={{ background: '#C8A96A' }}
       >
         Subscribe for free →
       </a>

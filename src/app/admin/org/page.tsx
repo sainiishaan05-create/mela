@@ -43,7 +43,7 @@ export default async function OrgPage() {
     },
     {
       name: 'Revenue & Sales',
-      color: '#E8760A',
+      color: '#C8A96A',
       members: [
         { title: 'Sales Agent', agent: true, cadence: 'Every 20 min', status: 'running', note: `Hot-window pitches, reactivation` },
         { title: 'Revenue Optimizer', agent: true, cadence: 'Every 20 min', status: 'running', note: `$49 featured upsell, churn recovery` },
@@ -104,7 +104,7 @@ export default async function OrgPage() {
     <div className="mx-auto max-w-screen-xl px-4 py-10 sm:px-6 lg:px-8">
       {/* Header */}
       <div className="mb-2 flex items-center gap-3">
-        <div className="h-8 w-1 rounded-full bg-[#E8760A]" />
+        <div className="h-8 w-1 rounded-full bg-[#C8A96A]" />
         <h1 className="font-[family-name:var(--font-playfair)] text-3xl font-bold text-[#1A1A1A]">
           Corporate Command Center
         </h1>
@@ -117,7 +117,7 @@ export default async function OrgPage() {
       <div className="mb-8 grid grid-cols-2 gap-3 sm:grid-cols-4 lg:grid-cols-6">
         {[
           { label: 'MRR', value: $c(mrr), color: '#16a34a' },
-          { label: 'Valuation', value: $c(valuation), color: '#E8760A' },
+          { label: 'Valuation', value: $c(valuation), color: '#C8A96A' },
           { label: 'Vendors', value: vendors ?? 0, color: '#1A1A1A' },
           { label: 'Leads', value: leads ?? 0, color: '#1A1A1A' },
           { label: 'Outreach Pipeline', value: (outreachPending ?? 0) + (outreachContacted ?? 0), color: '#0891b2' },
@@ -187,7 +187,7 @@ export default async function OrgPage() {
       </section>
 
       {/* Start Daemon instructions */}
-      <section className="mb-8 rounded-2xl border border-[#E8760A] bg-orange-50 p-6">
+      <section className="mb-8 rounded-2xl border border-[#C8A96A] bg-[#F5ECD7] p-6">
         <h2 className="mb-2 font-semibold text-[#1A1A1A]">Start 24/7 Daemon on Your Mac</h2>
         <p className="mb-4 text-sm text-[#6B6B6B]">Run this once in your terminal to start all agents forever (auto-restarts on reboot):</p>
         <div className="space-y-2">

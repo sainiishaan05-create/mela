@@ -55,7 +55,7 @@ export default async function DashboardPage({
         </p>
         <Link
           href="/vendors"
-          className="bg-[#E8760A] text-white px-6 py-3 rounded-full font-medium hover:bg-[#d06a09] transition-colors"
+          className="bg-[#C8A96A] text-white px-6 py-3 rounded-full font-medium hover:bg-[#d06a09] transition-colors"
         >
           Find Your Listing
         </Link>
@@ -96,7 +96,7 @@ export default async function DashboardPage({
         <div>
           <h1 className="font-[family-name:var(--font-playfair)] text-2xl font-bold flex items-center gap-2">
             {vendor.name}
-            {vendor.is_verified && <BadgeCheck className="w-5 h-5 text-[#E8760A]" />}
+            {vendor.is_verified && <BadgeCheck className="w-5 h-5 text-[#C8A96A]" />}
           </h1>
           <p className="text-gray-500 text-sm">
             {vendor.category?.name} &middot; {vendor.city?.name}
@@ -108,7 +108,7 @@ export default async function DashboardPage({
               ? 'bg-gray-100 text-gray-600'
               : vendor.tier === 'premium'
                 ? 'bg-purple-100 text-purple-700'
-                : 'bg-orange-100 text-[#E8760A]'
+                : 'bg-[#F5ECD7] text-[#C8A96A]'
           }`}
         >
           {tierLabel}
@@ -135,7 +135,7 @@ export default async function DashboardPage({
             <p className="text-gray-400 text-xs uppercase tracking-wide mb-1">Status</p>
             <p className="font-medium flex items-center gap-1">
               {vendor.is_verified ? (
-                <><BadgeCheck className="w-4 h-4 text-[#E8760A]" /> Verified</>
+                <><BadgeCheck className="w-4 h-4 text-[#C8A96A]" /> Verified</>
               ) : (
                 'Unverified'
               )}
@@ -148,7 +148,7 @@ export default async function DashboardPage({
       <div className="bg-white border border-gray-100 rounded-2xl p-5 shadow-sm mb-6">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <CreditCard className="w-5 h-5 text-[#E8760A]" />
+            <CreditCard className="w-5 h-5 text-[#C8A96A]" />
             <div>
               <p className="font-semibold text-gray-800">Subscription</p>
               {isSubscribed ? (
@@ -163,7 +163,7 @@ export default async function DashboardPage({
           {!isSubscribed && (
             <Link
               href="/pricing"
-              className="bg-[#E8760A] text-white text-sm font-medium px-4 py-2 rounded-full hover:bg-[#d06a09] transition-colors whitespace-nowrap"
+              className="bg-[#C8A96A] text-white text-sm font-medium px-4 py-2 rounded-full hover:bg-[#d06a09] transition-colors whitespace-nowrap"
             >
               Upgrade
             </Link>
@@ -174,14 +174,14 @@ export default async function DashboardPage({
       {/* Stats */}
       <div className="grid grid-cols-2 gap-4 mb-8">
         <div className="bg-white border border-gray-100 rounded-2xl p-4 shadow-sm">
-          <div className="text-[#E8760A] mb-2">
+          <div className="text-[#C8A96A] mb-2">
             <Mail className="w-5 h-5" />
           </div>
           <p className="text-2xl font-bold">{monthlyLeadCount}</p>
           <p className="text-sm text-gray-500">Inquiries this month</p>
         </div>
         <div className="bg-white border border-gray-100 rounded-2xl p-4 shadow-sm">
-          <div className="text-[#E8760A] mb-2">
+          <div className="text-[#C8A96A] mb-2">
             <TrendingUp className="w-5 h-5" />
           </div>
           <p className="text-2xl font-bold">{tierLabel}</p>
@@ -193,13 +193,13 @@ export default async function DashboardPage({
       <div className="flex flex-col sm:flex-row gap-3 mb-10">
         <Link
           href={`/vendors/${vendor.slug}`}
-          className="flex-1 text-center bg-[#E8760A] text-white font-medium px-6 py-3 rounded-full hover:bg-[#d06a09] transition-colors"
+          className="flex-1 text-center bg-[#C8A96A] text-white font-medium px-6 py-3 rounded-full hover:bg-[#d06a09] transition-colors"
         >
           View Your Listing
         </Link>
         <a
           href="mailto:hello@melaa.ca"
-          className="flex-1 text-center border border-gray-200 text-gray-700 font-medium px-6 py-3 rounded-full hover:border-[#E8760A] hover:text-[#E8760A] transition-colors"
+          className="flex-1 text-center border border-gray-200 text-gray-700 font-medium px-6 py-3 rounded-full hover:border-[#C8A96A] hover:text-[#C8A96A] transition-colors"
         >
           Contact Support
         </a>
@@ -221,7 +221,7 @@ export default async function DashboardPage({
               <div
                 key={lead.id}
                 className={`bg-white border rounded-2xl p-4 shadow-sm ${
-                  !lead.is_read ? 'border-[#E8760A]' : 'border-gray-100'
+                  !lead.is_read ? 'border-[#C8A96A]' : 'border-gray-100'
                 }`}
               >
                 <div className="flex items-start justify-between">
@@ -229,7 +229,7 @@ export default async function DashboardPage({
                     <p className="font-semibold">
                       {lead.buyer_name}
                       {!lead.is_read && (
-                        <span className="text-xs bg-orange-100 text-[#E8760A] px-2 py-0.5 rounded-full ml-2">
+                        <span className="text-xs bg-[#F5ECD7] text-[#C8A96A] px-2 py-0.5 rounded-full ml-2">
                           New
                         </span>
                       )}
@@ -251,7 +251,7 @@ export default async function DashboardPage({
                 )}
                 <a
                   href={`mailto:${lead.buyer_email}`}
-                  className="text-sm text-[#E8760A] font-medium mt-2 inline-block hover:underline"
+                  className="text-sm text-[#C8A96A] font-medium mt-2 inline-block hover:underline"
                 >
                   Reply →
                 </a>

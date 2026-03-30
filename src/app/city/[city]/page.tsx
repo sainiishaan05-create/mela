@@ -44,7 +44,7 @@ export default async function CityPage({ params }: Props) {
       {/* Category filter */}
       <div className="flex flex-wrap gap-2 mb-8">
         {(categories ?? []).map((cat: { slug: string; icon: string; name: string }) => (
-          <Link key={cat.slug} href={`/category/${cat.slug}/${city}`} className="px-4 py-1.5 rounded-full text-sm border border-gray-200 text-gray-600 hover:border-[#E8760A] hover:text-[#E8760A] transition-colors">
+          <Link key={cat.slug} href={`/category/${cat.slug}/${city}`} className="px-4 py-1.5 rounded-full text-sm border border-gray-200 text-gray-600 hover:border-[#C8A96A] hover:text-[#C8A96A] transition-colors">
             {cat.icon} {cat.name}
           </Link>
         ))}
@@ -55,7 +55,7 @@ export default async function CityPage({ params }: Props) {
           <p className="text-5xl mb-4">🏙️</p>
           <h2 className="font-[family-name:var(--font-playfair)] text-2xl font-bold mb-2">No vendors in {cityData.name} yet</h2>
           <p className="text-gray-500 mb-6">Be the first vendor listed in {cityData.name}!</p>
-          <Link href="/list-your-business" className="bg-[#E8760A] text-white px-6 py-3 rounded-full font-medium hover:bg-[#d06a09] transition-colors">
+          <Link href="/list-your-business" className="bg-[#C8A96A] text-white px-6 py-3 rounded-full font-medium hover:bg-[#d06a09] transition-colors">
             List Your Business
           </Link>
         </div>

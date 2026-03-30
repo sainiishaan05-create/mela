@@ -33,13 +33,13 @@ export default function MobileFilterButton({
     <>
       <button
         onClick={() => setIsOpen(true)}
-        className="flex items-center gap-2 px-4 py-2 bg-white rounded-xl border border-gray-200 shadow-sm text-sm font-medium text-gray-700 hover:border-[#E8760A]/40 hover:text-[#E8760A] transition-all duration-150"
+        className="flex items-center gap-2 px-4 py-2 bg-white rounded-xl border border-gray-200 shadow-sm text-sm font-medium text-gray-700 hover:border-[#C8A96A]/40 hover:text-[#C8A96A] transition-all duration-150"
         aria-label="Open filters"
       >
         <SlidersHorizontal className="w-4 h-4" />
         Filters
         {activeFilterCount > 0 && (
-          <span className="flex items-center justify-center w-5 h-5 rounded-full bg-[#E8760A] text-white text-xs font-bold leading-none">
+          <span className="flex items-center justify-center w-5 h-5 rounded-full bg-[#C8A96A] text-white text-xs font-bold leading-none">
             {activeFilterCount}
           </span>
         )}

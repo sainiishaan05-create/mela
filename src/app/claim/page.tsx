@@ -19,7 +19,7 @@ export default async function ClaimPage({ searchParams }: Props) {
 
   return (
     <main className="min-h-screen flex items-center justify-center bg-[#f9f5f0] px-4">
-      <div className="bg-white rounded-2xl shadow-sm border border-orange-100 p-8 max-w-md w-full text-center">
+      <div className="bg-white rounded-2xl shadow-sm border border-[#F5ECD7] p-8 max-w-md w-full text-center">
         <h1 className="text-2xl font-bold text-gray-900 mb-2">Claim Your Listing</h1>
         {message ? (
           <>
@@ -35,7 +35,7 @@ export default async function ClaimPage({ searchParams }: Props) {
         )}
         <Link
           href="/"
-          className="inline-block bg-[#E8760A] text-white font-semibold px-6 py-3 rounded-lg hover:bg-[#d06a09] transition-colors"
+          className="inline-block bg-[#C8A96A] text-white font-semibold px-6 py-3 rounded-lg hover:bg-[#d06a09] transition-colors"
         >
           Browse Listings
         </Link>

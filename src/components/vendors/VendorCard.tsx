@@ -30,7 +30,7 @@ const PLACEHOLDER_GRADIENTS: Record<string, string> = {
   '🌿': 'from-green-50 to-stone-50',
   '💐': 'from-pink-50 to-stone-50',
   '👗': 'from-stone-50 to-neutral-100',
-  '💎': 'from-stone-50 to-amber-50',
+  '💎': 'from-stone-50 to-[#FDF6E9]',
   '🏛️': 'from-neutral-50 to-stone-100',
 }
 

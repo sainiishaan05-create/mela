@@ -52,7 +52,7 @@ export default function LeadForm({ vendorId, vendorName }: LeadFormProps) {
         placeholder="Your name"
         value={form.buyer_name}
         onChange={e => setForm(f => ({ ...f, buyer_name: e.target.value }))}
-        className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-[#E8760A]"
+        className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-[#C8A96A]"
       />
       <input
         required
@@ -60,26 +60,26 @@ export default function LeadForm({ vendorId, vendorName }: LeadFormProps) {
         placeholder="Email address"
         value={form.buyer_email}
         onChange={e => setForm(f => ({ ...f, buyer_email: e.target.value }))}
-        className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-[#E8760A]"
+        className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-[#C8A96A]"
       />
       <input
         type="tel"
         placeholder="Phone (optional)"
         value={form.buyer_phone}
         onChange={e => setForm(f => ({ ...f, buyer_phone: e.target.value }))}
-        className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-[#E8760A]"
+        className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-[#C8A96A]"
       />
       <input
         type="date"
         placeholder="Event date"
         value={form.event_date}
         onChange={e => setForm(f => ({ ...f, event_date: e.target.value }))}
-        className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-[#E8760A]"
+        className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-[#C8A96A]"
       />
       <select
         value={form.event_type}
         onChange={e => setForm(f => ({ ...f, event_type: e.target.value }))}
-        className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-[#E8760A]"
+        className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-[#C8A96A]"
       >
         <option>Wedding</option>
         <option>Engagement</option>
@@ -94,13 +94,13 @@ export default function LeadForm({ vendorId, vendorName }: LeadFormProps) {
         rows={3}
         value={form.message}
         onChange={e => setForm(f => ({ ...f, message: e.target.value }))}
-        className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-[#E8760A] resize-none"
+        className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-[#C8A96A] resize-none"
       />
       {status === 'error' && <p className="text-red-500 text-xs">Something went wrong. Please try again.</p>}
       <button
         type="submit"
         disabled={status === 'loading'}
-        className="w-full bg-[#E8760A] text-white font-semibold py-2.5 rounded-lg hover:bg-[#d06a09] transition-colors disabled:opacity-60"
+        className="w-full bg-[#C8A96A] text-white font-semibold py-2.5 rounded-lg hover:bg-[#d06a09] transition-colors disabled:opacity-60"
       >
         {status === 'loading' ? 'Sending...' : 'Send Inquiry'}
       </button>

@@ -129,8 +129,8 @@ export default async function VendorsPage({ searchParams }: Props) {
                 href={`/vendors?category=${cat.slug}${city ? `&city=${city}` : ''}`}
                 className={`shrink-0 flex items-center gap-1.5 px-4 py-1.5 rounded-full text-sm font-semibold transition-all duration-200 ${
                   category === cat.slug
-                    ? 'bg-[#E8760A] text-white shadow-saffron'
-                    : 'bg-white/70 text-gray-500 border border-gray-200/80 hover:border-[#E8760A]/40 hover:text-[#E8760A]'
+                    ? 'bg-[#C8A96A] text-white shadow-saffron'
+                    : 'bg-white/70 text-gray-500 border border-gray-200/80 hover:border-[#C8A96A]/40 hover:text-[#C8A96A]'
                 }`}
               >
                 <span className="text-base leading-none">{cat.icon}</span>
@@ -145,8 +145,8 @@ export default async function VendorsPage({ searchParams }: Props) {
               href={category ? `/vendors?category=${category}` : '/vendors'}
               className={`shrink-0 flex items-center gap-1 px-3 py-1 rounded-full text-xs font-semibold transition-all duration-200 ${
                 !city
-                  ? 'bg-[#E8760A]/15 text-[#E8760A] border border-[#E8760A]/30'
-                  : 'bg-white/70 text-gray-500 border border-gray-200/80 hover:border-[#E8760A]/40 hover:text-[#E8760A]'
+                  ? 'bg-[#C8A96A]/15 text-[#C8A96A] border border-[#C8A96A]/30'
+                  : 'bg-white/70 text-gray-500 border border-gray-200/80 hover:border-[#C8A96A]/40 hover:text-[#C8A96A]'
               }`}
             >
               <MapPin className="w-3 h-3" />
@@ -158,8 +158,8 @@ export default async function VendorsPage({ searchParams }: Props) {
                 href={`/vendors?city=${c.slug}${category ? `&category=${category}` : ''}`}
                 className={`shrink-0 flex items-center gap-1 px-3 py-1 rounded-full text-xs font-semibold transition-all duration-200 ${
                   city === c.slug
-                    ? 'bg-[#E8760A]/15 text-[#E8760A] border border-[#E8760A]/30'
-                    : 'bg-white/70 text-gray-500 border border-gray-200/80 hover:border-[#E8760A]/40 hover:text-[#E8760A]'
+                    ? 'bg-[#C8A96A]/15 text-[#C8A96A] border border-[#C8A96A]/30'
+                    : 'bg-white/70 text-gray-500 border border-gray-200/80 hover:border-[#C8A96A]/40 hover:text-[#C8A96A]'
                 }`}
               >
                 {c.name}
@@ -191,7 +191,7 @@ export default async function VendorsPage({ searchParams }: Props) {
             {/* City filter with search */}
             <div>
               <div className="flex items-center gap-2 mb-3">
-                <span className="w-1.5 h-1.5 rounded-full bg-[#E8760A]" />
+                <span className="w-1.5 h-1.5 rounded-full bg-[#C8A96A]" />
                 <h3 className="font-semibold text-xs uppercase tracking-widest text-gray-400">City</h3>
               </div>
               <CitySearch cities={cities as City[] ?? []} activeCity={city} activeCategory={category} />
@@ -311,11 +311,11 @@ export default async function VendorsPage({ searchParams }: Props) {
 
           {/* Active filters banner */}
           {hasActiveFilters && (
-            <div className="flex flex-wrap items-center gap-2 mb-5 px-4 py-3 bg-[#E8760A]/6 border border-[#E8760A]/15 rounded-xl">
-              <Sparkles className="w-3.5 h-3.5 text-[#E8760A] shrink-0" />
+            <div className="flex flex-wrap items-center gap-2 mb-5 px-4 py-3 bg-[#C8A96A]/6 border border-[#C8A96A]/15 rounded-xl">
+              <Sparkles className="w-3.5 h-3.5 text-[#C8A96A] shrink-0" />
               <span className="text-xs text-gray-500 font-medium">Active filters:</span>
               {category && activeCategory && (
-                <span className="inline-flex items-center gap-1.5 bg-white text-[#E8760A] text-xs font-semibold px-3 py-1 rounded-full border border-[#E8760A]/20 shadow-sm">
+                <span className="inline-flex items-center gap-1.5 bg-white text-[#C8A96A] text-xs font-semibold px-3 py-1 rounded-full border border-[#C8A96A]/20 shadow-sm">
                   {activeCategory.icon} {activeCategory.name}
                   <Link href={`/vendors?${new URLSearchParams({ ...(city ? { city } : {}), ...(sort ? { sort } : {}), ...(badge ? { badge } : {}) }).toString()}`} className="hover:opacity-60 transition-opacity ml-0.5">✕</Link>
                 </span>
@@ -375,7 +375,7 @@ export default async function VendorsPage({ searchParams }: Props) {
                 )}
                 <Link
                   href="/list-your-business"
-                  className="btn-primary inline-block bg-[#E8760A] text-white px-6 py-2.5 rounded-full text-sm font-semibold"
+                  className="btn-primary inline-block bg-[#C8A96A] text-white px-6 py-2.5 rounded-full text-sm font-semibold"
                 >
                   List Your Business Free
                 </Link>
@@ -401,7 +401,7 @@ export default async function VendorsPage({ searchParams }: Props) {
                 className={`flex items-center gap-1.5 px-4 py-2 rounded-xl text-sm font-medium transition-all duration-150 ${
                   page === 1
                     ? 'text-gray-300 pointer-events-none'
-                    : 'text-gray-600 hover:bg-white hover:shadow-sm hover:text-[#E8760A] border border-transparent hover:border-gray-100'
+                    : 'text-gray-600 hover:bg-white hover:shadow-sm hover:text-[#C8A96A] border border-transparent hover:border-gray-100'
                 }`}
               >
                 ← Prev
@@ -421,7 +421,7 @@ export default async function VendorsPage({ searchParams }: Props) {
                       className={`w-9 h-9 flex items-center justify-center rounded-xl text-sm font-medium transition-all duration-150 ${
                         p === page
                           ? 'bg-[#111111] text-white shadow-sm'
-                          : 'text-gray-600 hover:bg-white hover:shadow-sm hover:text-[#E8760A] border border-transparent hover:border-gray-100'
+                          : 'text-gray-600 hover:bg-white hover:shadow-sm hover:text-[#C8A96A] border border-transparent hover:border-gray-100'
                       }`}
                     >
                       {p}
@@ -437,7 +437,7 @@ export default async function VendorsPage({ searchParams }: Props) {
                 className={`flex items-center gap-1.5 px-4 py-2 rounded-xl text-sm font-medium transition-all duration-150 ${
                   page === totalPages
                     ? 'text-gray-300 pointer-events-none'
-                    : 'text-gray-600 hover:bg-white hover:shadow-sm hover:text-[#E8760A] border border-transparent hover:border-gray-100'
+                    : 'text-gray-600 hover:bg-white hover:shadow-sm hover:text-[#C8A96A] border border-transparent hover:border-gray-100'
                 }`}
               >
                 Next →
@@ -448,12 +448,12 @@ export default async function VendorsPage({ searchParams }: Props) {
           {/* ── Bottom CTA ── */}
           {filteredVendors.length > 0 && (
             <div className="mt-14 relative overflow-hidden bg-[#111111] rounded-2xl p-10 text-center shadow-premium">
-              {/* Subtle orange radial glow */}
+              {/* Subtle gold radial glow */}
               <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
-                <div className="w-96 h-48 rounded-full bg-[#E8760A] opacity-10 blur-3xl" />
+                <div className="w-96 h-48 rounded-full bg-[#C8A96A] opacity-10 blur-3xl" />
               </div>
 
-              <p className="relative text-[#E8760A] text-xs font-bold uppercase tracking-[0.2em] mb-3">
+              <p className="relative text-[#C8A96A] text-xs font-bold uppercase tracking-[0.2em] mb-3">
                 Are you a vendor?
               </p>
               <h3 className="relative font-[family-name:var(--font-playfair)] text-2xl md:text-3xl font-bold text-white mb-3">
@@ -468,7 +468,7 @@ export default async function VendorsPage({ searchParams }: Props) {
               </p>
               <Link
                 href="/list-your-business"
-                className="btn-primary relative inline-block bg-[#E8760A] text-white font-bold px-8 py-3.5 rounded-full shadow-saffron text-sm"
+                className="btn-primary relative inline-block bg-[#C8A96A] text-white font-bold px-8 py-3.5 rounded-full shadow-saffron text-sm"
               >
                 Claim My Spot →
               </Link>

@@ -47,7 +47,7 @@ function ActionButton({
     'inline-flex items-center rounded-md px-3 py-1 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-offset-1'
   const styles: Record<string, string> = {
     primary:
-      'bg-[#E8760A] text-white hover:bg-[#cf6809] focus:ring-[#E8760A]',
+      'bg-[#C8A96A] text-white hover:bg-[#cf6809] focus:ring-[#C8A96A]',
     secondary:
       'bg-[#F3F3EF] text-[#1A1A1A] hover:bg-[#E5E5E0] focus:ring-[#1A1A1A]',
     danger:
@@ -181,7 +181,7 @@ export default async function AdminPage() {
       <div className="mb-8 flex items-center gap-3">
         <div
           className="h-8 w-1 rounded-full"
-          style={{ background: '#E8760A' }}
+          style={{ background: '#C8A96A' }}
         />
         <h1 className="font-[family-name:var(--font-playfair)] text-3xl font-bold text-[#1A1A1A]">
           Admin Dashboard

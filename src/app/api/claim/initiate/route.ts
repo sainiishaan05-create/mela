@@ -77,7 +77,7 @@ export async function POST(req: Request) {
                 <table width="600" cellpadding="0" cellspacing="0" style="background:#ffffff;border-radius:12px;overflow:hidden;max-width:600px;width:100%;">
                   <!-- Header -->
                   <tr>
-                    <td style="background:#E8760A;padding:32px 40px;text-align:center;">
+                    <td style="background:#C8A96A;padding:32px 40px;text-align:center;">
                       <h1 style="margin:0;color:#ffffff;font-size:28px;font-weight:700;letter-spacing:-0.5px;">Melaa</h1>
                       <p style="margin:8px 0 0;color:#fff3e8;font-size:14px;">South Asian Wedding Vendors · GTA</p>
                     </td>
@@ -95,7 +95,7 @@ export async function POST(req: Request) {
                       <!-- CTA Button -->
                       <table cellpadding="0" cellspacing="0" style="margin:0 auto 32px;">
                         <tr>
-                          <td style="background:#E8760A;border-radius:8px;">
+                          <td style="background:#C8A96A;border-radius:8px;">
                             <a href="${verifyUrl}" style="display:inline-block;padding:16px 36px;color:#ffffff;font-size:16px;font-weight:700;text-decoration:none;letter-spacing:0.3px;">
                               Verify &amp; Claim Listing →
                             </a>
@@ -106,7 +106,7 @@ export async function POST(req: Request) {
                         If the button doesn't work, copy and paste this link into your browser:
                       </p>
                       <p style="margin:0 0 32px;word-break:break-all;">
-                        <a href="${verifyUrl}" style="color:#E8760A;font-size:13px;">${verifyUrl}</a>
+                        <a href="${verifyUrl}" style="color:#C8A96A;font-size:13px;">${verifyUrl}</a>
                       </p>
                       <hr style="border:none;border-top:1px solid #f0e8df;margin:0 0 24px;">
                       <p style="margin:0;color:#bbb;font-size:12px;line-height:1.5;">
