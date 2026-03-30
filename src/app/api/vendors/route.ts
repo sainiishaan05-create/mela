@@ -19,20 +19,21 @@ export async function POST(req: Request) {
     const supabase = await createClient()
 
     // Check if email already exists
-    const { data: existing } = await supabase.from('vendors').select('id').eq('email', email).single()
+    const { data: existing } = await supabase.from('vendors').select('id').eq('email', email).maybeSingle()
     if (existing) return NextResponse.json({ error: 'Email already registered' }, { status: 409 })
 
     // Generate unique slug
     let slug = slugify(name, { lower: true, strict: true })
-    const { data: slugExists } = await supabase.from('vendors').select('id').eq('slug', slug).single()
+    const { data: slugExists } = await supabase.from('vendors').select('id').eq('slug', slug).maybeSingle()
     if (slugExists) slug = `${slug}-${Date.now()}`
 
     // AI-enhance the description if it's short or missing
     let finalDescription = description
     if (!description || description.length < 50) {
       try {
-        const { data: cat } = await supabase.from('categories').select('name').eq('id', category_id).single()
-        const { data: city } = await supabase.from('cities').select('name').eq('id', city_id).single()
+        const { data: cat } = await supabase.from('categories').select('name').eq('id', category_id).maybeSingle()
+        const { data: city } = await supabase.from('cities').select('name').eq('id', city_id).maybeSingle()
+        if (!cat?.name || !city?.name) throw new Error('Category or city not found')
         const aiRes = await anthropic.messages.create({
           model: 'claude-haiku-4-5-20251001',
           max_tokens: 200,
@@ -55,12 +56,17 @@ export async function POST(req: Request) {
       description: finalDescription || null,
       website: website || null,
       instagram: instagram || null,
+      tier: 'free',
+      is_active: true,
+      is_verified: false,
+      is_featured: false,
+      portfolio_images: [],
     })
 
     if (error) throw error
 
     // Welcome email to vendor
-    await resend.emails.send({
+    const { error: emailError } = await resend.emails.send({
       from: 'Melaa <hello@melaa.ca>',
       to: email,
       subject: `Welcome to Melaa, ${name}! 🎉`,
@@ -81,6 +87,7 @@ export async function POST(req: Request) {
         </div>
       `,
     })
+    if (emailError) console.warn('Welcome email failed to send:', emailError)
 
     return NextResponse.json({ success: true, slug })
   } catch (err) {
