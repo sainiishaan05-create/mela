@@ -308,7 +308,7 @@ export default async function VendorProfilePage({ params }: Props) {
                   </p>
                   <Link
                     href={`/claim/${slug}`}
-                    className="flex items-center justify-center gap-2 w-full bg-[#C8A96A] hover:bg-[#d06a09] text-white font-bold rounded-2xl px-4 py-3 text-sm transition-colors duration-200 shadow-[0_4px_16px_rgba(200,169,106,0.3)]"
+                    className="flex items-center justify-center gap-2 w-full bg-[#C8A96A] hover:bg-[#B8945A] text-white font-bold rounded-2xl px-4 py-3 text-sm transition-colors duration-200 shadow-[0_4px_16px_rgba(200,169,106,0.3)]"
                   >
                     Claim Your Listing
                     <ArrowUpRight className="w-4 h-4" />

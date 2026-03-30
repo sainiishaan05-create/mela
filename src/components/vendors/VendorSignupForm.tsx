@@ -202,7 +202,7 @@ export default function VendorSignupForm({ categories, cities }: Props) {
       <button
         type="submit"
         disabled={status === 'loading' || uploading}
-        className="w-full bg-[#C8A96A] text-white font-semibold py-3 rounded-xl hover:bg-[#d06a09] transition-colors disabled:opacity-60 text-base"
+        className="w-full bg-[#C8A96A] text-white font-semibold py-3 rounded-xl hover:bg-[#B8945A] transition-colors disabled:opacity-60 text-base"
       >
         {status === 'loading' ? 'Submitting...' : 'List My Business Free →'}
       </button>

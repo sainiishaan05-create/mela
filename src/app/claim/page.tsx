@@ -35,7 +35,7 @@ export default async function ClaimPage({ searchParams }: Props) {
         )}
         <Link
           href="/"
-          className="inline-block bg-[#C8A96A] text-white font-semibold px-6 py-3 rounded-lg hover:bg-[#d06a09] transition-colors"
+          className="inline-block bg-[#C8A96A] text-white font-semibold px-6 py-3 rounded-lg hover:bg-[#B8945A] transition-colors"
         >
           Browse Listings
         </Link>

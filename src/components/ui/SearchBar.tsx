@@ -56,7 +56,7 @@ export default function SearchBar() {
         <button
           type="submit"
           aria-label="Search"
-          className="btn-primary m-2 flex items-center gap-2 bg-[#C8A96A] hover:bg-[#d06a09] text-white font-semibold px-5 py-3 rounded-xl text-sm transition-colors duration-200 shadow-saffron whitespace-nowrap"
+          className="btn-primary m-2 flex items-center gap-2 bg-[#C8A96A] hover:bg-[#B8945A] text-white font-semibold px-5 py-3 rounded-xl text-sm transition-colors duration-200 shadow-saffron whitespace-nowrap"
         >
           Search
           <ArrowRight className="w-4 h-4" />

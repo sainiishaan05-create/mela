@@ -55,7 +55,7 @@ export default async function DashboardPage({
         </p>
         <Link
           href="/vendors"
-          className="bg-[#C8A96A] text-white px-6 py-3 rounded-full font-medium hover:bg-[#d06a09] transition-colors"
+          className="bg-[#C8A96A] text-white px-6 py-3 rounded-full font-medium hover:bg-[#B8945A] transition-colors"
         >
           Find Your Listing
         </Link>
@@ -163,7 +163,7 @@ export default async function DashboardPage({
           {!isSubscribed && (
             <Link
               href="/pricing"
-              className="bg-[#C8A96A] text-white text-sm font-medium px-4 py-2 rounded-full hover:bg-[#d06a09] transition-colors whitespace-nowrap"
+              className="bg-[#C8A96A] text-white text-sm font-medium px-4 py-2 rounded-full hover:bg-[#B8945A] transition-colors whitespace-nowrap"
             >
               Upgrade
             </Link>
@@ -193,7 +193,7 @@ export default async function DashboardPage({
       <div className="flex flex-col sm:flex-row gap-3 mb-10">
         <Link
           href={`/vendors/${vendor.slug}`}
-          className="flex-1 text-center bg-[#C8A96A] text-white font-medium px-6 py-3 rounded-full hover:bg-[#d06a09] transition-colors"
+          className="flex-1 text-center bg-[#C8A96A] text-white font-medium px-6 py-3 rounded-full hover:bg-[#B8945A] transition-colors"
         >
           View Your Listing
         </Link>

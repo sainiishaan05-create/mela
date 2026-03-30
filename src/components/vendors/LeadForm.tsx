@@ -100,7 +100,7 @@ export default function LeadForm({ vendorId, vendorName }: LeadFormProps) {
       <button
         type="submit"
         disabled={status === 'loading'}
-        className="w-full bg-[#C8A96A] text-white font-semibold py-2.5 rounded-lg hover:bg-[#d06a09] transition-colors disabled:opacity-60"
+        className="w-full bg-[#C8A96A] text-white font-semibold py-2.5 rounded-lg hover:bg-[#B8945A] transition-colors disabled:opacity-60"
       >
         {status === 'loading' ? 'Sending...' : 'Send Inquiry'}
       </button>

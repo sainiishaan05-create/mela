@@ -55,7 +55,7 @@ export default async function CityPage({ params }: Props) {
           <p className="text-5xl mb-4">🏙️</p>
           <h2 className="font-[family-name:var(--font-playfair)] text-2xl font-bold mb-2">No vendors in {cityData.name} yet</h2>
           <p className="text-gray-500 mb-6">Be the first vendor listed in {cityData.name}!</p>
-          <Link href="/list-your-business" className="bg-[#C8A96A] text-white px-6 py-3 rounded-full font-medium hover:bg-[#d06a09] transition-colors">
+          <Link href="/list-your-business" className="bg-[#C8A96A] text-white px-6 py-3 rounded-full font-medium hover:bg-[#B8945A] transition-colors">
             List Your Business
           </Link>
         </div>

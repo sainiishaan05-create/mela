@@ -122,7 +122,7 @@ export default function Footer() {
               <p className="text-xs text-gray-400 mb-3">Lock in $49/mo forever — founding rate</p>
               <Link
                 href="/list-your-business"
-                className="inline-block text-xs font-bold text-white bg-[#C8A96A] hover:bg-[#d06a09] px-3 py-2 rounded-lg transition-colors duration-200"
+                className="inline-block text-xs font-bold text-white bg-[#C8A96A] hover:bg-[#B8945A] px-3 py-2 rounded-lg transition-colors duration-200"
               >
                 Claim Spot →
               </Link>
