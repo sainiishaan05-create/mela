@@ -70,7 +70,7 @@ Write a short, warm reply email (3-4 sentences) from the vendor. Be culturally w
         subject: `New inquiry from ${buyer_name} — ${event_type}`,
         html: `
           <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto;">
-            <h2 style="color: #E8760A;">New inquiry on Melaa 🎉</h2>
+            <h2 style="color: #C8A96A;">New inquiry on Melaa 🎉</h2>
             <p>You have a new inquiry from <strong>${buyer_name}</strong></p>
             <table style="width:100%; border-collapse:collapse; margin: 16px 0;">
               <tr><td style="padding:8px; color:#666;">Name</td><td style="padding:8px;"><strong>${buyer_name}</strong></td></tr>
@@ -81,11 +81,11 @@ Write a short, warm reply email (3-4 sentences) from the vendor. Be culturally w
               <tr><td style="padding:8px; color:#666;">Message</td><td style="padding:8px;">${message}</td></tr>
             </table>
             ${aiDraftedReply ? `
-            <div style="background:#FFF8F0; border-left:4px solid #E8760A; padding:16px; margin:16px 0; border-radius:4px;">
-              <p style="margin:0 0 8px; font-weight:bold; color:#E8760A;">✨ AI-drafted reply (edit and send):</p>
+            <div style="background:#FFF8F0; border-left:4px solid #C8A96A; padding:16px; margin:16px 0; border-radius:4px;">
+              <p style="margin:0 0 8px; font-weight:bold; color:#C8A96A;">✨ AI-drafted reply (edit and send):</p>
               <p style="margin:0; white-space:pre-wrap;">${aiDraftedReply}</p>
             </div>` : ''}
-            <a href="mailto:${buyer_email}" style="background:#E8760A; color:white; padding:12px 24px; border-radius:24px; text-decoration:none; display:inline-block; margin-top:8px;">Reply to ${buyer_name}</a>
+            <a href="mailto:${buyer_email}" style="background:#C8A96A; color:white; padding:12px 24px; border-radius:24px; text-decoration:none; display:inline-block; margin-top:8px;">Reply to ${buyer_name}</a>
           </div>
         `,
       })
@@ -98,11 +98,11 @@ Write a short, warm reply email (3-4 sentences) from the vendor. Be culturally w
       subject: `Your inquiry to ${vendor.name} has been sent!`,
       html: `
         <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto;">
-          <h2 style="color: #E8760A;">Inquiry sent! 🎉</h2>
+          <h2 style="color: #C8A96A;">Inquiry sent! 🎉</h2>
           <p>Hi ${buyer_name},</p>
           <p>Your inquiry to <strong>${vendor.name}</strong> has been sent. They'll be in touch soon!</p>
           <p style="color:#666;">In the meantime, browse more vendors on Melaa.</p>
-          <a href="${process.env.NEXT_PUBLIC_SITE_URL}/vendors" style="background:#E8760A; color:white; padding:12px 24px; border-radius:24px; text-decoration:none; display:inline-block; margin-top:8px;">Browse More Vendors</a>
+          <a href="${process.env.NEXT_PUBLIC_SITE_URL}/vendors" style="background:#C8A96A; color:white; padding:12px 24px; border-radius:24px; text-decoration:none; display:inline-block; margin-top:8px;">Browse More Vendors</a>
         </div>
       `,
     })

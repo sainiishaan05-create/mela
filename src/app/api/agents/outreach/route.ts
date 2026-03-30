@@ -70,7 +70,7 @@ export async function GET(req: Request) {
         <div style="margin-bottom:28px;border:1px solid #e5e5e0;border-radius:12px;overflow:hidden">
           <div style="background:#1A1A1A;padding:12px 16px">
             <strong style="color:white">${vendor.business_name}</strong>
-            <span style="color:#E8760A;margin-left:8px;font-size:12px">${vendor.category ?? ''} · ${vendor.city ?? ''}</span>
+            <span style="color:#C8A96A;margin-left:8px;font-size:12px">${vendor.category ?? ''} · ${vendor.city ?? ''}</span>
             ${vendor.instagram ? `<span style="color:#aaa;margin-left:8px;font-size:12px">@${vendor.instagram}</span>` : ''}
           </div>
           <div style="padding:16px">
@@ -89,10 +89,10 @@ export async function GET(req: Request) {
         to: ADMIN_EMAIL,
         subject: `📬 Today's Outreach Kit — ${pending.length} vendors ready to contact`,
         html: `<div style="font-family:sans-serif;max-width:680px;margin:0 auto">
-          <h2 style="color:#E8760A">Daily Outreach Kit</h2>
+          <h2 style="color:#C8A96A">Daily Outreach Kit</h2>
           <p>Copy-paste these messages to each vendor on Instagram, WhatsApp, or email. Mark them as contacted in <a href="${SITE}/admin/outreach">your outreach tracker</a>.</p>
           ${kitHtml}
-          <a href="${SITE}/admin/outreach" style="background:#E8760A;color:white;padding:12px 24px;border-radius:20px;text-decoration:none;display:inline-block;margin-top:8px">Update Statuses →</a>
+          <a href="${SITE}/admin/outreach" style="background:#C8A96A;color:white;padding:12px 24px;border-radius:20px;text-decoration:none;display:inline-block;margin-top:8px">Update Statuses →</a>
           <p style="color:#999;font-size:12px;margin-top:20px">Melaa Outreach Agent · ${now.toDateString()}</p>
         </div>`,
       })
@@ -123,9 +123,9 @@ export async function GET(req: Request) {
       to: target.email,
       subject: `Free listing for ${target.business_name} on Melaa.ca`,
       html: `<div style="font-family:sans-serif;max-width:600px;margin:0 auto">
-        <h2 style="color:#E8760A">Hi ${target.business_name}!</h2>
+        <h2 style="color:#C8A96A">Hi ${target.business_name}!</h2>
         ${emailBody.split('\n').map(p => `<p style="color:#333;line-height:1.6">${p}</p>`).join('')}
-        <a href="${SITE}/list-your-business" style="background:#E8760A;color:white;padding:12px 24px;border-radius:20px;text-decoration:none;display:inline-block;margin-top:16px">List for Free →</a>
+        <a href="${SITE}/list-your-business" style="background:#C8A96A;color:white;padding:12px 24px;border-radius:20px;text-decoration:none;display:inline-block;margin-top:16px">List for Free →</a>
         <p style="color:#bbb;font-size:11px;margin-top:16px">Reply to unsubscribe.</p>
       </div>`,
     })
@@ -149,15 +149,15 @@ export async function GET(req: Request) {
       to: ADMIN_EMAIL,
       subject: `📊 Outreach Pipeline Report — ${counts.listed} vendors converted`,
       html: `<div style="font-family:sans-serif;max-width:600px;margin:0 auto">
-        <h2 style="color:#E8760A">Weekly Outreach Pipeline</h2>
+        <h2 style="color:#C8A96A">Weekly Outreach Pipeline</h2>
         <table style="width:100%;border-collapse:collapse">
           <tr style="background:#fafaf7"><td style="padding:12px;font-weight:bold">Pending</td><td style="padding:12px;text-align:right;font-size:24px;font-weight:bold">${counts.pending}</td></tr>
           <tr><td style="padding:12px;font-weight:bold">Contacted</td><td style="padding:12px;text-align:right;font-size:24px;font-weight:bold;color:#f59e0b">${counts.contacted}</td></tr>
           <tr style="background:#fafaf7"><td style="padding:12px;font-weight:bold">Listed (converted)</td><td style="padding:12px;text-align:right;font-size:24px;font-weight:bold;color:#16a34a">${counts.listed}</td></tr>
           <tr><td style="padding:12px;font-weight:bold">Rejected</td><td style="padding:12px;text-align:right;font-size:24px;font-weight:bold;color:#dc2626">${counts.rejected}</td></tr>
-          <tr style="background:#fafaf7"><td style="padding:12px;font-weight:bold">Conversion Rate</td><td style="padding:12px;text-align:right;font-size:24px;font-weight:bold;color:#E8760A">${conversionRate}%</td></tr>
+          <tr style="background:#fafaf7"><td style="padding:12px;font-weight:bold">Conversion Rate</td><td style="padding:12px;text-align:right;font-size:24px;font-weight:bold;color:#C8A96A">${conversionRate}%</td></tr>
         </table>
-        <a href="${SITE}/admin/outreach" style="background:#E8760A;color:white;padding:12px 24px;border-radius:20px;text-decoration:none;display:inline-block;margin-top:16px">Manage Pipeline →</a>
+        <a href="${SITE}/admin/outreach" style="background:#C8A96A;color:white;padding:12px 24px;border-radius:20px;text-decoration:none;display:inline-block;margin-top:16px">Manage Pipeline →</a>
       </div>`,
     })
     results.push(`pipeline_report:${conversionRate}%_conversion`)

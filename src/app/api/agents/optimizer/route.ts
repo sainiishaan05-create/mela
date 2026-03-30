@@ -87,11 +87,11 @@ export async function GET(req: Request) {
         html: `<div style="font-family:sans-serif;max-width:600px;margin:0 auto">
           ${email.split('\n\n').map(p => `<p style="line-height:1.7;color:#333">${p}</p>`).join('')}
           <div style="background:#1A1A1A;border-radius:12px;padding:20px;margin:20px 0;text-align:center">
-            <p style="margin:0;font-size:12px;color:#E8760A;text-transform:uppercase;letter-spacing:1px">Founding Vendor Rate</p>
+            <p style="margin:0;font-size:12px;color:#C8A96A;text-transform:uppercase;letter-spacing:1px">Founding Vendor Rate</p>
             <p style="margin:4px 0;font-size:36px;font-weight:bold;color:white">$49<span style="font-size:16px;color:#999">/mo</span></p>
             <p style="margin:0;font-size:12px;color:#666"><s style="color:#999">$197/mo</s> · Free 90 days · Locked forever · Cancel anytime</p>
           </div>
-          <a href="${SITE}/pricing" style="background:#E8760A;color:white;padding:14px 28px;border-radius:24px;text-decoration:none;display:block;text-align:center;font-weight:bold;font-size:15px;margin-top:8px">Claim Founding Rate →</a>
+          <a href="${SITE}/pricing" style="background:#C8A96A;color:white;padding:14px 28px;border-radius:24px;text-decoration:none;display:block;text-align:center;font-weight:bold;font-size:15px;margin-top:8px">Claim Founding Rate →</a>
         </div>`,
       })
       results.push(`hot_window:${vendor.name}(${count}_leads)`)
@@ -117,7 +117,7 @@ export async function GET(req: Request) {
         to: vendor.email,
         subject: `Get featured on Melaa.ca homepage — $49/mo add-on`,
         html: `<div style="font-family:sans-serif;max-width:600px;margin:0 auto">
-          <h2 style="color:#E8760A">Featured Placement — Available Now</h2>
+          <h2 style="color:#C8A96A">Featured Placement — Available Now</h2>
           <p style="color:#333;line-height:1.7">Hi ${vendor.name.split(' ')[0]}, we're now offering a <strong>Featured Placement</strong> add-on for Basic members.</p>
           <div style="background:#fafaf7;border-radius:12px;padding:20px;margin:16px 0">
             <p style="margin:0 0 8px;font-weight:bold;color:#1A1A1A">What you get for $49/mo:</p>
@@ -163,7 +163,7 @@ export async function GET(req: Request) {
         to: vendor.email,
         subject: `${vendor.name} — are you getting your leads?`,
         html: `<div style="font-family:sans-serif;max-width:600px;margin:0 auto">
-          <h2 style="color:#E8760A">Quick check-in</h2>
+          <h2 style="color:#C8A96A">Quick check-in</h2>
           <p style="color:#333;line-height:1.7">Hi ${vendor.name.split(' ')[0]}, I noticed you haven't replied to any recent inquiries on Melaa. I want to make sure you're getting value from your ${vendor.tier} subscription.</p>
           <p>A few things that might help:</p>
           <ul style="color:#444;line-height:2">
@@ -172,7 +172,7 @@ export async function GET(req: Request) {
             <li>Reply to leads within 24h to stay at the top of rankings</li>
           </ul>
           <p>If anything isn't working, reply to this email and I'll personally fix it.</p>
-          <a href="${SITE}/dashboard" style="background:#E8760A;color:white;padding:10px 20px;border-radius:20px;text-decoration:none;display:inline-block;margin-top:8px">Check My Dashboard →</a>
+          <a href="${SITE}/dashboard" style="background:#C8A96A;color:white;padding:10px 20px;border-radius:20px;text-decoration:none;display:inline-block;margin-top:8px">Check My Dashboard →</a>
           <p style="color:#444;margin-top:16px">— Ishaan</p>
         </div>`,
       })
@@ -208,7 +208,7 @@ export async function GET(req: Request) {
       to: ADMIN_EMAIL,
       subject: `💡 Revenue Optimizer: ${totalOpportunities} opportunities this week`,
       html: `<div style="font-family:sans-serif;max-width:600px;margin:0 auto">
-        <h2 style="color:#E8760A">Revenue Optimizer Weekly Summary</h2>
+        <h2 style="color:#C8A96A">Revenue Optimizer Weekly Summary</h2>
         <p>This week the optimizer identified and actioned <strong>${totalOpportunities}</strong> revenue opportunities:</p>
         <ul style="color:#444;line-height:2">
           <li>Hot window upgrade prompts (vendors with 2-5 leads)</li>
@@ -216,7 +216,7 @@ export async function GET(req: Request) {
           <li>Revenue leak recovery (inactive paid vendors)</li>
         </ul>
         <p style="color:#666;font-size:13px">Track conversions manually by checking if any vendors upgraded after receiving these emails.</p>
-        <a href="${SITE}/admin" style="background:#E8760A;color:white;padding:10px 20px;border-radius:20px;text-decoration:none;display:inline-block">Admin Dashboard →</a>
+        <a href="${SITE}/admin" style="background:#C8A96A;color:white;padding:10px 20px;border-radius:20px;text-decoration:none;display:inline-block">Admin Dashboard →</a>
       </div>`,
     })
   }

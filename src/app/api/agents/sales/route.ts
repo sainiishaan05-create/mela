@@ -130,11 +130,11 @@ export async function GET(req: Request) {
           ${emailBody.split('\n\n').map(p => `<p style="color:#333;line-height:1.7">${p}</p>`).join('')}
           ${targetDay >= 30 ? `
           <div style="background:#1A1A1A;border-radius:12px;padding:20px;margin:24px 0;text-align:center">
-            <p style="color:#E8760A;margin:0;font-size:12px;text-transform:uppercase;letter-spacing:1px">Founding Vendor Rate</p>
+            <p style="color:#C8A96A;margin:0;font-size:12px;text-transform:uppercase;letter-spacing:1px">Founding Vendor Rate</p>
             <p style="color:white;font-size:36px;font-weight:bold;margin:4px 0">$49<span style="font-size:14px;color:#999">/mo</span></p>
             <p style="color:#666;margin:0;font-size:12px"><s style="color:#999">$197/mo</s> · Locked in forever · Cancel anytime</p>
           </div>
-          <a href="${SITE}/pricing" style="display:block;text-align:center;background:#E8760A;color:white;padding:14px;border-radius:12px;text-decoration:none;font-weight:bold">Claim Founding Rate →</a>
+          <a href="${SITE}/pricing" style="display:block;text-align:center;background:#C8A96A;color:white;padding:14px;border-radius:12px;text-decoration:none;font-weight:bold">Claim Founding Rate →</a>
           ` : `<a href="${SITE}/dashboard" style="display:inline-block;background:#1A1A1A;color:white;padding:10px 20px;border-radius:20px;text-decoration:none;font-weight:bold;margin-top:8px">View My Profile →</a>`}
           <p style="color:#ccc;font-size:11px;margin-top:20px">Reply to unsubscribe from these updates.</p>
         </div>`,
@@ -189,11 +189,11 @@ export async function GET(req: Request) {
       html: `<div style="font-family:sans-serif;max-width:600px;margin:0 auto">
         ${pitch.split('\n\n').map(p => `<p style="color:#333;line-height:1.6">${p}</p>`).join('')}
         <div style="background:#1A1A1A;border-radius:12px;padding:20px;margin:20px 0;text-align:center">
-          <p style="color:#E8760A;margin:0;font-size:12px;text-transform:uppercase;letter-spacing:1px">Founding Member Rate</p>
+          <p style="color:#C8A96A;margin:0;font-size:12px;text-transform:uppercase;letter-spacing:1px">Founding Member Rate</p>
           <p style="color:white;font-size:36px;font-weight:bold;margin:4px 0">$49<span style="font-size:14px;color:#999">/mo</span></p>
           <p style="color:#666;margin:0;font-size:12px"><s style="color:#999">$197/mo</s> · Locked forever · Cancel anytime</p>
         </div>
-        <a href="${SITE}/pricing" style="display:block;text-align:center;background:#E8760A;color:white;padding:14px;border-radius:12px;text-decoration:none;font-weight:bold">Claim Founding Rate →</a>
+        <a href="${SITE}/pricing" style="display:block;text-align:center;background:#C8A96A;color:white;padding:14px;border-radius:12px;text-decoration:none;font-weight:bold">Claim Founding Rate →</a>
         <p style="color:#bbb;font-size:11px;margin-top:16px">Reply to unsubscribe.</p>
       </div>`,
     })
@@ -253,7 +253,7 @@ export async function GET(req: Request) {
       to: vendor.email,
       subject: `Save on your Melaa membership — annual billing offer`,
       html: `<div style="font-family:sans-serif;max-width:600px;margin:0 auto">
-        <h2 style="color:#E8760A">You've been with Melaa 3 months — thank you!</h2>
+        <h2 style="color:#C8A96A">You've been with Melaa 3 months — thank you!</h2>
         <p style="color:#333;line-height:1.6">As one of our earliest members, I want to offer you annual billing: <strong>pay for 10 months, get 12</strong> — you save 2 months free and lock in your current rate forever.</p>
         <p style="color:#333;line-height:1.6">Just reply to this email and I'll set it up for you personally within the hour.</p>
         <p style="color:#444">— Ishaan, Founder of Melaa</p>

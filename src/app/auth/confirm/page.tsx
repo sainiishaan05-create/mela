@@ -53,7 +53,7 @@ export default function AuthConfirmPage() {
           style={{
             display: 'inline-block',
             padding: '0.75rem 2rem',
-            backgroundColor: '#E8760A',
+            backgroundColor: '#C8A96A',
             color: '#FAFAF7',
             borderRadius: '8px',
             fontWeight: 600,

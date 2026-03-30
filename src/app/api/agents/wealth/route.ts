@@ -129,10 +129,10 @@ export async function GET(req: Request) {
       html: `<div style="font-family:sans-serif;max-width:600px;margin:0 auto">
 
         <div style="background:#1A1A1A;border-radius:16px;padding:28px;margin-bottom:24px;text-align:center">
-          <p style="margin:0;font-size:12px;color:#E8760A;text-transform:uppercase;letter-spacing:2px">Your Equity Statement</p>
+          <p style="margin:0;font-size:12px;color:#C8A96A;text-transform:uppercase;letter-spacing:2px">Your Equity Statement</p>
           <p style="margin:8px 0 0;font-size:13px;color:#999">${now.toLocaleString('default', { month: 'long', year: 'numeric' })}</p>
           <p style="margin:12px 0 0;font-size:48px;font-weight:bold;color:white">${currency(equityValue)}</p>
-          <p style="margin:4px 0 0;font-size:14px;color:#E8760A">${member.equity_pct}% of Melaa</p>
+          <p style="margin:4px 0 0;font-size:14px;color:#C8A96A">${member.equity_pct}% of Melaa</p>
           ${mrrGrowth > 0 ? `<p style="margin:8px 0 0;font-size:13px;color:#4ade80">↑ Up ${mrrGrowth}% from last month</p>` : ''}
         </div>
 
@@ -141,7 +141,7 @@ export async function GET(req: Request) {
         <table style="width:100%;border-collapse:collapse;margin-bottom:24px">
           <tr style="background:#fafaf7">
             <td style="padding:12px;font-weight:bold;color:#1A1A1A">Your stake</td>
-            <td style="padding:12px;text-align:right;font-weight:bold;color:#E8760A">${member.equity_pct}%</td>
+            <td style="padding:12px;text-align:right;font-weight:bold;color:#C8A96A">${member.equity_pct}%</td>
           </tr>
           <tr>
             <td style="padding:12px;color:#1A1A1A">Total equity value</td>
@@ -164,14 +164,14 @@ export async function GET(req: Request) {
         <div style="background:#fafaf7;border-radius:12px;padding:20px;margin-bottom:24px">
           <p style="margin:0 0 8px;font-weight:bold;color:#1A1A1A">💡 What your work is worth in real time</p>
           <p style="margin:0 0 6px;color:#444;font-size:14px">
-            Every Basic vendor we sign = <strong style="color:#E8760A">${currency(valueOfOneBasicForMember)}</strong> added to your equity value
+            Every Basic vendor we sign = <strong style="color:#C8A96A">${currency(valueOfOneBasicForMember)}</strong> added to your equity value
           </p>
           <p style="margin:0;color:#444;font-size:14px">
-            Every Premium vendor we sign = <strong style="color:#E8760A">${currency(Math.round((member.equity_pct / 100) * valuePerPremiumVendor))}</strong> added to your equity value
+            Every Premium vendor we sign = <strong style="color:#C8A96A">${currency(Math.round((member.equity_pct / 100) * valuePerPremiumVendor))}</strong> added to your equity value
           </p>
         </div>
 
-        <div style="background:#E8760A;border-radius:12px;padding:20px;text-align:center">
+        <div style="background:#C8A96A;border-radius:12px;padding:20px;text-align:center">
           <p style="margin:0;color:white;font-weight:bold;font-size:16px">Company Valuation This Month</p>
           <p style="margin:8px 0;color:white;font-size:32px;font-weight:bold">${currency(valuation)}</p>
           <p style="margin:0;color:rgba(255,255,255,0.8);font-size:13px">${currency(mrr)} MRR · ${currency(arr)} ARR · ${VALUATION_MULTIPLE}x multiple</p>
@@ -201,7 +201,7 @@ export async function GET(req: Request) {
       return `<tr>
         <td style="padding:10px;border-bottom:1px solid #eee">${m.name}</td>
         <td style="padding:10px;border-bottom:1px solid #eee;color:#666">${m.role}</td>
-        <td style="padding:10px;border-bottom:1px solid #eee;font-weight:bold;color:#E8760A">${m.equity_pct}%</td>
+        <td style="padding:10px;border-bottom:1px solid #eee;font-weight:bold;color:#C8A96A">${m.equity_pct}%</td>
         <td style="padding:10px;border-bottom:1px solid #eee;font-weight:bold">${currency(val)}</td>
         <td style="padding:10px;border-bottom:1px solid #eee;color:#16a34a">${vested}% vested</td>
       </tr>`
@@ -214,15 +214,15 @@ export async function GET(req: Request) {
       to: ADMIN_EMAIL,
       subject: `💰 Monthly Cap Table — Company valued at ${currency(valuation)}`,
       html: `<div style="font-family:sans-serif;max-width:650px;margin:0 auto">
-        <h2 style="color:#E8760A">Monthly Cap Table Report</h2>
+        <h2 style="color:#C8A96A">Monthly Cap Table Report</h2>
         <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin:16px 0">
           <div style="background:#1A1A1A;padding:16px;border-radius:8px;text-align:center">
-            <p style="margin:0;font-size:11px;color:#E8760A;text-transform:uppercase">Valuation</p>
+            <p style="margin:0;font-size:11px;color:#C8A96A;text-transform:uppercase">Valuation</p>
             <p style="margin:4px 0 0;font-size:22px;font-weight:bold;color:white">${currency(valuation)}</p>
           </div>
           <div style="background:#fafaf7;padding:16px;border-radius:8px;text-align:center">
             <p style="margin:0;font-size:11px;color:#999;text-transform:uppercase">MRR</p>
-            <p style="margin:4px 0 0;font-size:22px;font-weight:bold;color:#E8760A">${currency(mrr)}</p>
+            <p style="margin:4px 0 0;font-size:22px;font-weight:bold;color:#C8A96A">${currency(mrr)}</p>
           </div>
           <div style="background:#fafaf7;padding:16px;border-radius:8px;text-align:center">
             <p style="margin:0;font-size:11px;color:#999;text-transform:uppercase">MRR Growth</p>
@@ -240,7 +240,7 @@ export async function GET(req: Request) {
           <tbody>${tableRows}</tbody>
           <tfoot><tr style="background:#fafaf7;font-weight:bold">
             <td colspan="2" style="padding:10px">Total Allocated</td>
-            <td style="padding:10px;color:#E8760A">${totalAllocated}%</td>
+            <td style="padding:10px;color:#C8A96A">${totalAllocated}%</td>
             <td style="padding:10px">${currency(Math.round((totalAllocated / 100) * valuation))}</td>
             <td style="padding:10px;color:#666">${100 - totalAllocated}% unallocated</td>
           </tr></tfoot>
@@ -250,7 +250,7 @@ export async function GET(req: Request) {
           <p style="margin:0 0 4px;font-size:13px;color:#444">+1 Basic vendor = <strong>+${currency(valuePerBasicVendor)}</strong> valuation</p>
           <p style="margin:0;font-size:13px;color:#444">+1 Premium vendor = <strong>+${currency(valuePerPremiumVendor)}</strong> valuation</p>
         </div>
-        <a href="${SITE}/admin/team" style="background:#E8760A;color:white;padding:10px 20px;border-radius:20px;text-decoration:none;display:inline-block;margin-top:16px">Team Dashboard →</a>
+        <a href="${SITE}/admin/team" style="background:#C8A96A;color:white;padding:10px 20px;border-radius:20px;text-decoration:none;display:inline-block;margin-top:16px">Team Dashboard →</a>
       </div>`,
     })
     results.push(`cap_table_report:${currency(valuation)}`)

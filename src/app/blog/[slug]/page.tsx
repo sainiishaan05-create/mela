@@ -119,7 +119,7 @@ export default async function BlogPostPage({ params }: PageProps) {
       >
         <ol className="max-w-3xl mx-auto flex items-center gap-2 text-sm text-gray-500">
           <li>
-            <Link href="/" className="hover:text-[#E8760A] transition-colors">
+            <Link href="/" className="hover:text-[#C8A96A] transition-colors">
               Home
             </Link>
           </li>
@@ -129,7 +129,7 @@ export default async function BlogPostPage({ params }: PageProps) {
           <li>
             <Link
               href="/blog"
-              className="hover:text-[#E8760A] transition-colors"
+              className="hover:text-[#C8A96A] transition-colors"
             >
               Blog
             </Link>
@@ -150,7 +150,7 @@ export default async function BlogPostPage({ params }: PageProps) {
       <section className="bg-[#1A1A1A] text-white py-14 px-4">
         <div className="max-w-3xl mx-auto">
           <div className="flex items-center gap-3 mb-4">
-            <span className="inline-block bg-[#E8760A]/20 text-[#E8760A] text-xs font-semibold uppercase tracking-wide px-3 py-1 rounded-full">
+            <span className="inline-block bg-[#C8A96A]/20 text-[#C8A96A] text-xs font-semibold uppercase tracking-wide px-3 py-1 rounded-full">
               {categoryLabel}
             </span>
             {post.city && (
@@ -193,7 +193,7 @@ export default async function BlogPostPage({ params }: PageProps) {
               </p>
               <Link
                 href={relatedCategory.href}
-                className="font-[family-name:var(--font-playfair)] text-xl font-bold text-[#E8760A] hover:underline"
+                className="font-[family-name:var(--font-playfair)] text-xl font-bold text-[#C8A96A] hover:underline"
               >
                 Browse {relatedCategory.label} on Melaa →
               </Link>
@@ -203,17 +203,17 @@ export default async function BlogPostPage({ params }: PageProps) {
       </article>
 
       {/* CTA Banner */}
-      <section className="bg-[#E8760A] text-white py-14 px-4 text-center">
+      <section className="bg-[#C8A96A] text-white py-14 px-4 text-center">
         <h2 className="font-[family-name:var(--font-playfair)] text-3xl md:text-4xl font-bold mb-4">
           Find {categoryLabel} vendors on Melaa
         </h2>
-        <p className="text-orange-100 text-lg mb-8 max-w-xl mx-auto">
+        <p className="text-[#F5ECD7] text-lg mb-8 max-w-xl mx-auto">
           Discover trusted South Asian wedding vendors across the GTA — verified,
           reviewed, and ready to make your celebration unforgettable.
         </p>
         <Link
           href="/vendors"
-          className="bg-white text-[#E8760A] font-bold px-8 py-4 rounded-full hover:bg-orange-50 transition-colors text-lg"
+          className="bg-white text-[#C8A96A] font-bold px-8 py-4 rounded-full hover:bg-[#F5ECD7] transition-colors text-lg"
         >
           Browse All Vendors →
         </Link>

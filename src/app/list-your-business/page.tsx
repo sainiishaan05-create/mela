@@ -21,7 +21,7 @@ export default async function ListYourBusinessPage() {
     <div className="max-w-2xl mx-auto px-4 py-12">
       {/* Founding Vendor Banner */}
       <div className="mb-6 bg-[#1A1A1A] rounded-2xl p-4 text-center">
-        <p className="text-[#E8760A] font-bold text-sm uppercase tracking-widest mb-1">Founding Vendor Program</p>
+        <p className="text-[#C8A96A] font-bold text-sm uppercase tracking-widest mb-1">Founding Vendor Program</p>
         <p className="text-white font-semibold text-lg">Free for 90 days. Then $49/mo locked in forever.</p>
         <p className="text-gray-400 text-sm mt-1">Only {spotsLeft} founding spots left — price goes to $197/mo after.</p>
       </div>
@@ -67,7 +67,7 @@ export default async function ListYourBusinessPage() {
             ['Ongoing', 'Priority placement, verified badge, unlimited leads, full analytics dashboard.'],
           ].map(([day, desc]) => (
             <li key={day} className="flex gap-3 text-sm">
-              <span className="font-bold text-[#E8760A] w-16 shrink-0">{day}</span>
+              <span className="font-bold text-[#C8A96A] w-16 shrink-0">{day}</span>
               <span className="text-gray-600">{desc}</span>
             </li>
           ))}
@@ -75,7 +75,7 @@ export default async function ListYourBusinessPage() {
       </div>
 
       {/* Guarantee */}
-      <div className="rounded-2xl border-2 border-[#E8760A] bg-orange-50 p-6 text-center">
+      <div className="rounded-2xl border-2 border-[#C8A96A] bg-[#F5ECD7] p-6 text-center">
         <p className="text-2xl mb-2">🛡️</p>
         <h3 className="font-bold text-[#1A1A1A] mb-1">Our Guarantee</h3>
         <p className="text-sm text-gray-600">
