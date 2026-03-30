@@ -119,7 +119,7 @@ export default function Footer() {
             {/* Vendor CTA */}
             <div className="mt-6 p-4 rounded-2xl border border-[#C8A96A]/20 bg-[#C8A96A]/8">
               <p className="text-xs text-[#C8A96A] font-semibold mb-1">Founding Vendor Rate</p>
-              <p className="text-xs text-gray-400 mb-3">Lock in $49/mo forever — only 23 spots left</p>
+              <p className="text-xs text-gray-400 mb-3">Lock in $49/mo forever — founding rate</p>
               <Link
                 href="/list-your-business"
                 className="inline-block text-xs font-bold text-white bg-[#C8A96A] hover:bg-[#d06a09] px-3 py-2 rounded-lg transition-colors duration-200"

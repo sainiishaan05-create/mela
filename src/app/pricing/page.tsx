@@ -1,22 +1,22 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { CheckCircle2, ArrowRight, Shield, Zap, Users } from 'lucide-react'
+import { createClient } from '@/lib/supabase/server'
+
+export const revalidate = 300
 
 export const metadata: Metadata = {
   title: 'Pricing | Melaa — South Asian Wedding Vendors GTA',
   description: 'Start free for 90 days. Founding Vendors lock in $49/mo forever. Regular pricing starts at $197/mo.',
 }
 
-const spotsLeft = 23
-
-const plans = [
+const PLAN_BASE = [
   {
     name: 'Free',
     price: '$0',
     period: 'forever',
     description: 'Get discovered by couples today',
     primary: false,
-    badge: null,
     highlight: null,
     features: [
       'Listed in the Melaa directory',
@@ -34,7 +34,6 @@ const plans = [
     period: '/month',
     description: 'First 90 days completely free',
     primary: true,
-    badge: `${spotsLeft} spots left`,
     highlight: '90 days free — no credit card',
     features: [
       'Everything in Free',
@@ -55,7 +54,6 @@ const plans = [
     period: '/month',
     description: 'For serious wedding professionals',
     primary: false,
-    badge: null,
     highlight: null,
     features: [
       'Everything in Founding Member',
@@ -78,7 +76,19 @@ const FAQS = [
   { q: 'What cities do you cover?', a: 'All of the GTA: Toronto, Brampton, Mississauga, Markham, Vaughan, Scarborough, Richmond Hill, Kitchener-Waterloo and surrounding areas.' },
 ]
 
-export default function PricingPage() {
+export default async function PricingPage() {
+  const supabase = await createClient()
+  const { count: vendorCount } = await supabase
+    .from('vendors')
+    .select('*', { count: 'exact', head: true })
+    .eq('is_active', true)
+  const spotsLeft = Math.max(0, 50 - (vendorCount ?? 0))
+
+  const plans = PLAN_BASE.map(plan => ({
+    ...plan,
+    badge: plan.primary && spotsLeft > 0 ? `${spotsLeft} spots left` : null,
+  }))
+
   return (
     <div className="bg-[#FAFAF7] min-h-screen">
 
