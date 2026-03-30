@@ -1,23 +1,19 @@
 'use client'
 
 import Link from 'next/link'
-import { Menu, X, Sparkles, ChevronDown, MapPin } from 'lucide-react'
+import { Menu, X, Sparkles, ChevronDown, MapPin, Search } from 'lucide-react'
 import { useState, useEffect, useRef } from 'react'
-import { usePathname } from 'next/navigation'
+import { usePathname, useRouter } from 'next/navigation'
 
-// Categories grouped for mega-menu display
 const CATEGORIES_NAV = [
-  // Capture
   { label: 'Photographers', href: '/category/photographers', icon: '📸', group: 'Capture & Media' },
   { label: 'Videographers', href: '/category/videographers', icon: '🎥', group: 'Capture & Media' },
   { label: 'Photo Booths', href: '/category/photo-booths', icon: '🎭', group: 'Capture & Media' },
-  // Beauty
   { label: 'Makeup Artists', href: '/category/makeup-artists', icon: '💄', group: 'Beauty & Style' },
   { label: 'Mehndi Artists', href: '/category/mehndi-artists', icon: '🌿', group: 'Beauty & Style' },
   { label: 'Hair Stylists', href: '/category/hair-stylists', icon: '💇', group: 'Beauty & Style' },
   { label: 'Nail Artists', href: '/category/nail-artists', icon: '💅', group: 'Beauty & Style' },
   { label: 'Bridal Fitness', href: '/category/bridal-fitness', icon: '🧘', group: 'Beauty & Style' },
-  // Venue & Decor
   { label: 'Wedding Venues', href: '/category/wedding-venues', icon: '🏛️', group: 'Venue & Decor' },
   { label: 'Decorators', href: '/category/decorators', icon: '🌸', group: 'Venue & Decor' },
   { label: 'Mandap Rental', href: '/category/mandap-rental', icon: '🕌', group: 'Venue & Decor' },
@@ -25,16 +21,13 @@ const CATEGORIES_NAV = [
   { label: 'Sound & Lighting', href: '/category/sound-lighting', icon: '💡', group: 'Venue & Decor' },
   { label: 'Tent Rentals', href: '/category/tent-rentals', icon: '⛺', group: 'Venue & Decor' },
   { label: 'Linen & Furniture', href: '/category/linen-furniture', icon: '🪑', group: 'Venue & Decor' },
-  // Food & Sweets
   { label: 'Catering', href: '/category/catering', icon: '🍽️', group: 'Food & Sweets' },
   { label: 'Sweets & Mithai', href: '/category/sweets-mithai', icon: '🍬', group: 'Food & Sweets' },
   { label: 'Cake & Desserts', href: '/category/cakes-desserts', icon: '🎂', group: 'Food & Sweets' },
-  // Entertainment
   { label: 'DJs & Entertainment', href: '/category/djs-entertainment', icon: '🎵', group: 'Entertainment' },
   { label: 'Dhol Players & Bhangra', href: '/category/dhol-players', icon: '🥁', group: 'Entertainment' },
   { label: 'Sangeet Entertainment', href: '/category/sangeet-entertainment', icon: '🎤', group: 'Entertainment' },
   { label: 'Baraat & Entertainment', href: '/category/baraat-entertainment', icon: '🐎', group: 'Entertainment' },
-  // Fashion & More
   { label: 'Bridal Wear', href: '/category/bridal-wear', icon: '👗', group: 'Fashion & More' },
   { label: 'Jewellery', href: '/category/jewellery', icon: '💎', group: 'Fashion & More' },
   { label: 'Invitations & Cards', href: '/category/invitations', icon: '💌', group: 'Fashion & More' },
@@ -44,7 +37,6 @@ const CATEGORIES_NAV = [
   { label: 'Honeymoon Travel', href: '/category/honeymoon-travel', icon: '✈️', group: 'Fashion & More' },
 ]
 
-// GTA Core cities shown first, then surrounding areas
 const CITIES_NAV_GTA = [
   'Toronto', 'Brampton', 'Mississauga', 'Markham', 'Vaughan', 'Scarborough',
   'Richmond Hill', 'Oakville', 'Etobicoke', 'North York', 'Thornhill', 'Woodbridge',
@@ -63,15 +55,6 @@ const CITIES_NAV_SURROUNDING = [
 
 const CITIES_NAV = [...CITIES_NAV_GTA, ...CITIES_NAV_SURROUNDING]
 
-const POPULAR_SEARCHES = [
-  { label: 'South Asian Photographers', href: '/category/photographers' },
-  { label: 'Mehndi Artists Near Me', href: '/category/mehndi-artists' },
-  { label: 'Indian Wedding Caterers', href: '/category/catering' },
-  { label: 'Bridal Makeup Artists', href: '/category/makeup-artists' },
-  { label: 'Wedding Mandap Decorators', href: '/category/mandap-stages' },
-  { label: 'Bollywood DJs', href: '/category/djs-entertainment' },
-]
-
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
@@ -79,7 +62,10 @@ export default function Header() {
   const [citiesOpen, setCitiesOpen] = useState(false)
   const [mobileBrowseOpen, setMobileBrowseOpen] = useState(false)
   const [mobileCitiesOpen, setMobileCitiesOpen] = useState(false)
+  const [searchQuery, setSearchQuery] = useState('')
+  const [searchFocused, setSearchFocused] = useState(false)
   const pathname = usePathname()
+  const router = useRouter()
 
   const browseRef = useRef<HTMLDivElement>(null)
   const citiesRef = useRef<HTMLDivElement>(null)
@@ -98,35 +84,24 @@ export default function Header() {
     setCitiesOpen(false)
   }, [pathname])
 
-  const openBrowse = () => {
-    if (browseTimer.current) clearTimeout(browseTimer.current)
-    setBrowseOpen(true)
-  }
-  const closeBrowse = () => {
-    browseTimer.current = setTimeout(() => setBrowseOpen(false), 120)
-  }
-  const openCities = () => {
-    if (citiesTimer.current) clearTimeout(citiesTimer.current)
-    setCitiesOpen(true)
-  }
-  const closeCities = () => {
-    citiesTimer.current = setTimeout(() => setCitiesOpen(false), 120)
+  const openBrowse = () => { if (browseTimer.current) clearTimeout(browseTimer.current); setBrowseOpen(true) }
+  const closeBrowse = () => { browseTimer.current = setTimeout(() => setBrowseOpen(false), 120) }
+  const openCities = () => { if (citiesTimer.current) clearTimeout(citiesTimer.current); setCitiesOpen(true) }
+  const closeCities = () => { citiesTimer.current = setTimeout(() => setCitiesOpen(false), 120) }
+
+  function handleSearch(e: React.FormEvent) {
+    e.preventDefault()
+    const q = searchQuery.trim()
+    if (q) router.push(`/vendors?search=${encodeURIComponent(q)}`)
   }
 
   return (
     <>
       <header
-        className={`sticky top-0 z-50 transition-all duration-300 ${
-          scrolled
-            ? 'backdrop-blur-xl shadow-sm border-b'
-            : 'border-b'
-        }`}
-        style={{
-          background: scrolled ? 'rgba(247,245,242,0.92)' : 'var(--color-bg)',
-          borderColor: 'var(--color-taupe)',
-        }}
+        className={`sticky top-0 z-50 transition-all duration-300 ${scrolled ? 'backdrop-blur-xl shadow-sm border-b' : 'border-b'}`}
+        style={{ background: scrolled ? 'rgba(247,245,242,0.92)' : 'var(--color-bg)', borderColor: 'var(--color-taupe)' }}
       >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between gap-4">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 h-16 flex items-center gap-3">
 
           {/* Logo */}
           <Link
@@ -138,32 +113,21 @@ export default function Header() {
             Melaa
           </Link>
 
-          {/* Desktop nav */}
-          <nav className="hidden md:flex items-center gap-0.5 text-sm text-gray-600">
+          {/* Desktop nav — left side */}
+          <nav className="hidden md:flex items-center gap-0.5 text-sm text-gray-600 shrink-0">
 
             {/* Browse dropdown */}
-            <div
-              ref={browseRef}
-              className="relative"
-              onMouseEnter={openBrowse}
-              onMouseLeave={closeBrowse}
-            >
+            <div ref={browseRef} className="relative" onMouseEnter={openBrowse} onMouseLeave={closeBrowse}>
               <button
-                className={`flex items-center gap-1 px-3 py-2 rounded-lg font-medium transition-all duration-200`}
-                style={{
-                  color: browseOpen ? 'var(--color-gold-dark)' : '#5C4F48',
-                  background: browseOpen ? 'rgba(200,169,106,0.1)' : 'transparent',
-                }}
+                className="flex items-center gap-1 px-3 py-2 rounded-lg font-medium transition-all duration-200"
+                style={{ color: browseOpen ? 'var(--color-gold-dark)' : '#5C4F48', background: browseOpen ? 'rgba(200,169,106,0.1)' : 'transparent' }}
                 aria-expanded={browseOpen}
-                aria-haspopup="true"
               >
                 Browse
-                <ChevronDown
-                  className={`w-3.5 h-3.5 transition-transform duration-200 ${browseOpen ? 'rotate-180' : ''}`}
-                />
+                <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-200 ${browseOpen ? 'rotate-180' : ''}`} />
               </button>
 
-              {/* Browse mega-dropdown */}
+              {/* Mega dropdown */}
               <div
                 onMouseEnter={openBrowse}
                 onMouseLeave={closeBrowse}
@@ -176,21 +140,14 @@ export default function Header() {
                   borderColor: 'var(--color-taupe)',
                 }}
                 className="absolute top-full left-0 mt-2 w-[860px] rounded-2xl shadow-2xl p-6 z-50 border"
-                role="menu"
               >
-                {/* Group headers */}
                 <div className="grid grid-cols-5 gap-6">
                   {(['Capture & Media', 'Beauty & Style', 'Venue & Decor', 'Food & Sweets', 'Entertainment'] as const).map((grp) => (
                     <div key={grp}>
                       <p className="text-[10px] font-bold uppercase tracking-widest mb-2" style={{ color: 'var(--color-taupe)' }}>{grp}</p>
                       <div className="space-y-0.5">
                         {CATEGORIES_NAV.filter(c => c.group === grp).map(({ label, href, icon }) => (
-                          <Link
-                            key={href}
-                            href={href}
-                            role="menuitem"
-                            className="nav-link flex items-center gap-2 py-1.5 px-2 text-sm"
-                          >
+                          <Link key={href} href={href} className="nav-link flex items-center gap-2 py-1.5 px-2 text-sm">
                             <span className="text-sm leading-none">{icon}</span>
                             <span className="leading-tight text-xs">{label}</span>
                           </Link>
@@ -199,11 +156,10 @@ export default function Header() {
                     </div>
                   ))}
                 </div>
-                {/* Fashion & More row + CTA */}
                 <div className="mt-4 pt-4 border-t flex items-center gap-4 flex-wrap" style={{ borderColor: 'var(--color-taupe)' }}>
                   <p className="text-[10px] font-bold uppercase tracking-widest shrink-0" style={{ color: 'var(--color-taupe)' }}>Fashion & More</p>
                   {CATEGORIES_NAV.filter(c => c.group === 'Fashion & More').map(({ label, href, icon }) => (
-                    <Link key={href} href={href} role="menuitem"
+                    <Link key={href} href={href}
                       className="nav-link flex items-center gap-1.5 py-1.5 px-3 rounded-full text-xs border"
                       style={{ borderColor: 'var(--color-taupe)', background: 'white' }}>
                       <span>{icon}</span>{label}
@@ -213,59 +169,20 @@ export default function Header() {
                     All Vendors →
                   </Link>
                 </div>
-                {/* Hidden popular searches placeholder — kept for structure */}
-                <div className="hidden">
-                  <div className="flex-[1] border-l border-gray-100 pl-6">
-                    <p className="text-xs font-semibold text-gray-400 uppercase tracking-widest mb-3">Popular Searches</p>
-                    <ul className="space-y-1">
-                      {POPULAR_SEARCHES.map(({ label, href }) => (
-                        <li key={href}>
-                          <Link
-                            href={href}
-                            role="menuitem"
-                            className="block text-sm text-gray-600 hover:text-[#C8A96A] py-1.5 px-2 rounded-lg hover:bg-[#C8A96A]/5 transition-all duration-150"
-                          >
-                            {label}
-                          </Link>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                </div>
               </div>
             </div>
 
-            {/* Categories */}
-            <Link
-              href="/browse"
-              className={`nav-link px-3 py-2 font-medium ${pathname === '/browse' ? 'active' : ''}`}
-            >
-              Categories
-            </Link>
-
             {/* Cities dropdown */}
-            <div
-              ref={citiesRef}
-              className="relative"
-              onMouseEnter={openCities}
-              onMouseLeave={closeCities}
-            >
+            <div ref={citiesRef} className="relative" onMouseEnter={openCities} onMouseLeave={closeCities}>
               <button
                 className="nav-link flex items-center gap-1 px-3 py-2 font-medium"
-                style={{
-                  color: citiesOpen ? 'var(--color-gold-dark)' : '#5C4F48',
-                  background: citiesOpen ? 'rgba(200,169,106,0.1)' : 'transparent',
-                }}
+                style={{ color: citiesOpen ? 'var(--color-gold-dark)' : '#5C4F48', background: citiesOpen ? 'rgba(200,169,106,0.1)' : 'transparent' }}
                 aria-expanded={citiesOpen}
-                aria-haspopup="true"
               >
                 Cities
-                <ChevronDown
-                  className={`w-3.5 h-3.5 transition-transform duration-200 ${citiesOpen ? 'rotate-180' : ''}`}
-                />
+                <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-200 ${citiesOpen ? 'rotate-180' : ''}`} />
               </button>
 
-              {/* Cities dropdown panel */}
               <div
                 onMouseEnter={openCities}
                 onMouseLeave={closeCities}
@@ -278,7 +195,6 @@ export default function Header() {
                   borderColor: 'var(--color-taupe)',
                 }}
                 className="absolute top-full -right-4 mt-2 w-[620px] rounded-2xl shadow-2xl p-6 z-50 border"
-                role="menu"
               >
                 <div className="grid grid-cols-2 gap-6">
                   <div>
@@ -287,7 +203,7 @@ export default function Header() {
                       {CITIES_NAV_GTA.map((city) => {
                         const slug = city.toLowerCase().replace(/ /g, '-').replace(/\./g, '')
                         return (
-                          <Link key={city} href={`/city/${slug}`} role="menuitem"
+                          <Link key={city} href={`/city/${slug}`}
                             className="nav-link flex items-center gap-1.5 text-xs py-1.5 px-2">
                             <MapPin className="w-2.5 h-2.5 text-gray-400 shrink-0" />{city}
                           </Link>
@@ -301,7 +217,7 @@ export default function Header() {
                       {CITIES_NAV_SURROUNDING.map((city) => {
                         const slug = city.toLowerCase().replace(/ /g, '-').replace(/\./g, '')
                         return (
-                          <Link key={city} href={`/city/${slug}`} role="menuitem"
+                          <Link key={city} href={`/city/${slug}`}
                             className="nav-link flex items-center gap-1.5 text-xs py-1.5 px-2">
                             <MapPin className="w-2.5 h-2.5 text-gray-400 shrink-0" />{city}
                           </Link>
@@ -318,54 +234,59 @@ export default function Header() {
               </div>
             </div>
 
-            {/* For Vendors */}
-            <Link
-              href="/list-your-business"
-              className={`nav-link px-3 py-2 font-medium ${pathname === '/list-your-business' ? 'active' : ''}`}
-            >
+            <Link href="/list-your-business" className={`nav-link px-3 py-2 font-medium ${pathname === '/list-your-business' ? 'active' : ''}`}>
               For Vendors
             </Link>
-
-            {/* Pricing */}
-            <Link
-              href="/pricing"
-              className={`nav-link px-3 py-2 font-medium ${pathname === '/pricing' ? 'active' : ''}`}
-            >
+            <Link href="/pricing" className={`nav-link px-3 py-2 font-medium ${pathname === '/pricing' ? 'active' : ''}`}>
               Pricing
             </Link>
-
-            {/* Blog */}
-            <Link
-              href="/blog"
-              className={`nav-link px-3 py-2 font-medium ${pathname.startsWith('/blog') ? 'active' : ''}`}
-            >
+            <Link href="/blog" className={`nav-link px-3 py-2 font-medium ${pathname.startsWith('/blog') ? 'active' : ''}`}>
               Blog
             </Link>
           </nav>
 
+          {/* Centre search bar — desktop only */}
+          <form
+            onSubmit={handleSearch}
+            className={`hidden md:flex flex-1 items-center bg-white border rounded-xl transition-all duration-200 mx-2 ${
+              searchFocused
+                ? 'border-[#C8A96A] shadow-[0_0_0_2px_rgba(200,169,106,0.15)]'
+                : 'border-gray-200 hover:border-gray-300'
+            }`}
+            style={{ maxWidth: 340 }}
+          >
+            <Search className={`w-4 h-4 ml-3 shrink-0 transition-colors ${searchFocused ? 'text-[#C8A96A]' : 'text-gray-400'}`} />
+            <input
+              type="text"
+              value={searchQuery}
+              onChange={e => setSearchQuery(e.target.value)}
+              onFocus={() => setSearchFocused(true)}
+              onBlur={() => setSearchFocused(false)}
+              placeholder="Search vendors..."
+              className="flex-1 px-3 py-2 text-sm bg-transparent outline-none text-gray-700 placeholder-gray-400"
+              autoComplete="off"
+            />
+            {searchQuery && (
+              <button type="submit" className="mr-2 px-2.5 py-1 text-xs font-semibold rounded-lg transition-colors" style={{ background: 'var(--color-gold)', color: 'var(--color-text)' }}>
+                Go
+              </button>
+            )}
+          </form>
+
           {/* Right actions */}
-          <div className="flex items-center gap-2 shrink-0">
-            <Link
-              href="/list-your-business"
-              className="btn-gold inline-flex items-center gap-1.5 text-sm px-4 py-2.5 rounded-full"
-            >
+          <div className="flex items-center gap-2 shrink-0 ml-auto md:ml-0">
+            <Link href="/list-your-business" className="btn-gold hidden md:inline-flex items-center gap-1.5 text-sm px-4 py-2.5 rounded-full">
               <Sparkles className="w-3.5 h-3.5" />
               Claim Spot
             </Link>
 
-            {/* Hamburger — mobile only */}
+            {/* Hamburger — mobile */}
             <button
               className="md:hidden flex items-center justify-center w-10 h-10 rounded-xl hover:bg-gray-50 transition-colors duration-200 text-gray-600"
               onClick={() => setMenuOpen(prev => !prev)}
               aria-label={menuOpen ? 'Close menu' : 'Open menu'}
-              aria-expanded={menuOpen}
             >
-              <span className={`transition-all duration-300 ${menuOpen ? 'rotate-90 opacity-0 absolute' : 'rotate-0 opacity-100'}`}>
-                <Menu className="w-5 h-5" />
-              </span>
-              <span className={`transition-all duration-300 ${menuOpen ? 'rotate-0 opacity-100' : '-rotate-90 opacity-0 absolute'}`}>
-                <X className="w-5 h-5" />
-              </span>
+              {menuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
             </button>
           </div>
         </div>
@@ -373,31 +294,34 @@ export default function Header() {
 
       {/* Mobile backdrop */}
       <div
-        className={`fixed inset-0 z-40 bg-black/20 backdrop-blur-sm md:hidden transition-opacity duration-300 ${
-          menuOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
-        }`}
+        className={`fixed inset-0 z-40 bg-black/20 backdrop-blur-sm md:hidden transition-opacity duration-300 ${menuOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`}
         onClick={() => setMenuOpen(false)}
-        aria-hidden="true"
       />
 
       {/* Mobile drawer */}
       <div
-        className={`fixed top-16 left-0 right-0 z-40 backdrop-blur-xl border-b shadow-xl md:hidden transition-all duration-300 ease-[cubic-bezier(0.25,0.46,0.45,0.94)] overflow-y-auto max-h-[calc(100dvh-4rem)] ${
-          menuOpen
-            ? 'opacity-100 translate-y-0 pointer-events-auto'
-            : 'opacity-0 -translate-y-3 pointer-events-none'
+        className={`fixed top-16 left-0 right-0 z-40 backdrop-blur-xl border-b shadow-xl md:hidden transition-all duration-300 overflow-y-auto max-h-[calc(100dvh-4rem)] ${
+          menuOpen ? 'opacity-100 translate-y-0 pointer-events-auto' : 'opacity-0 -translate-y-3 pointer-events-none'
         }`}
         style={{ background: 'rgba(247,245,242,0.97)', borderColor: 'var(--color-taupe)' }}
-        aria-hidden={!menuOpen}
       >
         <nav className="max-w-7xl mx-auto px-4 py-4 flex flex-col gap-1">
 
-          {/* Browse all vendors */}
-          <Link
-            href="/vendors"
-            onClick={() => setMenuOpen(false)}
-            className="nav-link px-4 py-3.5 text-sm font-medium"
-          >
+          {/* Mobile search */}
+          <form onSubmit={(e) => { e.preventDefault(); const q = searchQuery.trim(); if (q) { router.push(`/vendors?search=${encodeURIComponent(q)}`); setMenuOpen(false) } }} className="mb-2">
+            <div className="flex items-center bg-white border border-gray-200 rounded-xl px-3 py-2.5 gap-2">
+              <Search className="w-4 h-4 text-gray-400 shrink-0" />
+              <input
+                type="text"
+                value={searchQuery}
+                onChange={e => setSearchQuery(e.target.value)}
+                placeholder="Search vendors, categories..."
+                className="flex-1 text-sm outline-none bg-transparent text-gray-700 placeholder-gray-400"
+              />
+            </div>
+          </form>
+
+          <Link href="/vendors" onClick={() => setMenuOpen(false)} className="nav-link px-4 py-3.5 text-sm font-medium">
             Browse All Vendors
           </Link>
 
@@ -406,30 +330,15 @@ export default function Header() {
             <button
               onClick={() => setMobileBrowseOpen(prev => !prev)}
               className="nav-link w-full flex items-center justify-between px-4 py-3.5 text-sm font-medium"
-              aria-expanded={mobileBrowseOpen}
             >
               <span>Categories</span>
-              <ChevronDown
-                className={`w-4 h-4 text-gray-400 transition-transform duration-200 ${mobileBrowseOpen ? 'rotate-180' : ''}`}
-              />
+              <ChevronDown className={`w-4 h-4 text-gray-400 transition-transform duration-200 ${mobileBrowseOpen ? 'rotate-180' : ''}`} />
             </button>
-            <div
-              style={{
-                maxHeight: mobileBrowseOpen ? '600px' : '0',
-                overflow: 'hidden',
-                transition: 'max-height 300ms ease',
-              }}
-            >
+            <div style={{ maxHeight: mobileBrowseOpen ? '600px' : '0', overflow: 'hidden', transition: 'max-height 300ms ease' }}>
               <div className="pb-2 px-2">
                 {CATEGORIES_NAV.map(({ label, href, icon }) => (
-                  <Link
-                    key={href}
-                    href={href}
-                    onClick={() => setMenuOpen(false)}
-                    className="nav-link flex items-center gap-3 px-4 py-3 text-sm"
-                  >
-                    <span className="text-base">{icon}</span>
-                    {label}
+                  <Link key={href} href={href} onClick={() => setMenuOpen(false)} className="nav-link flex items-center gap-3 px-4 py-3 text-sm">
+                    <span className="text-base">{icon}</span>{label}
                   </Link>
                 ))}
               </div>
@@ -441,32 +350,17 @@ export default function Header() {
             <button
               onClick={() => setMobileCitiesOpen(prev => !prev)}
               className="nav-link w-full flex items-center justify-between px-4 py-3.5 text-sm font-medium"
-              aria-expanded={mobileCitiesOpen}
             >
               <span>Cities</span>
-              <ChevronDown
-                className={`w-4 h-4 text-gray-400 transition-transform duration-200 ${mobileCitiesOpen ? 'rotate-180' : ''}`}
-              />
+              <ChevronDown className={`w-4 h-4 text-gray-400 transition-transform duration-200 ${mobileCitiesOpen ? 'rotate-180' : ''}`} />
             </button>
-            <div
-              style={{
-                maxHeight: mobileCitiesOpen ? '600px' : '0',
-                overflow: 'hidden',
-                transition: 'max-height 300ms ease',
-              }}
-            >
+            <div style={{ maxHeight: mobileCitiesOpen ? '600px' : '0', overflow: 'hidden', transition: 'max-height 300ms ease' }}>
               <div className="pb-2 px-2 grid grid-cols-2 gap-0.5">
                 {CITIES_NAV.map((city) => {
                   const slug = city.toLowerCase().replace(/ /g, '-')
                   return (
-                    <Link
-                      key={city}
-                      href={`/city/${slug}`}
-                      onClick={() => setMenuOpen(false)}
-                      className="nav-link flex items-center gap-1.5 px-4 py-2.5 text-sm"
-                    >
-                      <MapPin className="w-3 h-3 text-gray-400 shrink-0" />
-                      {city}
+                    <Link key={city} href={`/city/${slug}`} onClick={() => setMenuOpen(false)} className="nav-link flex items-center gap-1.5 px-4 py-2.5 text-sm">
+                      <MapPin className="w-3 h-3 text-gray-400 shrink-0" />{city}
                     </Link>
                   )
                 })}
@@ -474,39 +368,18 @@ export default function Header() {
             </div>
           </div>
 
-          {/* For Vendors */}
-          <Link
-            href="/list-your-business"
-            onClick={() => setMenuOpen(false)}
-            className={`nav-link px-4 py-3.5 text-sm font-medium ${pathname === '/list-your-business' ? 'active' : ''}`}
-          >
+          <Link href="/list-your-business" onClick={() => setMenuOpen(false)} className={`nav-link px-4 py-3.5 text-sm font-medium ${pathname === '/list-your-business' ? 'active' : ''}`}>
             For Vendors
           </Link>
-
-          {/* Pricing */}
-          <Link
-            href="/pricing"
-            onClick={() => setMenuOpen(false)}
-            className={`nav-link px-4 py-3.5 text-sm font-medium ${pathname === '/pricing' ? 'active' : ''}`}
-          >
+          <Link href="/pricing" onClick={() => setMenuOpen(false)} className={`nav-link px-4 py-3.5 text-sm font-medium ${pathname === '/pricing' ? 'active' : ''}`}>
             Pricing
           </Link>
-
-          {/* Blog */}
-          <Link
-            href="/blog"
-            onClick={() => setMenuOpen(false)}
-            className={`nav-link px-4 py-3.5 text-sm font-medium ${pathname.startsWith('/blog') ? 'active' : ''}`}
-          >
+          <Link href="/blog" onClick={() => setMenuOpen(false)} className={`nav-link px-4 py-3.5 text-sm font-medium ${pathname.startsWith('/blog') ? 'active' : ''}`}>
             Blog
           </Link>
 
           <div className="pt-3 pb-2 border-t mt-2" style={{ borderColor: 'var(--color-taupe)' }}>
-            <Link
-              href="/list-your-business"
-              onClick={() => setMenuOpen(false)}
-              className="btn-gold flex items-center justify-center gap-2 w-full text-sm px-4 py-3.5 rounded-xl"
-            >
+            <Link href="/list-your-business" onClick={() => setMenuOpen(false)} className="btn-gold flex items-center justify-center gap-2 w-full text-sm px-4 py-3.5 rounded-xl">
               <Sparkles className="w-4 h-4" />
               Claim My Founding Spot
             </Link>

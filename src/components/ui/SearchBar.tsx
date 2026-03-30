@@ -31,7 +31,8 @@ export default function SearchBar() {
   }
 
   return (
-    <div className="relative w-full">
+    // z-[200] ensures the dropdown floats above ALL sibling elements including CTAs below it
+    <div className="relative w-full" style={{ zIndex: focused ? 200 : 10 }}>
       <form
         onSubmit={handleSubmit}
         className={`w-full flex items-center bg-white rounded-2xl transition-all duration-300 ${
@@ -56,16 +57,16 @@ export default function SearchBar() {
         <button
           type="submit"
           aria-label="Search"
-          className="btn-primary m-2 flex items-center gap-2 bg-[#C8A96A] hover:bg-[#B8945A] text-white font-semibold px-5 py-3 rounded-xl text-sm transition-colors duration-200 shadow-saffron whitespace-nowrap"
+          className="m-2 flex items-center gap-2 bg-[#C8A96A] hover:bg-[#B8945A] text-white font-semibold px-5 py-3 rounded-xl text-sm transition-colors duration-200 whitespace-nowrap"
         >
           Search
           <ArrowRight className="w-4 h-4" />
         </button>
       </form>
 
-      {/* Suggestion dropdown */}
+      {/* Suggestion dropdown — z-[200] so it sits above all siblings */}
       {focused && !query && (
-        <div className="absolute top-full left-0 right-0 mt-2 bg-white rounded-2xl shadow-[0_16px_48px_rgba(0,0,0,0.12)] border border-gray-100 overflow-hidden z-50 animate-slide-down">
+        <div className="absolute top-full left-0 right-0 mt-2 bg-white rounded-2xl shadow-[0_16px_48px_rgba(0,0,0,0.14)] border border-gray-100 overflow-hidden animate-slide-down" style={{ zIndex: 200 }}>
           <div className="px-4 py-2.5 border-b border-gray-50">
             <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Popular Searches</p>
           </div>

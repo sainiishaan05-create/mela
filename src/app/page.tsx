@@ -113,7 +113,7 @@ export default async function HomePage() {
           HERO
       ═══════════════════════════════════════ */}
       <section
-        className="relative overflow-hidden"
+        className="relative"
         style={{ background: 'var(--color-bg)' }}
       >
         {/* Subtle background texture */}
@@ -163,24 +163,6 @@ export default async function HomePage() {
           {/* Search */}
           <div className="animate-fade-up delay-300 w-full max-w-2xl mx-auto mb-8">
             <SearchBar />
-          </div>
-
-          {/* Category quick-links */}
-          <div className="animate-fade-up delay-400 flex flex-wrap justify-center gap-2 mb-10">
-            {FEATURED_CATEGORIES.map(c => (
-              <Link
-                key={c.href}
-                href={c.href}
-                className="inline-flex items-center gap-1.5 text-xs font-medium px-4 py-2 rounded-full border transition-all duration-200"
-                style={{
-                  color: 'var(--color-text)',
-                  borderColor: 'var(--color-taupe)',
-                  background: 'white',
-                }}
-              >
-                <span>{c.icon}</span> {c.label}
-              </Link>
-            ))}
           </div>
 
           {/* CTA buttons */}
