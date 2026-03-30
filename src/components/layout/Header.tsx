@@ -1,7 +1,7 @@
 'use client'
 
 import Link from 'next/link'
-import { Search, Menu, X, Sparkles, ChevronDown, MapPin } from 'lucide-react'
+import { Menu, X, Sparkles, ChevronDown, MapPin } from 'lucide-react'
 import { useState, useEffect, useRef } from 'react'
 import { usePathname } from 'next/navigation'
 
@@ -118,16 +118,21 @@ export default function Header() {
       <header
         className={`sticky top-0 z-50 transition-all duration-300 ${
           scrolled
-            ? 'bg-white/85 backdrop-blur-xl border-b border-gray-100/80 shadow-sm'
-            : 'bg-white border-b border-gray-100'
+            ? 'backdrop-blur-xl shadow-sm border-b'
+            : 'border-b'
         }`}
+        style={{
+          background: scrolled ? 'rgba(247,245,242,0.92)' : 'var(--color-bg)',
+          borderColor: 'var(--color-taupe)',
+        }}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between gap-4">
 
           {/* Logo */}
           <Link
             href="/"
-            className="font-[family-name:var(--font-playfair)] text-2xl font-bold text-[#E8760A] shrink-0 hover:opacity-80 transition-opacity duration-200"
+            className="font-[family-name:var(--font-playfair)] text-2xl font-bold shrink-0 hover:opacity-70 transition-opacity duration-200"
+            style={{ color: 'var(--color-text)' }}
             onClick={() => setMenuOpen(false)}
           >
             Melaa
@@ -144,11 +149,11 @@ export default function Header() {
               onMouseLeave={closeBrowse}
             >
               <button
-                className={`flex items-center gap-1 px-3 py-2 rounded-lg font-medium transition-all duration-200 ${
-                  browseOpen
-                    ? 'text-[#E8760A] bg-[#E8760A]/8'
-                    : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50'
-                }`}
+                className={`flex items-center gap-1 px-3 py-2 rounded-lg font-medium transition-all duration-200`}
+                style={{
+                  color: browseOpen ? 'var(--color-gold-dark)' : '#5C4F48',
+                  background: browseOpen ? 'rgba(200,169,106,0.1)' : 'transparent',
+                }}
                 aria-expanded={browseOpen}
                 aria-haspopup="true"
               >
@@ -167,22 +172,24 @@ export default function Header() {
                   transform: browseOpen ? 'translateY(0)' : 'translateY(-4px)',
                   pointerEvents: browseOpen ? 'auto' : 'none',
                   transition: 'opacity 200ms ease, transform 200ms ease',
+                  background: 'var(--color-bg)',
+                  borderColor: 'var(--color-taupe)',
                 }}
-                className="absolute top-full left-0 mt-2 w-[860px] bg-white rounded-2xl shadow-2xl border border-gray-100 p-6 z-50"
+                className="absolute top-full left-0 mt-2 w-[860px] rounded-2xl shadow-2xl p-6 z-50 border"
                 role="menu"
               >
                 {/* Group headers */}
                 <div className="grid grid-cols-5 gap-6">
                   {(['Capture & Media', 'Beauty & Style', 'Venue & Decor', 'Food & Sweets', 'Entertainment'] as const).map((grp) => (
                     <div key={grp}>
-                      <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-2">{grp}</p>
+                      <p className="text-[10px] font-bold uppercase tracking-widest mb-2" style={{ color: 'var(--color-taupe)' }}>{grp}</p>
                       <div className="space-y-0.5">
                         {CATEGORIES_NAV.filter(c => c.group === grp).map(({ label, href, icon }) => (
                           <Link
                             key={href}
                             href={href}
                             role="menuitem"
-                            className="flex items-center gap-2 py-1.5 px-2 rounded-lg text-sm text-gray-700 hover:bg-[#E8760A]/8 hover:text-[#E8760A] transition-all duration-150"
+                            className="nav-link flex items-center gap-2 py-1.5 px-2 text-sm"
                           >
                             <span className="text-sm leading-none">{icon}</span>
                             <span className="leading-tight text-xs">{label}</span>
@@ -193,15 +200,16 @@ export default function Header() {
                   ))}
                 </div>
                 {/* Fashion & More row + CTA */}
-                <div className="mt-4 pt-4 border-t border-gray-100 flex items-center gap-4 flex-wrap">
-                  <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest shrink-0">Fashion & More</p>
+                <div className="mt-4 pt-4 border-t flex items-center gap-4 flex-wrap" style={{ borderColor: 'var(--color-taupe)' }}>
+                  <p className="text-[10px] font-bold uppercase tracking-widest shrink-0" style={{ color: 'var(--color-taupe)' }}>Fashion & More</p>
                   {CATEGORIES_NAV.filter(c => c.group === 'Fashion & More').map(({ label, href, icon }) => (
                     <Link key={href} href={href} role="menuitem"
-                      className="flex items-center gap-1.5 py-1.5 px-3 rounded-full text-xs text-gray-700 bg-gray-50 hover:bg-[#E8760A]/8 hover:text-[#E8760A] transition-all duration-150 border border-gray-100">
+                      className="nav-link flex items-center gap-1.5 py-1.5 px-3 rounded-full text-xs border"
+                      style={{ borderColor: 'var(--color-taupe)', background: 'white' }}>
                       <span>{icon}</span>{label}
                     </Link>
                   ))}
-                  <Link href="/vendors" className="ml-auto text-sm font-semibold text-[#E8760A] hover:underline shrink-0">
+                  <Link href="/vendors" className="ml-auto text-sm font-semibold hover:underline shrink-0" style={{ color: 'var(--color-gold-dark)' }}>
                     All Vendors →
                   </Link>
                 </div>
@@ -235,11 +243,11 @@ export default function Header() {
               onMouseLeave={closeCities}
             >
               <button
-                className={`flex items-center gap-1 px-3 py-2 rounded-lg font-medium transition-all duration-200 ${
-                  citiesOpen
-                    ? 'text-[#E8760A] bg-[#E8760A]/8'
-                    : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50'
-                }`}
+                className="nav-link flex items-center gap-1 px-3 py-2 font-medium"
+                style={{
+                  color: citiesOpen ? 'var(--color-gold-dark)' : '#5C4F48',
+                  background: citiesOpen ? 'rgba(200,169,106,0.1)' : 'transparent',
+                }}
                 aria-expanded={citiesOpen}
                 aria-haspopup="true"
               >
@@ -258,19 +266,21 @@ export default function Header() {
                   transform: citiesOpen ? 'translateY(0)' : 'translateY(-4px)',
                   pointerEvents: citiesOpen ? 'auto' : 'none',
                   transition: 'opacity 200ms ease, transform 200ms ease',
+                  background: 'var(--color-bg)',
+                  borderColor: 'var(--color-taupe)',
                 }}
-                className="absolute top-full -right-4 mt-2 w-[620px] bg-white rounded-2xl shadow-2xl border border-gray-100 p-6 z-50"
+                className="absolute top-full -right-4 mt-2 w-[620px] rounded-2xl shadow-2xl p-6 z-50 border"
                 role="menu"
               >
                 <div className="grid grid-cols-2 gap-6">
                   <div>
-                    <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-3">🏙️ GTA Core</p>
+                    <p className="text-[10px] font-bold uppercase tracking-widest mb-3" style={{ color: 'var(--color-taupe)' }}>GTA Core</p>
                     <div className="grid grid-cols-2 gap-x-2">
                       {CITIES_NAV_GTA.map((city) => {
                         const slug = city.toLowerCase().replace(/ /g, '-').replace(/\./g, '')
                         return (
                           <Link key={city} href={`/city/${slug}`} role="menuitem"
-                            className="flex items-center gap-1.5 text-xs text-gray-600 hover:text-[#E8760A] py-1.5 px-2 rounded-lg hover:bg-gray-50 transition-all duration-150">
+                            className="nav-link flex items-center gap-1.5 text-xs py-1.5 px-2">
                             <MapPin className="w-2.5 h-2.5 text-gray-400 shrink-0" />{city}
                           </Link>
                         )
@@ -278,13 +288,13 @@ export default function Header() {
                     </div>
                   </div>
                   <div>
-                    <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-3">🗺️ Surrounding Areas</p>
+                    <p className="text-[10px] font-bold uppercase tracking-widest mb-3" style={{ color: 'var(--color-taupe)' }}>Surrounding Areas</p>
                     <div className="grid grid-cols-2 gap-x-2 max-h-52 overflow-y-auto scrollbar-hide">
                       {CITIES_NAV_SURROUNDING.map((city) => {
                         const slug = city.toLowerCase().replace(/ /g, '-').replace(/\./g, '')
                         return (
                           <Link key={city} href={`/city/${slug}`} role="menuitem"
-                            className="flex items-center gap-1.5 text-xs text-gray-600 hover:text-[#E8760A] py-1.5 px-2 rounded-lg hover:bg-gray-50 transition-all duration-150">
+                            className="nav-link flex items-center gap-1.5 text-xs py-1.5 px-2">
                             <MapPin className="w-2.5 h-2.5 text-gray-400 shrink-0" />{city}
                           </Link>
                         )
@@ -292,55 +302,55 @@ export default function Header() {
                     </div>
                   </div>
                 </div>
-                <div className="mt-4 pt-3 border-t border-gray-100">
-                  <Link href="/vendors" className="text-xs font-semibold text-[#E8760A] hover:underline">
-                    Browse all vendors across Ontario →
+                <div className="mt-4 pt-3 border-t" style={{ borderColor: 'var(--color-taupe)' }}>
+                  <Link href="/browse" className="text-xs font-semibold hover:underline" style={{ color: 'var(--color-gold-dark)' }}>
+                    Browse all Ontario cities →
                   </Link>
                 </div>
               </div>
             </div>
 
+            {/* Categories */}
+            <Link
+              href="/categories"
+              className={`nav-link px-3 py-2 font-medium ${pathname === '/categories' ? 'active' : ''}`}
+            >
+              Categories
+            </Link>
+
+            {/* For Vendors */}
+            <Link
+              href="/list-your-business"
+              className={`nav-link px-3 py-2 font-medium ${pathname === '/list-your-business' ? 'active' : ''}`}
+            >
+              For Vendors
+            </Link>
+
+            {/* Pricing */}
+            <Link
+              href="/pricing"
+              className={`nav-link px-3 py-2 font-medium ${pathname === '/pricing' ? 'active' : ''}`}
+            >
+              Pricing
+            </Link>
+
             {/* Blog */}
             <Link
               href="/blog"
-              className={`px-3 py-2 rounded-lg font-medium transition-all duration-200 ${
-                pathname.startsWith('/blog')
-                  ? 'text-[#E8760A] bg-[#E8760A]/8'
-                  : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50'
-              }`}
+              className={`nav-link px-3 py-2 font-medium ${pathname.startsWith('/blog') ? 'active' : ''}`}
             >
               Blog
-            </Link>
-
-            {/* Pricing — direct link */}
-            <Link
-              href="/pricing"
-              className={`px-3 py-2 rounded-lg font-medium transition-all duration-200 ${
-                pathname === '/pricing'
-                  ? 'text-[#E8760A] bg-[#E8760A]/8'
-                  : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50'
-              }`}
-            >
-              Pricing
             </Link>
           </nav>
 
           {/* Right actions */}
           <div className="flex items-center gap-2 shrink-0">
             <Link
-              href="/vendors"
-              className="hidden sm:flex items-center gap-1.5 text-sm text-gray-500 hover:text-[#E8760A] transition-colors duration-200 px-3 py-2 rounded-lg hover:bg-gray-50"
-              aria-label="Search vendors"
-            >
-              <Search className="w-4 h-4" />
-            </Link>
-
-            <Link
               href="/list-your-business"
-              className="btn-primary inline-flex items-center gap-1.5 bg-[#E8760A] text-white text-sm font-semibold px-4 py-2.5 rounded-full shadow-saffron"
+              className="btn-gold inline-flex items-center gap-1.5 text-sm px-4 py-2.5 rounded-full"
             >
               <Sparkles className="w-3.5 h-3.5" />
-              List Free
+              Claim Spot
             </Link>
 
             {/* Hamburger — mobile only */}
@@ -372,11 +382,12 @@ export default function Header() {
 
       {/* Mobile drawer */}
       <div
-        className={`fixed top-16 left-0 right-0 z-40 bg-white/95 backdrop-blur-xl border-b border-gray-100 shadow-xl md:hidden transition-all duration-300 ease-[cubic-bezier(0.25,0.46,0.45,0.94)] overflow-y-auto max-h-[calc(100dvh-4rem)] ${
+        className={`fixed top-16 left-0 right-0 z-40 backdrop-blur-xl border-b shadow-xl md:hidden transition-all duration-300 ease-[cubic-bezier(0.25,0.46,0.45,0.94)] overflow-y-auto max-h-[calc(100dvh-4rem)] ${
           menuOpen
             ? 'opacity-100 translate-y-0 pointer-events-auto'
             : 'opacity-0 -translate-y-3 pointer-events-none'
         }`}
+        style={{ background: 'rgba(247,245,242,0.97)', borderColor: 'var(--color-taupe)' }}
         aria-hidden={!menuOpen}
       >
         <nav className="max-w-7xl mx-auto px-4 py-4 flex flex-col gap-1">
@@ -385,7 +396,7 @@ export default function Header() {
           <Link
             href="/vendors"
             onClick={() => setMenuOpen(false)}
-            className="px-4 py-3.5 rounded-xl text-sm font-medium text-gray-700 hover:bg-gray-50 hover:text-[#E8760A] transition-all duration-200"
+            className="nav-link px-4 py-3.5 text-sm font-medium"
           >
             Browse All Vendors
           </Link>
@@ -394,7 +405,7 @@ export default function Header() {
           <div>
             <button
               onClick={() => setMobileBrowseOpen(prev => !prev)}
-              className="w-full flex items-center justify-between px-4 py-3.5 rounded-xl text-sm font-medium text-gray-700 hover:bg-gray-50 transition-all duration-200"
+              className="nav-link w-full flex items-center justify-between px-4 py-3.5 text-sm font-medium"
               aria-expanded={mobileBrowseOpen}
             >
               <span>Categories</span>
@@ -415,7 +426,7 @@ export default function Header() {
                     key={href}
                     href={href}
                     onClick={() => setMenuOpen(false)}
-                    className="flex items-center gap-3 px-4 py-3 rounded-xl text-sm text-gray-600 hover:bg-[#E8760A]/8 hover:text-[#E8760A] transition-all duration-150"
+                    className="nav-link flex items-center gap-3 px-4 py-3 text-sm"
                   >
                     <span className="text-base">{icon}</span>
                     {label}
@@ -429,7 +440,7 @@ export default function Header() {
           <div>
             <button
               onClick={() => setMobileCitiesOpen(prev => !prev)}
-              className="w-full flex items-center justify-between px-4 py-3.5 rounded-xl text-sm font-medium text-gray-700 hover:bg-gray-50 transition-all duration-200"
+              className="nav-link w-full flex items-center justify-between px-4 py-3.5 text-sm font-medium"
               aria-expanded={mobileCitiesOpen}
             >
               <span>Cities</span>
@@ -452,7 +463,7 @@ export default function Header() {
                       key={city}
                       href={`/city/${slug}`}
                       onClick={() => setMenuOpen(false)}
-                      className="flex items-center gap-1.5 px-4 py-2.5 rounded-xl text-sm text-gray-600 hover:bg-gray-50 hover:text-[#E8760A] transition-all duration-150"
+                      className="nav-link flex items-center gap-1.5 px-4 py-2.5 text-sm"
                     >
                       <MapPin className="w-3 h-3 text-gray-400 shrink-0" />
                       {city}
@@ -463,49 +474,41 @@ export default function Header() {
             </div>
           </div>
 
-          {/* Blog */}
+          {/* For Vendors */}
           <Link
-            href="/blog"
+            href="/list-your-business"
             onClick={() => setMenuOpen(false)}
-            className={`px-4 py-3.5 rounded-xl text-sm font-medium transition-all duration-200 ${
-              pathname.startsWith('/blog')
-                ? 'bg-[#E8760A]/10 text-[#E8760A] font-semibold'
-                : 'text-gray-700 hover:bg-gray-50 hover:text-[#E8760A]'
-            }`}
+            className={`nav-link px-4 py-3.5 text-sm font-medium ${pathname === '/list-your-business' ? 'active' : ''}`}
           >
-            Blog
+            For Vendors
           </Link>
 
           {/* Pricing */}
           <Link
             href="/pricing"
             onClick={() => setMenuOpen(false)}
-            className={`px-4 py-3.5 rounded-xl text-sm font-medium transition-all duration-200 ${
-              pathname === '/pricing'
-                ? 'bg-[#E8760A]/10 text-[#E8760A] font-semibold'
-                : 'text-gray-700 hover:bg-gray-50 hover:text-[#E8760A]'
-            }`}
+            className={`nav-link px-4 py-3.5 text-sm font-medium ${pathname === '/pricing' ? 'active' : ''}`}
           >
             Pricing
           </Link>
 
-          {/* Newsletter */}
+          {/* Blog */}
           <Link
-            href="/subscribe"
+            href="/blog"
             onClick={() => setMenuOpen(false)}
-            className="px-4 py-3.5 rounded-xl text-sm font-medium text-gray-700 hover:bg-gray-50 hover:text-[#E8760A] transition-all duration-200"
+            className={`nav-link px-4 py-3.5 text-sm font-medium ${pathname.startsWith('/blog') ? 'active' : ''}`}
           >
-            Newsletter
+            Blog
           </Link>
 
-          <div className="pt-3 pb-2 border-t border-gray-100 mt-2">
+          <div className="pt-3 pb-2 border-t mt-2" style={{ borderColor: 'var(--color-taupe)' }}>
             <Link
               href="/list-your-business"
               onClick={() => setMenuOpen(false)}
-              className="btn-primary flex items-center justify-center gap-2 w-full bg-[#E8760A] text-white text-sm font-bold px-4 py-3.5 rounded-xl shadow-saffron"
+              className="btn-gold flex items-center justify-center gap-2 w-full text-sm px-4 py-3.5 rounded-xl"
             >
               <Sparkles className="w-4 h-4" />
-              List Your Business Free →
+              Claim My Founding Spot
             </Link>
           </div>
         </nav>
