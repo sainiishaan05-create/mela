@@ -3,7 +3,7 @@
 :root {
   /* Legacy (kept for backward compat) */
   --saffron: #C8A96A;
-  --saffron-dark: #B8954F;
+  --saffron-dark: #C9640A;
   --saffron-light: #F5ECD7;
   --ivory: #FAFAF7;
   --charcoal: #1A1A1A;
@@ -16,7 +16,7 @@
   --color-taupe: #CBBFB3;
   --color-text: #2B2623;
   --color-gold: #C8A96A;
-  --color-gold-dark: #B8954F;
+  --color-gold-dark: #B8945A;
   --color-gold-light: #F5ECD7;
 
   --ease-apple: cubic-bezier(0.25, 0.46, 0.45, 0.94);
@@ -129,7 +129,7 @@ body {
 }
 
 .gradient-text-warm {
-  background: linear-gradient(135deg, #B8954F 0%, #C8A96A 40%, #D4B97A 100%);
+  background: linear-gradient(135deg, #B8945A 0%, #C8A96A 40%, #D4B97A 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;

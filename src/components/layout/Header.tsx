@@ -235,6 +235,14 @@ export default function Header() {
               </div>
             </div>
 
+            {/* Categories */}
+            <Link
+              href="/categories"
+              className={`nav-link px-3 py-2 font-medium ${pathname === '/categories' ? 'active' : ''}`}
+            >
+              Categories
+            </Link>
+
             {/* Cities dropdown */}
             <div
               ref={citiesRef}
@@ -309,14 +317,6 @@ export default function Header() {
                 </div>
               </div>
             </div>
-
-            {/* Categories */}
-            <Link
-              href="/browse"
-              className={`nav-link px-3 py-2 font-medium ${pathname === '/browse' ? 'active' : ''}`}
-            >
-              Categories
-            </Link>
 
             {/* For Vendors */}
             <Link
