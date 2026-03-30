@@ -47,7 +47,7 @@ export default function Footer() {
               Melaa
             </Link>
             <p className="text-sm text-gray-500 leading-relaxed max-w-[200px]">
-              The GTA&apos;s only marketplace built exclusively for South Asian weddings.
+              The GTA&apos;s only marketplace built exclusively for South Asian weddings and events.
             </p>
             <div className="flex items-center gap-2 mt-4">
               <a

@@ -250,7 +250,7 @@ export default async function HomePage() {
               </h2>
             </div>
             <Link
-              href="/categories"
+              href="/browse"
               className="hidden sm:inline-flex items-center gap-1 text-sm font-medium transition-all duration-200 group"
               style={{ color: 'var(--color-gold-dark)' }}
             >
@@ -289,7 +289,7 @@ export default async function HomePage() {
 
           <div className="text-center mt-8 sm:hidden">
             <Link
-              href="/categories"
+              href="/browse"
               className="inline-flex items-center gap-1 text-sm font-medium"
               style={{ color: 'var(--color-gold-dark)' }}
             >

@@ -237,8 +237,8 @@ export default function Header() {
 
             {/* Categories */}
             <Link
-              href="/categories"
-              className={`nav-link px-3 py-2 font-medium ${pathname === '/categories' ? 'active' : ''}`}
+              href="/browse"
+              className={`nav-link px-3 py-2 font-medium ${pathname === '/browse' ? 'active' : ''}`}
             >
               Categories
             </Link>

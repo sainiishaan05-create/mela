@@ -1,6 +1,8 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useRef } from 'react'
+import { createClient } from '@/lib/supabase/client'
+import { Upload, X, ImageIcon, Loader2 } from 'lucide-react'
 import type { Category, City } from '@/types'
 
 interface Props {
@@ -14,6 +16,47 @@ export default function VendorSignupForm({ categories, cities }: Props) {
     name: '', email: '', phone: '', category_id: '', city_id: '',
     description: '', website: '', instagram: '',
   })
+  const [images, setImages] = useState<string[]>([])
+  const [uploading, setUploading] = useState(false)
+  const fileRef = useRef<HTMLInputElement>(null)
+
+  async function handleImageUpload(e: React.ChangeEvent<HTMLInputElement>) {
+    const files = Array.from(e.target.files ?? [])
+    if (!files.length) return
+    if (images.length + files.length > 6) {
+      alert('Maximum 6 photos allowed.')
+      return
+    }
+    setUploading(true)
+    const supabase = createClient()
+    const uploaded: string[] = []
+    for (const file of files) {
+      if (file.size > 5 * 1024 * 1024) {
+        alert(`${file.name} is too large. Max 5MB per photo.`)
+        continue
+      }
+      const ext = file.name.split('.').pop()
+      const fileName = `${Date.now()}-${Math.random().toString(36).slice(2)}.${ext}`
+      const { data, error } = await supabase.storage
+        .from('vendor-images')
+        .upload(fileName, file, { upsert: false })
+      if (error) {
+        console.error('Upload error:', error.message)
+        continue
+      }
+      const { data: { publicUrl } } = supabase.storage
+        .from('vendor-images')
+        .getPublicUrl(data.path)
+      uploaded.push(publicUrl)
+    }
+    setImages(prev => [...prev, ...uploaded])
+    setUploading(false)
+    if (fileRef.current) fileRef.current.value = ''
+  }
+
+  function removeImage(url: string) {
+    setImages(prev => prev.filter(u => u !== url))
+  }
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
@@ -22,7 +65,7 @@ export default function VendorSignupForm({ categories, cities }: Props) {
       const res = await fetch('/api/vendors', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(form),
+        body: JSON.stringify({ ...form, portfolio_images: images }),
       })
       if (!res.ok) throw new Error()
       setStatus('success')
@@ -35,8 +78,8 @@ export default function VendorSignupForm({ categories, cities }: Props) {
     return (
       <div className="text-center py-8">
         <p className="text-5xl mb-4">🎉</p>
-        <h2 className="font-[family-name:var(--font-playfair)] text-2xl font-bold mb-2">You're listed!</h2>
-        <p className="text-gray-500">Your business is now live on Melaa. Buyers can start finding you right away.</p>
+        <h2 className="font-[family-name:var(--font-playfair)] text-2xl font-bold mb-2">You&apos;re listed!</h2>
+        <p className="text-gray-500">Your business is now live on Melaa. Couples can start finding you right away.</p>
       </div>
     )
   }
@@ -100,11 +143,65 @@ export default function VendorSignupForm({ categories, cities }: Props) {
       {field('Website', 'website', 'url', 'https://yourwebsite.com')}
       {field('Instagram', 'instagram', 'text', '@yourhandle')}
 
+      {/* ── Photo Upload ── */}
+      <div>
+        <label className="block text-sm font-medium text-gray-700 mb-1">
+          Portfolio Photos <span className="text-gray-400 font-normal">(up to 6 photos, max 5MB each)</span>
+        </label>
+
+        {/* Preview grid */}
+        {images.length > 0 && (
+          <div className="grid grid-cols-3 gap-2 mb-3">
+            {images.map((url) => (
+              <div key={url} className="relative aspect-square rounded-lg overflow-hidden border border-gray-200 group">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src={url} alt="Portfolio" className="w-full h-full object-cover" />
+                <button
+                  type="button"
+                  onClick={() => removeImage(url)}
+                  className="absolute top-1 right-1 bg-black/60 hover:bg-black/80 text-white rounded-full p-0.5 opacity-0 group-hover:opacity-100 transition-opacity"
+                >
+                  <X className="w-3 h-3" />
+                </button>
+              </div>
+            ))}
+          </div>
+        )}
+
+        {/* Upload button */}
+        {images.length < 6 && (
+          <div>
+            <input
+              ref={fileRef}
+              type="file"
+              accept="image/jpeg,image/png,image/webp"
+              multiple
+              className="hidden"
+              onChange={handleImageUpload}
+              disabled={uploading}
+            />
+            <button
+              type="button"
+              onClick={() => fileRef.current?.click()}
+              disabled={uploading}
+              className="w-full flex items-center justify-center gap-2 border-2 border-dashed border-gray-200 hover:border-[#C8A96A] rounded-lg py-4 text-sm text-gray-500 hover:text-[#C8A96A] transition-colors disabled:opacity-50"
+            >
+              {uploading ? (
+                <><Loader2 className="w-4 h-4 animate-spin" /> Uploading...</>
+              ) : (
+                <><Upload className="w-4 h-4" /> <ImageIcon className="w-4 h-4" /> Add Photos</>
+              )}
+            </button>
+            <p className="text-xs text-gray-400 mt-1 text-center">{images.length}/6 photos added</p>
+          </div>
+        )}
+      </div>
+
       {status === 'error' && <p className="text-red-500 text-sm">Something went wrong. Please try again.</p>}
 
       <button
         type="submit"
-        disabled={status === 'loading'}
+        disabled={status === 'loading' || uploading}
         className="w-full bg-[#C8A96A] text-white font-semibold py-3 rounded-xl hover:bg-[#d06a09] transition-colors disabled:opacity-60 text-base"
       >
         {status === 'loading' ? 'Submitting...' : 'List My Business Free →'}

@@ -10,7 +10,7 @@ const anthropic = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY })
 export async function POST(req: Request) {
   try {
     const body = await req.json()
-    const { name, email, phone, category_id, city_id, description, website, instagram } = body
+    const { name, email, phone, category_id, city_id, description, website, instagram, portfolio_images } = body
 
     if (!name || !email || !category_id || !city_id) {
       return NextResponse.json({ error: 'Missing required fields' }, { status: 400 })
@@ -55,6 +55,7 @@ export async function POST(req: Request) {
       description: finalDescription || null,
       website: website || null,
       instagram: instagram || null,
+      portfolio_images: Array.isArray(portfolio_images) ? portfolio_images : [],
     })
 
     if (error) throw error
