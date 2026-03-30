@@ -107,7 +107,7 @@ async function main() {
   const { data: categories } = await sb.from('categories').select('id, slug')
   const catMap = Object.fromEntries((categories || []).map(c => [c.id, c.slug]))
 
-  // Fetch vendors with no cover_image in batches
+  // Fetch vendors with empty portfolio_images in batches
   let updated = 0
   let page = 0
   const PAGE = 500
@@ -115,29 +115,34 @@ async function main() {
   while (true) {
     const { data: vendors, error } = await sb
       .from('vendors')
-      .select('id, category_id, cover_image')
-      .is('cover_image', null)
+      .select('id, category_id, portfolio_images')
       .eq('is_active', true)
       .range(page * PAGE, (page + 1) * PAGE - 1)
 
     if (error) { console.error(error.message); break }
     if (!vendors || vendors.length === 0) break
 
-    for (const vendor of vendors) {
+    // Only update vendors with no images
+    const needsPhoto = vendors.filter(v => !v.portfolio_images || v.portfolio_images.length === 0)
+
+    for (const vendor of needsPhoto) {
       const slug = catMap[vendor.category_id] ?? 'decorators'
       const photos = CATEGORY_PHOTOS[slug] ?? [DEFAULT_PHOTO]
-      const photo = photos[Math.floor(Math.random() * photos.length)]
+      // Assign 2-3 photos per vendor
+      const count = Math.min(photos.length, 2 + Math.floor(Math.random() * 2))
+      const shuffled = [...photos].sort(() => Math.random() - 0.5).slice(0, count)
 
       const { error: upErr } = await sb
         .from('vendors')
-        .update({ cover_image: photo })
+        .update({ portfolio_images: shuffled })
         .eq('id', vendor.id)
 
       if (upErr) console.error(`Failed ${vendor.id}:`, upErr.message)
       else updated++
     }
 
-    console.log(`  Updated ${updated} vendors so far...`)
+    console.log(`  Page ${page}: ${needsPhoto.length} needed photos, ${updated} total updated`)
+    if (vendors.length < PAGE) break
     page++
   }
 

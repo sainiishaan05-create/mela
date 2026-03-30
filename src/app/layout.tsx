@@ -32,6 +32,9 @@ export const metadata: Metadata = {
     title: 'Melaa — South Asian Wedding Vendors in GTA',
     description: 'Find the best South Asian wedding photographers, decorators, caterers, DJs and more in the Greater Toronto Area.',
   },
+  other: {
+    'instagram:account': 'melaa.ca_',
+  },
 }
 
 export default function RootLayout({

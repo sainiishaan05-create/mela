@@ -51,7 +51,7 @@ export default function Footer() {
             </p>
             <div className="flex items-center gap-2 mt-4">
               <a
-                href="https://instagram.com/melaa.ca"
+                href="https://instagram.com/melaa.ca_"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-9 h-9 rounded-xl bg-white/5 hover:bg-[#C8A96A]/15 border border-white/8 hover:border-[#C8A96A]/30 flex items-center justify-center transition-all duration-200"
