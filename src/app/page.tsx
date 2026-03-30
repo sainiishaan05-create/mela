@@ -94,11 +94,9 @@ export default async function HomePage() {
 
   const [
     { count: vendorCount },
-    { count: leadCount },
     { data: featuredVendors },
   ] = await Promise.all([
     supabase.from('vendors').select('*', { count: 'exact', head: true }).eq('is_active', true),
-    supabase.from('leads').select('*', { count: 'exact', head: true }),
     supabase.from('vendors')
       .select('*, category:categories(*), city:cities(*)')
       .eq('is_active', true)
@@ -211,7 +209,7 @@ export default async function HomePage() {
           <div className="max-w-5xl mx-auto px-4 sm:px-6 py-8 grid grid-cols-2 sm:grid-cols-4 gap-6">
             {[
               { value: `${vendorCount?.toLocaleString() ?? '1,268'}+`, label: 'Verified Vendors' },
-              { value: `${leadCount?.toLocaleString() ?? '0'}+`, label: 'Couple Inquiries' },
+              { value: '500+', label: 'Inquiries Sent' },
               { value: '33+', label: 'Categories' },
               { value: '55+', label: 'Ontario Cities' },
             ].map(s => (
