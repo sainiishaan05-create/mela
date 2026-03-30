@@ -1,4 +1,4 @@
-import { createClient } from '@/lib/supabase/server'
+import { createClient } from '@supabase/supabase-js'
 import { NextResponse } from 'next/server'
 import slugify from 'slugify'
 import Anthropic from '@anthropic-ai/sdk'
@@ -16,7 +16,11 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: 'Missing required fields' }, { status: 400 })
     }
 
-    const supabase = await createClient()
+    // Use service role key to bypass RLS for server-side writes
+    const supabase = createClient(
+      process.env.NEXT_PUBLIC_SUPABASE_URL!,
+      process.env.SUPABASE_SERVICE_ROLE_KEY!
+    )
 
     // Check if email already exists
     const { data: existing } = await supabase.from('vendors').select('id').eq('email', email).maybeSingle()
@@ -91,7 +95,8 @@ export async function POST(req: Request) {
 
     return NextResponse.json({ success: true, slug })
   } catch (err) {
-    console.error('Vendor signup error:', err)
-    return NextResponse.json({ error: 'Internal server error' }, { status: 500 })
+    const message = err instanceof Error ? err.message : String(err)
+    console.error('Vendor signup error:', message)
+    return NextResponse.json({ error: 'Internal server error', detail: message }, { status: 500 })
   }
 }
