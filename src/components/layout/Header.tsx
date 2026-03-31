@@ -1,9 +1,18 @@
 'use client'
 
 import Link from 'next/link'
-import { Menu, X, Sparkles, ChevronDown, MapPin, Search } from 'lucide-react'
+import { Menu, X, Sparkles, ChevronDown, MapPin, Search, ArrowRight } from 'lucide-react'
 import { useState, useEffect, useRef } from 'react'
 import { usePathname, useRouter } from 'next/navigation'
+
+const NAV_SUGGESTIONS = [
+  { label: 'Photographers in Brampton', href: '/vendors?search=Photographers+in+Brampton' },
+  { label: 'Caterers Mississauga', href: '/vendors?search=Caterers+Mississauga' },
+  { label: 'Mehndi Artists Toronto', href: '/vendors?search=Mehndi+Artists+Toronto' },
+  { label: 'Bridal Makeup GTA', href: '/vendors?search=Bridal+Makeup+GTA' },
+  { label: 'South Asian DJ', href: '/vendors?search=South+Asian+DJ' },
+  { label: 'Wedding Decorators', href: '/vendors?search=Wedding+Decorators' },
+]
 
 const CATEGORIES_NAV = [
   { label: 'Photographers', href: '/category/photographers', icon: '📸', group: 'Capture & Media' },
@@ -64,11 +73,13 @@ export default function Header() {
   const [mobileCitiesOpen, setMobileCitiesOpen] = useState(false)
   const [searchQuery, setSearchQuery] = useState('')
   const [searchFocused, setSearchFocused] = useState(false)
+  const [navDropdownStyle, setNavDropdownStyle] = useState<React.CSSProperties>({})
   const pathname = usePathname()
   const router = useRouter()
 
   const browseRef = useRef<HTMLDivElement>(null)
   const citiesRef = useRef<HTMLDivElement>(null)
+  const navSearchRef = useRef<HTMLFormElement>(null)
   const browseTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
   const citiesTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
 
@@ -83,6 +94,27 @@ export default function Header() {
     setBrowseOpen(false)
     setCitiesOpen(false)
   }, [pathname])
+
+  useEffect(() => {
+    function recalc() {
+      if (!navSearchRef.current) return
+      const rect = navSearchRef.current.getBoundingClientRect()
+      setNavDropdownStyle({
+        position: 'fixed',
+        top: rect.bottom + 6,
+        left: rect.left,
+        width: rect.width,
+        zIndex: 9999,
+      })
+    }
+    if (searchFocused) recalc()
+    window.addEventListener('resize', recalc)
+    window.addEventListener('scroll', recalc, { passive: true })
+    return () => {
+      window.removeEventListener('resize', recalc)
+      window.removeEventListener('scroll', recalc)
+    }
+  }, [searchFocused])
 
   const openBrowse = () => { if (browseTimer.current) clearTimeout(browseTimer.current); setBrowseOpen(true) }
   const closeBrowse = () => { browseTimer.current = setTimeout(() => setBrowseOpen(false), 120) }
@@ -246,32 +278,54 @@ export default function Header() {
           </nav>
 
           {/* Centre search bar — desktop only */}
-          <form
-            onSubmit={handleSearch}
-            className={`hidden md:flex flex-1 items-center bg-white border rounded-xl transition-all duration-200 mx-2 ${
-              searchFocused
-                ? 'border-[#C8A96A] shadow-[0_0_0_2px_rgba(200,169,106,0.15)]'
-                : 'border-gray-200 hover:border-gray-300'
-            }`}
-            style={{ maxWidth: 340 }}
-          >
-            <Search className={`w-4 h-4 ml-3 shrink-0 transition-colors ${searchFocused ? 'text-[#C8A96A]' : 'text-gray-400'}`} />
-            <input
-              type="text"
-              value={searchQuery}
-              onChange={e => setSearchQuery(e.target.value)}
-              onFocus={() => setSearchFocused(true)}
-              onBlur={() => setSearchFocused(false)}
-              placeholder="Search vendors..."
-              className="flex-1 px-3 py-2 text-sm bg-transparent outline-none text-gray-700 placeholder-gray-400"
-              autoComplete="off"
-            />
-            {searchQuery && (
-              <button type="submit" className="mr-2 px-2.5 py-1 text-xs font-semibold rounded-lg transition-colors" style={{ background: 'var(--color-gold)', color: 'var(--color-text)' }}>
-                Go
-              </button>
+          <div className="hidden md:block flex-1 mx-2" style={{ maxWidth: 340 }}>
+            <form
+              ref={navSearchRef}
+              onSubmit={handleSearch}
+              className={`flex items-center bg-white border rounded-xl transition-all duration-200 ${
+                searchFocused
+                  ? 'border-[#C8A96A] shadow-[0_0_0_2px_rgba(200,169,106,0.15)]'
+                  : 'border-gray-200 hover:border-gray-300'
+              }`}
+            >
+              <Search className={`w-4 h-4 ml-3 shrink-0 transition-colors ${searchFocused ? 'text-[#C8A96A]' : 'text-gray-400'}`} />
+              <input
+                type="text"
+                value={searchQuery}
+                onChange={e => setSearchQuery(e.target.value)}
+                onFocus={() => setSearchFocused(true)}
+                onBlur={() => setTimeout(() => setSearchFocused(false), 150)}
+                placeholder="Search vendors..."
+                className="flex-1 px-3 py-2 text-sm bg-transparent outline-none text-gray-700 placeholder-gray-400"
+                autoComplete="off"
+              />
+              {searchQuery && (
+                <button type="submit" className="mr-2 px-2.5 py-1 text-xs font-semibold rounded-lg transition-colors" style={{ background: 'var(--color-gold)', color: 'var(--color-text)' }}>
+                  Go
+                </button>
+              )}
+            </form>
+
+            {/* Fixed-position suggestions dropdown */}
+            {searchFocused && !searchQuery && (
+              <div style={navDropdownStyle} className="bg-white rounded-2xl shadow-[0_16px_48px_rgba(0,0,0,0.14)] border border-gray-100 overflow-hidden">
+                <div className="px-4 py-2.5 border-b border-gray-50">
+                  <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Popular Searches</p>
+                </div>
+                {NAV_SUGGESTIONS.map(({ label, href }) => (
+                  <Link
+                    key={href}
+                    href={href}
+                    className="w-full flex items-center gap-3 px-4 py-2.5 hover:bg-[#F5ECD7]/60 transition-colors duration-150 group"
+                  >
+                    <Search className="w-3.5 h-3.5 text-gray-300 group-hover:text-[#C8A96A] transition-colors shrink-0" />
+                    <span className="text-sm text-gray-600 group-hover:text-gray-900 transition-colors">{label}</span>
+                    <ArrowRight className="w-3 h-3 text-gray-300 group-hover:text-[#C8A96A] ml-auto opacity-0 group-hover:opacity-100 transition-all duration-150" />
+                  </Link>
+                ))}
+              </div>
             )}
-          </form>
+          </div>
 
           {/* Right actions */}
           <div className="flex items-center gap-2 shrink-0 ml-auto md:ml-0">
