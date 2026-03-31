@@ -124,10 +124,10 @@ export default async function HomePage() {
           <div className="hero-orb-2" />
           <div className="hero-orb-3" />
           <div className="hero-grid" />
-          {/* Radial vignette to keep edges dark */}
+          {/* Soft edge vignette — only darkens the very edges, not the orbs */}
           <div
             className="absolute inset-0"
-            style={{ background: 'radial-gradient(ellipse at 50% 40%, transparent 35%, #0E0B08 85%)' }}
+            style={{ background: 'radial-gradient(ellipse at 50% 30%, transparent 60%, #0E0B08 95%)' }}
           />
         </div>
 

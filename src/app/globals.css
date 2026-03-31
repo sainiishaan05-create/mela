@@ -353,31 +353,33 @@ a {
 }
 
 .hero-orb-1 {
+  /* centre orb — use calc so transform is free for animation */
   position: absolute;
-  width: 700px; height: 700px;
-  top: -150px; left: 50%;
-  transform: translateX(-50%);
-  background: radial-gradient(circle at center, rgba(200,169,106,0.13) 0%, transparent 70%);
+  width: 800px; height: 800px;
+  top: -200px; left: calc(50% - 400px);
+  background: radial-gradient(circle at center, rgba(200,169,106,0.30) 0%, rgba(200,169,106,0.12) 35%, transparent 70%);
   border-radius: 50%;
-  filter: blur(80px);
+  filter: blur(60px);
   animation: orbFloat1 14s ease-in-out infinite;
 }
 .hero-orb-2 {
+  /* rust orb — bottom right */
   position: absolute;
-  width: 500px; height: 500px;
-  bottom: -50px; right: -150px;
-  background: radial-gradient(circle at center, rgba(160,70,40,0.07) 0%, transparent 70%);
+  width: 550px; height: 550px;
+  bottom: 0px; right: -120px;
+  background: radial-gradient(circle at center, rgba(200,90,50,0.22) 0%, rgba(180,70,40,0.10) 40%, transparent 70%);
   border-radius: 50%;
-  filter: blur(60px);
+  filter: blur(50px);
   animation: orbFloat2 10s ease-in-out infinite;
 }
 .hero-orb-3 {
+  /* gold orb — mid left */
   position: absolute;
-  width: 320px; height: 320px;
-  top: 38%; left: -80px;
-  background: radial-gradient(circle at center, rgba(200,169,106,0.07) 0%, transparent 70%);
+  width: 400px; height: 400px;
+  top: 35%; left: -100px;
+  background: radial-gradient(circle at center, rgba(200,169,106,0.22) 0%, rgba(200,169,106,0.08) 45%, transparent 70%);
   border-radius: 50%;
-  filter: blur(50px);
+  filter: blur(45px);
   animation: orbFloat3 8s ease-in-out infinite;
 }
 .hero-grid {
