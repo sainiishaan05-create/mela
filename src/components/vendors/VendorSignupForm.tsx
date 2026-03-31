@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useRef } from 'react'
+import { useRouter } from 'next/navigation'
 import { createClient } from '@/lib/supabase/client'
 import { Upload, X, ImageIcon, Loader2 } from 'lucide-react'
 import type { Category, City } from '@/types'
@@ -18,21 +19,26 @@ export default function VendorSignupForm({ categories, cities }: Props) {
   })
   const [images, setImages] = useState<string[]>([])
   const [uploading, setUploading] = useState(false)
+  const [uploadError, setUploadError] = useState('')
   const fileRef = useRef<HTMLInputElement>(null)
+  const router = useRouter()
 
   async function handleImageUpload(e: React.ChangeEvent<HTMLInputElement>) {
     const files = Array.from(e.target.files ?? [])
     if (!files.length) return
     if (images.length + files.length > 6) {
-      alert('Maximum 6 photos allowed.')
+      setUploadError('Maximum 6 photos allowed.')
       return
     }
     setUploading(true)
+    setUploadError('')
     const supabase = createClient()
     const uploaded: string[] = []
+    let failed = 0
     for (const file of files) {
       if (file.size > 5 * 1024 * 1024) {
-        alert(`${file.name} is too large. Max 5MB per photo.`)
+        setUploadError(`${file.name} is too large. Max 5MB per photo.`)
+        failed++
         continue
       }
       const ext = file.name.split('.').pop()
@@ -42,6 +48,12 @@ export default function VendorSignupForm({ categories, cities }: Props) {
         .upload(fileName, file, { upsert: false })
       if (error) {
         console.error('Upload error:', error.message)
+        failed++
+        if (error.message.includes('Bucket not found') || error.message.includes('not found')) {
+          setUploadError('Photo storage is being set up — your listing will still go live without photos.')
+        } else {
+          setUploadError(`Failed to upload ${file.name}. Please try again.`)
+        }
         continue
       }
       const { data: { publicUrl } } = supabase.storage
@@ -52,6 +64,9 @@ export default function VendorSignupForm({ categories, cities }: Props) {
     setImages(prev => [...prev, ...uploaded])
     setUploading(false)
     if (fileRef.current) fileRef.current.value = ''
+    if (failed > 0 && uploaded.length > 0) {
+      setUploadError(`${uploaded.length} photo(s) uploaded. ${failed} failed — you can continue without them.`)
+    }
   }
 
   function removeImage(url: string) {
@@ -73,7 +88,22 @@ export default function VendorSignupForm({ categories, cities }: Props) {
       })
       const data = await res.json()
       if (!res.ok) { alert(data.error ?? 'Something went wrong.'); setStatus('error'); return }
-      setStatus('success')
+
+      // Auto-login the vendor so they land directly in their dashboard
+      const supabase = createClient()
+      const { error: signInError } = await supabase.auth.signInWithPassword({
+        email: form.email,
+        password: form.password,
+      })
+      if (signInError) {
+        // Login failed but signup succeeded — just show success screen
+        console.warn('Auto-login failed after signup:', signInError.message)
+        setStatus('success')
+        return
+      }
+
+      // Redirect to dashboard with success banner
+      router.push('/dashboard?claimed=1')
     } catch {
       setStatus('error')
     }
@@ -84,7 +114,13 @@ export default function VendorSignupForm({ categories, cities }: Props) {
       <div className="text-center py-8">
         <p className="text-5xl mb-4">🎉</p>
         <h2 className="font-[family-name:var(--font-playfair)] text-2xl font-bold mb-2">You&apos;re listed!</h2>
-        <p className="text-gray-500">Your business is now live on Melaa. Couples can start finding you right away.</p>
+        <p className="text-gray-500 mb-6">Your business is now live on Melaa. Couples can start finding you right away.</p>
+        <a
+          href="/login"
+          className="inline-block bg-[#C8A96A] text-white font-semibold px-6 py-3 rounded-xl hover:bg-[#B8945A] transition-colors"
+        >
+          Log in to your dashboard →
+        </a>
       </div>
     )
   }
@@ -227,6 +263,9 @@ export default function VendorSignupForm({ categories, cities }: Props) {
             </button>
             <p className="text-xs text-gray-400 mt-1 text-center">{images.length}/6 photos added</p>
           </div>
+        )}
+        {uploadError && (
+          <p className="text-xs text-amber-600 mt-2">{uploadError}</p>
         )}
       </div>
 

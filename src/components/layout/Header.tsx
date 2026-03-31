@@ -144,8 +144,8 @@ export default function Header() {
   return (
     <>
       <header
-        className={`sticky top-0 z-50 transition-all duration-300 ${scrolled ? 'backdrop-blur-xl shadow-sm border-b' : 'border-b'}`}
-        style={{ background: scrolled ? 'rgba(247,245,242,0.92)' : 'var(--color-bg)', borderColor: 'var(--color-taupe)' }}
+        className={`sticky top-0 z-50 transition-all duration-300 ${scrolled ? 'backdrop-blur-xl shadow-[0_1px_0_rgba(203,191,179,0.5),0_4px_24px_rgba(0,0,0,0.04)] border-b' : 'border-b'}`}
+        style={{ background: scrolled ? 'rgba(247,245,242,0.94)' : 'var(--color-bg)', borderColor: 'var(--color-taupe)' }}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 h-16 flex items-center gap-3">
 

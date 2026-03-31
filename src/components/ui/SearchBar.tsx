@@ -13,7 +13,7 @@ const SUGGESTIONS = [
   'Wedding Decorators',
 ]
 
-export default function SearchBar() {
+export default function SearchBar({ dark = false }: { dark?: boolean }) {
   const [query, setQuery] = useState('')
   const [focused, setFocused] = useState(false)
   const [dropdownStyle, setDropdownStyle] = useState<React.CSSProperties>({})
