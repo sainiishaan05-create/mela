@@ -336,6 +336,83 @@ a {
   color: #2B2623;
 }
 
+/* ── Hero Orb Animations ─────────────────── */
+@keyframes orbFloat1 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33%  { transform: translate(30px, -50px) scale(1.05); }
+  66%  { transform: translate(-20px, 30px) scale(0.96); }
+}
+@keyframes orbFloat2 {
+  0%, 100% { transform: translate(0, 0); }
+  40%  { transform: translate(-40px, 25px) scale(1.08); }
+  75%  { transform: translate(20px, -30px) scale(0.94); }
+}
+@keyframes orbFloat3 {
+  0%, 100% { transform: translate(0, 0); }
+  50%  { transform: translate(35px, -40px) scale(1.04); }
+}
+
+.hero-orb-1 {
+  position: absolute;
+  width: 700px; height: 700px;
+  top: -150px; left: 50%;
+  transform: translateX(-50%);
+  background: radial-gradient(circle at center, rgba(200,169,106,0.13) 0%, transparent 70%);
+  border-radius: 50%;
+  filter: blur(80px);
+  animation: orbFloat1 14s ease-in-out infinite;
+}
+.hero-orb-2 {
+  position: absolute;
+  width: 500px; height: 500px;
+  bottom: -50px; right: -150px;
+  background: radial-gradient(circle at center, rgba(160,70,40,0.07) 0%, transparent 70%);
+  border-radius: 50%;
+  filter: blur(60px);
+  animation: orbFloat2 10s ease-in-out infinite;
+}
+.hero-orb-3 {
+  position: absolute;
+  width: 320px; height: 320px;
+  top: 38%; left: -80px;
+  background: radial-gradient(circle at center, rgba(200,169,106,0.07) 0%, transparent 70%);
+  border-radius: 50%;
+  filter: blur(50px);
+  animation: orbFloat3 8s ease-in-out infinite;
+}
+.hero-grid {
+  position: absolute; inset: 0;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+  background-size: 72px 72px;
+}
+
+/* ── Marquee ─────────────────────────────── */
+@keyframes marqueeScroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+.marquee-inner {
+  display: flex;
+  align-items: center;
+  width: max-content;
+  animation: marqueeScroll 35s linear infinite;
+}
+.marquee-inner:hover {
+  animation-play-state: paused;
+}
+
+/* ── Category Card Slide ─────────────────── */
+.cat-card-fill {
+  position: absolute; inset: 0;
+  background: #0E0B08;
+  border-radius: inherit;
+  transform: translateY(101%);
+  transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+.group:hover .cat-card-fill { transform: translateY(0); }
+
 /* ---------- Reduced Motion ---------- */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
