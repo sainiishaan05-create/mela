@@ -20,6 +20,7 @@ interface Props {
   categories: Category[]
   cities: City[]
   justClaimed?: boolean
+  userId: string
 }
 
 // ── Profile completeness ─────────────────────────────────────────────────────
@@ -58,7 +59,7 @@ function weeklyLeads(leads: Lead[]) {
 function NavItem({
   id, label, icon: Icon, active, onClick, badge,
 }: {
-  id: Tab; label: string; icon: React.ElementType; active: boolean
+  id: Tab; label: string; icon: React.ComponentType<{ className?: string }>; active: boolean
   onClick: () => void; badge?: number
 }) {
   return (
@@ -84,7 +85,7 @@ function NavItem({
 // ════════════════════════════════════════════════════════════════════════════
 // MAIN SHELL
 // ════════════════════════════════════════════════════════════════════════════
-export default function DashboardShell({ vendor: initialVendor, leads: initialLeads, categories, cities, justClaimed }: Props) {
+export default function DashboardShell({ vendor: initialVendor, leads: initialLeads, categories, cities, justClaimed, userId }: Props) {
   const [activeTab, setActiveTab] = useState<Tab>('overview')
   const [vendor, setVendor] = useState(initialVendor)
   const [leads, setLeads] = useState(initialLeads)
@@ -212,7 +213,7 @@ export default function DashboardShell({ vendor: initialVendor, leads: initialLe
             <AnalyticsTab leads={leads} vendor={vendor} />
           )}
           {activeTab === 'subscription' && (
-            <SubscriptionTab vendor={vendor} />
+            <SubscriptionTab vendor={vendor} userId={userId} />
           )}
         </main>
       </div>
@@ -491,29 +492,46 @@ function PhotosTab({ vendor, onSave }: { vendor: Props['vendor']; onSave: (v: Pr
   const [uploading, setUploading] = useState(false)
   const [saving, setSaving] = useState(false)
   const [saved, setSaved] = useState(false)
+  const [uploadError, setUploadError] = useState('')
   const fileRef = useRef<HTMLInputElement>(null)
 
   async function uploadPhotos(e: React.ChangeEvent<HTMLInputElement>) {
     const files = Array.from(e.target.files ?? [])
     if (!files.length) return
-    if (photos.length + files.length > 6) { alert('Maximum 6 photos allowed.'); return }
+    if (photos.length + files.length > 6) {
+      setUploadError('Maximum 6 photos allowed.')
+      return
+    }
     setUploading(true)
-    const supabase = createClient()
+    setUploadError('')
     const newUrls: string[] = []
+    let failed = 0
     for (const file of files) {
-      if (file.size > 5 * 1024 * 1024) { alert(`${file.name} exceeds 5MB.`); continue }
-      const ext = file.name.split('.').pop()
-      const path = `${vendor.id}/${Date.now()}-${Math.random().toString(36).slice(2)}.${ext}`
-      const { data, error } = await supabase.storage.from('vendor-images').upload(path, file, { upsert: false })
-      if (error) { console.error(error); continue }
-      const { data: { publicUrl } } = supabase.storage.from('vendor-images').getPublicUrl(data.path)
-      newUrls.push(publicUrl)
+      if (file.size > 5 * 1024 * 1024) {
+        setUploadError(`${file.name} is too large (max 5MB). Skipped.`)
+        failed++
+        continue
+      }
+      const formData = new FormData()
+      formData.append('file', file)
+      formData.append('vendorId', vendor.id)
+      const res = await fetch('/api/vendors/upload-photo', { method: 'POST', body: formData })
+      const data = await res.json()
+      if (!res.ok) {
+        setUploadError(data.error ?? 'Upload failed. Please try again.')
+        failed++
+        continue
+      }
+      newUrls.push(data.url)
     }
     const updated = [...photos, ...newUrls]
     setPhotos(updated)
-    await savePhotos(updated)
+    if (newUrls.length > 0) await savePhotos(updated)
     setUploading(false)
     if (fileRef.current) fileRef.current.value = ''
+    if (failed > 0 && newUrls.length > 0) {
+      setUploadError(`${newUrls.length} uploaded, ${failed} failed.`)
+    }
   }
 
   async function removePhoto(url: string) {
@@ -579,13 +597,18 @@ function PhotosTab({ vendor, onSave }: { vendor: Props['vendor']; onSave: (v: Pr
           <>
             <input ref={fileRef} type="file" accept="image/jpeg,image/png,image/webp" multiple className="hidden" onChange={uploadPhotos} disabled={uploading} />
             <button
-              onClick={() => fileRef.current?.click()}
+              onClick={() => { setUploadError(''); fileRef.current?.click() }}
               disabled={uploading}
               className="w-full flex items-center justify-center gap-2 border-2 border-dashed border-gray-200 hover:border-[#C8A96A] rounded-xl py-5 text-sm font-medium text-gray-400 hover:text-[#C8A96A] transition-all disabled:opacity-50"
             >
               {uploading ? <><Loader2 className="w-4 h-4 animate-spin" /> Uploading…</> : <><Upload className="w-4 h-4" /> Upload Photos</>}
             </button>
           </>
+        )}
+        {uploadError && (
+          <div className="flex items-center gap-2 mt-3 text-sm text-amber-700 bg-amber-50 border border-amber-200 rounded-xl px-4 py-3">
+            <AlertCircle className="w-4 h-4 shrink-0" /> {uploadError}
+          </div>
         )}
       </div>
     </div>
@@ -785,8 +808,32 @@ function AnalyticsTab({ leads, vendor }: { leads: Lead[]; vendor: Props['vendor'
 // ════════════════════════════════════════════════════════════════════════════
 // TAB: SUBSCRIPTION
 // ════════════════════════════════════════════════════════════════════════════
-function SubscriptionTab({ vendor }: { vendor: Props['vendor'] }) {
+function SubscriptionTab({ vendor, userId }: { vendor: Props['vendor']; userId: string }) {
   const isActive = vendor.tier !== 'free'
+  const [checkoutLoading, setCheckoutLoading] = useState<string | null>(null)
+  const [checkoutError, setCheckoutError] = useState('')
+
+  async function startCheckout(plan: 'basic' | 'premium') {
+    setCheckoutLoading(plan)
+    setCheckoutError('')
+    try {
+      const res = await fetch('/api/stripe/checkout', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ plan, vendorId: vendor.id, userId }),
+      })
+      const data = await res.json()
+      if (!res.ok || !data.url) {
+        setCheckoutError(data.error ?? 'Could not start checkout. Please try again.')
+        setCheckoutLoading(null)
+        return
+      }
+      window.location.href = data.url
+    } catch {
+      setCheckoutError('An unexpected error occurred. Please try again.')
+      setCheckoutLoading(null)
+    }
+  }
 
   return (
     <div className="space-y-5">
@@ -829,14 +876,44 @@ function SubscriptionTab({ vendor }: { vendor: Props['vendor'] }) {
           </div>
         ) : (
           <div>
-            <p className="text-sm text-gray-500 mb-4">You&apos;re on the free tier. Upgrade to get featured placement and direct leads from couples searching for vendors like you.</p>
-            <Link
-              href="/pricing"
-              className="inline-flex items-center gap-2 px-6 py-3 rounded-xl text-sm font-semibold text-[#2B2623] transition-all"
-              style={{ background: '#C8A96A' }}
-            >
-              See Plans & Pricing <ArrowRight className="w-4 h-4" />
-            </Link>
+            <p className="text-sm text-gray-500 mb-5">You&apos;re on the free tier. Upgrade to get featured placement and direct leads from couples searching for vendors like you.</p>
+
+            {/* Basic plan card */}
+            <div className="border-2 border-[#C8A96A] rounded-2xl p-5 mb-4 relative overflow-hidden">
+              <div className="absolute top-3 right-3 bg-[#C8A96A] text-white text-[10px] font-bold px-2.5 py-1 rounded-full uppercase tracking-widest">
+                Founding Rate
+              </div>
+              <p className="font-bold text-[#2B2623] text-lg">Basic Plan</p>
+              <div className="flex items-baseline gap-1 my-2">
+                <span className="text-3xl font-bold text-[#2B2623]">$49</span>
+                <span className="text-gray-400 text-sm">/month</span>
+                <span className="text-xs text-gray-400 ml-1 line-through">$99/mo normally</span>
+              </div>
+              <div className="space-y-1.5 mb-5">
+                {['Featured in search results', 'Verified badge on your profile', 'Priority placement in your category', 'AI reply drafts for every lead'].map(f => (
+                  <div key={f} className="flex items-center gap-2 text-sm text-gray-600">
+                    <Check className="w-3.5 h-3.5 text-[#C8A96A] shrink-0" /> {f}
+                  </div>
+                ))}
+              </div>
+              {checkoutError && (
+                <div className="flex items-center gap-2 text-sm text-red-600 bg-red-50 rounded-xl px-4 py-3 mb-3">
+                  <AlertCircle className="w-4 h-4 shrink-0" /> {checkoutError}
+                </div>
+              )}
+              <button
+                onClick={() => startCheckout('basic')}
+                disabled={checkoutLoading !== null}
+                className="w-full flex items-center justify-center gap-2 py-3 rounded-xl text-sm font-semibold text-white transition-all disabled:opacity-60"
+                style={{ background: '#C8A96A' }}
+              >
+                {checkoutLoading === 'basic'
+                  ? <><Loader2 className="w-4 h-4 animate-spin" /> Redirecting to checkout…</>
+                  : <>Upgrade to Basic — $49/mo <ArrowRight className="w-4 h-4" /></>
+                }
+              </button>
+            </div>
+            <p className="text-xs text-center text-gray-400">Secure checkout powered by Stripe. Cancel anytime.</p>
           </div>
         )}
       </div>

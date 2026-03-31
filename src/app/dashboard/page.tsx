@@ -51,12 +51,13 @@ export default async function DashboardPage({
     )
   }
 
-  // Fetch ALL leads (no date filter) so analytics can show full history
+  // Fetch leads (most recent 500 — enough for full history without memory issues)
   const { data: leads } = await supabase
     .from('leads')
     .select('*')
     .eq('vendor_id', vendor.id)
     .order('created_at', { ascending: false })
+    .limit(500)
 
   // Fetch categories and cities for the Edit Profile dropdowns
   const [{ data: categories }, { data: cities }] = await Promise.all([
@@ -71,6 +72,7 @@ export default async function DashboardPage({
       categories={categories ?? []}
       cities={cities ?? []}
       justClaimed={justClaimed}
+      userId={user.id}
     />
   )
 }
