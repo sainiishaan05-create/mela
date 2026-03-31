@@ -1,9 +1,10 @@
 'use client'
 
 import Link from 'next/link'
-import { Menu, X, Sparkles, ChevronDown, MapPin, Search, ArrowRight } from 'lucide-react'
+import { Menu, X, Sparkles, ChevronDown, MapPin, Search, ArrowRight, User } from 'lucide-react'
 import { useState, useEffect, useRef } from 'react'
 import { usePathname, useRouter } from 'next/navigation'
+import { createClient } from '@/lib/supabase/client'
 
 const NAV_SUGGESTIONS = [
   { label: 'Photographers in Brampton', href: '/vendors?search=Photographers+in+Brampton' },
@@ -76,6 +77,19 @@ export default function Header() {
   const [navDropdownStyle, setNavDropdownStyle] = useState<React.CSSProperties>({})
   const pathname = usePathname()
   const router = useRouter()
+
+  const [isLoggedIn, setIsLoggedIn] = useState(false)
+
+  useEffect(() => {
+    const supabase = createClient()
+    supabase.auth.getSession().then(({ data }) => {
+      setIsLoggedIn(!!data.session)
+    })
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+      setIsLoggedIn(!!session)
+    })
+    return () => subscription.unsubscribe()
+  }, [])
 
   const browseRef = useRef<HTMLDivElement>(null)
   const citiesRef = useRef<HTMLDivElement>(null)
@@ -329,6 +343,26 @@ export default function Header() {
 
           {/* Right actions */}
           <div className="flex items-center gap-2 shrink-0 ml-auto md:ml-0">
+            {/* Login / Dashboard — desktop */}
+            {isLoggedIn ? (
+              <Link
+                href="/dashboard"
+                className="hidden md:inline-flex items-center gap-1.5 text-sm font-medium px-3 py-2 rounded-full border transition-colors hover:border-[#C8A96A] hover:text-[#C8A96A]"
+                style={{ borderColor: 'var(--color-taupe)', color: '#5C4F48' }}
+              >
+                <User className="w-3.5 h-3.5" />
+                Dashboard
+              </Link>
+            ) : (
+              <Link
+                href="/login"
+                className="hidden md:inline-flex items-center gap-1.5 text-sm font-medium px-3 py-2 rounded-full border transition-colors hover:border-[#C8A96A] hover:text-[#C8A96A]"
+                style={{ borderColor: 'var(--color-taupe)', color: '#5C4F48' }}
+              >
+                <User className="w-3.5 h-3.5" />
+                Login
+              </Link>
+            )}
             <Link href="/list-your-business" className="btn-gold hidden md:inline-flex items-center gap-1.5 text-sm px-4 py-2.5 rounded-full">
               <Sparkles className="w-3.5 h-3.5" />
               Claim Spot
@@ -432,7 +466,18 @@ export default function Header() {
             Blog
           </Link>
 
-          <div className="pt-3 pb-2 border-t mt-2" style={{ borderColor: 'var(--color-taupe)' }}>
+          <div className="pt-3 pb-2 border-t mt-2 flex flex-col gap-2" style={{ borderColor: 'var(--color-taupe)' }}>
+            {isLoggedIn ? (
+              <Link href="/dashboard" onClick={() => setMenuOpen(false)} className="flex items-center justify-center gap-2 w-full text-sm font-medium px-4 py-3.5 rounded-xl border transition-colors" style={{ borderColor: 'var(--color-taupe)', color: '#5C4F48' }}>
+                <User className="w-4 h-4" />
+                My Dashboard
+              </Link>
+            ) : (
+              <Link href="/login" onClick={() => setMenuOpen(false)} className="flex items-center justify-center gap-2 w-full text-sm font-medium px-4 py-3.5 rounded-xl border transition-colors" style={{ borderColor: 'var(--color-taupe)', color: '#5C4F48' }}>
+                <User className="w-4 h-4" />
+                Vendor Login
+              </Link>
+            )}
             <Link href="/list-your-business" onClick={() => setMenuOpen(false)} className="btn-gold flex items-center justify-center gap-2 w-full text-sm px-4 py-3.5 rounded-xl">
               <Sparkles className="w-4 h-4" />
               Claim My Founding Spot
