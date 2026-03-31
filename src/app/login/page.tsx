@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
+import { createClient } from '@/lib/supabase/client'
 
 export default function LoginPage() {
   const router = useRouter()
@@ -17,22 +18,23 @@ export default function LoginPage() {
     setLoading(true)
 
     try {
-      const res = await fetch('/api/auth/login', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, password }),
-      })
+      const supabase = createClient()
+      const { error: signInError } = await supabase.auth.signInWithPassword({ email, password })
 
-      const data = await res.json()
-
-      if (!res.ok) {
-        setError(data.error ?? 'Login failed. Please try again.')
+      if (signInError) {
+        setError(
+          signInError.message === 'Invalid login credentials'
+            ? 'Incorrect email or password. Please try again.'
+            : signInError.message
+        )
         return
       }
 
+      // Refresh server components so middleware picks up the new session
+      router.refresh()
       router.push('/dashboard')
     } catch {
-      setError('An unexpected error occurred.')
+      setError('An unexpected error occurred. Please try again.')
     } finally {
       setLoading(false)
     }
@@ -171,6 +173,10 @@ export default function LoginPage() {
                 color: '#c0392b',
                 marginBottom: '1.25rem',
                 textAlign: 'center',
+                background: '#fff5f5',
+                border: '1px solid #fecaca',
+                borderRadius: '8px',
+                padding: '0.625rem',
               }}
             >
               {error}
@@ -186,7 +192,7 @@ export default function LoginPage() {
               fontSize: '1rem',
               fontWeight: 600,
               color: '#FAFAF7',
-              backgroundColor: loading ? '#c4620a' : '#C8A96A',
+              backgroundColor: loading ? '#b8945a' : '#C8A96A',
               border: 'none',
               borderRadius: '8px',
               cursor: loading ? 'not-allowed' : 'pointer',
