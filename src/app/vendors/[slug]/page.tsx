@@ -228,7 +228,7 @@ export default async function VendorProfilePage({ params }: Props) {
             <div className="space-y-4">
 
               {/* Contact card */}
-              <div className="bg-white border border-gray-100 rounded-3xl p-6 shadow-premium lg:sticky lg:top-24">
+              <div className="bg-white border border-gray-100 rounded-3xl p-6 shadow-premium">
                 <h3 className="font-[family-name:var(--font-playfair)] font-bold text-lg mb-1">Contact {v.name}</h3>
                 <p className="text-xs text-gray-400 mb-5">Free · No booking fees · No signup</p>
 
