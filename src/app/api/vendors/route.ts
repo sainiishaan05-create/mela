@@ -10,10 +10,14 @@ const anthropic = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY })
 export async function POST(req: Request) {
   try {
     const body = await req.json()
-    const { name, email, phone, category_id, city_id, description, website, instagram, portfolio_images } = body
+    const { name, email, phone, category_id, city_id, description, website, instagram, portfolio_images, password } = body
 
     if (!name || !email || !category_id || !city_id) {
       return NextResponse.json({ error: 'Missing required fields' }, { status: 400 })
+    }
+
+    if (password && password.length < 8) {
+      return NextResponse.json({ error: 'Password must be at least 8 characters.' }, { status: 400 })
     }
 
     // Use service role key to bypass RLS for server-side writes
@@ -52,6 +56,23 @@ export async function POST(req: Request) {
       }
     }
 
+    // Create Supabase Auth account if password provided
+    let authUserId: string | null = null
+    if (password) {
+      const { data: authData, error: authError } = await supabase.auth.admin.createUser({
+        email,
+        password,
+        email_confirm: true,
+      })
+      if (authError) {
+        if (authError.message.includes('already been registered')) {
+          return NextResponse.json({ error: 'An account with this email already exists. Please log in.' }, { status: 409 })
+        }
+        throw authError
+      }
+      authUserId = authData.user.id
+    }
+
     // Create vendor
     const { error } = await supabase.from('vendors').insert({
       slug, name, email,
@@ -65,9 +86,14 @@ export async function POST(req: Request) {
       is_verified: false,
       is_featured: false,
       portfolio_images: Array.isArray(portfolio_images) ? portfolio_images : [],
+      ...(authUserId ? { claimed_by_user_id: authUserId, claim_status: 'claimed' } : {}),
     })
 
-    if (error) throw error
+    if (error) {
+      // Clean up auth user if vendor insert failed
+      if (authUserId) await supabase.auth.admin.deleteUser(authUserId)
+      throw error
+    }
 
     // Welcome email to vendor
     const { error: emailError } = await resend.emails.send({

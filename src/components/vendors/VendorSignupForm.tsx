@@ -14,7 +14,7 @@ export default function VendorSignupForm({ categories, cities }: Props) {
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle')
   const [form, setForm] = useState({
     name: '', email: '', phone: '', category_id: '', city_id: '',
-    description: '', website: '', instagram: '',
+    description: '', website: '', instagram: '', password: '', confirmPassword: '',
   })
   const [images, setImages] = useState<string[]>([])
   const [uploading, setUploading] = useState(false)
@@ -60,14 +60,19 @@ export default function VendorSignupForm({ categories, cities }: Props) {
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
+    if (form.password.length < 8) { alert('Password must be at least 8 characters.'); return }
+    if (form.password !== form.confirmPassword) { alert('Passwords do not match.'); return }
     setStatus('loading')
     try {
+      const { confirmPassword, ...payload } = form
+      void confirmPassword
       const res = await fetch('/api/vendors', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ ...form, portfolio_images: images }),
+        body: JSON.stringify({ ...payload, portfolio_images: images }),
       })
-      if (!res.ok) throw new Error()
+      const data = await res.json()
+      if (!res.ok) { alert(data.error ?? 'Something went wrong.'); setStatus('error'); return }
       setStatus('success')
     } catch {
       setStatus('error')
@@ -101,6 +106,34 @@ export default function VendorSignupForm({ categories, cities }: Props) {
     <form onSubmit={handleSubmit} className="space-y-4">
       {field('Business Name *', 'name', 'text', 'e.g. Royal Photography')}
       {field('Email Address *', 'email', 'email', 'you@example.com')}
+
+      <div>
+        <label className="block text-sm font-medium text-gray-700 mb-1">Password * <span className="text-gray-400 font-normal">(min. 8 characters — used to manage your listing)</span></label>
+        <input
+          type="password"
+          placeholder="Create a password"
+          required
+          minLength={8}
+          autoComplete="new-password"
+          value={form.password}
+          onChange={e => setForm(f => ({ ...f, password: e.target.value }))}
+          className="w-full border border-gray-200 rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:border-[#C8A96A]"
+        />
+      </div>
+      <div>
+        <label className="block text-sm font-medium text-gray-700 mb-1">Confirm Password *</label>
+        <input
+          type="password"
+          placeholder="Repeat your password"
+          required
+          minLength={8}
+          autoComplete="new-password"
+          value={form.confirmPassword}
+          onChange={e => setForm(f => ({ ...f, confirmPassword: e.target.value }))}
+          className="w-full border border-gray-200 rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:border-[#C8A96A]"
+        />
+      </div>
+
       {field('Phone Number', 'phone', 'tel', '+1 (416) 000-0000')}
 
       <div>

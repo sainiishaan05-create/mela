@@ -197,12 +197,18 @@ export default function LoginPage() {
           </button>
         </form>
 
-        <p style={{ textAlign: 'center', fontSize: '0.875rem', color: '#6b6b6b', marginTop: '1.5rem' }}>
-          Don&apos;t have an account?{' '}
-          <Link href="/signup" style={{ color: '#C8A96A', fontWeight: 600, textDecoration: 'none' }}>
-            Sign up free
+        <div style={{ marginTop: '1.25rem', textAlign: 'center' }}>
+          <Link href="/forgot-password" style={{ fontSize: '0.875rem', color: '#C8A96A', textDecoration: 'none' }}>
+            Forgot your password?
           </Link>
-        </p>
+        </div>
+
+        <div style={{ marginTop: '1rem', textAlign: 'center', fontSize: '0.875rem', color: '#6b6b6b' }}>
+          Don&apos;t have an account?{' '}
+          <Link href="/list-your-business" style={{ color: '#C8A96A', fontWeight: 600, textDecoration: 'none' }}>
+            List your business free
+          </Link>
+        </div>
       </div>
     </div>
   )
