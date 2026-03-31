@@ -62,7 +62,7 @@ export async function POST(req: Request) {
     const verifyUrl = `${siteUrl}/claim/verify?token=${token}`
 
     // Send verification email via Resend
-    await resend.emails.send({
+    const { error: emailError } = await resend.emails.send({
       from: 'Melaa <hello@melaa.ca>',
       to: email,
       subject: `Claim your Melaa listing — ${vendor.name}`,
@@ -123,6 +123,11 @@ export async function POST(req: Request) {
         </html>
       `,
     })
+
+    if (emailError) {
+      console.error('Claim email failed to send:', emailError)
+      return NextResponse.json({ error: 'Failed to send verification email. Please try again.' }, { status: 500 })
+    }
 
     return NextResponse.json({ success: true })
   } catch (err) {
