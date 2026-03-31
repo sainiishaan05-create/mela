@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
+import Link from 'next/link'
 
 export default function LoginPage() {
   const router = useRouter()
@@ -58,6 +59,11 @@ export default function LoginPage() {
           boxShadow: '0 4px 24px rgba(26,26,26,0.08)',
         }}
       >
+        <div style={{ textAlign: 'center', marginBottom: '0.5rem' }}>
+          <Link href="/" style={{ fontFamily: 'var(--font-playfair)', fontSize: '1.5rem', fontWeight: 700, color: '#C8A96A', textDecoration: 'none' }}>
+            Mela
+          </Link>
+        </div>
         <h1
           style={{
             fontFamily: 'var(--font-playfair)',
@@ -78,7 +84,7 @@ export default function LoginPage() {
             marginBottom: '2rem',
           }}
         >
-          Sign in to your Melaa vendor account
+          Sign in to your Mela vendor account
         </p>
 
         <form onSubmit={handleSubmit} noValidate>
@@ -190,6 +196,13 @@ export default function LoginPage() {
             {loading ? 'Signing in…' : 'Sign in'}
           </button>
         </form>
+
+        <p style={{ textAlign: 'center', fontSize: '0.875rem', color: '#6b6b6b', marginTop: '1.5rem' }}>
+          Don&apos;t have an account?{' '}
+          <Link href="/signup" style={{ color: '#C8A96A', fontWeight: 600, textDecoration: 'none' }}>
+            Sign up free
+          </Link>
+        </p>
       </div>
     </div>
   )
