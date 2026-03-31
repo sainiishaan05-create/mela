@@ -14,6 +14,22 @@ export const metadata: Metadata = {
 
 const PAGE_SIZE = 48
 
+// Curated ordered list of 12 categories shown in the pill bar
+const FEATURED_CATEGORY_SLUGS = [
+  'photographers',
+  'videographers',
+  'makeup-hair',
+  'mehndi-artists',
+  'catering',
+  'decor-florals',
+  'dj-entertainment',
+  'wedding-venues',
+  'bridal-wear',
+  'jewellery',
+  'baraat-entertainment',
+  'priest-services',
+]
+
 interface Props {
   searchParams: Promise<{ category?: string; city?: string; search?: string; sort?: string; page?: string; badge?: string }>
 }
@@ -111,7 +127,7 @@ export default async function VendorsPage({ searchParams }: Props) {
       <div className="glass sticky top-16 z-40 border-b border-white/60">
         <div className="max-w-7xl mx-auto px-4 py-3 space-y-2">
 
-          {/* Category pills */}
+          {/* Category pills — curated 12, scrollable */}
           <div className="flex gap-2 overflow-x-auto pb-0.5 scrollbar-hide">
             <Link
               href={city ? `/vendors?city=${city}` : '/vendors'}
@@ -123,20 +139,23 @@ export default async function VendorsPage({ searchParams }: Props) {
             >
               All Categories
             </Link>
-            {(categories as Category[] ?? []).map((cat) => (
-              <Link
-                key={cat.slug}
-                href={`/vendors?category=${cat.slug}${city ? `&city=${city}` : ''}`}
-                className={`shrink-0 flex items-center gap-1.5 px-4 py-1.5 rounded-full text-sm font-semibold transition-all duration-200 ${
-                  category === cat.slug
-                    ? 'bg-[#C8A96A] text-white shadow-saffron'
-                    : 'bg-white/70 text-gray-500 border border-gray-200/80 hover:border-[#C8A96A]/40 hover:text-[#C8A96A]'
-                }`}
-              >
-                <span className="text-base leading-none">{cat.icon}</span>
-                {cat.name}
-              </Link>
-            ))}
+            {FEATURED_CATEGORY_SLUGS
+              .map(slug => (categories as Category[] ?? []).find(c => c.slug === slug))
+              .filter((cat): cat is Category => !!cat)
+              .map((cat) => (
+                <Link
+                  key={cat.slug}
+                  href={`/vendors?category=${cat.slug}${city ? `&city=${city}` : ''}`}
+                  className={`shrink-0 flex items-center gap-1.5 px-4 py-1.5 rounded-full text-sm font-semibold transition-all duration-200 ${
+                    category === cat.slug
+                      ? 'bg-[#C8A96A] text-white shadow-saffron'
+                      : 'bg-white/70 text-gray-500 border border-gray-200/80 hover:border-[#C8A96A]/40 hover:text-[#C8A96A]'
+                  }`}
+                >
+                  <span className="text-base leading-none">{cat.icon}</span>
+                  {cat.name}
+                </Link>
+              ))}
           </div>
 
           {/* City pills — visible on mobile (sidebar handles desktop) */}
