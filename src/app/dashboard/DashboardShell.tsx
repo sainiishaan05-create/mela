@@ -93,7 +93,8 @@ export default function DashboardShell({ vendor: initialVendor, leads: initialLe
   const { score, missing } = completeness(vendor)
 
   async function handleLogout() {
-    await fetch('/api/auth/logout', { method: 'POST' })
+    const supabase = createClient()
+    await supabase.auth.signOut()
     window.location.href = '/'
   }
 

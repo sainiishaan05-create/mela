@@ -1,12 +1,10 @@
 'use client'
 
 import { useState } from 'react'
-import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { createClient } from '@/lib/supabase/client'
 
 export default function LoginPage() {
-  const router = useRouter()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState<string | null>(null)
@@ -27,15 +25,15 @@ export default function LoginPage() {
             ? 'Incorrect email or password. Please try again.'
             : signInError.message
         )
+        setLoading(false)
         return
       }
 
-      // Refresh server components so middleware picks up the new session
-      router.refresh()
-      router.push('/dashboard')
+      // Hard redirect so the browser sends the new auth cookie with the
+      // request — client-side router.push() races the middleware cookie check
+      window.location.href = '/dashboard'
     } catch {
       setError('An unexpected error occurred. Please try again.')
-    } finally {
       setLoading(false)
     }
   }

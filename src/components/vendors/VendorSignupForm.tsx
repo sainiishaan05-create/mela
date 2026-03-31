@@ -1,7 +1,6 @@
 'use client'
 
 import { useState, useRef } from 'react'
-import { useRouter } from 'next/navigation'
 import { createClient } from '@/lib/supabase/client'
 import { Upload, X, ImageIcon, Loader2 } from 'lucide-react'
 import type { Category, City } from '@/types'
@@ -21,7 +20,6 @@ export default function VendorSignupForm({ categories, cities }: Props) {
   const [uploading, setUploading] = useState(false)
   const [uploadError, setUploadError] = useState('')
   const fileRef = useRef<HTMLInputElement>(null)
-  const router = useRouter()
 
   async function handleImageUpload(e: React.ChangeEvent<HTMLInputElement>) {
     const files = Array.from(e.target.files ?? [])
@@ -102,8 +100,8 @@ export default function VendorSignupForm({ categories, cities }: Props) {
         return
       }
 
-      // Redirect to dashboard with success banner
-      router.push('/dashboard?claimed=1')
+      // Hard redirect so browser sends the auth cookie with the new request
+      window.location.href = '/dashboard?claimed=1'
     } catch {
       setStatus('error')
     }
