@@ -108,30 +108,9 @@ export async function GET(req: Request) {
     }
   }
 
-  // ── Task 2: Auto-send email to outreach leads that have emails ────────────
-  const { data: emailTargets } = await supabase
-    .from('outreach')
-    .select('*')
-    .eq('status', 'pending')
-    .not('email', 'is', null)
-    .limit(5)
-
-  for (const target of emailTargets ?? []) {
-    const emailBody = await ai(`Write a warm 3-sentence cold email to ${target.business_name}, a ${target.category ?? 'South Asian wedding vendor'} in ${target.city ?? 'GTA'}, inviting them to list for FREE on Melaa.ca. South Asian community tone. End with a clear CTA.`)
-    await resend.emails.send({
-      from: 'Ishaan at Melaa <hello@melaa.ca>',
-      to: target.email,
-      subject: `Free listing for ${target.business_name} on Melaa.ca`,
-      html: `<div style="font-family:sans-serif;max-width:600px;margin:0 auto">
-        <h2 style="color:#C8A96A">Hi ${target.business_name}!</h2>
-        ${emailBody.split('\n').map(p => `<p style="color:#333;line-height:1.6">${p}</p>`).join('')}
-        <a href="${SITE}/list-your-business" style="background:#C8A96A;color:white;padding:12px 24px;border-radius:20px;text-decoration:none;display:inline-block;margin-top:16px">List for Free →</a>
-        <p style="color:#bbb;font-size:11px;margin-top:16px">Reply to unsubscribe.</p>
-      </div>`,
-    })
-    await supabase.from('outreach').update({ status: 'contacted' }).eq('id', target.id)
-    results.push(`auto_email:${target.business_name}`)
-  }
+  // ── Task 2: Auto-email to outreach leads is disabled — no cold emails sent ─
+  // Outreach to unlisted vendors is done manually by Ishaan via Instagram DMs.
+  results.push('auto_email:disabled')
 
   // ── Task 3: Weekly pipeline report (Mondays) ─────────────────────────────
   if (day === 1 && ADMIN_EMAIL) {
