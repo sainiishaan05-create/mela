@@ -3,31 +3,31 @@
 import { useEffect, useRef } from 'react'
 
 /* ─────────────────────────────────────────────────────────────────────────────
-   HERO CANVAS — Interactive Constellation Network
+   HERO CANVAS — Dense Rising Constellation
 
-   Full-screen interactive node constellation like the maintenance page,
-   but bigger, denser, and more responsive to mouse interaction.
-
-   LAYER 0 · Stars            — 250 twinkling distant stars
-   LAYER 1 · Nebula clouds    — 7 drifting gradient orbs (depth/warmth)
-   LAYER 2 · Node network     — 220 magnetic nodes, mouse-reactive
-   LAYER 3 · Cursor glow      — Soft gold halo tracking mouse
-   LAYER 4 · Mouse trail      — Decaying gold particles behind cursor
-   LAYER 5 · Shooting meteors — Diagonal gold streaks
-   LAYER 6 · Click ripples    — Expanding concentric rings on click
-   LAYER 7 · Vignette         — Radial edge darkening
+   600+ bright gold nodes continuously rising, 3 depth layers (near/mid/far),
+   mouse repels nodes outward (never attracts/clumps), click explodes them.
+   Bright warm gold palette, large glows, hot-white cores.
 ─────────────────────────────────────────────────────────────────────────────── */
 
-interface Node   { x:number;y:number;vx:number;vy:number;r:number;baseAlpha:number;alpha:number;phase:number;speed:number;speed2:number }
+// Depth layer: 0=far (small,dim), 1=mid, 2=near (big,bright)
+interface Node { x:number;y:number;vx:number;vy:number;r:number;baseAlpha:number;alpha:number;phase:number;speed:number;speed2:number;depth:number }
 interface Star   { x:number;y:number;r:number;alpha:number;ph:number;spd:number }
 interface Nebula { x:number;y:number;vx:number;vy:number;r:number;ph:number }
 interface Trail  { x:number;y:number;life:number;maxLife:number;vx:number;vy:number }
 interface Meteor { x:number;y:number;vx:number;vy:number;len:number;alpha:number;active:boolean;timer:number }
 interface Ripple { x:number;y:number;r:number;alpha:number }
 
-const NODE_COUNT  = 500
-const MAX_TRAIL   = 40
-const MAX_METEOR  = 5
+const NODE_COUNT = 600
+const MAX_TRAIL  = 40
+const MAX_METEOR = 5
+
+// Depth layer configs: [radiusMin, radiusMax, alphaMin, alphaMax, riseSpeedMin, riseSpeedMax, glowMult]
+const LAYERS: [number,number,number,number,number,number,number][] = [
+  [0.4, 1.2,  0.10, 0.25,  0.12, 0.30, 4.0],  // far  — small, dim, slow
+  [1.0, 2.4,  0.22, 0.42,  0.25, 0.50, 5.5],  // mid  — medium
+  [2.0, 4.0,  0.40, 0.70,  0.35, 0.65, 7.5],  // near — big, bright, fast
+]
 
 export default function HeroCanvas3D() {
   const ref = useRef<HTMLCanvasElement>(null)
@@ -47,41 +47,44 @@ export default function HeroCanvas3D() {
     const meteors: Meteor[] = []
     const ripples: Ripple[] = []
 
-    for (let i=0;i<MAX_METEOR;i++)
+    for(let i=0;i<MAX_METEOR;i++)
       meteors.push({x:0,y:0,vx:0,vy:0,len:0,alpha:0,active:false,timer:Math.random()*500+150})
 
+    function makeNode(yOverride?:number): Node {
+      // 30% far, 45% mid, 25% near
+      const roll = Math.random()
+      const depth = roll<0.30?0 : roll<0.75?1 : 2
+      const L = LAYERS[depth]
+      const ba = L[2]+Math.random()*(L[3]-L[2])
+      return {
+        x: Math.random()*W,
+        y: yOverride ?? Math.random()*H,
+        vx: (Math.random()-0.5)*0.14,
+        vy: -(L[4]+Math.random()*(L[5]-L[4])),
+        r: L[0]+Math.random()*(L[1]-L[0]),
+        baseAlpha:ba, alpha:ba,
+        phase: Math.random()*Math.PI*2,
+        speed: Math.random()*0.014+0.004,
+        speed2:0, depth,
+      }
+    }
+
     function initScene() {
-      const dpr = window.devicePixelRatio||1
-
-      stars = Array.from({length:250},()=>({
+      const dpr=window.devicePixelRatio||1
+      stars = Array.from({length:280},()=>({
         x:Math.random()*W, y:Math.random()*H,
-        r:Math.random()*1.0+0.15,
-        alpha:Math.random()*0.40+0.05,
+        r:Math.random()*1.1+0.2,
+        alpha:Math.random()*0.45+0.06,
         ph:Math.random()*Math.PI*2,
-        spd:Math.random()*0.020+0.005,
+        spd:Math.random()*0.022+0.005,
       }))
-
       nebulas = Array.from({length:7},()=>({
         x:Math.random()*W, y:Math.random()*H,
         vx:(Math.random()-0.5)*0.10, vy:(Math.random()-0.5)*0.06,
         r:Math.min(W,H)*(Math.random()*0.28+0.15),
         ph:Math.random()*Math.PI*2,
       }))
-
-      nodes = Array.from({length:NODE_COUNT},()=>{
-        const ba = Math.random()*0.35+0.10
-        return{
-          x:Math.random()*W, y:Math.random()*H,
-          vx:(Math.random()-0.5)*0.18,
-          vy:-(Math.random()*0.45+0.15),   // always float upward
-          r:Math.random()*2.4+0.5,
-          baseAlpha:ba, alpha:ba,
-          phase:Math.random()*Math.PI*2,
-          speed:Math.random()*0.012+0.004,
-          speed2:0,
-        }
-      })
-
+      nodes = Array.from({length:NODE_COUNT},()=>makeNode())
       absX=W/2/dpr; absY=H/2/dpr
     }
 
@@ -115,118 +118,110 @@ export default function HeroCanvas3D() {
       /* ── 0. Stars ─────────────────────────────────────────────────────── */
       for(const s of stars){
         s.ph+=s.spd
-        const ta=s.alpha*(0.40+0.60*Math.sin(s.ph))
+        const ta=s.alpha*(0.35+0.65*Math.sin(s.ph))
         ctx.beginPath(); ctx.arc(s.x,s.y,s.r,0,Math.PI*2)
-        ctx.fillStyle=`rgba(255,240,200,${ta})`; ctx.fill()
+        ctx.fillStyle=`rgba(255,245,210,${ta})`; ctx.fill()
       }
 
       /* ── 1. Nebula clouds ─────────────────────────────────────────────── */
       for(const nc of nebulas){
         nc.x+=nc.vx+Math.sin(t*0.0022+nc.ph)*0.08
         nc.y+=nc.vy+Math.cos(t*0.0016+nc.ph)*0.05
-        if(nc.x<-nc.r) nc.x=W+nc.r; if(nc.x>W+nc.r) nc.x=-nc.r
-        if(nc.y<-nc.r) nc.y=H+nc.r; if(nc.y>H+nc.r) nc.y=-nc.r
+        if(nc.x<-nc.r)nc.x=W+nc.r; if(nc.x>W+nc.r)nc.x=-nc.r
+        if(nc.y<-nc.r)nc.y=H+nc.r; if(nc.y>H+nc.r)nc.y=-nc.r
         const p=0.80+0.20*Math.sin(t*0.0038+nc.ph)
         const nr=nc.r*p
         const g=ctx.createRadialGradient(nc.x,nc.y,0,nc.x,nc.y,nr)
-        g.addColorStop(0,'rgba(200,140,55,0.035)')
-        g.addColorStop(0.5,'rgba(170,110,40,0.015)')
+        g.addColorStop(0,'rgba(210,160,60,0.040)')
+        g.addColorStop(0.5,'rgba(180,120,40,0.018)')
         g.addColorStop(1,'rgba(150,90,30,0)')
         ctx.beginPath(); ctx.arc(nc.x,nc.y,nr,0,Math.PI*2)
         ctx.fillStyle=g; ctx.fill()
       }
 
       /* ── 2. Node network ──────────────────────────────────────────────── */
-      const connDist   = Math.min(W,H)*0.10
-      const mouseDist  = Math.min(W,H)*0.18
-      const magnetDist = Math.min(W,H)*0.24
-      const repelDist  = Math.min(W,H)*0.06
-      const magnetF    = 0.030
-      const repelF     = 0.10
+      const connDist   = Math.min(W,H)*0.095
+      const mouseDist  = Math.min(W,H)*0.16
+      const repelDist  = Math.min(W,H)*0.14
+      const repelF     = 0.055
 
-      // Physics — nodes float upward, fade in at bottom, fade out at top
-      const fadeZone = H * 0.15   // top/bottom 15% is fade zone
+      // Physics — continuous rise, mouse ONLY repels (no attract = no clumping)
+      const fadeTop = H*0.12, fadeBot = H*0.12
       for(const n of nodes){
         const dxM=mAbsX-n.x, dyM=mAbsY-n.y
         const distM=Math.sqrt(dxM*dxM+dyM*dyM)
 
         let bx=n.vx, by=n.vy
 
-        // Attract toward cursor at medium distance
-        if(distM<magnetDist && distM>repelDist){
-          const str=(1-distM/magnetDist)*magnetF
-          bx+=dxM*str; by+=dyM*str
-        }
-        // Repel from cursor when very close
+        // REPEL ONLY — push nodes away from cursor, never attract
         if(distM<repelDist && distM>1){
           const str=(1-distM/repelDist)*repelF
-          bx-=dxM/distM*str*8
-          by-=dyM/distM*str*8
+          bx -= dxM/distM*str*6
+          by -= dyM/distM*str*6
         }
 
-        // Float upward + gentle sine wobble
-        n.x+=bx+Math.sin(t*n.speed+n.phase)*0.22
-        n.y+=by+Math.cos(t*n.speed*0.7+n.phase)*0.08
-        n.speed2=bx*bx+by*by
+        n.x += bx+Math.sin(t*n.speed+n.phase)*0.20
+        n.y += by+Math.cos(t*n.speed*0.7+n.phase)*0.06
+        n.speed2 = bx*bx+by*by
 
-        // Edge fade: fade in near bottom, fade out near top
-        let edgeFade = 1
-        if(n.y < fadeZone)       edgeFade = Math.max(0, n.y / fadeZone)
-        if(n.y > H - fadeZone)   edgeFade = Math.max(0, (H - n.y) / fadeZone)
+        // Edge fade
+        let fade=1
+        if(n.y<fadeTop)      fade=Math.max(0,n.y/fadeTop)
+        if(n.y>H-fadeBot)    fade=Math.max(0,(H-n.y)/fadeBot)
 
-        // Twinkle + edge fade
-        n.alpha = n.baseAlpha * (0.55+0.45*Math.sin(t*n.speed*2.5+n.phase)) * edgeFade
+        n.alpha = n.baseAlpha*(0.50+0.50*Math.sin(t*n.speed*2.5+n.phase))*fade
 
-        // Respawn at bottom when exiting top (continuous upward flow)
-        if(n.y < -30){
-          n.y = H + Math.random()*60
-          n.x = Math.random()*W
-          n.vx = (Math.random()-0.5)*0.18
-          n.vy = -(Math.random()*0.45+0.15)
+        // Respawn at bottom
+        if(n.y<-40){
+          const fresh=makeNode(H+Math.random()*80)
+          n.x=fresh.x; n.y=fresh.y; n.vx=fresh.vx; n.vy=fresh.vy
+          n.r=fresh.r; n.baseAlpha=fresh.baseAlpha; n.depth=fresh.depth
         }
-        // Wrap horizontal
-        if(n.x<-30) n.x=W+10
-        if(n.x>W+30) n.x=-10
+        if(n.x<-40) n.x=W+20
+        if(n.x>W+40) n.x=-20
 
-        // Dampen velocity slowly
-        n.vx*=0.997; n.vy*=0.997
+        // Dampen horizontal drift, preserve upward rise
+        n.vx*=0.992
+        // Gently restore upward velocity if it was disrupted by click/repel
+        const L=LAYERS[n.depth]
+        const targetVy=-(L[4]+L[5])*0.5
+        n.vy+=(targetVy-n.vy)*0.008
       }
 
-      // Spatial grid for efficient O(n) connection checks at 500 nodes
-      const cellSize = connDist
-      const cols = Math.ceil(W/cellSize)+1
-      const rows = Math.ceil(H/cellSize)+1
-      const grid: number[][] = new Array(cols*rows)
+      // Spatial grid for connections
+      const cellSize=connDist
+      const cols=Math.ceil(W/cellSize)+1
+      const gridRows=Math.ceil(H/cellSize)+1
+      const grid:number[][]=new Array(cols*gridRows)
       for(let i=0;i<grid.length;i++) grid[i]=[]
       for(let i=0;i<nodes.length;i++){
         const n=nodes[i]
-        const cx=Math.floor(n.x/cellSize), cy=Math.floor(n.y/cellSize)
-        if(cx>=0&&cx<cols&&cy>=0&&cy<rows) grid[cy*cols+cx].push(i)
+        const cx2=Math.floor(n.x/cellSize),cy2=Math.floor(n.y/cellSize)
+        if(cx2>=0&&cx2<cols&&cy2>=0&&cy2<gridRows) grid[cy2*cols+cx2].push(i)
       }
 
-      // Connection lines between nearby nodes (grid-accelerated)
-      for(let gy=0;gy<rows;gy++){
+      const cd2=connDist*connDist
+      const nb:number[][]= [[0,0],[1,0],[0,1],[1,1],[-1,1]]
+      for(let gy=0;gy<gridRows;gy++){
         for(let gx=0;gx<cols;gx++){
           const cell=grid[gy*cols+gx]
-          // Check own cell + 4 neighbours (right, below, below-right, below-left)
-          const neighbours=[[gx,gy],[gx+1,gy],[gx,gy+1],[gx+1,gy+1],[gx-1,gy+1]]
-          for(const [nx2,ny2] of neighbours){
-            if(nx2<0||nx2>=cols||ny2<0||ny2>=rows) continue
+          for(const [ox,oy] of nb){
+            const nx2=gx+ox,ny2=gy+oy
+            if(nx2<0||nx2>=cols||ny2<0||ny2>=gridRows)continue
             const other=grid[ny2*cols+nx2]
-            const same=nx2===gx&&ny2===gy
+            const same=ox===0&&oy===0
             for(let ii=0;ii<cell.length;ii++){
-              const ai=cell[ii], a=nodes[ai]
-              const jStart=same?ii+1:0
-              for(let jj=jStart;jj<other.length;jj++){
-                const bi=other[jj], b=nodes[bi]
-                const dx=a.x-b.x, dy=a.y-b.y, d2=dx*dx+dy*dy
-                if(d2<connDist*connDist){
+              const ai=cell[ii],a=nodes[ai]
+              for(let jj=same?ii+1:0;jj<other.length;jj++){
+                const bi=other[jj],b=nodes[bi]
+                const dx=a.x-b.x,dy=a.y-b.y,d2=dx*dx+dy*dy
+                if(d2<cd2){
                   const dist=Math.sqrt(d2)
-                  const str=(1-dist/connDist)*Math.min(a.alpha,b.alpha)*0.55
-                  if(str>0.005){
+                  const str=(1-dist/connDist)*Math.min(a.alpha,b.alpha)*0.50
+                  if(str>0.004){
                     ctx.beginPath(); ctx.moveTo(a.x,a.y); ctx.lineTo(b.x,b.y)
-                    ctx.strokeStyle=`rgba(200,169,106,${str})`
-                    ctx.lineWidth=(1-dist/connDist)*1.0
+                    ctx.strokeStyle=`rgba(220,190,120,${str})`
+                    ctx.lineWidth=(1-dist/connDist)*1.1
                     ctx.stroke()
                   }
                 }
@@ -236,46 +231,60 @@ export default function HeroCanvas3D() {
         }
       }
 
-      // Cursor connection lines
+      // Cursor connection lines (bright)
       for(const a of nodes){
-        const dx=a.x-mAbsX, dy=a.y-mAbsY, dist=Math.sqrt(dx*dx+dy*dy)
+        const dx=a.x-mAbsX,dy=a.y-mAbsY,dist=Math.sqrt(dx*dx+dy*dy)
         if(dist<mouseDist){
-          const str=(1-dist/mouseDist)*a.alpha*1.2
+          const str=(1-dist/mouseDist)*a.alpha*1.4
           ctx.beginPath(); ctx.moveTo(a.x,a.y); ctx.lineTo(mAbsX,mAbsY)
-          ctx.strokeStyle=`rgba(240,201,122,${str})`
-          ctx.lineWidth=(1-dist/mouseDist)*2.0
+          ctx.strokeStyle=`rgba(255,225,140,${str})`
+          ctx.lineWidth=(1-dist/mouseDist)*2.2
           ctx.stroke()
         }
       }
 
-      // Draw nodes
+      // Draw nodes — bright warm gold with hot-white centres
       for(const n of nodes){
-        const sf=Math.min(1,n.speed2*1800)
-        const nr=Math.round(200+sf*55)
-        const ng=Math.round(169+sf*76)
-        const nb=Math.round(106+sf*84)
+        if(n.alpha<0.01)continue
+        const sf=Math.min(1,n.speed2*1400)
+        const L=LAYERS[n.depth]
+        const glowMul=L[6]
 
-        // Outer glow
-        const glowR=n.r*6
+        // Colour shifts brighter when moving fast
+        const cr=Math.round(230+sf*25)
+        const cg=Math.round(200+sf*45)
+        const cb=Math.round(120+sf*80)
+
+        // Outer glow (warm gold halo)
+        const glowR=n.r*glowMul
         const grd=ctx.createRadialGradient(n.x,n.y,0,n.x,n.y,glowR)
-        grd.addColorStop(0,`rgba(${nr},${ng},${nb},${n.alpha*0.48})`)
-        grd.addColorStop(1,`rgba(${nr},${ng},${nb},0)`)
+        grd.addColorStop(0,`rgba(${cr},${cg},${cb},${n.alpha*0.55})`)
+        grd.addColorStop(0.5,`rgba(${cr},${cg},${cb},${n.alpha*0.15})`)
+        grd.addColorStop(1,`rgba(${cr},${cg},${cb},0)`)
         ctx.beginPath(); ctx.arc(n.x,n.y,glowR,0,Math.PI*2)
         ctx.fillStyle=grd; ctx.fill()
 
-        // Core dot
-        const coreR=n.r*(1+sf*0.6)
+        // Core dot (bright gold)
+        const coreR=n.r*(1+sf*0.5)
         ctx.beginPath(); ctx.arc(n.x,n.y,coreR,0,Math.PI*2)
-        ctx.fillStyle=`rgba(${nr},${ng},${nb},${n.alpha*(1+sf*0.5)})`
+        ctx.fillStyle=`rgba(${cr},${cg},${cb},${Math.min(1,n.alpha*1.6)})`
         ctx.fill()
+
+        // Hot white centre for near-layer nodes
+        if(n.depth===2 && n.alpha>0.15){
+          const hotR=coreR*0.45
+          ctx.beginPath(); ctx.arc(n.x,n.y,hotR,0,Math.PI*2)
+          ctx.fillStyle=`rgba(255,252,235,${n.alpha*0.9})`
+          ctx.fill()
+        }
       }
 
       /* ── 3. Cursor glow ───────────────────────────────────────────────── */
-      const cgR=Math.min(W,H)*0.13
+      const cgR=Math.min(W,H)*0.14
       const cgrd=ctx.createRadialGradient(mAbsX,mAbsY,0,mAbsX,mAbsY,cgR)
-      cgrd.addColorStop(0,'rgba(200,169,106,0.12)')
-      cgrd.addColorStop(0.4,'rgba(200,169,106,0.04)')
-      cgrd.addColorStop(1,'rgba(200,169,106,0)')
+      cgrd.addColorStop(0,'rgba(255,220,120,0.14)')
+      cgrd.addColorStop(0.4,'rgba(230,190,90,0.05)')
+      cgrd.addColorStop(1,'rgba(200,160,70,0)')
       ctx.beginPath(); ctx.arc(mAbsX,mAbsY,cgR,0,Math.PI*2)
       ctx.fillStyle=cgrd; ctx.fill()
 
@@ -284,8 +293,8 @@ export default function HeroCanvas3D() {
         const tp=trails[i]; tp.life--; tp.x+=tp.vx; tp.y+=tp.vy; tp.vx*=0.94; tp.vy*=0.94
         if(tp.life<=0){trails.splice(i,1);continue}
         const prog=tp.life/tp.maxLife
-        ctx.beginPath(); ctx.arc(tp.x,tp.y,prog*2.8,0,Math.PI*2)
-        ctx.fillStyle=`rgba(240,201,122,${prog*0.55})`; ctx.fill()
+        ctx.beginPath(); ctx.arc(tp.x,tp.y,prog*3.0,0,Math.PI*2)
+        ctx.fillStyle=`rgba(255,220,130,${prog*0.60})`; ctx.fill()
       }
 
       /* ── 5. Shooting meteors ──────────────────────────────────────────── */
@@ -300,7 +309,7 @@ export default function HeroCanvas3D() {
         ctx.beginPath(); ctx.moveTo(tx,ty); ctx.lineTo(m.x,m.y)
         ctx.strokeStyle=mg; ctx.lineWidth=1.6; ctx.stroke()
         const mhg=ctx.createRadialGradient(m.x,m.y,0,m.x,m.y,7)
-        mhg.addColorStop(0,`rgba(255,248,210,${m.alpha})`); mhg.addColorStop(1,'rgba(255,248,210,0)')
+        mhg.addColorStop(0,`rgba(255,250,220,${m.alpha})`); mhg.addColorStop(1,'rgba(255,250,220,0)')
         ctx.beginPath(); ctx.arc(m.x,m.y,7,0,Math.PI*2); ctx.fillStyle=mhg; ctx.fill()
       }
 
@@ -309,21 +318,17 @@ export default function HeroCanvas3D() {
         const rp=ripples[i]; rp.r+=7; rp.alpha-=0.016
         if(rp.alpha<=0){ripples.splice(i,1);continue}
         ctx.beginPath(); ctx.arc(rp.x,rp.y,rp.r,0,Math.PI*2)
-        ctx.strokeStyle=`rgba(200,169,106,${rp.alpha})`; ctx.lineWidth=1.6; ctx.stroke()
+        ctx.strokeStyle=`rgba(255,220,130,${rp.alpha})`; ctx.lineWidth=1.6; ctx.stroke()
         if(rp.r>30){
           ctx.beginPath(); ctx.arc(rp.x,rp.y,rp.r*0.62,0,Math.PI*2)
-          ctx.strokeStyle=`rgba(240,201,122,${rp.alpha*0.55})`; ctx.lineWidth=0.9; ctx.stroke()
-        }
-        if(rp.r>55){
-          ctx.beginPath(); ctx.arc(rp.x,rp.y,rp.r*0.32,0,Math.PI*2)
-          ctx.strokeStyle=`rgba(255,230,160,${rp.alpha*0.35})`; ctx.lineWidth=0.6; ctx.stroke()
+          ctx.strokeStyle=`rgba(255,235,160,${rp.alpha*0.55})`; ctx.lineWidth=0.9; ctx.stroke()
         }
       }
 
       /* ── 7. Vignette ──────────────────────────────────────────────────── */
-      const vig=ctx.createRadialGradient(W/2,H/2,H*0.30,W/2,H/2,H*1.05)
+      const vig=ctx.createRadialGradient(W/2,H/2,H*0.32,W/2,H/2,H*1.05)
       vig.addColorStop(0,'rgba(7,5,10,0)')
-      vig.addColorStop(1,'rgba(7,5,10,0.58)')
+      vig.addColorStop(1,'rgba(7,5,10,0.55)')
       ctx.fillStyle=vig; ctx.fillRect(0,0,W,H)
     }
 
@@ -339,18 +344,17 @@ export default function HeroCanvas3D() {
     const onClick=(e:MouseEvent)=>{
       const rect=canvas.getBoundingClientRect(), dpr=window.devicePixelRatio||1
       const cx=(e.clientX-rect.left)*dpr, cy=(e.clientY-rect.top)*dpr
-      ripples.push({x:cx,y:cy,r:4,alpha:0.75})
-      // Burst particles
-      for(let i=0;i<16;i++){
-        const ang=i/16*Math.PI*2, spd=Math.random()*4+1.5
-        trails.push({x:cx,y:cy,life:35,maxLife:35,vx:Math.cos(ang)*spd,vy:Math.sin(ang)*spd})
+      ripples.push({x:cx,y:cy,r:4,alpha:0.80})
+      for(let i=0;i<20;i++){
+        const ang=i/20*Math.PI*2, spd=Math.random()*5+2
+        trails.push({x:cx,y:cy,life:40,maxLife:40,vx:Math.cos(ang)*spd,vy:Math.sin(ang)*spd})
       }
-      // Push nearby nodes outward on click
+      // Explode nearby nodes outward (never inward)
       for(const n of nodes){
         const dx=n.x-cx, dy=n.y-cy, dist=Math.sqrt(dx*dx+dy*dy)
-        const pushR=Math.min(W,H)*0.18
+        const pushR=Math.min(W,H)*0.22
         if(dist<pushR && dist>1){
-          const str=(1-dist/pushR)*3.5
+          const str=(1-dist/pushR)*5.0
           n.vx+=dx/dist*str
           n.vy+=dy/dist*str
         }
@@ -373,13 +377,6 @@ export default function HeroCanvas3D() {
   },[])
 
   return (
-    <canvas
-      ref={ref}
-      style={{
-        display:'block', width:'100%', height:'100%',
-        position:'absolute', inset:0,
-        cursor:'crosshair',
-      }}
-    />
+    <canvas ref={ref} style={{display:'block',width:'100%',height:'100%',position:'absolute',inset:0,cursor:'crosshair'}} />
   )
 }
