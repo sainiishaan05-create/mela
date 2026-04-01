@@ -6,7 +6,7 @@ import { createClient } from '@/lib/supabase/server'
 export const revalidate = 300
 
 export const metadata: Metadata = {
-  title: 'Pricing | Melaa — South Asian Wedding Vendors GTA',
+  title: 'Pricing | Melaa | South Asian Wedding Vendors GTA',
   description: 'Start free for 90 days. Founding Vendors lock in $49/mo forever. Regular pricing starts at $197/mo.',
 }
 
@@ -34,7 +34,7 @@ const PLAN_BASE = [
     period: '/month',
     description: 'First 90 days completely free',
     primary: true,
-    highlight: '90 days free — no credit card',
+    highlight: '90 days free, no credit card',
     features: [
       'Everything in Free',
       'Priority placement in search',
@@ -70,7 +70,7 @@ const PLAN_BASE = [
 
 const FAQS = [
   { q: 'Do I need a credit card to start?', a: 'No. Your first 90 days are completely free. No card required to get listed and start receiving leads from couples.' },
-  { q: 'What happens after 90 days?', a: 'Founding Vendors lock in $49/mo forever — that rate never goes up. The regular price for new vendors after founding spots are gone is $197/mo.' },
+  { q: 'What happens after 90 days?', a: 'Founding Vendors lock in $49/mo forever. That rate never goes up. The regular price for new vendors after founding spots are gone is $197/mo.' },
   { q: 'Can I cancel anytime?', a: 'Yes. No contracts, no cancellation fees. Cancel or downgrade whenever you like, no questions asked.' },
   { q: 'How quickly will I get leads?', a: "Most vendors receive their first inquiry within 7 days of going live. We help optimize profiles that aren't converting." },
   { q: 'What cities do you cover?', a: 'All of the GTA: Toronto, Brampton, Mississauga, Markham, Vaughan, Scarborough, Richmond Hill, Kitchener-Waterloo and surrounding areas.' },
@@ -104,7 +104,7 @@ export default async function PricingPage() {
             Simple, Honest Pricing
           </h1>
           <p className="text-gray-400 text-lg max-w-xl mx-auto mb-8">
-            We only make money when you succeed. Start free for 90 days — no credit card, no commitment.
+            We only make money when you succeed. Start free for 90 days, no credit card, no commitment.
           </p>
           {spotsLeft > 0 && (
             <div className="inline-flex items-center gap-2.5 bg-white/8 border border-white/15 text-sm px-5 py-2.5 rounded-full backdrop-blur-sm">
@@ -201,7 +201,7 @@ export default async function PricingPage() {
               <h2 className="font-[family-name:var(--font-playfair)] text-2xl font-bold mb-3">Our Lead Guarantee</h2>
               <p className="text-gray-600 leading-relaxed">
                 If you don&apos;t receive at least one genuine couple inquiry in your first 90 days, we&apos;ll personally
-                work with your profile until you do — or you owe us absolutely nothing. No questions asked.
+                work with your profile until you do, or you owe us absolutely nothing. No questions asked.
               </p>
             </div>
           </div>

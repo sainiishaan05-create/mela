@@ -8,7 +8,7 @@ export const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
 //       Create a new $49/mo price in Stripe Dashboard and set STRIPE_FOUNDING_PRICE_ID=price_xxx
 export const PLANS = {
   basic: {
-    name: 'Basic — Founding Rate',
+    name: 'Basic Founding Rate',
     price: 4900,
     priceId: process.env.STRIPE_FOUNDING_PRICE_ID ?? 'price_1TETtdQbR0KbHqJRgoBpb5w7',
   },

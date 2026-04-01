@@ -11,7 +11,7 @@ const MAINTENANCE_HTML = `<!DOCTYPE html>
 <head>
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <title>Melaa — Something Big Is Coming</title>
+  <title>Melaa: Something Big Is Coming</title>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Inter:wght@400;500;600&display=swap');
     *{margin:0;padding:0;box-sizing:border-box}

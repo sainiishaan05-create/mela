@@ -55,7 +55,7 @@ export default function Footer() {
               Melaa
             </Link>
             <p className="text-sm leading-relaxed mb-6" style={{ color: 'rgba(255,255,255,0.4)' }}>
-              The GTA's only marketplace built exclusively for South Asian weddings. Find vendors who understand your culture — no explaining required.
+              The GTA's only marketplace built exclusively for South Asian weddings. Find vendors who understand your culture, no explaining required.
             </p>
             <div className="flex items-center gap-2">
               <a href="https://instagram.com/melaa.ca_" target="_blank" rel="noopener noreferrer" aria-label="Instagram"
@@ -143,7 +143,7 @@ export default function Footer() {
             <p className="text-white text-xs font-bold uppercase tracking-widest mb-5">Get Listed</p>
             <div className="rounded-2xl p-5" style={{ border: '1px solid rgba(200,169,106,0.2)', background: 'rgba(200,169,106,0.06)' }}>
               <p className="text-xs font-semibold mb-1" style={{ color: 'var(--color-gold)' }}>Founding Vendor Rate</p>
-              <p className="text-xs mb-4" style={{ color: 'rgba(255,255,255,0.4)' }}>Lock in $49/mo forever — price goes to $197/mo after founding spots are gone.</p>
+              <p className="text-xs mb-4" style={{ color: 'rgba(255,255,255,0.4)' }}>Lock in $49/mo forever. Price goes to $197/mo after founding spots are gone.</p>
               <Link href="/list-your-business"
                 className="inline-block text-xs font-bold px-4 py-2.5 rounded-xl transition-colors duration-200"
                 style={{ background: 'var(--color-gold)', color: 'var(--color-text)' }}>

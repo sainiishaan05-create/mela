@@ -121,7 +121,7 @@ export default function NewsletterTab() {
               Stay in the loop
             </h3>
             <p className="text-sm text-gray-500 leading-relaxed">
-              Vendor spotlights, planning tips, and exclusive deals — free.
+              Vendor spotlights, planning tips, and exclusive deals. All free.
             </p>
           </div>
           <PanelForm />

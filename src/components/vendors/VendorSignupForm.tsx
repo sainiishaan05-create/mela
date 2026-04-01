@@ -48,7 +48,7 @@ export default function VendorSignupForm({ categories, cities }: Props) {
         console.error('Upload error:', error.message)
         failed++
         if (error.message.includes('Bucket not found') || error.message.includes('not found')) {
-          setUploadError('Photo storage is being set up — your listing will still go live without photos.')
+          setUploadError('Photo storage is being set up. Your listing will still go live without photos.')
         } else {
           setUploadError(`Failed to upload ${file.name}. Please try again.`)
         }
@@ -63,7 +63,7 @@ export default function VendorSignupForm({ categories, cities }: Props) {
     setUploading(false)
     if (fileRef.current) fileRef.current.value = ''
     if (failed > 0 && uploaded.length > 0) {
-      setUploadError(`${uploaded.length} photo(s) uploaded. ${failed} failed — you can continue without them.`)
+      setUploadError(`${uploaded.length} photo(s) uploaded. ${failed} failed. You can continue without them.`)
     }
   }
 
@@ -142,7 +142,7 @@ export default function VendorSignupForm({ categories, cities }: Props) {
       {field('Email Address *', 'email', 'email', 'you@example.com')}
 
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-1">Password * <span className="text-gray-400 font-normal">(min. 8 characters — used to manage your listing)</span></label>
+        <label className="block text-sm font-medium text-gray-700 mb-1">Password * <span className="text-gray-400 font-normal">(min. 8 characters, used to manage your listing)</span></label>
         <input
           type="password"
           placeholder="Create a password"
