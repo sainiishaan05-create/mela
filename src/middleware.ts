@@ -3,7 +3,7 @@ import { NextResponse, type NextRequest } from 'next/server'
 
 // ─── MAINTENANCE MODE ────────────────────────────────────────────
 // Set to false and redeploy when ready to go back live.
-const MAINTENANCE = true
+const MAINTENANCE = false
 // ────────────────────────────────────────────────────────────────
 
 const MAINTENANCE_HTML = `<!DOCTYPE html>
@@ -312,7 +312,7 @@ export async function middleware(request: NextRequest) {
   // Localhost is always bypassed so you can develop freely.
   const isLocalhost = request.headers.get('host')?.includes('localhost') || request.headers.get('host')?.includes('127.0.0.1')
   if (MAINTENANCE && !isLocalhost) {
-    const allowed = ['/dashboard', '/login', '/api/auth']
+    const allowed = ['/dashboard', '/login', '/api/auth', '/api/webhooks', '/api/stripe/webhook']
     const isAllowed = allowed.some(p => pathname.startsWith(p))
     if (!isAllowed) {
       return new NextResponse(MAINTENANCE_HTML, {

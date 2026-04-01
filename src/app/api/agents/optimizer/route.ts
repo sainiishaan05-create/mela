@@ -39,7 +39,7 @@ async function ai(prompt: string, tokens = 250): Promise<string> {
 
 export async function GET(req: Request) {
   const { searchParams } = new URL(req.url)
-  if (searchParams.get('token') !== process.env.AGENT_SECRET)
+  if (!process.env.AGENT_SECRET || searchParams.get('token') !== process.env.AGENT_SECRET)
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
 
   const results: string[] = []
@@ -73,17 +73,18 @@ export async function GET(req: Request) {
       const catName = (vendor.category as unknown as { name: string } | null)?.name ?? 'wedding services'
       const cityName = (vendor.city as unknown as { name: string } | null)?.name ?? 'GTA'
 
-      // Price anchor: Founding Vendor offer
-      const email = await ai(`Write a 2-paragraph urgent sales email to ${vendor.name}, a ${catName} in ${cityName}.
-      They got ${count} leads this week on Melaa's free plan — real proof the platform works.
-      Offer: Founding Vendor rate $49/mo (regular $197/mo), locked forever, free for 90 days, no credit card.
-      FOMO: limited spots, other ${catName}s in ${cityName} are locking this in now.
-      Sign as Ishaan. Max 120 words.`)
+      // Honest upgrade pitch — no fake urgency or manufactured scarcity
+      const email = await ai(`Write a friendly, genuine 2-paragraph email to ${vendor.name}, a ${catName} in ${cityName} on Melaa.
+      They received ${count} real inquiries this week through their free listing — acknowledge that honestly.
+      Let them know a Founding Member plan exists at $49/mo that gives priority placement in search and a verified badge.
+      Be helpful and honest. Do NOT use fake urgency, made-up scarcity, or pressure tactics.
+      Do NOT write a Subject line — just the email body.
+      Sign as Ishaan, Founder of Melaa. Max 100 words.`)
 
       await resend.emails.send({
         from: 'Ishaan at Melaa <hello@melaa.ca>',
         to: vendor.email,
-        subject: `${count} leads this week — lock in $49/mo before spots fill`,
+        subject: `${vendor.name} — ${count} inquiries this week on Melaa`,
         html: `<div style="font-family:sans-serif;max-width:600px;margin:0 auto">
           ${email.split('\n\n').map(p => `<p style="line-height:1.7;color:#333">${p}</p>`).join('')}
           <div style="background:#1A1A1A;border-radius:12px;padding:20px;margin:20px 0;text-align:center">

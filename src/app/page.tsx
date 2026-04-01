@@ -31,11 +31,8 @@ const HOW_IT_WORKS = [
   { step: '03', icon: '💬', title: 'Connect directly', desc: 'Reach vendors with zero middlemen, no booking fees, no hidden commissions. Ever.' },
 ]
 
-const TESTIMONIALS = [
-  { name: 'Priya & Karan S.', city: 'Brampton',    initials: 'PK', stars: 5, text: 'Found our photographer AND decorator through Melaa. Saved us weeks of searching through generic results that had nothing to do with our culture.' },
-  { name: 'Aisha M.',          city: 'Mississauga', initials: 'AM', stars: 5, text: 'Every vendor on here actually understands Pakistani weddings. Our caterer was exactly what we needed — no explaining, no compromises.' },
-  { name: 'Simran K.',         city: 'Toronto',     initials: 'SK', stars: 5, text: 'The mehndi artist we found through Melaa was incredible. Never would have discovered her otherwise. This is a game changer for South Asian couples.' },
-]
+// Real testimonials only — populate once you have genuine reviews from real users
+const TESTIMONIALS: { name: string; city: string; initials: string; stars: number; text: string }[] = []
 
 const CITIES = [
   { name: 'Toronto',        slug: 'toronto' },
@@ -436,8 +433,9 @@ export default async function HomePage() {
       </section>
 
       {/* ══════════════════════════════════════════
-          TESTIMONIALS
+          TESTIMONIALS — shown only when real reviews exist
       ══════════════════════════════════════════ */}
+      {TESTIMONIALS.length > 0 && (
       <section className="py-28 px-4 sm:px-6" style={{ background: '#0e0a05' }}>
         <div className="max-w-7xl mx-auto">
           <Reveal className="text-center mb-16">
@@ -446,7 +444,6 @@ export default async function HomePage() {
               Couples who found their vendors
             </h2>
           </Reveal>
-
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {TESTIMONIALS.map(({ name, city, initials, stars, text }, i) => (
               <Reveal key={name} delay={i * 100}>
@@ -477,6 +474,7 @@ export default async function HomePage() {
           </div>
         </div>
       </section>
+      )}
 
       {/* ══════════════════════════════════════════
           CITIES

@@ -20,6 +20,7 @@ interface Props {
   categories: Category[]
   cities: City[]
   justClaimed?: boolean
+  justUpgraded?: boolean
   userId: string
 }
 
@@ -85,7 +86,7 @@ function NavItem({
 // ════════════════════════════════════════════════════════════════════════════
 // MAIN SHELL
 // ════════════════════════════════════════════════════════════════════════════
-export default function DashboardShell({ vendor: initialVendor, leads: initialLeads, categories, cities, justClaimed, userId }: Props) {
+export default function DashboardShell({ vendor: initialVendor, leads: initialLeads, categories, cities, justClaimed, justUpgraded, userId }: Props) {
   const [activeTab, setActiveTab] = useState<Tab>('overview')
   const [vendor, setVendor] = useState(initialVendor)
   const [leads, setLeads] = useState(initialLeads)
@@ -103,7 +104,13 @@ export default function DashboardShell({ vendor: initialVendor, leads: initialLe
       {justClaimed && (
         <div className="bg-green-50 border-b border-green-200 px-4 py-3 flex items-center justify-center gap-2">
           <CheckCircle className="w-4 h-4 text-green-600 shrink-0" />
-          <p className="text-green-800 font-medium text-sm">🎉 Your listing is now claimed! Welcome to Mela.</p>
+          <p className="text-green-800 font-medium text-sm">🎉 Your listing is now claimed! Welcome to Melaa.</p>
+        </div>
+      )}
+      {justUpgraded && (
+        <div className="border-b px-4 py-3 flex items-center justify-center gap-2" style={{ background: '#FBF6EC', borderColor: '#E8D5A0' }}>
+          <CheckCircle className="w-4 h-4 shrink-0" style={{ color: '#C8A96A' }} />
+          <p className="font-medium text-sm" style={{ color: '#7A5C1E' }}>🏆 Welcome to the Founding Member plan! Your profile now has priority placement and a verified badge.</p>
         </div>
       )}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 py-8 flex gap-8">
@@ -539,6 +546,20 @@ function PhotosTab({ vendor, onSave }: { vendor: Props['vendor']; onSave: (v: Pr
     const updated = photos.filter(p => p !== url)
     setPhotos(updated)
     await savePhotos(updated)
+    // Delete the file from Supabase Storage to avoid orphaned files
+    try {
+      const supabase = createClient()
+      // Extract the storage path from the public URL
+      // URL format: https://<project>.supabase.co/storage/v1/object/public/vendor-images/<path>
+      const marker = '/vendor-images/'
+      const idx = url.indexOf(marker)
+      if (idx !== -1) {
+        const filePath = url.slice(idx + marker.length)
+        await supabase.storage.from('vendor-images').remove([filePath])
+      }
+    } catch {
+      // Non-fatal: photo already removed from DB, storage cleanup is best-effort
+    }
   }
 
   async function savePhotos(list: string[]) {

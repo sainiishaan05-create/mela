@@ -39,7 +39,7 @@ async function ai(prompt: string, tokens = 500): Promise<string> {
 
 export async function GET(req: Request) {
   const { searchParams } = new URL(req.url)
-  if (searchParams.get('token') !== process.env.AGENT_SECRET)
+  if (!process.env.AGENT_SECRET || searchParams.get('token') !== process.env.AGENT_SECRET)
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
 
   const results: string[] = []

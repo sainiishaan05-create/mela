@@ -13,15 +13,16 @@ function getServiceClient() {
   )
 }
 
-export const metadata: Metadata = { title: 'Vendor Dashboard | Mela' }
+export const metadata: Metadata = { title: 'Vendor Dashboard | Melaa' }
 
 export default async function DashboardPage({
   searchParams,
 }: {
-  searchParams: Promise<{ claimed?: string }>
+  searchParams: Promise<{ claimed?: string; upgraded?: string }>
 }) {
   const params = await searchParams
   const justClaimed = params.claimed === '1'
+  const justUpgraded = params.upgraded === '1'
 
   const supabase = await createClient()
 
@@ -97,6 +98,7 @@ export default async function DashboardPage({
       categories={categories ?? []}
       cities={cities ?? []}
       justClaimed={justClaimed}
+      justUpgraded={justUpgraded}
       userId={user.id}
     />
   )

@@ -46,12 +46,12 @@ export async function GET(req: NextRequest) {
     return NextResponse.redirect(`${siteUrl}/claim/${vendor.slug}?error=missing_claim_email`)
   }
 
-  const { data: listData } = await supabase.auth.admin.listUsers()
-  const existingUser = listData?.users?.find((u) => u.email === claimEmail)
+  // Direct email lookup — avoids listUsers() pagination limit (max 1,000 users)
+  const { data: existingUserData } = await supabase.auth.admin.getUserByEmail(claimEmail)
   let userId: string
 
-  if (existingUser) {
-    userId = existingUser.id
+  if (existingUserData?.user) {
+    userId = existingUserData.user.id
   } else {
     const { data: createdUser, error: createError } = await supabase.auth.admin.createUser({
       email: claimEmail,

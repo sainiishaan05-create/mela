@@ -9,11 +9,8 @@ export const metadata: Metadata = {
   description: 'Join as a Founding Vendor on Melaa. Free for 90 days, then lock in $49/mo forever. Get discovered by thousands of South Asian families in the GTA.',
 }
 
-const SOCIAL_PROOF = [
-  { initials: 'RK', name: 'Raj K.', role: 'Photographer, Brampton', text: 'Got 3 inquiries in my first week. Mela is the real deal.' },
-  { initials: 'SA', name: 'Sana A.', role: 'Mehndi Artist, Mississauga', text: 'Finally a platform that actually understands our market.' },
-  { initials: 'DM', name: 'Dev M.', role: 'Caterer, Toronto', text: 'Booked 2 weddings from Mela leads in the first month.' },
-]
+// Real testimonials only — do not add placeholder/fabricated quotes here
+const SOCIAL_PROOF: { initials: string; name: string; role: string; text: string }[] = []
 
 const FEATURES = [
   { icon: '📍', title: 'GTA-Focused Discovery', desc: 'Appear in searches by couples in your exact city — not buried under national chains.' },
@@ -32,7 +29,8 @@ export default async function ListYourBusinessPage() {
     supabase.from('vendors').select('*', { count: 'exact', head: true }).eq('is_active', true),
   ])
 
-  const spotsLeft = Math.max(0, 50 - (vendorCount ?? 0))
+  // Spots left is intentionally not shown — the old calc (50 - total vendors) was broken
+  const spotsLeft = 0
   const count = vendorCount?.toLocaleString() ?? '1,200'
 
   return (
