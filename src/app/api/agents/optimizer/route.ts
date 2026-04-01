@@ -46,8 +46,8 @@ export async function GET(req: Request) {
   const now = new Date()
   const hour = now.getUTCHours()
 
-  // ── Task 1: Hot window upgrade — 2-5 leads in 7 days, still free ─────────
-  // This is the highest-converting moment. Vendor has proof Melaa works, not yet paying.
+  // ── Task 1: Log hot window vendors to DB — no emails sent ────────────────
+  // (Vendors with 2-5 leads in 7 days, still on free tier — data signal only)
   const weekAgo = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString()
   const { data: recentLeads } = await supabase
     .from('leads').select('vendor_id').gte('created_at', weekAgo)
@@ -62,127 +62,40 @@ export async function GET(req: Request) {
     .map(([id]) => id)
 
   if (hotWindowIds.length > 0) {
-    const { data: hotVendors } = await supabase
-      .from('vendors')
-      .select('id, name, email, category:categories(name), city:cities(name)')
-      .eq('tier', 'free').in('id', hotWindowIds)
-
-    for (const vendor of hotVendors ?? []) {
-      if (!vendor.email) continue
-      const count = leadCount[vendor.id]
-      const catName = (vendor.category as unknown as { name: string } | null)?.name ?? 'wedding services'
-      const cityName = (vendor.city as unknown as { name: string } | null)?.name ?? 'GTA'
-
-      // Honest upgrade pitch — no fake urgency or manufactured scarcity
-      const email = await ai(`Write a friendly, genuine 2-paragraph email to ${vendor.name}, a ${catName} in ${cityName} on Melaa.
-      They received ${count} real inquiries this week through their free listing — acknowledge that honestly.
-      Let them know a Founding Member plan exists at $49/mo that gives priority placement in search and a verified badge.
-      Be helpful and honest. Do NOT use fake urgency, made-up scarcity, or pressure tactics.
-      Do NOT write a Subject line — just the email body.
-      Sign as Ishaan, Founder of Melaa. Max 100 words.`)
-
-      await resend.emails.send({
-        from: 'Ishaan at Melaa <hello@melaa.ca>',
-        to: vendor.email,
-        subject: `${vendor.name} — ${count} inquiries this week on Melaa`,
-        html: `<div style="font-family:sans-serif;max-width:600px;margin:0 auto">
-          ${email.split('\n\n').map(p => `<p style="line-height:1.7;color:#333">${p}</p>`).join('')}
-          <div style="background:#1A1A1A;border-radius:12px;padding:20px;margin:20px 0;text-align:center">
-            <p style="margin:0;font-size:12px;color:#C8A96A;text-transform:uppercase;letter-spacing:1px">Founding Vendor Rate</p>
-            <p style="margin:4px 0;font-size:36px;font-weight:bold;color:white">$49<span style="font-size:16px;color:#999">/mo</span></p>
-            <p style="margin:0;font-size:12px;color:#666"><s style="color:#999">$197/mo</s> · Free 90 days · Locked forever · Cancel anytime</p>
-          </div>
-          <a href="${SITE}/pricing" style="background:#C8A96A;color:white;padding:14px 28px;border-radius:24px;text-decoration:none;display:block;text-align:center;font-weight:bold;font-size:15px;margin-top:8px">Claim Founding Rate →</a>
-        </div>`,
-      })
-      results.push(`hot_window:${vendor.name}(${count}_leads)`)
-    }
+    await supabase.from('agent_logs').insert({
+      agent: 'optimizer',
+      action: 'hot_window_signal',
+      metadata: JSON.stringify({ count: hotWindowIds.length, ids: hotWindowIds }),
+      created_at: now.toISOString(),
+    })
+    results.push(`hot_window_logged:${hotWindowIds.length}_vendors`)
   }
 
-  // ── Task 2: Featured Placement upsell — sell $49/mo add-on to Basic vendors ─
-  // New passive revenue stream: Basic vendors can pay $49/mo extra to be "Featured" on homepage
-  if (hour === 10) {
-    const { data: basicVendors } = await supabase
-      .from('vendors')
-      .select('id, name, email, is_featured, category:categories(name)')
-      .eq('tier', 'basic')
-      .eq('is_featured', false)
-      .limit(10)
-
-    for (const vendor of basicVendors ?? []) {
-      if (!vendor.email) continue
-      const catName = (vendor.category as unknown as { name: string } | null)?.name ?? 'your category'
-
-      await resend.emails.send({
-        from: 'Ishaan at Melaa <hello@melaa.ca>',
-        to: vendor.email,
-        subject: `Get featured on Melaa.ca homepage — $49/mo add-on`,
-        html: `<div style="font-family:sans-serif;max-width:600px;margin:0 auto">
-          <h2 style="color:#C8A96A">Featured Placement — Available Now</h2>
-          <p style="color:#333;line-height:1.7">Hi ${vendor.name.split(' ')[0]}, we're now offering a <strong>Featured Placement</strong> add-on for Basic members.</p>
-          <div style="background:#fafaf7;border-radius:12px;padding:20px;margin:16px 0">
-            <p style="margin:0 0 8px;font-weight:bold;color:#1A1A1A">What you get for $49/mo:</p>
-            <ul style="margin:0;padding-left:20px;color:#444;line-height:2">
-              <li>🏆 Featured badge on your profile</li>
-              <li>📍 Homepage "Featured Vendors" section</li>
-              <li>⭐ First result in ${catName} searches</li>
-              <li>📣 Included in our weekly buyer newsletter</li>
-            </ul>
-          </div>
-          <p style="color:#333">Most featured vendors see <strong>3-5x more inquiries</strong>. One extra booking per month covers this entirely.</p>
-          <p>Interested? Just reply "YES" and I'll activate it for you today.</p>
-          <p style="color:#444">— Ishaan, Founder of Melaa</p>
-        </div>`,
-      })
-      results.push(`featured_upsell:${vendor.name}`)
-    }
-  }
-
-  // ── Task 3: Revenue leak — find paid vendors who haven't logged in / replied in 30d ─
+  // ── Task 2: Log at-risk paid vendors — no emails sent ────────────────────
   if (hour === 10) {
     const thirtyDaysAgo = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString()
     const { data: atRiskPaid } = await supabase
-      .from('vendors')
-      .select('id, name, email, tier')
-      .neq('tier', 'free')
-      .eq('is_active', true)
+      .from('vendors').select('id, name, tier').neq('tier', 'free').eq('is_active', true)
 
-    // Find which paid vendors have zero read leads in 30 days (not engaged)
     const { data: recentReadLeads } = await supabase
-      .from('leads')
-      .select('vendor_id')
-      .eq('is_read', true)
-      .gte('created_at', thirtyDaysAgo)
+      .from('leads').select('vendor_id').eq('is_read', true).gte('created_at', thirtyDaysAgo)
 
     const activeVendorIds = new Set((recentReadLeads ?? []).map(l => l.vendor_id))
     const ghostedPaid = (atRiskPaid ?? []).filter(v => !activeVendorIds.has(v.id))
 
-    for (const vendor of ghostedPaid.slice(0, 5)) {
-      if (!vendor.email) continue
-      await resend.emails.send({
-        from: 'Ishaan at Melaa <hello@melaa.ca>',
-        to: vendor.email,
-        subject: `${vendor.name} — are you getting your leads?`,
-        html: `<div style="font-family:sans-serif;max-width:600px;margin:0 auto">
-          <h2 style="color:#C8A96A">Quick check-in</h2>
-          <p style="color:#333;line-height:1.7">Hi ${vendor.name.split(' ')[0]}, I noticed you haven't replied to any recent inquiries on Melaa. I want to make sure you're getting value from your ${vendor.tier} subscription.</p>
-          <p>A few things that might help:</p>
-          <ul style="color:#444;line-height:2">
-            <li>Check your spam folder for lead notifications</li>
-            <li>Update your contact email in your dashboard</li>
-            <li>Reply to leads within 24h to stay at the top of rankings</li>
-          </ul>
-          <p>If anything isn't working, reply to this email and I'll personally fix it.</p>
-          <a href="${SITE}/dashboard" style="background:#C8A96A;color:white;padding:10px 20px;border-radius:20px;text-decoration:none;display:inline-block;margin-top:8px">Check My Dashboard →</a>
-          <p style="color:#444;margin-top:16px">— Ishaan</p>
-        </div>`,
+    if (ghostedPaid.length > 0) {
+      await supabase.from('agent_logs').insert({
+        agent: 'optimizer',
+        action: 'at_risk_paid_vendors',
+        metadata: JSON.stringify({ count: ghostedPaid.length }),
+        created_at: now.toISOString(),
       })
-      results.push(`revenue_leak_recovery:${vendor.name}`)
+      results.push(`at_risk_logged:${ghostedPaid.length}`)
     }
   }
 
-  // ── Task 4: Passive income log — track upsell opportunities in DB ─────────
-  const opportunityCount = results.filter(r => r.startsWith('hot_window') || r.startsWith('featured_upsell')).length
+  // ── Task 3: Log opportunity count to DB ──────────────────────────────────
+  const opportunityCount = results.length
   if (opportunityCount > 0) {
     await supabase.from('agent_logs').insert({
       agent: 'optimizer',

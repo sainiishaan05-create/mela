@@ -115,31 +115,16 @@ export async function GET(req: Request) {
     Write 3 specific, actionable revenue levers for this week. Number them. Be concrete, not generic. Under 200 words.`, 300
   )
 
-  // ── Task 2: Pitch Premium to top Basic vendors ─────────────────────────────
+  // ── Task 2: Log Premium upgrade candidates — no emails sent ─────────────
   const { data: basicList } = await supabase
     .from('vendors')
-    .select('id, name, email, created_at, category:categories(name)')
+    .select('id, name')
     .eq('tier', 'basic')
     .lte('created_at', new Date(Date.now() - 60 * 24 * 60 * 60 * 1000).toISOString())
     .limit(5)
 
-  for (const vendor of basicList ?? []) {
-    if (!vendor.email) continue
-    const catName = (vendor.category as unknown as { name: string } | null)?.name ?? 'wedding vendor'
-    const pitch = await ai(`Write a 2-paragraph email pitching ${vendor.name} (${catName}) to upgrade from Basic ($99/mo) to Premium ($249/mo) on Melaa.ca.
-    Premium benefits: homepage featured, premium badge, priority support, first in all searches.
-    Calculate their ROI: one extra booking pays for a year of Premium. Sign as "Ishaan, Founder".`)
-
-    await resend.emails.send({
-      from: 'Ishaan at Melaa <hello@melaa.ca>',
-      to: vendor.email,
-      subject: `${vendor.name} — ready for Premium? (one booking pays for a year)`,
-      html: `<div style="font-family:sans-serif;max-width:600px;margin:0 auto">
-        ${pitch.split('\n\n').map(p => `<p style="color:#333;line-height:1.6">${p}</p>`).join('')}
-        <a href="${SITE}/pricing" style="background:#C8A96A;color:white;padding:12px 24px;border-radius:20px;text-decoration:none;display:inline-block;margin-top:16px;font-weight:bold">Upgrade to Premium →</a>
-      </div>`,
-    })
-    results.push(`premium_pitch:${vendor.name}`)
+  if ((basicList ?? []).length > 0) {
+    results.push(`premium_candidates_logged:${(basicList ?? []).length}`)
   }
 
   // ── Task 3: Weekly P&L report to founder ─────────────────────────────────

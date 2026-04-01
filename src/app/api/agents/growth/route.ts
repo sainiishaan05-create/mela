@@ -113,32 +113,8 @@ export async function GET(req: Request) {
       </div>`
     ).join('')
 
-    // Referral program email for vendors
-    const { data: topVendors } = await supabase
-      .from('vendors').select('id, name, email, slug').eq('is_active', true).limit(20)
-
-    for (const vendor of topVendors ?? []) {
-      if (!vendor.email) continue
-      const referralMsg = await ai(`Write a 2-sentence message to ${vendor.name} inviting them to refer other wedding vendors to Melaa.ca.
-      Their referral link: ${SITE}/list-your-business?ref=${vendor.id.slice(0, 8)}.
-      Benefit: for every vendor they refer who lists, they get 1 month free. Casual, friendly.`)
-
-      await resend.emails.send({
-        from: 'Ishaan at Melaa <hello@melaa.ca>',
-        to: vendor.email,
-        subject: `Know other wedding vendors? Get 1 month free`,
-        html: `<div style="font-family:sans-serif;max-width:600px;margin:0 auto">
-          <h2 style="color:#C8A96A">Earn a free month on Melaa!</h2>
-          <p>${referralMsg}</p>
-          <div style="background:#fafaf7;padding:16px;border-radius:8px;margin:16px 0">
-            <p style="margin:0;font-size:12px;color:#666">Your referral link:</p>
-            <p style="margin:4px 0 0;font-family:monospace;font-size:14px;color:#C8A96A">${SITE}/list-your-business?ref=${vendor.id.slice(0, 8)}</p>
-          </div>
-          <a href="${SITE}/vendors/${vendor.slug}" style="background:#C8A96A;color:white;padding:10px 20px;border-radius:20px;text-decoration:none;display:inline-block">View My Profile →</a>
-        </div>`,
-      })
-    }
-    results.push(`referral_outreach:${topVendors?.length ?? 0}_vendors`)
+    // Referral emails to vendors are disabled — no marketing emails to vendors
+    results.push('referral_emails:disabled')
 
     await resend.emails.send({
       from: 'Melaa Growth <agent@melaa.ca>',
