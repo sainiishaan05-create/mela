@@ -44,32 +44,32 @@ const NURTURE_DAYS = [1, 7, 14, 30, 60, 85, 90]
 function getNurtureConfig(day: number): { subject: string; theme: string } | null {
   switch (day) {
     case 1: return {
-      subject: 'Welcome to Melaa — your profile is live',
-      theme: 'Welcome + profile completion tips. Your profile is now live. Here are 3 things to do in the next 24 hours to get your first lead faster.',
+      subject: 'Welcome to Melaa — your profile is live 🎉',
+      theme: 'Welcome email. Their profile is now live on melaa.ca. Share 2 quick tips to help them get their first inquiry: (1) add portfolio photos, (2) write a description that mentions their specialty and city. Keep it warm and helpful. No sales pitch.',
     }
     case 7: return {
-      subject: 'Your first week on Melaa — here\'s what\'s working',
-      theme: 'Week 1 recap. Couples are searching for vendors like you. Here\'s how to make sure they find you first — add photos, complete your description.',
+      subject: 'A quick tip to help couples find you on Melaa',
+      theme: 'Helpful tip. Couples search by city and category. Share one actionable tip: vendors with photos in their profile get noticed more. Encourage them to add 3-5 photos if they haven\'t yet. Friendly, no pressure.',
     }
     case 14: return {
-      subject: 'Couples are booking — are you ready?',
-      theme: 'Social proof. Vendors with complete profiles get 3x more leads. Here\'s exactly what a high-converting profile looks like.',
+      subject: 'How\'s your Melaa profile going?',
+      theme: 'Friendly check-in. Ask how things are going. Mention that completing their profile (description, photos, Instagram link) helps couples find them. Offer to help if they have questions — reply to this email. Warm, personal tone.',
     }
     case 30: return {
-      subject: 'Your 30-day Melaa check-in',
-      theme: '30-day milestone. You\'ve been on Melaa for a month. Vendors who upgrade to Founding Member rate at $49/mo are now getting priority placement and unlimited leads.',
+      subject: 'You\'ve been on Melaa a month — thank you 🙏',
+      theme: '30-day thank-you. Thank them for being part of Melaa. Mention that a Founding Member plan exists at $49/mo for vendors who want priority placement and more visibility — no pressure, just letting them know it\'s there if they\'re interested. Keep it light.',
     }
     case 60: return {
-      subject: '60 days in — don\'t miss the founding rate',
-      theme: 'Urgency. You have 30 days left to lock in $49/mo forever before we raise to $197/mo. Here\'s what Founding Members are getting that free listings aren\'t.',
+      subject: 'Thinking of upgrading? Here\'s what Founding Members get',
+      theme: 'Honest info about the Founding Member plan. Explain clearly: $49/mo (our lowest rate ever), priority placement in search results, verified badge, featured in category pages. No fake urgency — just honest information so they can decide if it\'s right for them.',
     }
     case 85: return {
-      subject: '5 days left to lock in $49/mo forever',
-      theme: 'Final warning. Your free trial ends in 5 days. Lock in $49/mo (regularly $197/mo) before midnight on day 90. After that, the founding rate is gone permanently.',
+      subject: 'Just so you know — the $49/mo founding rate',
+      theme: 'Gentle reminder that the Founding Member rate of $49/mo is the lowest Melaa will ever offer. After the founding period closes, pricing will increase. No pressure — they can stay on the free plan forever. Just want to make sure they have the information.',
     }
     case 90: return {
-      subject: 'Your free trial ends today — what now?',
-      theme: 'Day 90 decision. Your 90-day free period is ending. Two options: lock in $49/mo founding rate now, or stay free with limited visibility. Here\'s the difference.',
+      subject: '3 months on Melaa — here\'s what\'s available',
+      theme: 'Transparent update. They\'ve been on Melaa 3 months for free. Explain both options honestly: (1) stay free — always listed, couples can still find them, (2) upgrade to $49/mo Founding Member — priority placement and verified badge. Let them choose. No fake deadlines.',
     }
     default: return null
   }
@@ -114,10 +114,18 @@ export async function GET(req: Request) {
       if (!config) continue
 
       const emailBody = await ai(
-        `Write a ${targetDay <= 14 ? 'helpful, warm' : targetDay >= 85 ? 'urgent, honest' : 'conversational'} email to ${vendor.name}, a ${catName} in ${cityName} on Melaa.ca.
-        Day ${targetDay} of their free trial. Theme: ${config.theme}
-        Founding Vendor offer: $49/mo (locked forever), regular price $197/mo. Free 90 days, no credit card.
-        Keep it under 150 words. No fluff. Sign as "Ishaan, Founder of Melaa".`, 300
+        `Write a friendly, honest email to ${vendor.name}, a ${catName} in ${cityName} listed on Melaa.ca (melaa.ca).
+        Day ${targetDay} of their time on Melaa. Task: ${config.theme}
+
+        STRICT RULES — you MUST follow these:
+        - Never use fake urgency, countdown language, or pressure tactics
+        - Never imply their leads are blocked or hidden behind a paywall — they are NOT
+        - Never write a "Subject:" line — just the email body
+        - Never make up statistics or fake claims
+        - Be warm, honest, and genuinely helpful
+        - Keep it under 120 words
+        - Sign as "Ishaan, Founder of Melaa"
+        - Only mention the $49/mo plan if the theme specifically asks for it`, 300
       )
 
       if (!emailBody) continue
@@ -176,10 +184,11 @@ export async function GET(req: Request) {
     const cityName = (vendor.city as unknown as { name: string } | null)?.name ?? 'GTA'
 
     const pitch = await ai(
-      `Write a personalised 2-paragraph email to ${vendor.name}, a ${catName} in ${cityName} on Melaa.ca.
-      They have ${vendor.leadCount} leads this month on the free plan — they're clearly getting traction.
-      Pitch: upgrade to Founding Member ($49/mo, normally $197/mo, locked forever). Benefits: priority placement, unlimited leads, verified badge.
-      Be specific about their situation. Sign as "Ishaan, Founder of Melaa". Under 120 words.`, 250
+      `Write a genuine, friendly email to ${vendor.name}, a ${catName} in ${cityName} on Melaa.ca.
+      They've received ${vendor.leadCount} inquiries this month through their free listing — that's real traction.
+      Mention this honestly and let them know a Founding Member plan ($49/mo) exists that gives them priority placement in search results and a verified badge — if they want more visibility.
+      Be specific but never pushy. Don't invent urgency. Don't imply their current leads are limited or blocked.
+      Sign as "Ishaan, Founder of Melaa". Under 100 words. No subject line — just the email body.`, 250
     )
 
     await resend.emails.send({
