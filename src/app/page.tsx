@@ -299,20 +299,10 @@ export default async function HomePage() {
             {CATEGORIES.map(({ label, href, icon, desc }, i) => (
               <Reveal key={href} delay={i * 45}>
                 <Link href={href}
-                  className="group relative rounded-2xl overflow-hidden p-6 flex flex-col gap-3 h-full transition-all duration-300"
+                  className="group relative rounded-2xl overflow-hidden p-6 flex flex-col gap-3 h-full transition-all duration-300 hover:shadow-[0_8px_32px_rgba(200,169,106,0.12)]"
                   style={{
                     background: 'rgba(255,255,255,0.03)',
                     border: '1px solid rgba(200,169,106,0.12)',
-                  }}
-                  onMouseEnter={e => {
-                    (e.currentTarget as HTMLElement).style.background = 'rgba(200,169,106,0.08)'
-                    ;(e.currentTarget as HTMLElement).style.borderColor = 'rgba(200,169,106,0.40)'
-                    ;(e.currentTarget as HTMLElement).style.boxShadow = '0 8px 32px rgba(200,169,106,0.12)'
-                  }}
-                  onMouseLeave={e => {
-                    (e.currentTarget as HTMLElement).style.background = 'rgba(255,255,255,0.03)'
-                    ;(e.currentTarget as HTMLElement).style.borderColor = 'rgba(200,169,106,0.12)'
-                    ;(e.currentTarget as HTMLElement).style.boxShadow = 'none'
                   }}
                 >
                   <span className="text-3xl group-hover:scale-110 transition-transform duration-500 ease-out">{icon}</span>
@@ -503,16 +493,8 @@ export default async function HomePage() {
             {CITIES.map(({ name, slug }, i) => (
               <Reveal key={slug} delay={i * 35}>
                 <Link href={`/vendors?city=${slug}`}
-                  className="group flex items-center gap-3 p-4 rounded-2xl border transition-all duration-300"
+                  className="group flex items-center gap-3 p-4 rounded-2xl border transition-all duration-300 hover:border-[rgba(200,169,106,0.4)] hover:bg-[rgba(200,169,106,0.07)]"
                   style={{ background: 'rgba(255,255,255,0.025)', borderColor: 'rgba(200,169,106,0.12)' }}
-                  onMouseEnter={e => {
-                    (e.currentTarget as HTMLElement).style.borderColor = 'rgba(200,169,106,0.4)'
-                    ;(e.currentTarget as HTMLElement).style.background = 'rgba(200,169,106,0.07)'
-                  }}
-                  onMouseLeave={e => {
-                    (e.currentTarget as HTMLElement).style.borderColor = 'rgba(200,169,106,0.12)'
-                    ;(e.currentTarget as HTMLElement).style.background = 'rgba(255,255,255,0.025)'
-                  }}
                 >
                   <MapPin className="w-4 h-4 shrink-0" style={{ color: 'rgba(200,169,106,0.5)' }} />
                   <span className="text-sm font-medium text-white">{name}</span>
