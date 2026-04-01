@@ -251,7 +251,7 @@ export default async function HomePage() {
                       style={{ height: '1px', background: 'linear-gradient(90deg,rgba(200,169,106,0.4),transparent)' }} />
                   )}
                   <div className="flex items-center gap-3 mb-6">
-                    <div className="w-13 h-13 text-2xl flex items-center justify-center rounded-2xl"
+                    <div className="w-12 h-12 text-2xl flex items-center justify-center rounded-2xl"
                       style={{ background: 'rgba(200,169,106,0.10)', border: '1px solid rgba(200,169,106,0.18)' }}>
                       {icon}
                     </div>
