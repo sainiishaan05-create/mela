@@ -312,7 +312,7 @@ export async function middleware(request: NextRequest) {
   // Localhost is always bypassed so you can develop freely.
   const isLocalhost = request.headers.get('host')?.includes('localhost') || request.headers.get('host')?.includes('127.0.0.1')
   if (MAINTENANCE && !isLocalhost) {
-    const allowed = ['/dashboard', '/login', '/api/auth', '/api/webhooks', '/api/stripe/webhook']
+    const allowed = ['/dashboard', '/client/dashboard', '/login', '/api/auth', '/api/webhooks', '/api/stripe/webhook']
     const isAllowed = allowed.some(p => pathname.startsWith(p))
     if (!isAllowed) {
       return new NextResponse(MAINTENANCE_HTML, {
@@ -342,7 +342,7 @@ export async function middleware(request: NextRequest) {
     }
   )
   const { data: { user } } = await supabase.auth.getUser()
-  if (!user && request.nextUrl.pathname.startsWith('/dashboard')) {
+  if (!user && (request.nextUrl.pathname.startsWith('/dashboard') || request.nextUrl.pathname.startsWith('/client/dashboard'))) {
     return NextResponse.redirect(new URL('/login', request.url))
   }
   return supabaseResponse

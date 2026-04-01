@@ -1,7 +1,6 @@
 import { createClient } from '@/lib/supabase/server'
 import { createClient as createAdminClient } from '@supabase/supabase-js'
 import type { Metadata } from 'next'
-import Link from 'next/link'
 import { redirect } from 'next/navigation'
 import DashboardShell from './DashboardShell'
 
@@ -65,23 +64,8 @@ export default async function DashboardPage({
   }
 
   if (!vendor) {
-    return (
-      <div className="max-w-4xl mx-auto px-4 py-16 text-center">
-        <p className="text-5xl mb-4">🏪</p>
-        <h1 className="font-[family-name:var(--font-playfair)] text-2xl font-bold mb-2">
-          No claimed listing found
-        </h1>
-        <p className="text-gray-500 mb-6">
-          Find your business in our directory and claim your listing to get started.
-        </p>
-        <Link
-          href="/vendors"
-          className="bg-[#C8A96A] text-white px-6 py-3 rounded-full font-medium hover:bg-[#B8945A] transition-colors"
-        >
-          Find Your Listing
-        </Link>
-      </div>
-    )
+    // Not a vendor — send them to the couple/client dashboard
+    redirect('/client/dashboard')
   }
 
   // Fetch leads, categories and cities via service client

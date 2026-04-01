@@ -4,6 +4,8 @@ import type { Metadata } from 'next'
 import type { Vendor } from '@/types'
 import LeadForm from '@/components/vendors/LeadForm'
 import VendorCard from '@/components/vendors/VendorCard'
+import SaveVendorButton from '@/components/vendors/SaveVendorButton'
+import ReviewSection from '@/components/vendors/ReviewSection'
 import Link from 'next/link'
 import {
   MapPin, Globe, BadgeCheck, Phone, MessageCircle,
@@ -192,8 +194,10 @@ export default async function VendorProfilePage({ params }: Props) {
                   </div>
 
                   {v.description && (
-                    <p className="text-gray-600 leading-relaxed text-[15px]">{v.description}</p>
+                    <p className="text-gray-600 leading-relaxed text-[15px] mb-5">{v.description}</p>
                   )}
+
+                  <SaveVendorButton vendorId={v.id} vendorName={v.name} />
                 </div>
               </div>
 
@@ -226,14 +230,7 @@ export default async function VendorProfilePage({ params }: Props) {
               )}
 
               {/* Reviews */}
-              <div className="bg-white rounded-3xl p-6 sm:p-8 shadow-premium border border-gray-100">
-                <h2 className="font-[family-name:var(--font-playfair)] text-xl font-bold mb-5">Reviews</h2>
-                <div className="text-center py-10 border-2 border-dashed border-gray-100 rounded-2xl">
-                  <div className="text-4xl mb-3">💬</div>
-                  <p className="font-semibold text-gray-700 mb-1">No reviews yet</p>
-                  <p className="text-sm text-gray-400">Book this vendor and be the first to leave a review</p>
-                </div>
-              </div>
+              <ReviewSection vendorId={v.id} vendorName={v.name} />
             </div>
 
             {/* ── RIGHT SIDEBAR ── */}

@@ -74,13 +74,13 @@ export default function SignupPage() {
         {/* Logo / brand */}
         <div className="text-center mb-8">
           <Link href="/" className="inline-block font-[family-name:var(--font-playfair)] text-2xl font-bold text-[#C8A96A]">
-            Mela
+            Melaa
           </Link>
           <h1 className="font-[family-name:var(--font-playfair)] text-2xl font-bold text-[#1A1A1A] mt-3">
-            Create your vendor account
+            Create your free account
           </h1>
           <p className="text-gray-500 text-sm mt-1">
-            Free to join — claim your listing and start getting leads
+            For couples planning their day, or vendors growing their business
           </p>
         </div>
 
@@ -96,7 +96,7 @@ export default function SignupPage() {
               required
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              placeholder="you@yourbusiness.com"
+              placeholder="you@example.com"
               className="w-full px-4 py-3 text-sm border border-gray-200 rounded-xl bg-[#FAFAF7] text-[#1A1A1A] outline-none focus:border-[#C8A96A] transition-colors"
             />
           </div>
@@ -146,27 +146,24 @@ export default function SignupPage() {
           </button>
         </form>
 
-        {/* Steps hint */}
-        <div className="mt-8 bg-[#F5ECD7]/50 rounded-xl p-4">
-          <p className="text-xs font-bold text-[#C8A96A] uppercase tracking-widest mb-3">How it works</p>
-          <ol className="space-y-2 text-sm text-gray-600">
-            <li className="flex items-start gap-2">
-              <span className="w-5 h-5 rounded-full bg-[#C8A96A] text-white text-xs flex items-center justify-center shrink-0 mt-0.5 font-bold">1</span>
-              Create your free account
-            </li>
-            <li className="flex items-start gap-2">
-              <span className="w-5 h-5 rounded-full bg-[#C8A96A] text-white text-xs flex items-center justify-center shrink-0 mt-0.5 font-bold">2</span>
-              Find your business in the Mela directory
-            </li>
-            <li className="flex items-start gap-2">
-              <span className="w-5 h-5 rounded-full bg-[#C8A96A] text-white text-xs flex items-center justify-center shrink-0 mt-0.5 font-bold">3</span>
-              Claim your listing — edit photos, description &amp; more
-            </li>
-            <li className="flex items-start gap-2">
-              <span className="w-5 h-5 rounded-full bg-[#C8A96A] text-white text-xs flex items-center justify-center shrink-0 mt-0.5 font-bold">4</span>
-              Start receiving inquiries from couples
-            </li>
-          </ol>
+        {/* Two paths */}
+        <div className="mt-8 grid grid-cols-2 gap-3">
+          <div className="bg-[#F5ECD7]/50 rounded-xl p-4">
+            <p className="text-xs font-bold text-[#C8A96A] uppercase tracking-widest mb-2">💍 Couples</p>
+            <ul className="space-y-1.5 text-xs text-gray-600">
+              <li>✓ Save favourite vendors</li>
+              <li>✓ Leave reviews</li>
+              <li>✓ Private dashboard</li>
+            </ul>
+          </div>
+          <div className="bg-[#F5ECD7]/50 rounded-xl p-4">
+            <p className="text-xs font-bold text-[#C8A96A] uppercase tracking-widest mb-2">🏪 Vendors</p>
+            <ul className="space-y-1.5 text-xs text-gray-600">
+              <li>✓ Claim your listing</li>
+              <li>✓ Manage your profile</li>
+              <li>✓ Receive inquiries</li>
+            </ul>
+          </div>
         </div>
 
         <p className="text-center text-sm text-gray-500 mt-6">

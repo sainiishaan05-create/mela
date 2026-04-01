@@ -57,3 +57,22 @@ export interface Lead {
   is_read: boolean
   created_at: string
 }
+
+export interface Review {
+  id: string
+  user_id: string
+  vendor_id: string
+  rating: number
+  body: string | null
+  reviewer_name: string
+  created_at: string
+  vendor?: { id: string; name: string; slug: string; category?: { name: string; icon: string | null } | null }
+}
+
+export interface SavedVendor {
+  id: string
+  user_id: string
+  vendor_id: string
+  created_at: string
+  vendor?: Vendor & { category?: Category | null; city?: City | null }
+}
