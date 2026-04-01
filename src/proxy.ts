@@ -305,7 +305,7 @@ const MAINTENANCE_HTML = `<!DOCTYPE html>
 </body>
 </html>`
 
-export async function middleware(request: NextRequest) {
+export async function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl
 
   // Maintenance mode — block public traffic on the live site.
