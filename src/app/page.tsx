@@ -6,55 +6,105 @@ import HeroCanvas3D from '@/components/landing/HeroCanvas3D'
 import Reveal from '@/components/ui/Reveal'
 import SearchBar from '@/components/ui/SearchBar'
 import {
-  ArrowRight, Star, Sparkles, MapPin, CheckCircle2,
+  ArrowRight, Sparkles, MapPin, CheckCircle2,
   Zap, Shield, Heart, TrendingUp, Users, Globe,
+  Star, BadgeCheck, Inbox, BarChart2, Lock,
 } from 'lucide-react'
 
 export const revalidate = 300
 
-// ── static data ────────────────────────────────────────────────────────────
+/* ─────────────────────────────────────────────────────────────────────────────
+   STATIC DATA
+───────────────────────────────────────────────────────────────────────────── */
 
 const CATEGORIES = [
-  { label: 'Photographers',       href: '/vendors?category=photographers',     icon: '📸', desc: 'Capture every moment' },
-  { label: 'Videographers',       href: '/vendors?category=videographers',      icon: '🎬', desc: 'Cinematic memories' },
-  { label: 'Makeup & Hair',       href: '/vendors?category=makeup-hair',        icon: '💄', desc: 'Look your radiant best' },
-  { label: 'Mehndi Artists',      href: '/vendors?category=mehndi-artists',     icon: '🌿', desc: 'Intricate bridal art' },
-  { label: 'Catering',            href: '/vendors?category=catering',           icon: '🍛', desc: 'Authentic South Asian cuisine' },
-  { label: 'Decor & Florals',     href: '/vendors?category=decor-florals',      icon: '💐', desc: 'Transform your venue' },
-  { label: 'DJ & Entertainment',  href: '/vendors?category=dj-entertainment',   icon: '🎶', desc: 'Set the perfect mood' },
-  { label: 'Wedding Venues',      href: '/vendors?category=wedding-venues',     icon: '🏛️', desc: 'Your perfect setting' },
+  { label: 'Photographers',      href: '/vendors?category=photographers',    icon: '📸', desc: 'Capture every moment' },
+  { label: 'Videographers',      href: '/vendors?category=videographers',     icon: '🎬', desc: 'Cinematic memories' },
+  { label: 'Makeup & Hair',      href: '/vendors?category=makeup-hair',       icon: '💄', desc: 'Look your radiant best' },
+  { label: 'Mehndi Artists',     href: '/vendors?category=mehndi-artists',    icon: '🌿', desc: 'Intricate bridal art' },
+  { label: 'Catering',           href: '/vendors?category=catering',          icon: '🍛', desc: 'Authentic South Asian flavours' },
+  { label: 'Decor & Florals',    href: '/vendors?category=decor-florals',     icon: '💐', desc: 'Transform your venue' },
+  { label: 'DJ & Entertainment', href: '/vendors?category=dj-entertainment',  icon: '🎶', desc: 'Set the perfect mood' },
+  { label: 'Wedding Venues',     href: '/vendors?category=wedding-venues',    icon: '🏛️', desc: 'Your perfect setting' },
+  { label: 'Priest Services',    href: '/vendors?category=priest-services',   icon: '🕉️', desc: 'Sacred ceremonies' },
+  { label: 'Jewellery',          href: '/vendors?category=jewellery',         icon: '💍', desc: 'Timeless bridal pieces' },
+  { label: 'Bridal Wear',        href: '/vendors?category=bridal-wear',       icon: '👗', desc: 'Lehengas, sherwanis & more' },
+  { label: 'Sweets & Mithai',    href: '/vendors?category=sweets-mithai',     icon: '🍮', desc: 'Traditional confectionery' },
 ]
-
-const HOW_IT_WORKS = [
-  { step: '01', icon: '🔍', title: 'Search your category', desc: 'Browse 14+ vendor categories across GTA cities — all built for South Asian weddings and events.' },
-  { step: '02', icon: '📋', title: 'Explore real profiles', desc: 'View portfolios, descriptions, and direct contact info for every vendor. No gatekeeping.' },
-  { step: '03', icon: '💬', title: 'Connect directly', desc: 'Reach vendors with zero middlemen, no booking fees, no hidden commissions. Ever.' },
-]
-
-// Real testimonials only — populate once you have genuine reviews from real users
-const TESTIMONIALS: { name: string; city: string; initials: string; stars: number; text: string }[] = []
 
 const CITIES = [
-  { name: 'Toronto',        slug: 'toronto' },
-  { name: 'Brampton',       slug: 'brampton' },
-  { name: 'Mississauga',    slug: 'mississauga' },
-  { name: 'Markham',        slug: 'markham' },
-  { name: 'Vaughan',        slug: 'vaughan' },
-  { name: 'Scarborough',    slug: 'scarborough' },
-  { name: 'Richmond Hill',  slug: 'richmond-hill' },
-  { name: 'Kitchener',      slug: 'kitchener-waterloo' },
+  { name: 'Toronto',       slug: 'toronto' },
+  { name: 'Brampton',      slug: 'brampton' },
+  { name: 'Mississauga',   slug: 'mississauga' },
+  { name: 'Markham',       slug: 'markham' },
+  { name: 'Vaughan',       slug: 'vaughan' },
+  { name: 'Scarborough',   slug: 'scarborough' },
+  { name: 'Richmond Hill', slug: 'richmond-hill' },
+  { name: 'Kitchener',     slug: 'kitchener-waterloo' },
 ]
 
 const MARQUEE = [
-  'Photographers','Brampton','Makeup Artists','Toronto','Caterers',
-  'Mississauga','Mehndi Artists','Vaughan','DJs','Markham',
-  'Decorators','Scarborough','Venues','Richmond Hill','Videographers',
+  '📸 Photographers', '🌆 Brampton', '💄 Makeup Artists', '🏙️ Toronto', '🍛 Caterers',
+  '🌃 Mississauga', '🌿 Mehndi Artists', '🌇 Vaughan', '🎶 DJs', '🏘️ Markham',
+  '💐 Decorators', '🏙️ Scarborough', '🏛️ Venues', '🌆 Richmond Hill', '🎬 Videographers',
+  '💍 Jewellery', '👗 Bridal Wear', '🍮 Mithai', '🕉️ Priests', '🐎 Baraat',
+]
+
+// Floating hero cards — glassmorphism vendor previews
+const HERO_CARDS = [
+  { icon: '📸', cat: 'Photographer',     city: 'Toronto',     anim: 'float-card-a', delay: '0s',    top: '12%',  left: '4%',  rotate: '-2.5deg' },
+  { icon: '💐', cat: 'Decor & Florals',  city: 'Brampton',    anim: 'float-card-b', delay: '0.5s',  top: '6%',   right: '8%', rotate: '2deg' },
+  { icon: '💄', cat: 'Makeup Artist',    city: 'Mississauga', anim: 'float-card-c', delay: '0.2s',  top: '40%',  right: '3%', rotate: '-1.5deg' },
+  { icon: '🎶', cat: 'DJ & Entertainment', city: 'Vaughan',   anim: 'float-card-d', delay: '0.8s',  top: '62%',  left: '2%',  rotate: '2.5deg' },
+  { icon: '🍛', cat: 'Caterer',          city: 'Markham',     anim: 'float-card-e', delay: '1s',    top: '78%',  right: '6%', rotate: '-1deg' },
+]
+
+const HOW_IT_WORKS = [
+  {
+    step: '01',
+    icon: '🔍',
+    title: 'Search your category',
+    desc: 'Browse 14+ vendor categories across GTA cities — all built for South Asian weddings and events. Filter by city, category, or occasion.',
+  },
+  {
+    step: '02',
+    icon: '📋',
+    title: 'Explore real profiles',
+    desc: 'View portfolios, descriptions, and direct contact info for every vendor. No gatekeeping, no hidden details behind a paywall.',
+  },
+  {
+    step: '03',
+    icon: '💬',
+    title: 'Connect directly',
+    desc: 'Reach vendors with zero middlemen, no booking fees, no hidden commissions — ever. One click sends your inquiry straight to them.',
+  },
+]
+
+const WHY_MELAA = [
+  {
+    Icon: Heart,
+    title: 'South Asian First',
+    desc: 'Every vendor understands your culture, traditions, and ceremonies. No compromises, no explaining required.',
+  },
+  {
+    Icon: Shield,
+    title: 'Verified & Local',
+    desc: 'Only real, active professionals in the GTA who know what South Asian celebrations deserve — reviewed by us.',
+  },
+  {
+    Icon: Zap,
+    title: 'Zero Fees. Ever.',
+    desc: 'Contact vendors directly — no booking fees, no commissions, no hidden costs. The way it should always be.',
+  },
 ]
 
 const VENDOR_FEATURES = [
-  { Icon: TrendingUp, title: 'Get discovered instantly', desc: 'Your business listed in front of thousands of couples actively searching for South Asian vendors in the GTA.' },
-  { Icon: Users,      title: 'Direct leads, no fees',   desc: 'Couples contact you directly. No platform cuts, no middlemen, no per-booking commissions. Ever.' },
-  { Icon: Globe,      title: 'Build your presence',     desc: 'A dedicated profile page with your portfolio, contact info, and a link that\'s yours to share anywhere.' },
+  { Icon: TrendingUp, title: 'Get discovered instantly',  desc: 'Listed in front of thousands of South Asian couples actively searching in the GTA.' },
+  { Icon: Inbox,      title: 'Direct leads, no fees',     desc: 'Couples contact you directly. No platform cuts, no middlemen, no per-booking commissions.' },
+  { Icon: BadgeCheck, title: 'Verified badge',            desc: 'A verified badge that builds instant trust and sets you apart from the competition.' },
+  { Icon: BarChart2,  title: 'Analytics dashboard',      desc: 'See exactly how many couples viewed your profile, clicked contact, and where they came from.' },
+  { Icon: Globe,      title: 'Your own profile page',     desc: 'A dedicated page with portfolio, contact info, and a link that\'s yours to share anywhere.' },
+  { Icon: Lock,       title: 'Rate locked forever',       desc: 'Founding rate of $49/mo is locked in permanently — never increases as the platform grows.' },
 ]
 
 const PLANS = [
@@ -62,36 +112,61 @@ const PLANS = [
     name: 'Free',
     price: '$0',
     period: 'forever',
-    desc: 'Get listed and found.',
-    cta: 'List for free',
+    badge: null,
+    desc: 'Get listed and start getting found.',
+    cta: 'List for Free',
     href: '/list-your-business',
     highlight: false,
-    perks: ['Listed in the directory', 'Basic profile page', 'Direct contact from couples', 'No time limit'],
+    perks: [
+      'Listed in the directory',
+      'Basic profile page',
+      'Couples contact you directly',
+      'No time limit, no credit card',
+    ],
   },
   {
     name: 'Basic',
     price: '$49',
     period: '/month',
-    badge: 'Founding rate',
-    desc: 'Stand out. Get more leads.',
-    cta: 'Start free trial',
+    badge: 'Founding rate — 90 days free',
+    desc: 'Priority placement, verified badge, full analytics.',
+    cta: 'Start Free Trial',
     href: '/list-your-business?plan=basic',
     highlight: true,
-    perks: ['Everything in Free', 'Featured badge on profile', 'Priority placement in search', 'Direct inquiry leads', 'Analytics dashboard'],
+    perks: [
+      'Everything in Free',
+      'Verified badge on profile',
+      'Priority placement in search',
+      'Direct inquiry notifications',
+      'Analytics dashboard',
+      'AI reply drafts',
+    ],
   },
   {
     name: 'Premium',
     price: 'TBD',
     period: '',
-    desc: 'Maximum visibility.',
-    cta: 'Join waitlist',
+    badge: null,
+    desc: 'Maximum visibility across the platform.',
+    cta: 'Join Waitlist',
     href: '/list-your-business?plan=premium',
     highlight: false,
-    perks: ['Everything in Basic', 'Top of category placement', 'Verified vendor badge', 'Featured on homepage', 'Priority support'],
+    perks: [
+      'Everything in Basic',
+      'Top of every category',
+      'Featured on homepage',
+      'Weekly newsletter placement',
+      'Priority support',
+    ],
   },
 ]
 
-// ── page ─────────────────────────────────────────────────────────────────
+// Real testimonials only — add entries once you have genuine reviews
+const TESTIMONIALS: { name: string; city: string; initials: string; stars: number; text: string }[] = []
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   PAGE
+───────────────────────────────────────────────────────────────────────────── */
 
 export default async function HomePage() {
   const supabase = await createClient()
@@ -103,169 +178,265 @@ export default async function HomePage() {
       .order('created_at', { ascending: false }).limit(3),
   ])
   const featured = (featuredVendors as Vendor[]) ?? []
-  const count = vendorCount?.toLocaleString() ?? '1,200'
+  // Use real DB count if it looks valid, otherwise fall back to known floor
+  const count    = (vendorCount != null && vendorCount > 100)
+    ? vendorCount.toLocaleString()
+    : '1,200'
 
   return (
-    <div style={{ background: '#09070c' }}>
+    <div className="bg-dark-1">
 
-      {/* ══════════════════════════════════════════
-          HERO
-      ══════════════════════════════════════════ */}
-      <section className="relative min-h-screen flex items-center overflow-hidden">
+      {/* ══════════════════════════════════════════════════════════════════════
+          § 1  HERO — Full viewport, two-column, immersive
+      ══════════════════════════════════════════════════════════════════════ */}
+      <section className="relative min-h-screen flex items-center overflow-hidden bg-dark-1">
 
-        {/* 3-D canvas — full bleed behind everything */}
+        {/* Canvas — full bleed, torus offset right on wide screens */}
         <div className="absolute inset-0 z-0">
           <HeroCanvas3D />
         </div>
 
-        {/* subtle dot-grid overlay */}
+        {/* Aurora gradient orbs — CSS animated, subtle */}
+        <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
+          <div className="hero-orb-1" />
+          <div className="hero-orb-2" />
+          <div className="hero-orb-3" />
+        </div>
+
+        {/* Dot grid texture */}
         <div className="absolute inset-0 z-0 pointer-events-none" style={{
-          backgroundImage: 'radial-gradient(rgba(200,169,106,0.07) 1px, transparent 1px)',
+          backgroundImage: 'radial-gradient(rgba(200,169,106,0.055) 1px, transparent 1px)',
           backgroundSize: '44px 44px',
         }} />
 
-        {/* bottom fade */}
-        <div className="absolute bottom-0 left-0 right-0 h-48 z-10 pointer-events-none"
-          style={{ background: 'linear-gradient(to top, #09070c, transparent)' }} />
+        {/* Bottom fade — blends into next section */}
+        <div className="absolute bottom-0 inset-x-0 h-56 z-10 pointer-events-none"
+          style={{ background: 'linear-gradient(to top, #07050a 0%, transparent 100%)' }} />
 
-        {/* content */}
-        <div className="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 py-32 w-full">
-          <div className="max-w-2xl">
+        {/* Content — two-column grid */}
+        <div className="relative z-20 w-full max-w-7xl mx-auto px-4 sm:px-6 min-h-screen flex items-center">
+          <div className="grid lg:grid-cols-[1.05fr_0.95fr] w-full gap-8 py-32 lg:py-0 items-center">
 
-            {/* badge */}
-            <div className="animate-fade-up mb-8 inline-flex items-center gap-2 px-4 py-2 rounded-full"
-              style={{ background: 'rgba(200,169,106,0.10)', border: '1px solid rgba(200,169,106,0.28)', backdropFilter: 'blur(12px)' }}>
-              <span className="w-1.5 h-1.5 rounded-full animate-pulse" style={{ background: '#C8A96A' }} />
-              <span className="text-xs font-bold tracking-widest uppercase" style={{ color: '#C8A96A' }}>
-                GTA&apos;s #1 South Asian Wedding &amp; Events Platform
-              </span>
+            {/* ── LEFT: Text content ────────────────────────────────────── */}
+            <div className="max-w-2xl">
+
+              {/* Live badge */}
+              <div className="mb-8 inline-flex items-center gap-2.5 px-4 py-2.5 rounded-full"
+                style={{
+                  background: 'rgba(200,169,106,0.08)',
+                  border: '1px solid rgba(200,169,106,0.24)',
+                  backdropFilter: 'blur(16px)',
+                  animation: 'revealUp 0.6s 0.05s var(--ease-expo) both',
+                }}>
+                <span className="live-dot" />
+                <span className="text-xs font-bold tracking-widest uppercase" style={{ color: '#C8A96A' }}>
+                  GTA&apos;s #1 South Asian Wedding Platform
+                </span>
+              </div>
+
+              {/* Headline */}
+              <h1
+                className="font-[family-name:var(--font-playfair)] text-5xl sm:text-6xl lg:text-[5rem] font-bold leading-[1.04] tracking-tight mb-6 text-white"
+                style={{ animation: 'revealUp 0.75s 0.12s var(--ease-expo) both' }}
+              >
+                Your perfect<br />
+                <span className="gradient-shimmer">South Asian</span><br />
+                wedding awaits.
+              </h1>
+
+              {/* Sub-headline */}
+              <p
+                className="text-lg sm:text-xl leading-relaxed mb-10 max-w-xl"
+                style={{
+                  color: 'rgba(255,255,255,0.50)',
+                  animation: 'revealUp 0.75s 0.22s var(--ease-expo) both',
+                }}
+              >
+                Discover{' '}
+                <strong style={{ color: 'rgba(200,169,106,0.9)', fontWeight: 600 }}>
+                  {count}+ verified vendors
+                </strong>{' '}
+                across the GTA — photographers, caterers, DJs, mehndi artists, venues and more.
+                Built exclusively for South Asian celebrations.
+              </p>
+
+              {/* Search bar */}
+              <div style={{ animation: 'revealUp 0.75s 0.30s var(--ease-expo) both' }} className="mb-10">
+                <SearchBar dark />
+              </div>
+
+              {/* CTAs */}
+              <div
+                className="flex flex-wrap gap-3 sm:gap-4 mb-12 sm:mb-14"
+                style={{ animation: 'revealUp 0.75s 0.38s var(--ease-expo) both' }}
+              >
+                <Link href="/vendors" className="btn-gold-glow">
+                  <Sparkles className="w-4 h-4" />
+                  Browse Vendors
+                </Link>
+                <Link href="/list-your-business" className="btn-ghost-gold">
+                  List Your Business Free
+                  <ArrowRight className="w-4 h-4" />
+                </Link>
+              </div>
+
+              {/* Stats row */}
+              <div
+                className="flex flex-wrap gap-x-10 gap-y-5"
+                style={{ animation: 'revealUp 0.75s 0.46s var(--ease-expo) both' }}
+              >
+                {[
+                  { val: count + '+', label: 'Verified Vendors' },
+                  { val: '14',        label: 'Categories' },
+                  { val: '8+',        label: 'GTA Cities' },
+                  { val: '$0',        label: 'Booking Fees' },
+                ].map(({ val, label }) => (
+                  <div key={label}>
+                    <p className="text-2xl font-bold font-[family-name:var(--font-playfair)]"
+                      style={{ color: '#C8A96A' }}>
+                      {val}
+                    </p>
+                    <p className="text-xs tracking-wide mt-0.5"
+                      style={{ color: 'rgba(255,255,255,0.32)' }}>
+                      {label}
+                    </p>
+                  </div>
+                ))}
+              </div>
             </div>
 
-            {/* headline */}
-            <h1 className="animate-fade-up font-[family-name:var(--font-playfair)] text-5xl sm:text-6xl lg:text-[4.5rem] font-bold leading-[1.05] tracking-tight mb-6 text-white">
-              Every vendor.<br />
-              <span style={{
-                background: 'linear-gradient(120deg, #a8782a 0%, #e8bc60 40%, #f5d080 65%, #C8A96A 100%)',
-                WebkitBackgroundClip: 'text',
-                WebkitTextFillColor: 'transparent',
-                backgroundClip: 'text',
-              }}>
-                One platform.
-              </span>
-            </h1>
-
-            {/* sub */}
-            <p className="animate-fade-up text-lg sm:text-xl leading-relaxed mb-10 max-w-xl"
-              style={{ color: 'rgba(255,255,255,0.58)' }}>
-              Discover <strong style={{ color: 'rgba(200,169,106,0.9)', fontWeight: 600 }}>{count}+ verified vendors</strong> across
-              the GTA — photographers, caterers, DJs, mehndi artists, venues and more.
-              Built exclusively for South Asian weddings &amp; events.
-            </p>
-
-            {/* search */}
-            <div className="animate-fade-up mb-10">
-              <SearchBar dark />
-            </div>
-
-            {/* CTAs */}
-            <div className="animate-fade-up flex flex-wrap gap-4 mb-14">
-              <Link href="/vendors"
-                className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full font-semibold text-sm transition-all duration-200 hover:scale-[1.03] hover:shadow-[0_0_28px_rgba(200,169,106,0.35)]"
-                style={{ background: 'linear-gradient(135deg,#C8A96A,#d4a843)', color: '#09070c' }}>
-                <Sparkles className="w-4 h-4" />
-                Browse Vendors
-              </Link>
-              <Link href="/list-your-business"
-                className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full font-semibold text-sm border transition-all duration-200 hover:bg-white/5"
-                style={{ border: '1.5px solid rgba(200,169,106,0.35)', color: 'rgba(200,169,106,0.9)' }}>
-                List Your Business Free
-                <ArrowRight className="w-4 h-4" />
-              </Link>
-            </div>
-
-            {/* stats */}
-            <div className="animate-fade-up flex flex-wrap gap-x-10 gap-y-5">
-              {[
-                { val: count + '+', label: 'Verified Vendors' },
-                { val: '14',        label: 'Categories' },
-                { val: '8+',        label: 'GTA Cities' },
-                { val: '$0',        label: 'Booking Fees' },
-              ].map(({ val, label }) => (
-                <div key={label}>
-                  <p className="text-2xl font-bold font-[family-name:var(--font-playfair)]"
-                    style={{ color: '#C8A96A' }}>{val}</p>
-                  <p className="text-xs tracking-wide" style={{ color: 'rgba(255,255,255,0.35)' }}>{label}</p>
+            {/* ── RIGHT: Floating glassmorphism vendor preview cards ─────── */}
+            <div
+              className="hidden lg:block relative h-[580px] w-full"
+              style={{ animation: 'revealUp 1s 0.3s var(--ease-expo) both' }}
+            >
+              {HERO_CARDS.map(({ icon, cat, city, anim, delay, top, left, right, rotate }) => (
+                <div
+                  key={cat}
+                  className={`absolute ${anim}`}
+                  style={{
+                    top,
+                    left: left ?? undefined,
+                    right: right ?? undefined,
+                    animationDelay: delay,
+                  }}
+                >
+                  <div
+                    className="flex items-center gap-3 pl-3.5 pr-5 py-3 rounded-2xl select-none"
+                    style={{
+                      background: 'rgba(255,255,255,0.045)',
+                      border: '1px solid rgba(200,169,106,0.22)',
+                      backdropFilter: 'blur(20px)',
+                      boxShadow: '0 8px 32px rgba(0,0,0,0.35), 0 2px 8px rgba(0,0,0,0.2)',
+                      transform: `rotate(${rotate})`,
+                    }}
+                  >
+                    <span className="text-2xl leading-none">{icon}</span>
+                    <div>
+                      <p className="text-sm font-semibold text-white leading-tight">{cat}</p>
+                      <p className="text-xs mt-0.5 flex items-center gap-1"
+                        style={{ color: 'rgba(200,169,106,0.7)' }}>
+                        <MapPin className="w-2.5 h-2.5" />
+                        {city}
+                      </p>
+                    </div>
+                    <div className="ml-1 live-dot" style={{ width: 6, height: 6 }} />
+                  </div>
                 </div>
               ))}
             </div>
 
           </div>
         </div>
+
+        {/* Scroll indicator */}
+        <div className="scroll-indicator flex flex-col items-center gap-2 opacity-50 hover:opacity-80 transition-opacity">
+          <span className="text-[10px] tracking-[0.22em] uppercase font-medium"
+            style={{ color: 'rgba(200,169,106,0.7)' }}>
+            Scroll
+          </span>
+          <div className="w-px h-8"
+            style={{ background: 'linear-gradient(to bottom, rgba(200,169,106,0.6), transparent)' }} />
+        </div>
       </section>
 
-      {/* ══════════════════════════════════════════
-          MARQUEE
-      ══════════════════════════════════════════ */}
-      <div className="overflow-hidden py-5 border-y" style={{ background: '#0e0a05', borderColor: 'rgba(200,169,106,0.10)' }}>
+      {/* ══════════════════════════════════════════════════════════════════════
+          § 2  MARQUEE — infinite scroll category strip
+      ══════════════════════════════════════════════════════════════════════ */}
+      <div className="overflow-hidden py-4 border-y"
+        style={{ background: '#0b0910', borderColor: 'rgba(200,169,106,0.08)' }}>
         <div className="marquee-inner">
           {[...MARQUEE, ...MARQUEE].map((item, i) => (
-            <span key={i} className="flex items-center gap-4 px-6 text-sm font-medium tracking-wide whitespace-nowrap"
-              style={{ color: 'rgba(200,169,106,0.50)' }}>
-              <span className="w-1 h-1 rounded-full" style={{ background: 'rgba(200,169,106,0.5)' }} />
+            <span
+              key={i}
+              className="flex items-center gap-3 px-6 text-xs font-semibold tracking-[0.12em] uppercase whitespace-nowrap"
+              style={{ color: 'rgba(200,169,106,0.40)' }}
+            >
+              <span className="w-1 h-1 rounded-full shrink-0"
+                style={{ background: 'rgba(200,169,106,0.35)' }} />
               {item}
             </span>
           ))}
         </div>
       </div>
 
-      {/* ══════════════════════════════════════════
-          HOW IT WORKS
-      ══════════════════════════════════════════ */}
-      <section className="py-28 px-4 sm:px-6 relative overflow-hidden" style={{ background: '#0e0a05' }}>
-        {/* corner glow */}
-        <div className="absolute top-0 right-0 w-[500px] h-[500px] pointer-events-none"
-          style={{ background: 'radial-gradient(circle at 80% 20%, rgba(200,169,106,0.07) 0%, transparent 60%)' }} />
+      {/* ══════════════════════════════════════════════════════════════════════
+          § 3  HOW IT WORKS
+      ══════════════════════════════════════════════════════════════════════ */}
+      <section className="py-24 px-4 sm:px-6 relative overflow-hidden bg-dark-2">
+        <div className="section-glow-top" />
 
         <div className="max-w-7xl mx-auto relative z-10">
           <Reveal className="text-center mb-20">
-            <p className="text-xs font-bold uppercase tracking-widest mb-4" style={{ color: '#C8A96A' }}>How it works</p>
-            <h2 className="font-[family-name:var(--font-playfair)] text-4xl sm:text-5xl font-bold text-white mb-4">
+            <div className="divider-gold mx-auto mb-5" />
+            <p className="text-xs font-bold uppercase tracking-[0.2em] mb-4"
+              style={{ color: 'rgba(200,169,106,0.7)' }}>
+              How it works
+            </p>
+            <h2 className="font-[family-name:var(--font-playfair)] text-4xl sm:text-5xl font-bold text-white mb-5">
               Find your vendor in minutes
             </h2>
-            <p className="text-base max-w-lg mx-auto" style={{ color: 'rgba(255,255,255,0.45)' }}>
-              No account required. No fees. Browse, discover, and connect directly.
+            <p className="text-base max-w-md mx-auto" style={{ color: 'rgba(255,255,255,0.42)' }}>
+              No account required. No fees. Browse, discover, and connect.
             </p>
           </Reveal>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {HOW_IT_WORKS.map(({ step, icon, title, desc }, i) => (
-              <Reveal key={step} delay={i * 100}>
-                <div className="relative p-8 rounded-3xl h-full"
-                  style={{ background: 'rgba(255,255,255,0.025)', border: '1px solid rgba(200,169,106,0.14)' }}>
-                  {/* connector line */}
+              <Reveal key={step} delay={i * 110}>
+                <div className="relative p-8 rounded-3xl h-full glass-card-dark overflow-hidden">
+                  {/* Big background step number */}
+                  <span className="step-number">{step}</span>
+
+                  {/* Connector line */}
                   {i < 2 && (
-                    <div className="hidden md:block absolute top-12 left-full w-6 z-10"
-                      style={{ height: '1px', background: 'linear-gradient(90deg,rgba(200,169,106,0.4),transparent)' }} />
+                    <div className="hidden md:block step-connector" />
                   )}
+
                   <div className="flex items-center gap-3 mb-6">
-                    <div className="w-12 h-12 text-2xl flex items-center justify-center rounded-2xl"
-                      style={{ background: 'rgba(200,169,106,0.10)', border: '1px solid rgba(200,169,106,0.18)' }}>
+                    <div className="icon-box-gold text-2xl flex items-center justify-center"
+                      style={{ fontSize: '1.4rem' }}>
                       {icon}
                     </div>
-                    <span className="text-xs font-black tracking-[0.2em]"
-                      style={{ color: 'rgba(200,169,106,0.35)' }}>{step}</span>
+                    <span className="text-xs font-black tracking-[0.22em]"
+                      style={{ color: 'rgba(200,169,106,0.30)' }}>
+                      {step}
+                    </span>
                   </div>
-                  <h3 className="font-[family-name:var(--font-playfair)] text-xl font-bold text-white mb-3">{title}</h3>
-                  <p className="text-sm leading-relaxed" style={{ color: 'rgba(255,255,255,0.45)' }}>{desc}</p>
+
+                  <h3 className="font-[family-name:var(--font-playfair)] text-xl font-bold text-white mb-3">
+                    {title}
+                  </h3>
+                  <p className="text-sm leading-relaxed" style={{ color: 'rgba(255,255,255,0.43)' }}>
+                    {desc}
+                  </p>
                 </div>
               </Reveal>
             ))}
           </div>
 
           <Reveal className="text-center mt-14">
-            <Link href="/vendors"
-              className="inline-flex items-center gap-2 px-8 py-4 rounded-full font-semibold text-sm transition-all duration-200 hover:scale-[1.03]"
-              style={{ background: 'linear-gradient(135deg,#C8A96A,#d4a843)', color: '#09070c' }}>
+            <Link href="/vendors" className="btn-gold-glow">
               <Sparkles className="w-4 h-4" />
               Browse All Vendors
             </Link>
@@ -273,42 +444,53 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* ══════════════════════════════════════════
-          CATEGORIES GRID
-      ══════════════════════════════════════════ */}
-      <section className="py-28 px-4 sm:px-6" style={{ background: '#09070c' }}>
+      {/* ══════════════════════════════════════════════════════════════════════
+          § 4  CATEGORIES GRID
+      ══════════════════════════════════════════════════════════════════════ */}
+      <section className="py-24 px-4 sm:px-6 bg-dark-1">
         <div className="max-w-7xl mx-auto">
           <Reveal className="flex items-end justify-between mb-14">
             <div>
-              <p className="text-xs font-bold uppercase tracking-widest mb-3" style={{ color: '#C8A96A' }}>Categories</p>
+              <div className="divider-gold mb-5" />
+              <p className="text-xs font-bold uppercase tracking-[0.2em] mb-3"
+                style={{ color: 'rgba(200,169,106,0.7)' }}>
+                Categories
+              </p>
               <h2 className="font-[family-name:var(--font-playfair)] text-4xl sm:text-5xl font-bold text-white">
                 Every vendor you need
               </h2>
             </div>
             <Link href="/vendors"
-              className="hidden sm:flex items-center gap-2 text-sm font-semibold transition-opacity hover:opacity-70 shrink-0"
-              style={{ color: 'rgba(200,169,106,0.8)' }}>
-              All categories <ArrowRight className="w-4 h-4" />
+              className="hidden sm:flex items-center gap-2 text-sm font-semibold shrink-0 transition-all duration-200 hover:gap-3"
+              style={{ color: 'rgba(200,169,106,0.75)' }}>
+              All vendors <ArrowRight className="w-4 h-4" />
             </Link>
           </Reveal>
 
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4">
             {CATEGORIES.map(({ label, href, icon, desc }, i) => (
-              <Reveal key={href} delay={i * 45}>
-                <Link href={href}
-                  className="group relative rounded-2xl overflow-hidden p-6 flex flex-col gap-3 h-full transition-all duration-300 hover:shadow-[0_8px_32px_rgba(200,169,106,0.12)]"
-                  style={{
-                    background: 'rgba(255,255,255,0.03)',
-                    border: '1px solid rgba(200,169,106,0.12)',
-                  }}
-                >
-                  <span className="text-3xl group-hover:scale-110 transition-transform duration-500 ease-out">{icon}</span>
-                  <div>
-                    <p className="font-semibold text-sm mb-0.5 text-white">{label}</p>
-                    <p className="text-xs" style={{ color: 'rgba(255,255,255,0.4)' }}>{desc}</p>
+              <Reveal key={href} delay={i * 35}>
+                <Link href={href} className="group relative rounded-2xl overflow-hidden flex flex-col h-full cat-card-dark">
+                  {/* Icon area */}
+                  <div className="px-5 pt-6 pb-4 flex items-center gap-3">
+                    <span
+                      className="text-3xl sm:text-4xl leading-none group-hover:scale-110 transition-transform duration-500 ease-out"
+                    >{icon}</span>
                   </div>
-                  <ArrowRight className="w-4 h-4 mt-auto opacity-0 group-hover:opacity-100 transition-all duration-300 -translate-x-2 group-hover:translate-x-0"
-                    style={{ color: '#C8A96A' }} />
+                  {/* Text area */}
+                  <div className="px-5 pb-5 flex flex-col flex-1">
+                    <p className="font-semibold text-sm sm:text-[0.9rem] text-white mb-1 leading-snug">{label}</p>
+                    <p className="text-xs leading-relaxed" style={{ color: 'rgba(255,255,255,0.36)' }}>{desc}</p>
+                    <div className="mt-auto pt-4 flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-1 group-hover:translate-y-0">
+                      <span className="text-xs font-semibold" style={{ color: '#C8A96A' }}>Browse</span>
+                      <ArrowRight className="w-3 h-3" style={{ color: '#C8A96A' }} />
+                    </div>
+                  </div>
+                  {/* Bottom accent bar */}
+                  <div
+                    className="absolute bottom-0 inset-x-0 h-[2px] opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                    style={{ background: 'linear-gradient(90deg, rgba(200,169,106,0.6), rgba(200,169,106,0.1))' }}
+                  />
                 </Link>
               </Reveal>
             ))}
@@ -316,22 +498,136 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* ══════════════════════════════════════════
-          FEATURED VENDORS
-      ══════════════════════════════════════════ */}
+      {/* ══════════════════════════════════════════════════════════════════════
+          § 5  WHY MELAA — Bento grid
+      ══════════════════════════════════════════════════════════════════════ */}
+      <section className="py-24 px-4 sm:px-6 relative overflow-hidden bg-dark-2">
+        <div className="section-glow-gold" />
+
+        <div className="max-w-7xl mx-auto relative z-10">
+          <Reveal className="text-center mb-16">
+            <div className="divider-gold mx-auto mb-5" />
+            <p className="text-xs font-bold uppercase tracking-[0.2em] mb-4"
+              style={{ color: 'rgba(200,169,106,0.7)' }}>
+              Why Melaa
+            </p>
+            <h2 className="font-[family-name:var(--font-playfair)] text-4xl sm:text-5xl font-bold text-white mb-5">
+              Built for your culture.<br />
+              <span className="gradient-shimmer">Not adapted for it.</span>
+            </h2>
+            <p className="text-base max-w-xl mx-auto" style={{ color: 'rgba(255,255,255,0.42)' }}>
+              Every other wedding platform was built for Western weddings and retrofitted.
+              Melaa was built from day one for South Asian celebrations.
+            </p>
+          </Reveal>
+
+          {/* Bento grid */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+
+            {/* Wide hero card */}
+            <Reveal className="md:col-span-2">
+              <div className="relative rounded-3xl overflow-hidden p-10 h-full"
+                style={{
+                  background: 'rgba(200,169,106,0.055)',
+                  border: '1px solid rgba(200,169,106,0.18)',
+                  minHeight: 300,
+                }}>
+                <div className="absolute inset-0 pointer-events-none"
+                  style={{
+                    backgroundImage: 'radial-gradient(rgba(200,169,106,0.055) 1px, transparent 1px)',
+                    backgroundSize: '28px 28px',
+                  }} />
+                <div className="absolute top-0 right-0 w-80 h-80 pointer-events-none"
+                  style={{
+                    background: 'radial-gradient(circle, rgba(200,169,106,0.12) 0%, transparent 70%)',
+                    transform: 'translate(30%,-30%)',
+                  }} />
+                <div className="relative z-10">
+                  <div className="text-4xl mb-6">🕉️</div>
+                  <h3 className="font-[family-name:var(--font-playfair)] text-2xl font-bold text-white mb-3">
+                    Every ceremony. Every tradition.
+                  </h3>
+                  <p className="text-sm leading-relaxed max-w-md" style={{ color: 'rgba(255,255,255,0.48)' }}>
+                    From Mehndi nights to Baraat processions, Sangeet to Nikah — our vendors know
+                    every ritual, every detail, every expectation. No explaining required.
+                  </p>
+                  <div className="mt-7 flex flex-wrap gap-2">
+                    {['Mehndi', 'Baraat', 'Sangeet', 'Nikah', 'Anand Karaj', 'Vidai', 'Haldi', 'Walima'].map(c => (
+                      <span key={c} className="text-xs px-3 py-1.5 rounded-full font-medium"
+                        style={{
+                          border: '1px solid rgba(200,169,106,0.25)',
+                          color: '#C8A96A',
+                          background: 'rgba(200,169,106,0.07)',
+                        }}>
+                        {c}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </Reveal>
+
+            {/* Gold stat card */}
+            <Reveal delay={80}>
+              <div className="rounded-3xl p-8 flex flex-col justify-between h-full"
+                style={{
+                  background: 'linear-gradient(135deg, #C8A96A 0%, #d4a843 60%, #b8900a 100%)',
+                  minHeight: 240,
+                }}>
+                <TrendingUp className="w-8 h-8" style={{ color: 'rgba(7,5,10,0.45)' }} />
+                <div>
+                  <p className="font-[family-name:var(--font-playfair)] text-6xl font-black mb-1"
+                    style={{ color: '#07050a' }}>
+                    {count}+
+                  </p>
+                  <p className="font-semibold text-sm" style={{ color: 'rgba(7,5,10,0.7)' }}>
+                    Verified Vendors
+                  </p>
+                  <p className="text-xs mt-1" style={{ color: 'rgba(7,5,10,0.5)' }}>
+                    Across 8+ GTA cities and growing
+                  </p>
+                </div>
+              </div>
+            </Reveal>
+
+            {/* Three feature cards */}
+            {WHY_MELAA.map(({ Icon, title, desc }, i) => (
+              <Reveal key={title} delay={i * 70}>
+                <div className="rounded-3xl p-7 h-full glass-card-dark">
+                  <div className="icon-box-gold mb-5">
+                    <Icon className="w-5 h-5" style={{ color: '#C8A96A' }} />
+                  </div>
+                  <h3 className="font-semibold text-base text-white mb-2">{title}</h3>
+                  <p className="text-sm leading-relaxed" style={{ color: 'rgba(255,255,255,0.43)' }}>
+                    {desc}
+                  </p>
+                </div>
+              </Reveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ══════════════════════════════════════════════════════════════════════
+          § 6  FEATURED VENDORS (only when present)
+      ══════════════════════════════════════════════════════════════════════ */}
       {featured.length > 0 && (
-        <section className="py-28 px-4 sm:px-6" style={{ background: '#0e0a05' }}>
+        <section className="py-32 px-4 sm:px-6 bg-dark-1">
           <div className="max-w-7xl mx-auto">
             <Reveal className="flex items-end justify-between mb-14">
               <div>
-                <p className="text-xs font-bold uppercase tracking-widest mb-3" style={{ color: '#C8A96A' }}>Featured</p>
+                <div className="divider-gold mb-5" />
+                <p className="text-xs font-bold uppercase tracking-[0.2em] mb-3"
+                  style={{ color: 'rgba(200,169,106,0.7)' }}>
+                  Featured
+                </p>
                 <h2 className="font-[family-name:var(--font-playfair)] text-4xl sm:text-5xl font-bold text-white">
                   Top vendors this week
                 </h2>
               </div>
               <Link href="/vendors"
-                className="hidden sm:flex items-center gap-2 text-sm font-semibold hover:opacity-70 transition-opacity shrink-0"
-                style={{ color: 'rgba(200,169,106,0.8)' }}>
+                className="hidden sm:flex items-center gap-2 text-sm font-semibold shrink-0 transition-all duration-200 hover:gap-3"
+                style={{ color: 'rgba(200,169,106,0.75)' }}>
                 View all <ArrowRight className="w-4 h-4" />
               </Link>
             </Reveal>
@@ -346,158 +642,220 @@ export default async function HomePage() {
         </section>
       )}
 
-      {/* ══════════════════════════════════════════
-          WHY MELAA  — BENTO GRID
-      ══════════════════════════════════════════ */}
-      <section className="py-28 px-4 sm:px-6" style={{ background: '#09070c' }}>
-        <div className="max-w-7xl mx-auto">
-          <Reveal className="text-center mb-16">
-            <p className="text-xs font-bold uppercase tracking-widest mb-4" style={{ color: '#C8A96A' }}>Why Melaa</p>
-            <h2 className="font-[family-name:var(--font-playfair)] text-4xl sm:text-5xl font-bold text-white mb-4">
-              Built for your culture.<br />
-              <span style={{
-                background: 'linear-gradient(120deg,#C8A96A,#f0c97a)',
-                WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text',
-              }}>Not adapted for it.</span>
+      {/* ══════════════════════════════════════════════════════════════════════
+          § 7  FOR VENDORS — Feature grid + pricing
+      ══════════════════════════════════════════════════════════════════════ */}
+      <section className="py-24 px-4 sm:px-6 relative overflow-hidden bg-dark-3">
+        <div className="absolute inset-0 pointer-events-none"
+          style={{
+            backgroundImage: 'radial-gradient(rgba(200,169,106,0.045) 1px, transparent 1px)',
+            backgroundSize: '36px 36px',
+          }} />
+        <div className="section-glow-gold" />
+
+        <div className="max-w-7xl mx-auto relative z-10">
+
+          {/* Header */}
+          <Reveal className="text-center mb-20">
+            <div className="divider-gold mx-auto mb-5" />
+            <p className="text-xs font-bold uppercase tracking-[0.2em] mb-4"
+              style={{ color: 'rgba(200,169,106,0.7)' }}>
+              For Vendors
+            </p>
+            <h2 className="font-[family-name:var(--font-playfair)] text-4xl sm:text-5xl font-bold text-white mb-5">
+              Grow your wedding business<br />
+              <span className="gradient-shimmer">with Melaa</span>
             </h2>
-            <p className="text-base max-w-xl mx-auto" style={{ color: 'rgba(255,255,255,0.45)' }}>
-              Every other wedding platform was built for Western weddings and retrofitted.
-              Melaa was built from day one for South Asian celebrations.
+            <p className="text-base max-w-xl mx-auto" style={{ color: 'rgba(255,255,255,0.42)' }}>
+              Join thousands of South Asian wedding professionals already on the platform.
+              Start free, upgrade when you&apos;re ready.
             </p>
           </Reveal>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
-            {/* large card */}
-            <Reveal className="md:col-span-2">
-              <div className="relative rounded-3xl overflow-hidden p-10 h-full"
-                style={{ background: 'rgba(200,169,106,0.06)', border: '1px solid rgba(200,169,106,0.18)', minHeight: 280 }}>
-                <div className="absolute inset-0 pointer-events-none" style={{
-                  backgroundImage: 'radial-gradient(rgba(200,169,106,0.06) 1px, transparent 1px)',
-                  backgroundSize: '28px 28px',
-                }} />
-                <div className="absolute top-0 right-0 w-72 h-72 pointer-events-none"
-                  style={{ background: 'radial-gradient(circle, rgba(200,169,106,0.12) 0%, transparent 70%)', transform: 'translate(30%,-30%)' }} />
-                <div className="relative z-10">
-                  <div className="text-3xl mb-6">🕉️</div>
-                  <h3 className="font-[family-name:var(--font-playfair)] text-2xl font-bold text-white mb-3">
-                    Every ceremony. Every tradition.
-                  </h3>
-                  <p className="text-sm leading-relaxed max-w-md" style={{ color: 'rgba(255,255,255,0.50)' }}>
-                    From Mehndi nights to Baraat processions, Sangeet to Nikah — our vendors know every ritual,
-                    every detail, every expectation. No explaining required.
-                  </p>
-                  <div className="mt-7 flex flex-wrap gap-2">
-                    {['Mehndi', 'Baraat', 'Sangeet', 'Nikah', 'Anand Karaj', 'Vidai'].map(c => (
-                      <span key={c} className="text-xs px-3 py-1.5 rounded-full font-medium"
-                        style={{ border: '1px solid rgba(200,169,106,0.28)', color: '#C8A96A', background: 'rgba(200,169,106,0.08)' }}>
-                        {c}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            </Reveal>
-
-            {/* stat card */}
-            <Reveal delay={80}>
-              <div className="rounded-3xl p-8 flex flex-col justify-between h-full"
-                style={{ background: 'linear-gradient(135deg,#C8A96A,#d4a843)', minHeight: 200 }}>
-                <TrendingUp className="w-8 h-8 text-black/50" />
-                <div>
-                  <p className="font-[family-name:var(--font-playfair)] text-5xl font-black text-[#09070c] mb-1">{count}+</p>
-                  <p className="font-semibold text-sm text-[#09070c]/75">Verified Vendors</p>
-                  <p className="text-xs text-[#09070c]/55 mt-1">Across 8+ GTA cities and growing</p>
-                </div>
-              </div>
-            </Reveal>
-
-            {[
-              { Icon: Heart,   title: 'South Asian First',  desc: 'Every vendor understands your culture, traditions, and ceremonies. No compromises, no explanations needed.' },
-              { Icon: Shield,  title: 'Verified & Local',   desc: 'We review every vendor in the GTA. Only real, active professionals who know what South Asian celebrations deserve.' },
-              { Icon: Zap,     title: 'Zero Fees. Ever.',   desc: 'Contact vendors directly — no booking fees, no commissions, no hidden costs. The way it should always be.' },
-            ].map(({ Icon, title, desc }, i) => (
-              <Reveal key={title} delay={i * 70}>
-                <div className="rounded-3xl p-7 h-full"
-                  style={{ background: 'rgba(255,255,255,0.025)', border: '1px solid rgba(200,169,106,0.12)' }}>
-                  <div className="w-10 h-10 rounded-xl flex items-center justify-center mb-5"
-                    style={{ background: 'rgba(200,169,106,0.12)' }}>
+          {/* 6-feature grid */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 mb-24">
+            {VENDOR_FEATURES.map(({ Icon, title, desc }, i) => (
+              <Reveal key={title} delay={i * 55}>
+                <div className="flex items-start gap-4 p-6 rounded-2xl h-full glass-card-dark">
+                  <div className="icon-box-gold shrink-0">
                     <Icon className="w-5 h-5" style={{ color: '#C8A96A' }} />
                   </div>
-                  <h3 className="font-semibold text-base text-white mb-2">{title}</h3>
-                  <p className="text-sm leading-relaxed" style={{ color: 'rgba(255,255,255,0.45)' }}>{desc}</p>
+                  <div>
+                    <p className="font-semibold text-sm text-white mb-1.5">{title}</p>
+                    <p className="text-xs leading-relaxed" style={{ color: 'rgba(255,255,255,0.40)' }}>
+                      {desc}
+                    </p>
+                  </div>
                 </div>
               </Reveal>
             ))}
           </div>
+
+          {/* Pricing cards */}
+          <Reveal className="text-center mb-12">
+            <p className="text-xs font-bold uppercase tracking-[0.2em] mb-3"
+              style={{ color: 'rgba(200,169,106,0.7)' }}>
+              Pricing
+            </p>
+            <h3 className="font-[family-name:var(--font-playfair)] text-3xl sm:text-4xl font-bold text-white">
+              Simple, transparent pricing
+            </h3>
+          </Reveal>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
+            {PLANS.map(({ name, price, period, badge, desc, cta, href, highlight, perks }, i) => (
+              <Reveal key={name} delay={i * 90}>
+                <div
+                  className={`rounded-3xl p-8 flex flex-col h-full relative overflow-visible ${highlight ? 'card-glow-highlight' : 'glass-card-dark'}`}
+                  style={highlight ? {
+                    background: 'linear-gradient(145deg, rgba(200,169,106,0.14) 0%, rgba(200,169,106,0.04) 100%)',
+                    border: '1.5px solid rgba(200,169,106,0.40)',
+                  } : {
+                    background: 'rgba(255,255,255,0.025)',
+                    border: '1px solid rgba(200,169,106,0.10)',
+                  }}
+                >
+                  {/* Badge */}
+                  {badge && (
+                    <div className="pricing-badge">{badge}</div>
+                  )}
+
+                  <p className="font-semibold text-xs uppercase tracking-[0.18em] mb-5"
+                    style={{ color: 'rgba(200,169,106,0.65)' }}>
+                    {name}
+                  </p>
+
+                  <div className="mb-2 flex items-end gap-1">
+                    <span className="font-[family-name:var(--font-playfair)] text-4xl font-black text-white">
+                      {price}
+                    </span>
+                    {period && (
+                      <span className="text-sm mb-1.5" style={{ color: 'rgba(255,255,255,0.38)' }}>
+                        {period}
+                      </span>
+                    )}
+                  </div>
+
+                  <p className="text-sm mb-8" style={{ color: 'rgba(255,255,255,0.42)' }}>{desc}</p>
+
+                  <ul className="space-y-3 mb-8 flex-1">
+                    {perks.map(perk => (
+                      <li key={perk} className="flex items-start gap-2.5 text-sm"
+                        style={{ color: 'rgba(255,255,255,0.62)' }}>
+                        <CheckCircle2 className="w-4 h-4 shrink-0 mt-0.5" style={{ color: '#C8A96A' }} />
+                        {perk}
+                      </li>
+                    ))}
+                  </ul>
+
+                  <Link
+                    href={href}
+                    className={`block text-center py-3.5 rounded-2xl font-semibold text-sm transition-all duration-200 ${
+                      highlight
+                        ? 'btn-gold-glow justify-center'
+                        : 'border text-center hover:bg-white/5'
+                    }`}
+                    style={!highlight ? {
+                      border: '1px solid rgba(200,169,106,0.25)',
+                      color: 'rgba(200,169,106,0.8)',
+                    } : undefined}
+                  >
+                    {cta}
+                  </Link>
+                </div>
+              </Reveal>
+            ))}
+          </div>
+
         </div>
       </section>
 
-      {/* ══════════════════════════════════════════
-          TESTIMONIALS — shown only when real reviews exist
-      ══════════════════════════════════════════ */}
+      {/* ══════════════════════════════════════════════════════════════════════
+          § 8  TESTIMONIALS (hidden until real reviews exist)
+      ══════════════════════════════════════════════════════════════════════ */}
       {TESTIMONIALS.length > 0 && (
-      <section className="py-28 px-4 sm:px-6" style={{ background: '#0e0a05' }}>
-        <div className="max-w-7xl mx-auto">
-          <Reveal className="text-center mb-16">
-            <p className="text-xs font-bold uppercase tracking-widest mb-4" style={{ color: '#C8A96A' }}>Reviews</p>
-            <h2 className="font-[family-name:var(--font-playfair)] text-4xl sm:text-5xl font-bold text-white">
-              Couples who found their vendors
-            </h2>
-          </Reveal>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {TESTIMONIALS.map(({ name, city, initials, stars, text }, i) => (
-              <Reveal key={name} delay={i * 100}>
-                <div className="rounded-3xl p-7 flex flex-col gap-5 h-full"
-                  style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(200,169,106,0.12)' }}>
-                  <div className="flex gap-0.5">
-                    {Array.from({ length: stars }).map((_, j) => (
-                      <Star key={j} className="w-4 h-4 fill-current" style={{ color: '#C8A96A' }} />
-                    ))}
-                  </div>
-                  <p className="text-sm leading-relaxed flex-1" style={{ color: 'rgba(255,255,255,0.55)' }}>
-                    &ldquo;{text}&rdquo;
-                  </p>
-                  <div className="flex items-center gap-3 pt-4"
-                    style={{ borderTop: '1px solid rgba(200,169,106,0.12)' }}>
-                    <div className="w-9 h-9 rounded-full flex items-center justify-center text-xs font-bold shrink-0"
-                      style={{ background: 'rgba(200,169,106,0.15)', color: '#C8A96A' }}>
-                      {initials}
+        <section className="py-32 px-4 sm:px-6 bg-dark-2">
+          <div className="max-w-7xl mx-auto">
+            <Reveal className="text-center mb-16">
+              <div className="divider-gold mx-auto mb-5" />
+              <p className="text-xs font-bold uppercase tracking-[0.2em] mb-4"
+                style={{ color: 'rgba(200,169,106,0.7)' }}>
+                Reviews
+              </p>
+              <h2 className="font-[family-name:var(--font-playfair)] text-4xl sm:text-5xl font-bold text-white">
+                Couples who found their vendors
+              </h2>
+            </Reveal>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              {TESTIMONIALS.map(({ name, city, initials, stars, text }, i) => (
+                <Reveal key={name} delay={i * 100}>
+                  <div className="rounded-3xl p-7 flex flex-col gap-5 h-full glass-card-dark">
+                    <div className="flex gap-0.5">
+                      {Array.from({ length: stars }).map((_, j) => (
+                        <Star key={j} className="w-4 h-4 fill-current" style={{ color: '#C8A96A' }} />
+                      ))}
                     </div>
-                    <div>
-                      <p className="text-sm font-semibold text-white">{name}</p>
-                      <p className="text-xs" style={{ color: 'rgba(200,169,106,0.5)' }}>{city}, ON</p>
+                    <p className="text-sm leading-relaxed flex-1 quote-mark"
+                      style={{ color: 'rgba(255,255,255,0.55)' }}>
+                      &ldquo;{text}&rdquo;
+                    </p>
+                    <div className="flex items-center gap-3 pt-4"
+                      style={{ borderTop: '1px solid rgba(200,169,106,0.10)' }}>
+                      <div className="w-9 h-9 rounded-full flex items-center justify-center text-xs font-bold shrink-0"
+                        style={{ background: 'rgba(200,169,106,0.14)', color: '#C8A96A' }}>
+                        {initials}
+                      </div>
+                      <div>
+                        <p className="text-sm font-semibold text-white">{name}</p>
+                        <p className="text-xs" style={{ color: 'rgba(200,169,106,0.5)' }}>
+                          {city}, ON
+                        </p>
+                      </div>
                     </div>
                   </div>
-                </div>
-              </Reveal>
-            ))}
+                </Reveal>
+              ))}
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
       )}
 
-      {/* ══════════════════════════════════════════
-          CITIES
-      ══════════════════════════════════════════ */}
-      <section className="py-28 px-4 sm:px-6" style={{ background: '#09070c' }}>
+      {/* ══════════════════════════════════════════════════════════════════════
+          § 9  GTA CITIES
+      ══════════════════════════════════════════════════════════════════════ */}
+      <section className="py-24 px-4 sm:px-6 bg-dark-1">
         <div className="max-w-7xl mx-auto">
           <Reveal className="text-center mb-14">
-            <p className="text-xs font-bold uppercase tracking-widest mb-4" style={{ color: '#C8A96A' }}>Browse by City</p>
+            <div className="divider-gold mx-auto mb-5" />
+            <p className="text-xs font-bold uppercase tracking-[0.2em] mb-4"
+              style={{ color: 'rgba(200,169,106,0.7)' }}>
+              Browse by City
+            </p>
             <h2 className="font-[family-name:var(--font-playfair)] text-4xl sm:text-5xl font-bold text-white">
               Vendors across the GTA
             </h2>
           </Reveal>
+
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
             {CITIES.map(({ name, slug }, i) => (
               <Reveal key={slug} delay={i * 35}>
                 <Link href={`/vendors?city=${slug}`}
-                  className="group flex items-center gap-3 p-4 rounded-2xl border transition-all duration-300 hover:border-[rgba(200,169,106,0.4)] hover:bg-[rgba(200,169,106,0.07)]"
-                  style={{ background: 'rgba(255,255,255,0.025)', borderColor: 'rgba(200,169,106,0.12)' }}
-                >
-                  <MapPin className="w-4 h-4 shrink-0" style={{ color: 'rgba(200,169,106,0.5)' }} />
-                  <span className="text-sm font-medium text-white">{name}</span>
-                  <ArrowRight className="w-3.5 h-3.5 ml-auto opacity-0 group-hover:opacity-100 transition-all duration-200 -translate-x-1 group-hover:translate-x-0"
-                    style={{ color: '#C8A96A' }} />
+                  className="group flex flex-col gap-2 p-5 rounded-2xl city-card-dark transition-all duration-300">
+                  <div className="flex items-center justify-between">
+                    <div className="w-8 h-8 rounded-xl flex items-center justify-center transition-colors duration-300"
+                      style={{
+                        background: 'rgba(200,169,106,0.10)',
+                        border: '1px solid rgba(200,169,106,0.15)',
+                      }}>
+                      <MapPin className="w-3.5 h-3.5" style={{ color: '#C8A96A' }} />
+                    </div>
+                    <ArrowRight
+                      className="w-3.5 h-3.5 opacity-0 group-hover:opacity-100 transition-all duration-200 -translate-x-1 group-hover:translate-x-0"
+                      style={{ color: '#C8A96A' }}
+                    />
+                  </div>
+                  <p className="text-sm font-semibold text-white mt-1">{name}</p>
+                  <p className="text-xs" style={{ color: 'rgba(255,255,255,0.32)' }}>GTA · Ontario</p>
                 </Link>
               </Reveal>
             ))}
@@ -505,191 +863,73 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* ══════════════════════════════════════════
-          FOR VENDORS — PRICING
-      ══════════════════════════════════════════ */}
-      <section className="py-28 px-4 sm:px-6 relative overflow-hidden" style={{ background: '#0e0a05' }}>
-        <div className="absolute inset-0 pointer-events-none" style={{
-          backgroundImage: 'radial-gradient(rgba(200,169,106,0.05) 1px, transparent 1px)',
-          backgroundSize: '36px 36px',
-        }} />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[500px] pointer-events-none"
-          style={{ background: 'radial-gradient(ellipse, rgba(200,169,106,0.06) 0%, transparent 70%)' }} />
+      {/* ══════════════════════════════════════════════════════════════════════
+          § 10  FINAL CTA — Full-width immersive banner
+      ══════════════════════════════════════════════════════════════════════ */}
+      <section className="py-24 sm:py-32 px-4 sm:px-6 relative overflow-hidden bg-dark-2">
+        {/* Background elements */}
+        <div className="absolute inset-0 pointer-events-none"
+          style={{
+            backgroundImage: 'radial-gradient(rgba(200,169,106,0.05) 1px, transparent 1px)',
+            backgroundSize: '32px 32px',
+          }} />
+        <div className="absolute top-0 inset-x-0 h-px"
+          style={{ background: 'linear-gradient(90deg, transparent, rgba(200,169,106,0.25), transparent)' }} />
+        <div className="absolute bottom-0 inset-x-0 h-px"
+          style={{ background: 'linear-gradient(90deg, transparent, rgba(200,169,106,0.15), transparent)' }} />
+        <div className="section-glow-gold" />
 
-        <div className="max-w-7xl mx-auto relative z-10">
-          <Reveal className="text-center mb-8">
-            <p className="text-xs font-bold uppercase tracking-widest mb-4" style={{ color: '#C8A96A' }}>For Vendors</p>
-            <h2 className="font-[family-name:var(--font-playfair)] text-4xl sm:text-5xl font-bold text-white mb-4">
-              Grow your business with Melaa
-            </h2>
-            <p className="text-base max-w-xl mx-auto" style={{ color: 'rgba(255,255,255,0.45)' }}>
-              Join thousands of South Asian wedding professionals already on the platform.
-              Start free, upgrade when you&apos;re ready.
-            </p>
-          </Reveal>
-
-          {/* vendor feature pills */}
-          <Reveal className="flex flex-wrap justify-center gap-4 mb-20">
-            {VENDOR_FEATURES.map(({ Icon, title, desc }) => (
-              <div key={title} className="flex items-start gap-4 p-5 rounded-2xl max-w-xs"
-                style={{ background: 'rgba(255,255,255,0.025)', border: '1px solid rgba(200,169,106,0.12)' }}>
-                <div className="w-9 h-9 rounded-xl flex items-center justify-center shrink-0"
-                  style={{ background: 'rgba(200,169,106,0.12)' }}>
-                  <Icon className="w-4 h-4" style={{ color: '#C8A96A' }} />
-                </div>
-                <div>
-                  <p className="font-semibold text-sm text-white mb-1">{title}</p>
-                  <p className="text-xs leading-relaxed" style={{ color: 'rgba(255,255,255,0.40)' }}>{desc}</p>
-                </div>
-              </div>
-            ))}
-          </Reveal>
-
-          {/* pricing cards */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
-            {PLANS.map(({ name, price, period, badge, desc, cta, href, highlight, perks }, i) => (
-              <Reveal key={name} delay={i * 80}>
-                <div className="rounded-3xl p-8 flex flex-col h-full relative overflow-hidden"
-                  style={highlight ? {
-                    background: 'linear-gradient(145deg, rgba(200,169,106,0.15), rgba(200,169,106,0.05))',
-                    border: '1.5px solid rgba(200,169,106,0.45)',
-                    boxShadow: '0 0 60px rgba(200,169,106,0.12)',
-                  } : {
-                    background: 'rgba(255,255,255,0.025)',
-                    border: '1px solid rgba(200,169,106,0.12)',
-                  }}>
-
-                  {badge && (
-                    <div className="absolute top-5 right-5 text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full"
-                      style={{ background: 'rgba(200,169,106,0.18)', color: '#C8A96A' }}>
-                      {badge}
-                    </div>
-                  )}
-
-                  <p className="font-semibold text-xs uppercase tracking-widest mb-4" style={{ color: 'rgba(200,169,106,0.7)' }}>{name}</p>
-                  <div className="mb-1 flex items-end gap-1">
-                    <span className="font-[family-name:var(--font-playfair)] text-4xl font-black text-white">{price}</span>
-                    {period && <span className="text-sm mb-1.5" style={{ color: 'rgba(255,255,255,0.4)' }}>{period}</span>}
-                  </div>
-                  <p className="text-sm mb-7" style={{ color: 'rgba(255,255,255,0.45)' }}>{desc}</p>
-
-                  <ul className="space-y-3 mb-8 flex-1">
-                    {perks.map(perk => (
-                      <li key={perk} className="flex items-start gap-2.5 text-sm" style={{ color: 'rgba(255,255,255,0.65)' }}>
-                        <CheckCircle2 className="w-4 h-4 shrink-0 mt-0.5" style={{ color: '#C8A96A' }} />
-                        {perk}
-                      </li>
-                    ))}
-                  </ul>
-
-                  <Link href={href}
-                    className="block text-center py-3 px-6 rounded-full font-semibold text-sm transition-all duration-200 hover:scale-[1.03]"
-                    style={highlight ? {
-                      background: 'linear-gradient(135deg,#C8A96A,#d4a843)',
-                      color: '#09070c',
-                    } : {
-                      border: '1.5px solid rgba(200,169,106,0.35)',
-                      color: 'rgba(200,169,106,0.85)',
-                    }}>
-                    {cta}
-                  </Link>
-                </div>
-              </Reveal>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ══════════════════════════════════════════
-          FINAL CTA
-      ══════════════════════════════════════════ */}
-      <section className="py-32 px-4 sm:px-6 relative overflow-hidden" style={{ background: '#09070c' }}>
-        <div className="absolute inset-0 pointer-events-none" style={{
-          background: 'radial-gradient(ellipse at 50% 60%, rgba(200,169,106,0.10) 0%, transparent 65%)',
-        }} />
-        <div className="absolute inset-0 pointer-events-none" style={{
-          backgroundImage: 'radial-gradient(rgba(200,169,106,0.055) 1px, transparent 1px)',
-          backgroundSize: '36px 36px',
-        }} />
-
-        <Reveal className="relative z-10 max-w-3xl mx-auto text-center">
-          <p className="text-xs font-bold uppercase tracking-widest mb-5" style={{ color: '#C8A96A' }}>Ready?</p>
-          <h2 className="font-[family-name:var(--font-playfair)] text-5xl sm:text-6xl font-bold text-white mb-6 leading-tight">
-            Your perfect celebration<br />
-            <span style={{
-              background: 'linear-gradient(120deg,#C8A96A,#f0c97a)',
-              WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text',
-            }}>starts here.</span>
-          </h2>
-          <p className="text-lg mb-10" style={{ color: 'rgba(255,255,255,0.45)' }}>
-            Browse {count}+ South Asian wedding &amp; event vendors — all local, all verified, all free.
-          </p>
-          <div className="flex flex-wrap gap-4 justify-center">
-            <Link href="/vendors"
-              className="inline-flex items-center gap-2 px-8 py-4 rounded-full font-semibold text-sm transition-all duration-200 hover:scale-[1.04] hover:shadow-[0_0_40px_rgba(200,169,106,0.30)]"
-              style={{ background: 'linear-gradient(135deg,#C8A96A,#d4a843)', color: '#09070c' }}>
-              <Sparkles className="w-4 h-4" />
-              Find Your Vendors
-            </Link>
-            <Link href="/list-your-business"
-              className="inline-flex items-center gap-2 px-8 py-4 rounded-full font-semibold text-sm border transition-all duration-200 hover:bg-white/5"
-              style={{ border: '1.5px solid rgba(200,169,106,0.35)', color: 'rgba(200,169,106,0.85)' }}>
-              List Your Business Free <ArrowRight className="w-4 h-4" />
-            </Link>
-          </div>
-        </Reveal>
-      </section>
-
-      {/* ══════════════════════════════════════════
-          FOOTER
-      ══════════════════════════════════════════ */}
-      <footer className="border-t px-4 sm:px-6 py-14" style={{ background: '#09070c', borderColor: 'rgba(200,169,106,0.10)' }}>
-        <div className="max-w-7xl mx-auto">
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-10 mb-12">
-            <div className="col-span-2 sm:col-span-1">
-              <p className="font-[family-name:var(--font-playfair)] text-2xl font-bold mb-3"
-                style={{
-                  background: 'linear-gradient(120deg,#C8A96A,#f0c97a)',
-                  WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text',
-                }}>
-                Melaa
-              </p>
-              <p className="text-xs leading-relaxed" style={{ color: 'rgba(255,255,255,0.35)' }}>
-                The #1 South Asian wedding &amp; events platform in the GTA.
-              </p>
+        <div className="max-w-4xl mx-auto relative z-10 text-center">
+          <Reveal>
+            <div className="inline-flex items-center gap-2.5 px-4 py-2 rounded-full mb-8"
+              style={{
+                background: 'rgba(200,169,106,0.08)',
+                border: '1px solid rgba(200,169,106,0.22)',
+              }}>
+              <span className="live-dot" />
+              <span className="text-xs font-bold tracking-[0.18em] uppercase"
+                style={{ color: 'rgba(200,169,106,0.9)' }}>
+                {count}+ vendors live right now
+              </span>
             </div>
-            {[
-              { heading: 'For Couples',  links: [['Browse Vendors','/vendors'],['Search by City','/vendors'],['How It Works','/#how-it-works']] },
-              { heading: 'For Vendors',  links: [['List Your Business','/list-your-business'],['Vendor Login','/login'],['Pricing','/#pricing']] },
-              { heading: 'Company',      links: [['About','/about'],['Contact','/contact'],['Privacy','/privacy'],['Terms','/terms']] },
-            ].map(({ heading, links }) => (
-              <div key={heading}>
-                <p className="text-xs font-bold uppercase tracking-widest mb-4" style={{ color: 'rgba(200,169,106,0.6)' }}>{heading}</p>
-                <ul className="space-y-2.5">
-                  {links.map(([label, href]) => (
-                    <li key={label}>
-                      <Link href={href} className="text-sm transition-colors hover:text-white"
-                        style={{ color: 'rgba(255,255,255,0.40)' }}>
-                        {label}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ))}
-          </div>
+          </Reveal>
 
-          <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4"
-            style={{ borderTop: '1px solid rgba(200,169,106,0.08)' }}>
-            <p className="text-xs" style={{ color: 'rgba(255,255,255,0.25)' }}>
-              © {new Date().getFullYear()} Melaa · South Asian Wedding &amp; Events · GTA
+          <Reveal delay={80}>
+            <h2 className="font-[family-name:var(--font-playfair)] text-5xl sm:text-6xl lg:text-7xl font-bold text-white mb-6 leading-[1.06]">
+              Your celebration<br />
+              <span className="gradient-shimmer">deserves the best.</span>
+            </h2>
+          </Reveal>
+
+          <Reveal delay={160}>
+            <p className="text-lg sm:text-xl mb-12 max-w-xl mx-auto"
+              style={{ color: 'rgba(255,255,255,0.45)' }}>
+              Browse {count}+ South Asian wedding vendors across the GTA —
+              completely free, no account needed.
             </p>
-            <p className="text-xs" style={{ color: 'rgba(255,255,255,0.20)' }}>
-              Made with ♥ for South Asian celebrations
+          </Reveal>
+
+          <Reveal delay={240}>
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4">
+              <Link href="/vendors" className="btn-gold-glow w-full sm:w-auto justify-center">
+                <Sparkles className="w-4 h-4" />
+                Browse All Vendors
+              </Link>
+              <Link href="/list-your-business" className="btn-ghost-gold w-full sm:w-auto justify-center">
+                List Your Business Free
+                <ArrowRight className="w-4 h-4" />
+              </Link>
+            </div>
+          </Reveal>
+
+          {/* Trust line */}
+          <Reveal delay={320}>
+            <p className="mt-10 text-xs" style={{ color: 'rgba(255,255,255,0.28)' }}>
+              Free to browse · No account required · Zero booking fees
             </p>
-          </div>
+          </Reveal>
         </div>
-      </footer>
+      </section>
 
     </div>
   )

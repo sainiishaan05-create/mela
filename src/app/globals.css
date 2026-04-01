@@ -491,3 +491,366 @@ img { transition: opacity 0.3s ease; }
   transition: width 0.25s ease;
 }
 .link-underline:hover::after { width: 100%; }
+
+/* ════════════════════════════════════════════════════════════════════════════
+   SAAS LANDING PAGE — Design System Extension
+   Added for the immersive homepage redesign
+════════════════════════════════════════════════════════════════════════════ */
+
+/* ── New keyframes ────────────────────────────────────────────────────────── */
+@keyframes floatA {
+  0%, 100% { transform: translateY(0px) rotate(-2deg); }
+  40%       { transform: translateY(-14px) rotate(0.5deg); }
+  70%       { transform: translateY(-7px) rotate(-1deg); }
+}
+@keyframes floatB {
+  0%, 100% { transform: translateY(-6px) rotate(2deg); }
+  50%       { transform: translateY(8px) rotate(-0.5deg); }
+}
+@keyframes floatC {
+  0%, 100% { transform: translateY(0px) rotate(1deg); }
+  35%       { transform: translateY(-10px) rotate(-1.5deg); }
+  65%       { transform: translateY(-4px) rotate(0.8deg); }
+}
+@keyframes floatD {
+  0%, 100% { transform: translateY(-4px) rotate(-1.5deg); }
+  45%       { transform: translateY(9px) rotate(1deg); }
+}
+@keyframes floatE {
+  0%, 100% { transform: translateY(3px) rotate(0.5deg); }
+  55%       { transform: translateY(-11px) rotate(-2deg); }
+}
+@keyframes gradientShimmer {
+  0%   { background-position: 0% center; }
+  100% { background-position: 200% center; }
+}
+@keyframes glowPulse {
+  0%, 100% { box-shadow: 0 0 24px rgba(200,169,106,0.18), 0 0 48px rgba(200,169,106,0.06); }
+  50%       { box-shadow: 0 0 40px rgba(200,169,106,0.38), 0 0 80px rgba(200,169,106,0.15); }
+}
+@keyframes glowPulseBorder {
+  0%, 100% { border-color: rgba(200,169,106,0.35); }
+  50%       { border-color: rgba(200,169,106,0.65); }
+}
+@keyframes revealUp {
+  from { opacity: 0; transform: translateY(32px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes slideInLeft {
+  from { opacity: 0; transform: translateX(-24px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+@keyframes slideInRight {
+  from { opacity: 0; transform: translateX(24px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+@keyframes scaleUp {
+  from { opacity: 0; transform: scale(0.92); }
+  to   { opacity: 1; transform: scale(1); }
+}
+@keyframes borderRotate {
+  0%   { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* ── Gradient shimmer text ────────────────────────────────────────────────── */
+.gradient-shimmer {
+  background: linear-gradient(120deg,
+    #a8782a 0%,
+    #e8bc60 25%,
+    #f5d080 45%,
+    #ffe4a0 55%,
+    #f5d080 65%,
+    #C8A96A 85%,
+    #a8782a 100%
+  );
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: gradientShimmer 5s linear infinite;
+}
+
+/* ── Dark glassmorphism card ──────────────────────────────────────────────── */
+.glass-card-dark {
+  background: rgba(255,255,255,0.035);
+  backdrop-filter: blur(24px) saturate(1.4);
+  -webkit-backdrop-filter: blur(24px) saturate(1.4);
+  border: 1px solid rgba(200,169,106,0.14);
+  transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s var(--ease-expo);
+}
+.glass-card-dark:hover {
+  border-color: rgba(200,169,106,0.32);
+  box-shadow: 0 12px 40px rgba(0,0,0,0.35), 0 0 0 1px rgba(200,169,106,0.1);
+  transform: translateY(-4px);
+}
+
+/* ── Gold glow button ─────────────────────────────────────────────────────── */
+.btn-gold-glow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 28px;
+  border-radius: 99px;
+  font-weight: 600;
+  font-size: 14px;
+  background: linear-gradient(135deg, #C8A96A 0%, #d4a843 50%, #C8A96A 100%);
+  background-size: 200% auto;
+  color: #09070c;
+  transition: background-position 0.4s ease, transform 0.2s var(--ease-bounce), box-shadow 0.3s ease;
+  box-shadow: 0 4px 20px rgba(200,169,106,0.30);
+}
+.btn-gold-glow:hover {
+  background-position: right center;
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 8px 32px rgba(200,169,106,0.50), 0 2px 8px rgba(0,0,0,0.2);
+}
+.btn-gold-glow:active { transform: scale(0.98) translateY(0); }
+
+/* ── Ghost button ─────────────────────────────────────────────────────────── */
+.btn-ghost-gold {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 13px 28px;
+  border-radius: 99px;
+  font-weight: 600;
+  font-size: 14px;
+  border: 1.5px solid rgba(200,169,106,0.32);
+  color: rgba(200,169,106,0.9);
+  background: transparent;
+  transition: border-color 0.2s ease, background 0.2s ease, transform 0.2s var(--ease-bounce), color 0.2s ease;
+}
+.btn-ghost-gold:hover {
+  border-color: rgba(200,169,106,0.7);
+  background: rgba(200,169,106,0.07);
+  color: #C8A96A;
+  transform: translateY(-2px);
+}
+
+/* ── Animated glow card (pricing highlight) ───────────────────────────────── */
+.card-glow-highlight {
+  position: relative;
+  animation: glowPulse 3s ease-in-out infinite, glowPulseBorder 3s ease-in-out infinite;
+}
+.card-glow-highlight::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  background: linear-gradient(135deg, rgba(200,169,106,0.5) 0%, rgba(200,169,106,0.05) 50%, rgba(200,169,106,0.3) 100%);
+  z-index: -1;
+  border-radius: 25px;
+}
+
+/* ── Floating vendor preview cards ───────────────────────────────────────── */
+.float-card-a { animation: floatA 6.0s ease-in-out infinite; }
+.float-card-b { animation: floatB 7.2s ease-in-out infinite; }
+.float-card-c { animation: floatC 5.6s ease-in-out infinite; }
+.float-card-d { animation: floatD 8.1s ease-in-out infinite; }
+.float-card-e { animation: floatE 6.8s ease-in-out infinite; }
+
+/* ── Section glow accent ──────────────────────────────────────────────────── */
+.section-glow-top {
+  position: absolute;
+  top: 0; left: 50%;
+  transform: translateX(-50%);
+  width: 800px; height: 300px;
+  background: radial-gradient(ellipse at 50% 0%, rgba(200,169,106,0.08) 0%, transparent 70%);
+  pointer-events: none;
+}
+.section-glow-gold {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 600px; height: 400px;
+  background: radial-gradient(ellipse at center, rgba(200,169,106,0.07) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+/* ── Feature icon box ─────────────────────────────────────────────────────── */
+.icon-box-gold {
+  width: 48px; height: 48px;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(200,169,106,0.10);
+  border: 1px solid rgba(200,169,106,0.20);
+  transition: background 0.2s ease, border-color 0.2s ease;
+}
+.glass-card-dark:hover .icon-box-gold {
+  background: rgba(200,169,106,0.18);
+  border-color: rgba(200,169,106,0.35);
+}
+
+/* ── Step connector ───────────────────────────────────────────────────────── */
+.step-connector {
+  position: absolute;
+  top: 28px;
+  left: calc(100% + 2px);
+  width: calc(100% - 4px);
+  height: 1px;
+  background: linear-gradient(90deg, rgba(200,169,106,0.45), rgba(200,169,106,0.05));
+  pointer-events: none;
+}
+
+/* ── Pricing badge ────────────────────────────────────────────────────────── */
+.pricing-badge {
+  position: absolute;
+  top: -13px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 4px 16px;
+  border-radius: 99px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  background: linear-gradient(135deg, #C8A96A, #d4a843);
+  color: #09070c;
+  white-space: nowrap;
+  box-shadow: 0 4px 12px rgba(200,169,106,0.40);
+}
+
+/* ── Scroll indicator ─────────────────────────────────────────────────────── */
+@keyframes scrollBounce {
+  0%, 100% { transform: translateX(-50%) translateY(0); opacity: 0.5; }
+  50%       { transform: translateX(-50%) translateY(6px); opacity: 1; }
+}
+.scroll-indicator {
+  position: absolute;
+  bottom: 32px;
+  left: 50%;
+  transform: translateX(-50%);
+  animation: scrollBounce 2s ease-in-out infinite;
+  z-index: 20;
+}
+
+/* ── SaaS section alternating backgrounds ─────────────────────────────────── */
+.bg-dark-1 { background: #07050a; }
+.bg-dark-2 { background: #0c0a10; }
+.bg-dark-3 { background: #080610; }
+
+/* ── Noise texture overlay ────────────────────────────────────────────────── */
+.dark-noise {
+  position: relative;
+}
+.dark-noise::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events: none;
+  opacity: 0.4;
+  mix-blend-mode: overlay;
+  z-index: 0;
+}
+
+/* ── Category card dark ───────────────────────────────────────────────────── */
+.cat-card-dark {
+  background: rgba(255,255,255,0.028);
+  border: 1px solid rgba(200,169,106,0.10);
+  transition: all 0.35s var(--ease-expo);
+  min-height: 160px;
+}
+.cat-card-dark:hover {
+  background: rgba(200,169,106,0.07);
+  border-color: rgba(200,169,106,0.38);
+  transform: translateY(-6px);
+  box-shadow: 0 16px 40px rgba(200,169,106,0.13), 0 4px 16px rgba(0,0,0,0.35);
+}
+
+/* ── City card dark ───────────────────────────────────────────────────────── */
+.city-card-dark {
+  background: rgba(255,255,255,0.025);
+  border: 1px solid rgba(200,169,106,0.10);
+  transition: all 0.28s var(--ease-expo);
+}
+.city-card-dark:hover {
+  background: rgba(200,169,106,0.07);
+  border-color: rgba(200,169,106,0.35);
+  transform: translateY(-4px);
+  box-shadow: 0 12px 30px rgba(200,169,106,0.10), 0 4px 12px rgba(0,0,0,0.25);
+}
+
+/* ── Golden divider ───────────────────────────────────────────────────────── */
+.divider-gold {
+  width: 48px;
+  height: 3px;
+  background: linear-gradient(90deg, #C8A96A, rgba(200,169,106,0.2));
+  border-radius: 99px;
+}
+
+/* ── Reveal animations (used with Reveal component) ──────────────────────── */
+.reveal-up    { animation: revealUp    0.7s var(--ease-expo) both; }
+.reveal-left  { animation: slideInLeft  0.65s var(--ease-expo) both; }
+.reveal-right { animation: slideInRight 0.65s var(--ease-expo) both; }
+.reveal-scale { animation: scaleUp     0.6s  var(--ease-expo) both; }
+
+/* ── How it works number ──────────────────────────────────────────────────── */
+.step-number {
+  font-family: var(--font-playfair, Georgia, serif);
+  font-size: 4rem;
+  font-weight: 900;
+  line-height: 1;
+  background: linear-gradient(135deg, rgba(200,169,106,0.15) 0%, rgba(200,169,106,0.04) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  position: absolute;
+  top: -8px;
+  right: 16px;
+  pointer-events: none;
+  user-select: none;
+}
+
+/* ── Live indicator ───────────────────────────────────────────────────────── */
+@keyframes livePing {
+  0%   { transform: scale(1);   opacity: 0.9; }
+  70%  { transform: scale(2.2); opacity: 0; }
+  100% { transform: scale(2.2); opacity: 0; }
+}
+.live-dot {
+  position: relative;
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: #22c55e;
+  flex-shrink: 0;
+}
+.live-dot::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: #22c55e;
+  animation: livePing 2s ease-out infinite;
+}
+
+/* ── Responsive ───────────────────────────────────────────────────────────── */
+@media (max-width: 768px) {
+  .btn-gold-glow, .btn-ghost-gold { padding: 12px 22px; font-size: 13px; }
+
+  /* Hero orbs scaled down on mobile */
+  .hero-orb-1 { width: 500px; height: 500px; top: -120px; left: calc(50% - 250px); }
+  .hero-orb-2 { width: 350px; height: 350px; }
+  .hero-orb-3 { width: 280px; height: 280px; }
+
+  /* Section padding tightened further on small screens */
+  .glass-card-dark { padding: 1.5rem; }
+
+  /* Category cards slightly shorter on mobile */
+  .cat-card-dark { min-height: 140px; }
+
+  /* Pricing badges don't get clipped */
+  .pricing-badge { font-size: 10px; padding: 5px 12px; }
+
+  /* Step connector hidden already via hidden md:block, but just in case */
+  .step-connector { display: none; }
+}
+
+@media (max-width: 480px) {
+  /* Very small screens — extra tight */
+  .btn-gold-glow, .btn-ghost-gold { width: 100%; justify-content: center; }
+  .scroll-indicator { display: none; }
+}

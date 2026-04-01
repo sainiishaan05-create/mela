@@ -47,7 +47,8 @@ export async function GET(req: NextRequest) {
   }
 
   // Direct email lookup — avoids listUsers() pagination limit (max 1,000 users)
-  const { data: existingUserData } = await supabase.auth.admin.getUserByEmail(claimEmail)
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const { data: existingUserData } = await (supabase.auth.admin as any).getUserByEmail(claimEmail)
   let userId: string
 
   if (existingUserData?.user) {
