@@ -3,12 +3,13 @@ import { createClient } from '@/lib/supabase/server'
 import type { Vendor } from '@/types'
 import VendorCard from '@/components/vendors/VendorCard'
 import HeroCanvas3D from '@/components/landing/HeroCanvas3D'
+import BrowseExplorer from '@/components/landing/BrowseExplorer'
 import Reveal from '@/components/ui/Reveal'
 import SearchBar from '@/components/ui/SearchBar'
 import {
   ArrowRight, Sparkles, MapPin, CheckCircle2,
-  Zap, Shield, Heart, TrendingUp, Users, Globe,
-  Star, BadgeCheck, Inbox, BarChart2, Lock,
+  Zap, Shield, Heart, TrendingUp,
+  BadgeCheck, Inbox, BarChart2, Globe, Lock,
 } from 'lucide-react'
 
 export const revalidate = 300
@@ -17,32 +18,6 @@ export const revalidate = 300
    STATIC DATA
 ───────────────────────────────────────────────────────────────────────────── */
 
-const CATEGORIES = [
-  { label: 'Photographers',      href: '/vendors?category=photographers',    icon: '📸', desc: 'Capture every moment' },
-  { label: 'Videographers',      href: '/vendors?category=videographers',     icon: '🎬', desc: 'Cinematic memories' },
-  { label: 'Makeup & Hair',      href: '/vendors?category=makeup-hair',       icon: '💄', desc: 'Look your radiant best' },
-  { label: 'Mehndi Artists',     href: '/vendors?category=mehndi-artists',    icon: '🌿', desc: 'Intricate bridal art' },
-  { label: 'Catering',           href: '/vendors?category=catering',          icon: '🍛', desc: 'Authentic South Asian flavours' },
-  { label: 'Decor & Florals',    href: '/vendors?category=decor-florals',     icon: '💐', desc: 'Transform your venue' },
-  { label: 'DJ & Entertainment', href: '/vendors?category=dj-entertainment',  icon: '🎶', desc: 'Set the perfect mood' },
-  { label: 'Wedding Venues',     href: '/vendors?category=wedding-venues',    icon: '🏛️', desc: 'Your perfect setting' },
-  { label: 'Priest Services',    href: '/vendors?category=priest-services',   icon: '🕉️', desc: 'Sacred ceremonies' },
-  { label: 'Jewellery',          href: '/vendors?category=jewellery',         icon: '💍', desc: 'Timeless bridal pieces' },
-  { label: 'Bridal Wear',        href: '/vendors?category=bridal-wear',       icon: '👗', desc: 'Lehengas, sherwanis & more' },
-  { label: 'Sweets & Mithai',    href: '/vendors?category=sweets-mithai',     icon: '🍮', desc: 'Traditional confectionery' },
-]
-
-const CITIES = [
-  { name: 'Toronto',       slug: 'toronto' },
-  { name: 'Brampton',      slug: 'brampton' },
-  { name: 'Mississauga',   slug: 'mississauga' },
-  { name: 'Markham',       slug: 'markham' },
-  { name: 'Vaughan',       slug: 'vaughan' },
-  { name: 'Scarborough',   slug: 'scarborough' },
-  { name: 'Richmond Hill', slug: 'richmond-hill' },
-  { name: 'Kitchener',     slug: 'kitchener-waterloo' },
-]
-
 const MARQUEE = [
   '📸 Photographers', '🌆 Brampton', '💄 Makeup Artists', '🏙️ Toronto', '🍛 Caterers',
   '🌃 Mississauga', '🌿 Mehndi Artists', '🌇 Vaughan', '🎶 DJs', '🏘️ Markham',
@@ -50,34 +25,12 @@ const MARQUEE = [
   '💍 Jewellery', '👗 Bridal Wear', '🍮 Mithai', '🕉️ Priests', '🐎 Baraat',
 ]
 
-// Floating hero cards — glassmorphism vendor previews
 const HERO_CARDS = [
-  { icon: '📸', cat: 'Photographer',     city: 'Toronto',     anim: 'float-card-a', delay: '0s',    top: '12%',  left: '4%',  rotate: '-2.5deg' },
-  { icon: '💐', cat: 'Decor & Florals',  city: 'Brampton',    anim: 'float-card-b', delay: '0.5s',  top: '6%',   right: '8%', rotate: '2deg' },
-  { icon: '💄', cat: 'Makeup Artist',    city: 'Mississauga', anim: 'float-card-c', delay: '0.2s',  top: '40%',  right: '3%', rotate: '-1.5deg' },
-  { icon: '🎶', cat: 'DJ & Entertainment', city: 'Vaughan',   anim: 'float-card-d', delay: '0.8s',  top: '62%',  left: '2%',  rotate: '2.5deg' },
-  { icon: '🍛', cat: 'Caterer',          city: 'Markham',     anim: 'float-card-e', delay: '1s',    top: '78%',  right: '6%', rotate: '-1deg' },
-]
-
-const HOW_IT_WORKS = [
-  {
-    step: '01',
-    icon: '🔍',
-    title: 'Search your category',
-    desc: 'Browse 14+ vendor categories across GTA cities — all built for South Asian weddings and events. Filter by city, category, or occasion.',
-  },
-  {
-    step: '02',
-    icon: '📋',
-    title: 'Explore real profiles',
-    desc: 'View portfolios, descriptions, and direct contact info for every vendor. No gatekeeping, no hidden details behind a paywall.',
-  },
-  {
-    step: '03',
-    icon: '💬',
-    title: 'Connect directly',
-    desc: 'Reach vendors with zero middlemen, no booking fees, no hidden commissions — ever. One click sends your inquiry straight to them.',
-  },
+  { icon: '📸', cat: 'Photographer',      city: 'Toronto',     anim: 'float-card-a', delay: '0s',   top: '12%', left: '4%',  rotate: '-2.5deg' },
+  { icon: '💐', cat: 'Decor & Florals',   city: 'Brampton',    anim: 'float-card-b', delay: '0.5s', top: '6%',  right: '8%', rotate: '2deg' },
+  { icon: '💄', cat: 'Makeup Artist',     city: 'Mississauga', anim: 'float-card-c', delay: '0.2s', top: '40%', right: '3%', rotate: '-1.5deg' },
+  { icon: '🎶', cat: 'DJ & Entertainment',city: 'Vaughan',     anim: 'float-card-d', delay: '0.8s', top: '62%', left: '2%',  rotate: '2.5deg' },
+  { icon: '🍛', cat: 'Caterer',           city: 'Markham',     anim: 'float-card-e', delay: '1s',   top: '78%', right: '6%', rotate: '-1deg' },
 ]
 
 const WHY_MELAA = [
@@ -89,7 +42,7 @@ const WHY_MELAA = [
   {
     Icon: Shield,
     title: 'Verified & Local',
-    desc: 'Only real, active professionals in the GTA who know what South Asian celebrations deserve — reviewed by us.',
+    desc: 'Only real, active GTA professionals who know what South Asian celebrations deserve — reviewed by us.',
   },
   {
     Icon: Zap,
@@ -102,7 +55,7 @@ const VENDOR_FEATURES = [
   { Icon: TrendingUp, title: 'Get discovered instantly',  desc: 'Listed in front of thousands of South Asian couples actively searching in the GTA.' },
   { Icon: Inbox,      title: 'Direct leads, no fees',     desc: 'Couples contact you directly. No platform cuts, no middlemen, no per-booking commissions.' },
   { Icon: BadgeCheck, title: 'Verified badge',            desc: 'A verified badge that builds instant trust and sets you apart from the competition.' },
-  { Icon: BarChart2,  title: 'Analytics dashboard',      desc: 'See exactly how many couples viewed your profile, clicked contact, and where they came from.' },
+  { Icon: BarChart2,  title: 'Analytics dashboard',      desc: 'See exactly how many couples viewed your profile and where they came from.' },
   { Icon: Globe,      title: 'Your own profile page',     desc: 'A dedicated page with portfolio, contact info, and a link that\'s yours to share anywhere.' },
   { Icon: Lock,       title: 'Rate locked forever',       desc: 'Founding rate of $49/mo is locked in permanently — never increases as the platform grows.' },
 ]
@@ -161,9 +114,6 @@ const PLANS = [
   },
 ]
 
-// Real testimonials only — add entries once you have genuine reviews
-const TESTIMONIALS: { name: string; city: string; initials: string; stars: number; text: string }[] = []
-
 /* ─────────────────────────────────────────────────────────────────────────────
    PAGE
 ───────────────────────────────────────────────────────────────────────────── */
@@ -178,8 +128,7 @@ export default async function HomePage() {
       .order('created_at', { ascending: false }).limit(3),
   ])
   const featured = (featuredVendors as Vendor[]) ?? []
-  // Use real DB count if it looks valid, otherwise fall back to known floor
-  const count    = (vendorCount != null && vendorCount > 100)
+  const count = (vendorCount != null && vendorCount > 100)
     ? vendorCount.toLocaleString()
     : '1,200'
 
@@ -187,40 +136,33 @@ export default async function HomePage() {
     <div className="bg-dark-1">
 
       {/* ══════════════════════════════════════════════════════════════════════
-          § 1  HERO — Full viewport, two-column, immersive
+          § 1  HERO
       ══════════════════════════════════════════════════════════════════════ */}
       <section className="relative min-h-screen flex items-center overflow-hidden bg-dark-1">
 
-        {/* Canvas — full bleed, torus offset right on wide screens */}
         <div className="absolute inset-0 z-0">
           <HeroCanvas3D />
         </div>
 
-        {/* Aurora gradient orbs — CSS animated, subtle */}
         <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
           <div className="hero-orb-1" />
           <div className="hero-orb-2" />
           <div className="hero-orb-3" />
         </div>
 
-        {/* Dot grid texture */}
         <div className="absolute inset-0 z-0 pointer-events-none" style={{
           backgroundImage: 'radial-gradient(rgba(200,169,106,0.055) 1px, transparent 1px)',
           backgroundSize: '44px 44px',
         }} />
 
-        {/* Bottom fade — blends into next section */}
         <div className="absolute bottom-0 inset-x-0 h-56 z-10 pointer-events-none"
           style={{ background: 'linear-gradient(to top, #07050a 0%, transparent 100%)' }} />
 
-        {/* Content — two-column grid */}
         <div className="relative z-20 w-full max-w-7xl mx-auto px-4 sm:px-6 min-h-screen flex items-center">
           <div className="grid lg:grid-cols-[1.05fr_0.95fr] w-full gap-8 py-32 lg:py-0 items-center">
 
-            {/* ── LEFT: Text content ────────────────────────────────────── */}
+            {/* LEFT: Text */}
             <div className="max-w-2xl">
-
-              {/* Live badge */}
               <div className="mb-8 inline-flex items-center gap-2.5 px-4 py-2.5 rounded-full"
                 style={{
                   background: 'rgba(200,169,106,0.08)',
@@ -234,7 +176,6 @@ export default async function HomePage() {
                 </span>
               </div>
 
-              {/* Headline */}
               <h1
                 className="font-[family-name:var(--font-playfair)] text-5xl sm:text-6xl lg:text-[5rem] font-bold leading-[1.04] tracking-tight mb-6 text-white"
                 style={{ animation: 'revealUp 0.75s 0.12s var(--ease-expo) both' }}
@@ -244,7 +185,6 @@ export default async function HomePage() {
                 wedding awaits.
               </h1>
 
-              {/* Sub-headline */}
               <p
                 className="text-lg sm:text-xl leading-relaxed mb-10 max-w-xl"
                 style={{
@@ -260,12 +200,10 @@ export default async function HomePage() {
                 Built exclusively for South Asian celebrations.
               </p>
 
-              {/* Search bar */}
               <div style={{ animation: 'revealUp 0.75s 0.30s var(--ease-expo) both' }} className="mb-10">
                 <SearchBar dark />
               </div>
 
-              {/* CTAs */}
               <div
                 className="flex flex-wrap gap-3 sm:gap-4 mb-12 sm:mb-14"
                 style={{ animation: 'revealUp 0.75s 0.38s var(--ease-expo) both' }}
@@ -280,7 +218,6 @@ export default async function HomePage() {
                 </Link>
               </div>
 
-              {/* Stats row */}
               <div
                 className="flex flex-wrap gap-x-10 gap-y-5"
                 style={{ animation: 'revealUp 0.75s 0.46s var(--ease-expo) both' }}
@@ -293,19 +230,15 @@ export default async function HomePage() {
                 ].map(({ val, label }) => (
                   <div key={label}>
                     <p className="text-2xl font-bold font-[family-name:var(--font-playfair)]"
-                      style={{ color: '#C8A96A' }}>
-                      {val}
-                    </p>
+                      style={{ color: '#C8A96A' }}>{val}</p>
                     <p className="text-xs tracking-wide mt-0.5"
-                      style={{ color: 'rgba(255,255,255,0.32)' }}>
-                      {label}
-                    </p>
+                      style={{ color: 'rgba(255,255,255,0.32)' }}>{label}</p>
                   </div>
                 ))}
               </div>
             </div>
 
-            {/* ── RIGHT: Floating glassmorphism vendor preview cards ─────── */}
+            {/* RIGHT: Floating cards */}
             <div
               className="hidden lg:block relative h-[580px] w-full"
               style={{ animation: 'revealUp 1s 0.3s var(--ease-expo) both' }}
@@ -314,12 +247,7 @@ export default async function HomePage() {
                 <div
                   key={cat}
                   className={`absolute ${anim}`}
-                  style={{
-                    top,
-                    left: left ?? undefined,
-                    right: right ?? undefined,
-                    animationDelay: delay,
-                  }}
+                  style={{ top, left: left ?? undefined, right: right ?? undefined, animationDelay: delay }}
                 >
                   <div
                     className="flex items-center gap-3 pl-3.5 pr-5 py-3 rounded-2xl select-none"
@@ -336,8 +264,7 @@ export default async function HomePage() {
                       <p className="text-sm font-semibold text-white leading-tight">{cat}</p>
                       <p className="text-xs mt-0.5 flex items-center gap-1"
                         style={{ color: 'rgba(200,169,106,0.7)' }}>
-                        <MapPin className="w-2.5 h-2.5" />
-                        {city}
+                        <MapPin className="w-2.5 h-2.5" />{city}
                       </p>
                     </div>
                     <div className="ml-1 live-dot" style={{ width: 6, height: 6 }} />
@@ -349,19 +276,16 @@ export default async function HomePage() {
           </div>
         </div>
 
-        {/* Scroll indicator */}
         <div className="scroll-indicator flex flex-col items-center gap-2 opacity-50 hover:opacity-80 transition-opacity">
           <span className="text-[10px] tracking-[0.22em] uppercase font-medium"
-            style={{ color: 'rgba(200,169,106,0.7)' }}>
-            Scroll
-          </span>
+            style={{ color: 'rgba(200,169,106,0.7)' }}>Scroll</span>
           <div className="w-px h-8"
             style={{ background: 'linear-gradient(to bottom, rgba(200,169,106,0.6), transparent)' }} />
         </div>
       </section>
 
       {/* ══════════════════════════════════════════════════════════════════════
-          § 2  MARQUEE — infinite scroll category strip
+          § 2  MARQUEE
       ══════════════════════════════════════════════════════════════════════ */}
       <div className="overflow-hidden py-4 border-y"
         style={{ background: '#0b0910', borderColor: 'rgba(200,169,106,0.08)' }}>
@@ -380,163 +304,43 @@ export default async function HomePage() {
         </div>
       </div>
 
-      {/* ── Cinematic section divider ── */}
       <div className="divider-cinematic" />
 
       {/* ══════════════════════════════════════════════════════════════════════
-          § 3  HOW IT WORKS
+          § 3  BROWSE EXPLORER — Category + City selector
       ══════════════════════════════════════════════════════════════════════ */}
       <section className="py-24 px-4 sm:px-6 relative overflow-hidden bg-dark-2 section-immersive section-scanline" style={{'--scan-delay': '0.5s'} as React.CSSProperties}>
         <div className="section-beam-top" />
         <div className="section-glow-top" />
-
-        <div className="max-w-7xl mx-auto relative z-10">
-          <Reveal className="text-center mb-20">
-            <div className="divider-gold mx-auto mb-5" />
-            <p className="tech-label justify-center mb-3">PROCESS · V1.0</p>
-            <p className="text-xs font-bold uppercase tracking-[0.2em] mb-4"
-              style={{ color: 'rgba(200,169,106,0.7)' }}>
-              How it works
-            </p>
-            <h2 className="font-[family-name:var(--font-playfair)] text-4xl sm:text-5xl font-bold text-white mb-5 title-glow">
-              Find your vendor in minutes
-            </h2>
-            <p className="text-base max-w-md mx-auto" style={{ color: 'rgba(255,255,255,0.42)' }}>
-              No account required. No fees. Browse, discover, and connect.
-            </p>
-          </Reveal>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {HOW_IT_WORKS.map(({ step, icon, title, desc }, i) => (
-              <Reveal key={step} delay={i * 110}>
-                <div className="relative p-8 rounded-3xl h-full glass-card-dark overflow-hidden">
-                  {/* Big background step number */}
-                  <span className="step-number">{step}</span>
-
-                  {/* Connector line */}
-                  {i < 2 && (
-                    <div className="hidden md:block step-connector" />
-                  )}
-
-                  <div className="flex items-center gap-3 mb-6">
-                    <div className="icon-box-gold text-2xl flex items-center justify-center"
-                      style={{ fontSize: '1.4rem' }}>
-                      {icon}
-                    </div>
-                    <span className="text-xs font-black tracking-[0.22em]"
-                      style={{ color: 'rgba(200,169,106,0.30)' }}>
-                      {step}
-                    </span>
-                  </div>
-
-                  <h3 className="font-[family-name:var(--font-playfair)] text-xl font-bold text-white mb-3">
-                    {title}
-                  </h3>
-                  <p className="text-sm leading-relaxed" style={{ color: 'rgba(255,255,255,0.43)' }}>
-                    {desc}
-                  </p>
-                </div>
-              </Reveal>
-            ))}
-          </div>
-
-          <Reveal className="text-center mt-14">
-            <Link href="/vendors" className="btn-gold-glow">
-              <Sparkles className="w-4 h-4" />
-              Browse All Vendors
-            </Link>
+        <div className="max-w-3xl mx-auto relative z-10">
+          <Reveal>
+            <BrowseExplorer />
           </Reveal>
         </div>
       </section>
 
-      {/* ── Cinematic section divider ── */}
       <div className="divider-cinematic" />
 
       {/* ══════════════════════════════════════════════════════════════════════
-          § 4  CATEGORIES GRID
+          § 4  WHY MELAA — Bento grid
       ══════════════════════════════════════════════════════════════════════ */}
-      <section className="py-24 px-4 sm:px-6 bg-dark-1 section-immersive relative overflow-hidden section-scanline" style={{'--scan-delay': '2s'} as React.CSSProperties}>
-        <div className="section-beam-top" />
-        <div className="max-w-7xl mx-auto">
-          <Reveal className="flex items-end justify-between mb-14">
-            <div>
-              <div className="divider-gold mb-5" />
-              <p className="tech-label mb-2">DIRECTORY · {new Date().getFullYear()}</p>
-              <p className="text-xs font-bold uppercase tracking-[0.2em] mb-3"
-                style={{ color: 'rgba(200,169,106,0.7)' }}>
-                Categories
-              </p>
-              <h2 className="font-[family-name:var(--font-playfair)] text-4xl sm:text-5xl font-bold text-white title-glow">
-                Every vendor you need
-              </h2>
-            </div>
-            <Link href="/vendors"
-              className="hidden sm:flex items-center gap-2 text-sm font-semibold shrink-0 transition-all duration-200 hover:gap-3"
-              style={{ color: 'rgba(200,169,106,0.75)' }}>
-              All vendors <ArrowRight className="w-4 h-4" />
-            </Link>
-          </Reveal>
-
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4">
-            {CATEGORIES.map(({ label, href, icon, desc }, i) => (
-              <Reveal key={href} delay={i * 35}>
-                <Link href={href} className="group relative rounded-2xl overflow-hidden flex flex-col h-full cat-card-dark">
-                  {/* Icon area */}
-                  <div className="px-5 pt-6 pb-4 flex items-center gap-3">
-                    <span
-                      className="text-3xl sm:text-4xl leading-none group-hover:scale-110 transition-transform duration-500 ease-out"
-                    >{icon}</span>
-                  </div>
-                  {/* Text area */}
-                  <div className="px-5 pb-5 flex flex-col flex-1">
-                    <p className="font-semibold text-sm sm:text-[0.9rem] text-white mb-1 leading-snug">{label}</p>
-                    <p className="text-xs leading-relaxed" style={{ color: 'rgba(255,255,255,0.36)' }}>{desc}</p>
-                    <div className="mt-auto pt-4 flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-1 group-hover:translate-y-0">
-                      <span className="text-xs font-semibold" style={{ color: '#C8A96A' }}>Browse</span>
-                      <ArrowRight className="w-3 h-3" style={{ color: '#C8A96A' }} />
-                    </div>
-                  </div>
-                  {/* Bottom accent bar */}
-                  <div
-                    className="absolute bottom-0 inset-x-0 h-[2px] opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                    style={{ background: 'linear-gradient(90deg, rgba(200,169,106,0.6), rgba(200,169,106,0.1))' }}
-                  />
-                </Link>
-              </Reveal>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ── Cinematic section divider ── */}
-      <div className="divider-cinematic" />
-
-      {/* ══════════════════════════════════════════════════════════════════════
-          § 5  WHY MELAA — Bento grid
-      ══════════════════════════════════════════════════════════════════════ */}
-      <section className="py-24 px-4 sm:px-6 relative overflow-hidden bg-dark-2 section-immersive section-scanline" style={{'--scan-delay': '4s'} as React.CSSProperties}>
+      <section className="py-24 px-4 sm:px-6 relative overflow-hidden bg-dark-1 section-immersive section-scanline" style={{'--scan-delay': '4s'} as React.CSSProperties}>
         <div className="section-beam-top" />
         <div className="section-glow-gold" />
 
         <div className="max-w-7xl mx-auto relative z-10">
-          <Reveal className="text-center mb-16">
+          <Reveal className="text-center mb-14">
             <div className="divider-gold mx-auto mb-5" />
             <p className="tech-label justify-center mb-3">PLATFORM · SOUTH ASIAN FIRST</p>
-            <p className="text-xs font-bold uppercase tracking-[0.2em] mb-4"
-              style={{ color: 'rgba(200,169,106,0.7)' }}>
-              Why Melaa
-            </p>
-            <h2 className="font-[family-name:var(--font-playfair)] text-4xl sm:text-5xl font-bold text-white mb-5 title-glow">
+            <h2 className="font-[family-name:var(--font-playfair)] text-4xl sm:text-5xl font-bold text-white mb-4 title-glow">
               Built for your culture.<br />
               <span className="gradient-shimmer">Not adapted for it.</span>
             </h2>
-            <p className="text-base max-w-xl mx-auto" style={{ color: 'rgba(255,255,255,0.42)' }}>
-              Every other wedding platform was built for Western weddings and retrofitted.
-              Melaa was built from day one for South Asian celebrations.
+            <p className="text-base max-w-lg mx-auto" style={{ color: 'rgba(255,255,255,0.40)' }}>
+              Built from day one for South Asian celebrations — every vendor knows every ritual.
             </p>
           </Reveal>
 
-          {/* Bento grid */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
 
             {/* Wide hero card */}
@@ -545,20 +349,20 @@ export default async function HomePage() {
                 style={{
                   background: 'rgba(200,169,106,0.055)',
                   border: '1px solid rgba(200,169,106,0.18)',
-                  minHeight: 300,
+                  minHeight: 280,
                 }}>
                 <div className="absolute inset-0 pointer-events-none"
                   style={{
                     backgroundImage: 'radial-gradient(rgba(200,169,106,0.055) 1px, transparent 1px)',
                     backgroundSize: '28px 28px',
                   }} />
-                <div className="absolute top-0 right-0 w-80 h-80 pointer-events-none"
+                <div className="absolute top-0 right-0 w-72 h-72 pointer-events-none"
                   style={{
                     background: 'radial-gradient(circle, rgba(200,169,106,0.12) 0%, transparent 70%)',
                     transform: 'translate(30%,-30%)',
                   }} />
                 <div className="relative z-10">
-                  <div className="text-4xl mb-6">🕉️</div>
+                  <div className="text-4xl mb-5">🕉️</div>
                   <h3 className="font-[family-name:var(--font-playfair)] text-2xl font-bold text-white mb-3">
                     Every ceremony. Every tradition.
                   </h3>
@@ -566,7 +370,7 @@ export default async function HomePage() {
                     From Mehndi nights to Baraat processions, Sangeet to Nikah — our vendors know
                     every ritual, every detail, every expectation. No explaining required.
                   </p>
-                  <div className="mt-7 flex flex-wrap gap-2">
+                  <div className="mt-6 flex flex-wrap gap-2">
                     {['Mehndi', 'Baraat', 'Sangeet', 'Nikah', 'Anand Karaj', 'Vidai', 'Haldi', 'Walima'].map(c => (
                       <span key={c} className="text-xs px-3 py-1.5 rounded-full font-medium"
                         style={{
@@ -623,100 +427,87 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* ══════════════════════════════════════════════════════════════════════
-          § 6  FEATURED VENDORS (only when present)
-      ══════════════════════════════════════════════════════════════════════ */}
+      {/* Featured vendors — only when present */}
       {featured.length > 0 && (
-        <section className="py-32 px-4 sm:px-6 bg-dark-1">
-          <div className="max-w-7xl mx-auto">
-            <Reveal className="flex items-end justify-between mb-14">
-              <div>
-                <div className="divider-gold mb-5" />
-                <p className="text-xs font-bold uppercase tracking-[0.2em] mb-3"
-                  style={{ color: 'rgba(200,169,106,0.7)' }}>
-                  Featured
-                </p>
-                <h2 className="font-[family-name:var(--font-playfair)] text-4xl sm:text-5xl font-bold text-white">
-                  Top vendors this week
-                </h2>
+        <>
+          <div className="divider-cinematic" />
+          <section className="py-20 px-4 sm:px-6 bg-dark-2">
+            <div className="max-w-7xl mx-auto">
+              <Reveal className="flex items-end justify-between mb-12">
+                <div>
+                  <div className="divider-gold mb-4" />
+                  <p className="tech-label mb-2">FEATURED · THIS WEEK</p>
+                  <h2 className="font-[family-name:var(--font-playfair)] text-3xl sm:text-4xl font-bold text-white title-glow">
+                    Top vendors
+                  </h2>
+                </div>
+                <Link href="/vendors"
+                  className="hidden sm:flex items-center gap-2 text-sm font-semibold shrink-0 transition-all duration-200 hover:gap-3"
+                  style={{ color: 'rgba(200,169,106,0.75)' }}>
+                  View all <ArrowRight className="w-4 h-4" />
+                </Link>
+              </Reveal>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                {featured.map((v, i) => (
+                  <Reveal key={v.id} delay={i * 100}>
+                    <VendorCard vendor={v} />
+                  </Reveal>
+                ))}
               </div>
-              <Link href="/vendors"
-                className="hidden sm:flex items-center gap-2 text-sm font-semibold shrink-0 transition-all duration-200 hover:gap-3"
-                style={{ color: 'rgba(200,169,106,0.75)' }}>
-                View all <ArrowRight className="w-4 h-4" />
-              </Link>
-            </Reveal>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-              {featured.map((v, i) => (
-                <Reveal key={v.id} delay={i * 100}>
-                  <VendorCard vendor={v} />
-                </Reveal>
-              ))}
             </div>
-          </div>
-        </section>
+          </section>
+        </>
       )}
 
-      {/* ── Cinematic section divider ── */}
       <div className="divider-cinematic" />
 
       {/* ══════════════════════════════════════════════════════════════════════
-          § 7  FOR VENDORS — Feature grid + pricing
+          § 5  FOR VENDORS — Features + Pricing
       ══════════════════════════════════════════════════════════════════════ */}
       <section className="py-24 px-4 sm:px-6 relative overflow-hidden bg-dark-3 section-immersive section-scanline" style={{'--scan-delay': '1.5s'} as React.CSSProperties}>
         <div className="section-beam-top" />
         <div className="absolute inset-0 pointer-events-none"
           style={{
-            backgroundImage: 'radial-gradient(rgba(200,169,106,0.045) 1px, transparent 1px)',
+            backgroundImage: 'radial-gradient(rgba(200,169,106,0.04) 1px, transparent 1px)',
             backgroundSize: '36px 36px',
           }} />
         <div className="section-glow-gold" />
 
         <div className="max-w-7xl mx-auto relative z-10">
 
-          {/* Header */}
-          <Reveal className="text-center mb-20">
+          <Reveal className="text-center mb-16">
             <div className="divider-gold mx-auto mb-5" />
             <p className="tech-label justify-center mb-3">VENDOR · GROWTH PLATFORM</p>
-            <p className="text-xs font-bold uppercase tracking-[0.2em] mb-4"
-              style={{ color: 'rgba(200,169,106,0.7)' }}>
-              For Vendors
-            </p>
-            <h2 className="font-[family-name:var(--font-playfair)] text-4xl sm:text-5xl font-bold text-white mb-5 title-glow">
+            <h2 className="font-[family-name:var(--font-playfair)] text-4xl sm:text-5xl font-bold text-white mb-4 title-glow">
               Grow your wedding business<br />
               <span className="gradient-shimmer">with Melaa</span>
             </h2>
-            <p className="text-base max-w-xl mx-auto" style={{ color: 'rgba(255,255,255,0.42)' }}>
-              Join thousands of South Asian wedding professionals already on the platform.
+            <p className="text-base max-w-lg mx-auto" style={{ color: 'rgba(255,255,255,0.42)' }}>
               Start free, upgrade when you&apos;re ready.
             </p>
           </Reveal>
 
-          {/* 6-feature grid */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 mb-24">
+          {/* Feature grid — 2 columns on mobile, 3 on desktop */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-20">
             {VENDOR_FEATURES.map(({ Icon, title, desc }, i) => (
-              <Reveal key={title} delay={i * 55}>
+              <Reveal key={title} delay={i * 50}>
                 <div className="flex items-start gap-4 p-6 rounded-2xl h-full glass-card-dark">
                   <div className="icon-box-gold shrink-0">
                     <Icon className="w-5 h-5" style={{ color: '#C8A96A' }} />
                   </div>
                   <div>
                     <p className="font-semibold text-sm text-white mb-1.5">{title}</p>
-                    <p className="text-xs leading-relaxed" style={{ color: 'rgba(255,255,255,0.40)' }}>
-                      {desc}
-                    </p>
+                    <p className="text-xs leading-relaxed" style={{ color: 'rgba(255,255,255,0.40)' }}>{desc}</p>
                   </div>
                 </div>
               </Reveal>
             ))}
           </div>
 
-          {/* Pricing cards */}
-          <Reveal className="text-center mb-12">
+          {/* Pricing */}
+          <Reveal className="text-center mb-10">
             <p className="text-xs font-bold uppercase tracking-[0.2em] mb-3"
-              style={{ color: 'rgba(200,169,106,0.7)' }}>
-              Pricing
-            </p>
+              style={{ color: 'rgba(200,169,106,0.7)' }}>Pricing</p>
             <h3 className="font-[family-name:var(--font-playfair)] text-3xl sm:text-4xl font-bold text-white">
               Simple, transparent pricing
             </h3>
@@ -735,15 +526,10 @@ export default async function HomePage() {
                     border: '1px solid rgba(200,169,106,0.10)',
                   }}
                 >
-                  {/* Badge */}
-                  {badge && (
-                    <div className="pricing-badge">{badge}</div>
-                  )}
+                  {badge && <div className="pricing-badge">{badge}</div>}
 
                   <p className="font-semibold text-xs uppercase tracking-[0.18em] mb-5"
-                    style={{ color: 'rgba(200,169,106,0.65)' }}>
-                    {name}
-                  </p>
+                    style={{ color: 'rgba(200,169,106,0.65)' }}>{name}</p>
 
                   <div className="mb-2 flex items-end gap-1">
                     <span className="font-[family-name:var(--font-playfair)] text-4xl font-black text-white">
@@ -756,9 +542,9 @@ export default async function HomePage() {
                     )}
                   </div>
 
-                  <p className="text-sm mb-8" style={{ color: 'rgba(255,255,255,0.42)' }}>{desc}</p>
+                  <p className="text-sm mb-7" style={{ color: 'rgba(255,255,255,0.42)' }}>{desc}</p>
 
-                  <ul className="space-y-3 mb-8 flex-1">
+                  <ul className="space-y-3 mb-7 flex-1">
                     {perks.map(perk => (
                       <li key={perk} className="flex items-start gap-2.5 text-sm"
                         style={{ color: 'rgba(255,255,255,0.62)' }}>
@@ -771,9 +557,7 @@ export default async function HomePage() {
                   <Link
                     href={href}
                     className={`block text-center py-3.5 rounded-2xl font-semibold text-sm transition-all duration-200 ${
-                      highlight
-                        ? 'btn-gold-glow justify-center'
-                        : 'border text-center hover:bg-white/5'
+                      highlight ? 'btn-gold-glow justify-center' : 'border hover:bg-white/5'
                     }`}
                     style={!highlight ? {
                       border: '1px solid rgba(200,169,106,0.25)',
@@ -790,112 +574,12 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* ══════════════════════════════════════════════════════════════════════
-          § 8  TESTIMONIALS (hidden until real reviews exist)
-      ══════════════════════════════════════════════════════════════════════ */}
-      {TESTIMONIALS.length > 0 && (
-        <section className="py-32 px-4 sm:px-6 bg-dark-2">
-          <div className="max-w-7xl mx-auto">
-            <Reveal className="text-center mb-16">
-              <div className="divider-gold mx-auto mb-5" />
-              <p className="text-xs font-bold uppercase tracking-[0.2em] mb-4"
-                style={{ color: 'rgba(200,169,106,0.7)' }}>
-                Reviews
-              </p>
-              <h2 className="font-[family-name:var(--font-playfair)] text-4xl sm:text-5xl font-bold text-white">
-                Couples who found their vendors
-              </h2>
-            </Reveal>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              {TESTIMONIALS.map(({ name, city, initials, stars, text }, i) => (
-                <Reveal key={name} delay={i * 100}>
-                  <div className="rounded-3xl p-7 flex flex-col gap-5 h-full glass-card-dark">
-                    <div className="flex gap-0.5">
-                      {Array.from({ length: stars }).map((_, j) => (
-                        <Star key={j} className="w-4 h-4 fill-current" style={{ color: '#C8A96A' }} />
-                      ))}
-                    </div>
-                    <p className="text-sm leading-relaxed flex-1 quote-mark"
-                      style={{ color: 'rgba(255,255,255,0.55)' }}>
-                      &ldquo;{text}&rdquo;
-                    </p>
-                    <div className="flex items-center gap-3 pt-4"
-                      style={{ borderTop: '1px solid rgba(200,169,106,0.10)' }}>
-                      <div className="w-9 h-9 rounded-full flex items-center justify-center text-xs font-bold shrink-0"
-                        style={{ background: 'rgba(200,169,106,0.14)', color: '#C8A96A' }}>
-                        {initials}
-                      </div>
-                      <div>
-                        <p className="text-sm font-semibold text-white">{name}</p>
-                        <p className="text-xs" style={{ color: 'rgba(200,169,106,0.5)' }}>
-                          {city}, ON
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                </Reveal>
-              ))}
-            </div>
-          </div>
-        </section>
-      )}
-
-      {/* ── Cinematic section divider ── */}
       <div className="divider-cinematic" />
 
       {/* ══════════════════════════════════════════════════════════════════════
-          § 9  GTA CITIES
-      ══════════════════════════════════════════════════════════════════════ */}
-      <section className="py-24 px-4 sm:px-6 bg-dark-1 section-immersive relative overflow-hidden section-scanline" style={{'--scan-delay': '3.5s'} as React.CSSProperties}>
-        <div className="section-beam-top" />
-        <div className="max-w-7xl mx-auto">
-          <Reveal className="text-center mb-14">
-            <div className="divider-gold mx-auto mb-5" />
-            <p className="tech-label justify-center mb-3">GTA · 8 CITIES COVERED</p>
-            <p className="text-xs font-bold uppercase tracking-[0.2em] mb-4"
-              style={{ color: 'rgba(200,169,106,0.7)' }}>
-              Browse by City
-            </p>
-            <h2 className="font-[family-name:var(--font-playfair)] text-4xl sm:text-5xl font-bold text-white title-glow">
-              Vendors across the GTA
-            </h2>
-          </Reveal>
-
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-            {CITIES.map(({ name, slug }, i) => (
-              <Reveal key={slug} delay={i * 35}>
-                <Link href={`/vendors?city=${slug}`}
-                  className="group flex flex-col gap-2 p-5 rounded-2xl city-card-dark transition-all duration-300">
-                  <div className="flex items-center justify-between">
-                    <div className="w-8 h-8 rounded-xl flex items-center justify-center transition-colors duration-300"
-                      style={{
-                        background: 'rgba(200,169,106,0.10)',
-                        border: '1px solid rgba(200,169,106,0.15)',
-                      }}>
-                      <MapPin className="w-3.5 h-3.5" style={{ color: '#C8A96A' }} />
-                    </div>
-                    <ArrowRight
-                      className="w-3.5 h-3.5 opacity-0 group-hover:opacity-100 transition-all duration-200 -translate-x-1 group-hover:translate-x-0"
-                      style={{ color: '#C8A96A' }}
-                    />
-                  </div>
-                  <p className="text-sm font-semibold text-white mt-1">{name}</p>
-                  <p className="text-xs" style={{ color: 'rgba(255,255,255,0.32)' }}>GTA · Ontario</p>
-                </Link>
-              </Reveal>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ── Cinematic section divider ── */}
-      <div className="divider-cinematic" />
-
-      {/* ══════════════════════════════════════════════════════════════════════
-          § 10  FINAL CTA — Full-width immersive banner
+          § 6  FINAL CTA
       ══════════════════════════════════════════════════════════════════════ */}
       <section className="py-24 sm:py-32 px-4 sm:px-6 relative overflow-hidden bg-dark-2 section-immersive section-scanline" style={{'--scan-delay': '6s'} as React.CSSProperties}>
-        {/* Background elements */}
         <div className="absolute inset-0 pointer-events-none"
           style={{
             backgroundImage: 'radial-gradient(rgba(200,169,106,0.05) 1px, transparent 1px)',
@@ -950,7 +634,6 @@ export default async function HomePage() {
             </div>
           </Reveal>
 
-          {/* Trust line */}
           <Reveal delay={320}>
             <p className="mt-10 text-xs" style={{ color: 'rgba(255,255,255,0.28)' }}>
               Free to browse · No account required · Zero booking fees

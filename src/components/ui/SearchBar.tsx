@@ -1,57 +1,122 @@
 'use client'
 
-import { useState, useRef, useEffect } from 'react'
+import { useState, useRef, useEffect, useCallback } from 'react'
 import { useRouter } from 'next/navigation'
-import { Search, ArrowRight } from 'lucide-react'
+import { Search, ArrowRight, X } from 'lucide-react'
 
 const SUGGESTIONS = [
-  'Photographers in Brampton',
-  'Caterers Mississauga',
-  'Mehndi Artists Toronto',
-  'Bridal Makeup GTA',
-  'South Asian DJ',
-  'Wedding Decorators',
+  { label: 'Photographers in Brampton',   icon: '📸' },
+  { label: 'Caterers Mississauga',         icon: '🍛' },
+  { label: 'Mehndi Artists Toronto',       icon: '🌿' },
+  { label: 'Bridal Makeup & Hair GTA',     icon: '💄' },
+  { label: 'South Asian DJ',               icon: '🎶' },
+  { label: 'Wedding Decorators Vaughan',   icon: '💐' },
 ]
 
 export default function SearchBar({ dark = false }: { dark?: boolean }) {
-  const [query, setQuery] = useState('')
+  const [query,   setQuery]   = useState('')
   const [focused, setFocused] = useState(false)
-  const [dropdownStyle, setDropdownStyle] = useState<React.CSSProperties>({})
   const wrapperRef = useRef<HTMLDivElement>(null)
-  const router = useRouter()
+  const inputRef   = useRef<HTMLInputElement>(null)
+  const router     = useRouter()
 
-  // Recalculate fixed dropdown position whenever focused or window resizes
+  // Close on outside click
+  const onDoc = useCallback((e: MouseEvent) => {
+    if (wrapperRef.current && !wrapperRef.current.contains(e.target as Node)) {
+      setFocused(false)
+    }
+  }, [])
   useEffect(() => {
-    function recalc() {
-      if (!wrapperRef.current) return
-      const rect = wrapperRef.current.getBoundingClientRect()
-      setDropdownStyle({
-        position: 'fixed',
-        top: rect.bottom + 8,
-        left: rect.left,
-        width: rect.width,
-        zIndex: 9999,
-      })
-    }
-    if (focused) recalc()
-    window.addEventListener('resize', recalc)
-    window.addEventListener('scroll', recalc, { passive: true })
-    return () => {
-      window.removeEventListener('resize', recalc)
-      window.removeEventListener('scroll', recalc)
-    }
-  }, [focused])
+    document.addEventListener('mousedown', onDoc)
+    return () => document.removeEventListener('mousedown', onDoc)
+  }, [onDoc])
 
-  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+  function submit(value?: string) {
+    const trimmed = (value ?? query).trim()
+    if (trimmed) {
+      setFocused(false)
+      router.push(`/vendors?search=${encodeURIComponent(trimmed)}`)
+    } else {
+      router.push('/vendors')
+    }
+  }
+
+  function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
-    const trimmed = query.trim()
-    if (trimmed) router.push(`/vendors?search=${encodeURIComponent(trimmed)}`)
+    submit()
   }
 
-  function handleSuggestion(suggestion: string) {
-    router.push(`/vendors?search=${encodeURIComponent(suggestion)}`)
+  const showDropdown = focused && !query
+
+  if (dark) {
+    return (
+      <div ref={wrapperRef} className="relative w-full max-w-xl">
+        <form
+          onSubmit={handleSubmit}
+          className="search-dark-form"
+          style={{
+            boxShadow: focused
+              ? '0 0 0 1px rgba(200,169,106,0.45), 0 12px 32px rgba(0,0,0,0.35)'
+              : '0 0 0 1px rgba(200,169,106,0.18), 0 4px 16px rgba(0,0,0,0.2)',
+          }}
+        >
+          <Search
+            className="shrink-0 ml-4"
+            style={{
+              width: 18, height: 18,
+              color: focused ? '#C8A96A' : 'rgba(200,169,106,0.5)',
+              transition: 'color 0.2s',
+            }}
+          />
+          <input
+            ref={inputRef}
+            type="text"
+            value={query}
+            onChange={e => setQuery(e.target.value)}
+            onFocus={() => setFocused(true)}
+            placeholder="Search photographers, caterers, mehndi..."
+            className="search-dark-input"
+            autoComplete="off"
+          />
+          {query && (
+            <button
+              type="button"
+              onClick={() => { setQuery(''); inputRef.current?.focus() }}
+              className="shrink-0 mr-1 p-1.5 rounded-lg transition-colors hover:bg-white/10"
+              aria-label="Clear"
+            >
+              <X style={{ width: 14, height: 14, color: 'rgba(255,255,255,0.4)' }} />
+            </button>
+          )}
+          <button type="submit" className="search-dark-btn">
+            Search
+            <ArrowRight style={{ width: 15, height: 15 }} />
+          </button>
+        </form>
+
+        {/* Dark suggestions dropdown */}
+        {showDropdown && (
+          <div className="search-dark-dropdown">
+            <p className="search-dark-dropdown-label">Popular searches</p>
+            {SUGGESTIONS.map(({ label, icon }) => (
+              <button
+                key={label}
+                onClick={() => submit(label)}
+                className="search-dark-suggestion"
+              >
+                <span className="text-sm leading-none">{icon}</span>
+                <span>{label}</span>
+                <ArrowRight className="ml-auto opacity-0 group-hover:opacity-100 transition-opacity"
+                  style={{ width: 13, height: 13, color: '#C8A96A' }} />
+              </button>
+            ))}
+          </div>
+        )}
+      </div>
+    )
   }
 
+  // Light mode (for vendors page, etc.)
   return (
     <div ref={wrapperRef} className="relative w-full">
       <form
@@ -66,18 +131,27 @@ export default function SearchBar({ dark = false }: { dark?: boolean }) {
           <Search className={`w-5 h-5 transition-colors duration-200 ${focused ? 'text-[#C8A96A]' : 'text-gray-400'}`} />
         </div>
         <input
+          ref={inputRef}
           type="text"
           value={query}
-          onChange={(e) => setQuery(e.target.value)}
+          onChange={e => setQuery(e.target.value)}
           onFocus={() => setFocused(true)}
-          onBlur={() => setTimeout(() => setFocused(false), 150)}
           placeholder="Search photographers, caterers, mehndi..."
           className="flex-1 px-4 py-4 text-gray-800 placeholder-gray-400 bg-transparent outline-none text-sm md:text-base"
           autoComplete="off"
         />
+        {query && (
+          <button
+            type="button"
+            onClick={() => { setQuery(''); inputRef.current?.focus() }}
+            className="mr-1 p-1.5 rounded-lg text-gray-400 hover:text-gray-600 transition-colors"
+            aria-label="Clear"
+          >
+            <X className="w-4 h-4" />
+          </button>
+        )}
         <button
           type="submit"
-          aria-label="Search"
           className="m-2 flex items-center gap-2 bg-[#C8A96A] hover:bg-[#B8945A] text-white font-semibold px-5 py-3 rounded-xl text-sm transition-colors duration-200 whitespace-nowrap"
         >
           Search
@@ -85,24 +159,20 @@ export default function SearchBar({ dark = false }: { dark?: boolean }) {
         </button>
       </form>
 
-      {/* Fixed-position dropdown — escapes ALL stacking contexts */}
-      {focused && !query && (
-        <div
-          style={dropdownStyle}
-          className="bg-white rounded-2xl shadow-[0_16px_48px_rgba(0,0,0,0.14)] border border-gray-100 overflow-hidden"
-        >
+      {showDropdown && (
+        <div className="absolute top-full left-0 right-0 mt-2 bg-white rounded-2xl shadow-[0_16px_48px_rgba(0,0,0,0.14)] border border-gray-100 overflow-hidden z-50">
           <div className="px-4 py-2.5 border-b border-gray-50">
             <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Popular Searches</p>
           </div>
-          {SUGGESTIONS.map((suggestion) => (
+          {SUGGESTIONS.map(({ label, icon }) => (
             <button
-              key={suggestion}
-              onClick={() => handleSuggestion(suggestion)}
-              className="w-full flex items-center gap-3 px-4 py-3 hover:bg-[#F5ECD7]/60 transition-colors duration-150 text-left group"
+              key={label}
+              onClick={() => submit(label)}
+              className="group w-full flex items-center gap-3 px-4 py-3 hover:bg-[#F5ECD7]/60 transition-colors duration-150 text-left"
             >
-              <Search className="w-3.5 h-3.5 text-gray-300 group-hover:text-[#C8A96A] transition-colors shrink-0" />
-              <span className="text-sm text-gray-600 group-hover:text-gray-900 transition-colors">{suggestion}</span>
-              <ArrowRight className="w-3 h-3 text-gray-300 group-hover:text-[#C8A96A] ml-auto opacity-0 group-hover:opacity-100 transition-all duration-150" />
+              <span className="text-sm leading-none">{icon}</span>
+              <span className="text-sm text-gray-600 group-hover:text-gray-900 transition-colors">{label}</span>
+              <ArrowRight className="w-3 h-3 text-gray-300 group-hover:text-[#C8A96A] ml-auto opacity-0 group-hover:opacity-100 transition-all" />
             </button>
           ))}
         </div>
