@@ -3,7 +3,7 @@ import Link from 'next/link'
 
 export const metadata: Metadata = {
   title: 'Terms of Service | Mela',
-  description: 'Terms of Service for Mela — the South Asian wedding vendor directory for the Greater Toronto Area.',
+  description: 'Terms of Service for Melaa, the South Asian wedding and event vendor directory for the Greater Toronto Area.',
 }
 
 export default function TermsPage() {

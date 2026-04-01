@@ -208,7 +208,7 @@ export default async function BlogPostPage({ params }: PageProps) {
           Find {categoryLabel} vendors on Melaa
         </h2>
         <p className="text-[#F5ECD7] text-lg mb-8 max-w-xl mx-auto">
-          Discover trusted South Asian wedding vendors across the GTA — verified,
+          Discover trusted wedding and event vendors across the GTA. Verified,
           reviewed, and ready to make your celebration unforgettable.
         </p>
         <Link

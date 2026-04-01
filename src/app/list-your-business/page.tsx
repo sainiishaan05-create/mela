@@ -5,7 +5,7 @@ import Link from 'next/link'
 import { CheckCircle2, ArrowRight, Sparkles, Shield, Zap, TrendingUp, Users, Star } from 'lucide-react'
 
 export const metadata: Metadata = {
-  title: 'List Your Business Free | Melaa — South Asian Wedding Vendors GTA',
+  title: 'List Your Business Free | Melaa | Wedding & Event Vendors GTA',
   description: 'Join as a Founding Vendor on Melaa. Free for 90 days, then lock in $49/mo forever. Get discovered by thousands of South Asian families in the GTA.',
 }
 

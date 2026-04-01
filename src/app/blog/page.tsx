@@ -6,7 +6,7 @@ import { Clock, ArrowRight, BookOpen } from 'lucide-react'
 export const metadata: Metadata = {
   title: 'South Asian Wedding Planning Blog | Melaa',
   description:
-    'Expert advice, local guides, and vendor tips for planning your South Asian wedding in the GTA — covering Brampton, Mississauga, Toronto, and beyond.',
+    'Expert advice, local guides, and vendor tips for planning your wedding or event in the GTA. Covering Brampton, Mississauga, Toronto, and beyond.',
 }
 
 const categoryLabels: Record<string, string> = {
@@ -77,7 +77,7 @@ export default function BlogIndexPage() {
           </h1>
           <p className="text-white/60 text-lg max-w-2xl mx-auto leading-relaxed">
             Everything you need to plan a perfect South Asian wedding in Brampton, Mississauga,
-            Toronto, and across the GTA — written by people who understand your culture.
+            Toronto, and across the GTA. Written by people who understand your culture.
           </p>
           <div className="flex items-center justify-center gap-6 mt-8 text-white/40 text-sm">
             <span className="flex items-center gap-1.5"><BookOpen className="w-4 h-4" /> {blogPosts.length} articles</span>

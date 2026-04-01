@@ -27,7 +27,7 @@ const benefits = [
     icon: '📋',
     title: 'Planning Guides',
     description:
-      'Practical tips for South Asian weddings — from budgeting and timelines to negotiating with vendors.',
+      'Practical tips for weddings and events, from budgeting and timelines to negotiating with vendors.',
   },
   {
     icon: '🏷️',

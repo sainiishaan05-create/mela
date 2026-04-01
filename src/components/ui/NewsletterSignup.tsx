@@ -86,7 +86,7 @@ export default function NewsletterSignup({ variant = 'dark' }: NewsletterSignupP
             Stay in the loop
           </h2>
           <p className={`text-base ${subtextClass} leading-relaxed`}>
-            South Asian wedding tips, vendor spotlights, and exclusive deals — delivered to your inbox.
+            Wedding tips, vendor spotlights, and exclusive deals. Delivered to your inbox.
           </p>
         </div>
 

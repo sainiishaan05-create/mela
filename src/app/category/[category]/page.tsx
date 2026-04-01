@@ -115,7 +115,7 @@ export default async function CategoryPage({ params, searchParams }: Props) {
               No {typedCat.name} yet
             </h2>
             <p className="text-gray-400 text-sm mb-6 animate-fade-up delay-150">
-              Be the first {typedCat.name.toLowerCase()} on Melaa — it&apos;s completely free to start.
+              Be the first {typedCat.name.toLowerCase()} on Melaa. It&apos;s completely free to start.
             </p>
             <div className="flex flex-col sm:flex-row gap-3 justify-center animate-fade-up delay-200">
               <Link

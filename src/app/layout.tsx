@@ -17,10 +17,10 @@ const inter = Inter({
 })
 
 export const metadata: Metadata = {
-  title: 'Melaa — South Asian Wedding Vendors in GTA',
+  title: 'Melaa | South Asian Wedding & Event Vendors in GTA',
   description: 'Find the best South Asian wedding photographers, decorators, caterers, DJs and more in the Greater Toronto Area.',
   openGraph: {
-    title: 'Melaa — South Asian Wedding Vendors in GTA',
+    title: 'Melaa | South Asian Wedding & Event Vendors in GTA',
     description: 'Find the best South Asian wedding photographers, decorators, caterers, DJs and more in the Greater Toronto Area.',
     url: 'https://melaa.ca',
     siteName: 'Melaa',
@@ -29,7 +29,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Melaa — South Asian Wedding Vendors in GTA',
+    title: 'Melaa | South Asian Wedding & Event Vendors in GTA',
     description: 'Find the best South Asian wedding photographers, decorators, caterers, DJs and more in the Greater Toronto Area.',
   },
   other: {

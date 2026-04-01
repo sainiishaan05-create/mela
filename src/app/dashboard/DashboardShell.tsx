@@ -273,7 +273,7 @@ function OverviewTab({ vendor, leads, score, missing, setActiveTab }: {
             <AlertCircle className="w-5 h-5 text-[#C8A96A] shrink-0 mt-0.5" />
             <div className="flex-1">
               <p className="font-semibold text-[#2B2623] text-sm mb-1">
-                Your profile is {score}% complete — couples are less likely to contact incomplete profiles
+                Your profile is {score}% complete. Couples are less likely to contact incomplete profiles
               </p>
               <p className="text-xs text-gray-500 mb-3">Missing: {missing.join(', ')}</p>
               <div className="flex gap-2">
@@ -334,7 +334,7 @@ function OverviewTab({ vendor, leads, score, missing, setActiveTab }: {
         {recentLeads.length === 0 ? (
           <div className="text-center py-8 text-gray-400">
             <p className="text-3xl mb-2">📭</p>
-            <p className="text-sm">No inquiries yet — share your profile to get started!</p>
+            <p className="text-sm">No inquiries yet. Share your profile to get started!</p>
           </div>
         ) : (
           <div className="space-y-3">
@@ -426,7 +426,7 @@ function ProfileTab({ vendor, categories, cities, onSave }: {
         <div>
           <label className="block text-sm font-medium text-[#2B2623] mb-1.5">
             About Your Business
-            <span className="font-normal text-gray-400 ml-2">({form.description.length} chars — 50+ recommended)</span>
+            <span className="font-normal text-gray-400 ml-2">({form.description.length} chars, 50+ recommended)</span>
           </label>
           <textarea
             value={form.description}
@@ -767,7 +767,7 @@ function AnalyticsTab({ leads, vendor }: { leads: Lead[]; vendor: Props['vendor'
 
       {/* Weekly bar chart */}
       <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-6">
-        <p className="font-semibold text-[#2B2623] mb-5">Inquiries — last 8 weeks</p>
+        <p className="font-semibold text-[#2B2623] mb-5">Inquiries: last 8 weeks</p>
         <div className="flex items-end gap-2 h-32">
           {weeks.map(({ label, count }) => (
             <div key={label} className="flex-1 flex flex-col items-center gap-1.5">
@@ -785,7 +785,7 @@ function AnalyticsTab({ leads, vendor }: { leads: Lead[]; vendor: Props['vendor'
           ))}
         </div>
         {leads.length === 0 && (
-          <p className="text-center text-sm text-gray-400 mt-4">No inquiries yet — data will appear here as you receive leads.</p>
+          <p className="text-center text-sm text-gray-400 mt-4">No inquiries yet. Data will appear here as you receive leads.</p>
         )}
       </div>
 
@@ -812,7 +812,7 @@ function AnalyticsTab({ leads, vendor }: { leads: Lead[]; vendor: Props['vendor'
         <Eye className="w-5 h-5 text-gray-300 shrink-0" />
         <div>
           <p className="text-sm font-medium text-gray-600">Profile view tracking</p>
-          <p className="text-xs text-gray-400">Coming soon — we&apos;re building page view analytics. Inquiries are tracked now.</p>
+          <p className="text-xs text-gray-400">Coming soon. We&apos;re building page view analytics. Inquiries are tracked now.</p>
         </div>
       </div>
     </div>
@@ -923,7 +923,7 @@ function SubscriptionTab({ vendor, userId }: { vendor: Props['vendor']; userId: 
               >
                 {checkoutLoading === 'basic'
                   ? <><Loader2 className="w-4 h-4 animate-spin" /> Redirecting to checkout…</>
-                  : <>Upgrade to Basic — $49/mo <ArrowRight className="w-4 h-4" /></>
+                  : <>Upgrade to Basic, $49/mo <ArrowRight className="w-4 h-4" /></>
                 }
               </button>
             </div>

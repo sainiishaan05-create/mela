@@ -55,7 +55,7 @@ export default function Footer() {
               Melaa
             </Link>
             <p className="text-sm leading-relaxed mb-6" style={{ color: 'rgba(255,255,255,0.4)' }}>
-              The GTA's only marketplace built exclusively for South Asian weddings. Find vendors who understand your culture, no explaining required.
+              The GTA's only marketplace built exclusively for South Asian weddings and events. Find vendors who understand your culture, no explaining required.
             </p>
             <div className="flex items-center gap-2">
               <a href="https://instagram.com/melaa.ca_" target="_blank" rel="noopener noreferrer" aria-label="Instagram"

@@ -3,7 +3,7 @@ import Link from 'next/link'
 import { MapPin, ArrowRight } from 'lucide-react'
 
 export const metadata: Metadata = {
-  title: 'Browse by City | Melaa — South Asian Wedding Vendors Ontario',
+  title: 'Browse by City | Melaa | Wedding & Event Vendors Ontario',
   description: 'Find South Asian wedding vendors across 55+ Ontario cities. Browse photographers, caterers, decorators, DJs, and more in your city.',
 }
 
@@ -43,7 +43,7 @@ export default function BrowsePage() {
             Browse by City
           </h1>
           <p className="text-base leading-relaxed" style={{ color: '#8A7B74' }}>
-            South Asian wedding vendors across 55+ Ontario cities — all built for your culture.
+            Wedding and event vendors across 55+ Ontario cities, all built for your culture.
           </p>
         </div>
       </div>
