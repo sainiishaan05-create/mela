@@ -18,6 +18,15 @@ export const revalidate = 300
    STATIC DATA
 ───────────────────────────────────────────────────────────────────────────── */
 
+// Floating category cards layered over the hero canvas (desktop only)
+const FLOAT_CARDS = [
+  { emoji:'📸', label:'Photography',   count:'280+', top:'13%', right:'3%',  rot:'-1.5deg', revealDelay:'0.70s', bobDelay:'0.0s'  },
+  { emoji:'🎵', label:'DJ & Music',    count:'145+', top:'30%', right:'27%', rot:' 2.2deg', revealDelay:'0.95s', bobDelay:'1.3s'  },
+  { emoji:'💄', label:'Makeup & Hair', count:'310+', top:'49%', right:'2%',  rot:'-2.0deg', revealDelay:'1.15s', bobDelay:'0.7s'  },
+  { emoji:'🍛', label:'Catering',      count:'195+', top:'65%', right:'24%', rot:' 1.8deg', revealDelay:'1.35s', bobDelay:'2.1s'  },
+  { emoji:'🌿', label:'Mehndi Art',    count:'165+', top:'79%', right:'4%',  rot:'-1.2deg', revealDelay:'1.55s', bobDelay:'1.6s'  },
+]
+
 const MARQUEE = [
   '📸 Photographers', '🌆 Brampton', '💄 Makeup Artists', '🏙️ Toronto', '🍛 Caterers',
   '🌃 Mississauga', '🌿 Mehndi Artists', '🌇 Vaughan', '🎶 DJs', '🏘️ Markham',
@@ -147,6 +156,67 @@ export default async function HomePage() {
           backgroundImage: 'radial-gradient(rgba(200,169,106,0.055) 1px, transparent 1px)',
           backgroundSize: '44px 44px',
         }} />
+
+        {/* ── Floating category cards (right side, lg+ only) ─────────── */}
+        <div className="absolute inset-0 z-10 pointer-events-none hidden lg:block overflow-hidden">
+          {FLOAT_CARDS.map(card => (
+            <div
+              key={card.label}
+              className="absolute hero-float-card"
+              style={{
+                top: card.top,
+                right: card.right,
+                '--reveal-delay': card.revealDelay,
+                '--bob-delay': card.bobDelay,
+              } as React.CSSProperties}
+            >
+              <div style={{
+                transform: `rotate(${card.rot})`,
+                background: 'rgba(7,5,11,0.82)',
+                border: '1px solid rgba(200,169,106,0.22)',
+                backdropFilter: 'blur(22px)',
+                WebkitBackdropFilter: 'blur(22px)',
+                borderRadius: '18px',
+                padding: '11px 15px',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '11px',
+                boxShadow: '0 8px 40px rgba(0,0,0,0.55), inset 0 1px 0 rgba(200,169,106,0.10)',
+                width: 'max-content',
+              }}>
+                {/* Icon tile */}
+                <div style={{
+                  width: 36, height: 36,
+                  borderRadius: '10px',
+                  background: 'rgba(200,169,106,0.10)',
+                  border: '1px solid rgba(200,169,106,0.15)',
+                  display: 'flex', alignItems: 'center', justifyContent: 'center',
+                  fontSize: '18px', flexShrink: 0,
+                }}>
+                  {card.emoji}
+                </div>
+                {/* Text */}
+                <div>
+                  <p style={{ color: 'rgba(255,255,255,0.92)', fontWeight: 600, fontSize: '13px', lineHeight: 1.2, whiteSpace: 'nowrap' }}>
+                    {card.label}
+                  </p>
+                  <p style={{ color: 'rgba(200,169,106,0.75)', fontSize: '11px', marginTop: '3px', fontWeight: 500 }}>
+                    {card.count} vendors
+                  </p>
+                </div>
+                {/* Live indicator */}
+                <div style={{ position: 'relative', width: 7, height: 7, flexShrink: 0 }}>
+                  <span style={{
+                    position: 'absolute', inset: 0, borderRadius: '50%',
+                    background: '#4ade80', opacity: 0.6,
+                    animation: 'livePing 2s ease-in-out infinite',
+                  }} />
+                  <span style={{ position: 'absolute', inset: 0, borderRadius: '50%', background: '#4ade80' }} />
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
 
         <div className="absolute bottom-0 inset-x-0 h-56 z-10 pointer-events-none"
           style={{ background: 'linear-gradient(to top, #07050a 0%, transparent 100%)' }} />
