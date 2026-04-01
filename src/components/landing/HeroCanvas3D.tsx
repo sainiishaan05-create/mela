@@ -3,18 +3,19 @@
 import { useEffect, useRef } from 'react'
 
 /* ─────────────────────────────────────────────────────────────────────────────
-   HERO CANVAS — Ultra-immersive multi-layer animation
+   HERO CANVAS — Ultra-immersive multi-layer animation  (igloo.inc-inspired)
 
-   LAYER 0 · Stars            — 180 twinkling distant stars
-   LAYER 1 · Nebula clouds    — 6 large drifting gradient orbs (aurora feel)
+   LAYER 0 · Stars            — 200 twinkling distant stars
+   LAYER 1 · Nebula clouds    — 7 large drifting gradient orbs (aurora feel)
    LAYER 2 · Elliptic rings   — 6 aurora rings, varied aspect ratios, slow drift
    LAYER 3 · Node network     — 90 magnetic nodes; colour-shift by speed (igloo-style)
    LAYER 4 · Cursor glow      — Soft gold radial halo tracking mouse
    LAYER 5 · Mouse trail      — 40 golden particles that decay behind cursor
    LAYER 6 · Shooting meteors — Random diagonal gold streaks with glowing heads
    LAYER 7 · Click ripples    — 3 expanding concentric rings on click
-   LAYER 8 · 3D Torus         — 3 600 particles, breathing glow, offset right on wide
-   LAYER 9 · Vignette         — Radial edge darkening for cinematic depth
+   LAYER 8 · 3D Torus         — 3 600 particles, 4-layer hot-white glow, breathes
+   LAYER 9 · Scan lines       — Subtle horizontal scan sweep for technical feel
+   LAYER 10· Vignette         — Radial edge darkening for cinematic depth
 ─────────────────────────────────────────────────────────────────────────────── */
 
 // ── Torus constants ──────────────────────────────────────────────────────────
@@ -22,14 +23,14 @@ const N           = 3600
 const R_MAJ       = 2.1
 const R_MIN       = 0.78
 const FOV         = 420
-const GLOW_THRESH = 0.50
+const GLOW_THRESH = 0.42   // lower = more particles get bloom
 
 const PALETTE: [number,number,number][] = [
-  [140, 100,  40],
-  [195, 162,  98],
-  [238, 198, 118],
-  [255, 224, 152],
-  [255, 245, 200],
+  [110,  75,  20],   // deep shadow gold
+  [160, 120,  55],   // mid gold
+  [210, 170,  90],   // warm gold
+  [245, 210, 130],   // bright gold
+  [255, 248, 210],   // near-white hot
 ]
 
 interface Pt   { ox:number; oy:number; oz:number; ci:number }
@@ -43,8 +44,7 @@ interface BgNode {
   x:number; y:number; vx:number; vy:number
   r:number; baseAlpha:number; alpha:number
   phase:number; speed:number
-  // igloo-style: track velocity magnitude for colour shift
-  speed2:number   // current velocity magnitude (squared, for perf)
+  speed2:number   // velocity magnitude squared (igloo-style colour shift)
 }
 interface Star   { x:number; y:number; r:number; alpha:number; ph:number; spd:number }
 interface Nebula { x:number; y:number; vx:number; vy:number; r:number; ph:number }
@@ -76,8 +76,11 @@ export default function HeroCanvas3D() {
     if (!ctx) return
 
     let W=0, H=0, raf=0
-    let mx=0, my=0        // normalised −0.5…0.5
-    let absX=0, absY=0    // canvas pixels (DPR-corrected)
+    let mx=0, my=0
+    let absX=0, absY=0
+
+    // scan-line state
+    let scanY = 0
 
     // ── Build torus ──────────────────────────────────────────────────────────
     let angleY=0, angleX=0.25
@@ -101,7 +104,6 @@ export default function HeroCanvas3D() {
     const meteors:Meteor[] = []
     const ripples:Ripple[] = []
 
-    // pre-fill meteor slots
     for(let i=0;i<MAX_METEOR;i++){
       meteors.push({x:0,y:0,vx:0,vy:0,len:0,alpha:0,active:false,
         timer:Math.random()*500+150})
@@ -110,24 +112,21 @@ export default function HeroCanvas3D() {
     function initScene(){
       const dpr=window.devicePixelRatio||1
 
-      // Stars
-      stars = Array.from({length:180},()=>({
-        x:Math.random()*W, y:Math.random()*H*0.90,
-        r:Math.random()*0.85+0.18,
-        alpha:Math.random()*0.32+0.04,
+      stars = Array.from({length:200},()=>({
+        x:Math.random()*W, y:Math.random()*H*0.92,
+        r:Math.random()*0.9+0.15,
+        alpha:Math.random()*0.35+0.04,
         ph:Math.random()*Math.PI*2,
-        spd:Math.random()*0.020+0.006,
+        spd:Math.random()*0.022+0.006,
       }))
 
-      // Nebula clouds
       nebulas = Array.from({length:7},()=>({
         x:Math.random()*W, y:Math.random()*H,
         vx:(Math.random()-0.5)*0.12, vy:(Math.random()-0.5)*0.07,
-        r:Math.min(W,H)*(Math.random()*0.22+0.13),
+        r:Math.min(W,H)*(Math.random()*0.24+0.14),
         ph:Math.random()*Math.PI*2,
       }))
 
-      // Background nodes
       bgNodes = Array.from({length:BG_COUNT},()=>{
         const ba=Math.random()*0.24+0.06
         return{
@@ -140,7 +139,6 @@ export default function HeroCanvas3D() {
         }
       })
 
-      // init abs mouse to centre
       absX=W/2/dpr; absY=H/2/dpr
     }
 
@@ -159,6 +157,7 @@ export default function HeroCanvas3D() {
       H=canvas.height=canvas.offsetHeight*dpr
       canvas.style.width =canvas.offsetWidth +'px'
       canvas.style.height=canvas.offsetHeight+'px'
+      scanY=0
       initScene()
     }
 
@@ -171,21 +170,21 @@ export default function HeroCanvas3D() {
 
       const dpr    = window.devicePixelRatio||1
       const wide   = W > H*1.1
-      const tcx    = wide ? W*0.62 : W*0.50   // torus centre X
+      const tcx    = wide ? W*0.62 : W*0.50
       const tcy    = H*0.50
       const scale  = Math.min(W,H)*0.255
-      const mAbsX  = absX*dpr   // true canvas px
+      const mAbsX  = absX*dpr
       const mAbsY  = absY*dpr
 
       /* ── 0. Stars ─────────────────────────────────────────────────────── */
       for(const s of stars){
         s.ph+=s.spd
-        const ta=s.alpha*(0.45+0.55*Math.sin(s.ph))
+        const ta=s.alpha*(0.42+0.58*Math.sin(s.ph))
         ctx.beginPath(); ctx.arc(s.x,s.y,s.r,0,Math.PI*2)
         ctx.fillStyle=`rgba(255,240,200,${ta})`; ctx.fill()
       }
 
-      /* ── 1. Nebula clouds (aurora orbs) ───────────────────────────────── */
+      /* ── 1. Nebula clouds ─────────────────────────────────────────────── */
       for(const nc of nebulas){
         nc.x+=nc.vx+Math.sin(t*0.0022+nc.ph)*0.09
         nc.y+=nc.vy+Math.cos(t*0.0016+nc.ph)*0.055
@@ -196,8 +195,8 @@ export default function HeroCanvas3D() {
         const pulse=0.78+0.22*Math.sin(t*0.0038+nc.ph)
         const nr=nc.r*pulse
         const g=ctx.createRadialGradient(nc.x,nc.y,0,nc.x,nc.y,nr)
-        g.addColorStop(0,'rgba(200,140,55,0.030)')
-        g.addColorStop(0.45,'rgba(170,110,40,0.012)')
+        g.addColorStop(0,'rgba(200,140,55,0.032)')
+        g.addColorStop(0.45,'rgba(170,110,40,0.014)')
         g.addColorStop(1,'rgba(150,90,30,0)')
         ctx.beginPath(); ctx.arc(nc.x,nc.y,nr,0,Math.PI*2)
         ctx.fillStyle=g; ctx.fill()
@@ -216,10 +215,8 @@ export default function HeroCanvas3D() {
         ctx.scale(1,rY/rX)
         ctx.beginPath(); ctx.arc(0,0,rX,0,Math.PI*2)
         ctx.strokeStyle=`rgba(200,169,106,${pAlpha})`
-        ctx.lineWidth=0.85
-        ctx.stroke()
+        ctx.lineWidth=0.85; ctx.stroke()
         ctx.restore()
-        // subtle inner fill
         ctx.save()
         ctx.translate(rx2,ry2)
         ctx.scale(1,rY/rX)
@@ -242,7 +239,6 @@ export default function HeroCanvas3D() {
         const dxM=mAbsX-n.x, dyM=mAbsY-n.y
         const distM=Math.sqrt(dxM*dxM+dyM*dyM)
 
-        // Magnetic pull toward cursor
         let bx=n.vx, by=n.vy
         if(distM<magnetDist){
           const str=(1-distM/magnetDist)*magnetF
@@ -250,7 +246,7 @@ export default function HeroCanvas3D() {
         }
         n.x+=bx+Math.sin(t*n.speed+n.phase)*0.18
         n.y+=by
-        n.speed2=bx*bx+by*by   // velocity magnitude²
+        n.speed2=bx*bx+by*by
 
         n.alpha=n.baseAlpha*(0.62+0.38*Math.sin(t*n.speed*2+n.phase))
 
@@ -273,7 +269,6 @@ export default function HeroCanvas3D() {
             ctx.lineWidth=(1-dist/connDist)*0.90; ctx.stroke()
           }
         }
-        // Bright lines to cursor
         const dx=a.x-mAbsX, dy=a.y-mAbsY
         const dist=Math.sqrt(dx*dx+dy*dy)
         if(dist<mouseDist){
@@ -284,11 +279,10 @@ export default function HeroCanvas3D() {
         }
       }
 
-      // Draw nodes — colour shifts warmer when fast (igloo-style)
+      // Draw nodes — colour shifts when fast (igloo velocity colour)
       for(let i=0;i<bgNodes.length;i++){
         const n=bgNodes[i]
-        const speedFactor=Math.min(1,n.speed2*2000)  // 0–1
-        // slow = cool gold (200,169,106), fast = bright white-gold (255,245,190)
+        const speedFactor=Math.min(1,n.speed2*2000)
         const nr2=Math.round(200+speedFactor*55)
         const ng2=Math.round(169+speedFactor*76)
         const nb2=Math.round(106+speedFactor*84)
@@ -307,8 +301,8 @@ export default function HeroCanvas3D() {
       /* ── 4. Cursor glow ───────────────────────────────────────────────── */
       const cgR=Math.min(W,H)*0.11
       const cgrd=ctx.createRadialGradient(mAbsX,mAbsY,0,mAbsX,mAbsY,cgR)
-      cgrd.addColorStop(0,'rgba(200,169,106,0.09)')
-      cgrd.addColorStop(0.38,'rgba(200,169,106,0.03)')
+      cgrd.addColorStop(0,'rgba(200,169,106,0.10)')
+      cgrd.addColorStop(0.38,'rgba(200,169,106,0.035)')
       cgrd.addColorStop(1,'rgba(200,169,106,0)')
       ctx.beginPath(); ctx.arc(mAbsX,mAbsY,cgR,0,Math.PI*2)
       ctx.fillStyle=cgrd; ctx.fill()
@@ -343,7 +337,6 @@ export default function HeroCanvas3D() {
         mg.addColorStop(1,`rgba(255,240,180,${m.alpha})`)
         ctx.beginPath(); ctx.moveTo(tx,ty); ctx.lineTo(m.x,m.y)
         ctx.strokeStyle=mg; ctx.lineWidth=1.6; ctx.stroke()
-        // glowing head
         const mhg=ctx.createRadialGradient(m.x,m.y,0,m.x,m.y,7)
         mhg.addColorStop(0,`rgba(255,248,210,${m.alpha})`)
         mhg.addColorStop(1,'rgba(255,248,210,0)')
@@ -356,17 +349,14 @@ export default function HeroCanvas3D() {
         const rp=ripples[i]
         rp.r+=7; rp.alpha-=0.016
         if(rp.alpha<=0){ripples.splice(i,1);continue}
-        // outer ring
         ctx.beginPath(); ctx.arc(rp.x,rp.y,rp.r,0,Math.PI*2)
         ctx.strokeStyle=`rgba(200,169,106,${rp.alpha})`
         ctx.lineWidth=1.6; ctx.stroke()
-        // middle ring (half radius, slower)
         if(rp.r>30){
           ctx.beginPath(); ctx.arc(rp.x,rp.y,rp.r*0.62,0,Math.PI*2)
           ctx.strokeStyle=`rgba(240,201,122,${rp.alpha*0.55})`
           ctx.lineWidth=0.9; ctx.stroke()
         }
-        // inner ring
         if(rp.r>55){
           ctx.beginPath(); ctx.arc(rp.x,rp.y,rp.r*0.32,0,Math.PI*2)
           ctx.strokeStyle=`rgba(255,230,160,${rp.alpha*0.35})`
@@ -374,7 +364,7 @@ export default function HeroCanvas3D() {
         }
       }
 
-      /* ── 8. 3D Torus ──────────────────────────────────────────────────── */
+      /* ── 8. 3D Torus (igloo-style dramatic glow) ─────────────────────── */
       angleY+=0.0038; angleX+=0.0009
       const tiltX=mx*0.52, tiltY=my*0.40
 
@@ -386,11 +376,11 @@ export default function HeroCanvas3D() {
         const px=tcx+(p.x*scale*FOV)/(d*FOV+FOV*0.5)
         const py=tcy+(p.y*scale*FOV)/(d*FOV+FOV*0.5)
         const norm=(p.z+R_MAJ+R_MIN)/(2*(R_MAJ+R_MIN))
-        proj[i]={x:px,y:py,z:p.z,size:norm*2.5+0.30,alpha:norm*0.80+0.16,ci}
+        proj[i]={x:px,y:py,z:p.z,size:norm*2.6+0.28,alpha:norm*0.82+0.14,ci}
       }
       proj.sort((a,b)=>a.z-b.z)
 
-      // Torus connecting lines
+      // ── Torus connecting lines ──────────────────────────────────────────
       const step=5
       for(let i=0;i<N;i+=step){
         const a=proj[i]
@@ -407,36 +397,103 @@ export default function HeroCanvas3D() {
         }
       }
 
-      // Torus particles
+      // ── igloo-style: 4-layer dramatic breathing glow ────────────────────
+      // (drawn BEFORE particles so they sit on top)
+      const breathe  = 0.82+0.18*Math.sin(t*0.022)
+      const breathe2 = 0.70+0.30*Math.sin(t*0.018+1.2)
+      const breathe3 = 0.90+0.10*Math.sin(t*0.031)
+      const breathe4 = 0.85+0.15*Math.sin(t*0.014+2.5)
+
+      // Layer A — wide soft halo (outermost)
+      const glA=ctx.createRadialGradient(tcx,tcy,scale*0.55,tcx,tcy,scale*breathe*1.28)
+      glA.addColorStop(0,'rgba(200,155,60,0.09)')
+      glA.addColorStop(0.5,'rgba(190,140,50,0.04)')
+      glA.addColorStop(1,'rgba(180,120,30,0)')
+      ctx.beginPath(); ctx.arc(tcx,tcy,scale*breathe*1.28,0,Math.PI*2)
+      ctx.fillStyle=glA; ctx.fill()
+
+      // Layer B — medium warm gold
+      const glB=ctx.createRadialGradient(tcx,tcy,scale*0.20,tcx,tcy,scale*breathe2*0.80)
+      glB.addColorStop(0,'rgba(230,185,90,0.14)')
+      glB.addColorStop(0.45,'rgba(210,165,70,0.07)')
+      glB.addColorStop(1,'rgba(200,140,50,0)')
+      ctx.beginPath(); ctx.arc(tcx,tcy,scale*breathe2*0.80,0,Math.PI*2)
+      ctx.fillStyle=glB; ctx.fill()
+
+      // Layer C — tight bright-gold inner glow (igloo ring inner glow)
+      const glC=ctx.createRadialGradient(tcx,tcy,0,tcx,tcy,scale*breathe3*0.40)
+      glC.addColorStop(0,'rgba(255,248,210,0.22)')
+      glC.addColorStop(0.30,'rgba(255,230,150,0.14)')
+      glC.addColorStop(0.65,'rgba(230,185,90,0.06)')
+      glC.addColorStop(1,'rgba(200,140,50,0)')
+      ctx.beginPath(); ctx.arc(tcx,tcy,scale*breathe3*0.40,0,Math.PI*2)
+      ctx.fillStyle=glC; ctx.fill()
+
+      // Layer D — hot-white core pulse (igloo's bright white centre)
+      const pulse4=0.68+0.32*Math.sin(t*0.028+0.7)
+      const glD=ctx.createRadialGradient(tcx,tcy,0,tcx,tcy,scale*breathe4*0.18)
+      glD.addColorStop(0,`rgba(255,255,245,${0.32*pulse4})`)
+      glD.addColorStop(0.40,`rgba(255,242,195,${0.16*pulse4})`)
+      glD.addColorStop(1,'rgba(255,220,140,0)')
+      ctx.beginPath(); ctx.arc(tcx,tcy,scale*breathe4*0.18,0,Math.PI*2)
+      ctx.fillStyle=glD; ctx.fill()
+
+      // ── Torus particles ─────────────────────────────────────────────────
       for(let i=0;i<N;i++){
         const {x,y,size,alpha,ci}=proj[i]
         const [r,g,b]=PALETTE[ci]
         if(alpha>GLOW_THRESH){
-          const gR=size*5.8
-          const grd=ctx.createRadialGradient(x,y,0,x,y,gR)
-          const ga=(alpha-GLOW_THRESH)/(1-GLOW_THRESH)*0.50
+          // Extra bloom for bright (front-facing) particles
+          const bloomR=size*7.2
+          const grd=ctx.createRadialGradient(x,y,0,x,y,bloomR)
+          const ga=(alpha-GLOW_THRESH)/(1-GLOW_THRESH)*0.55
           grd.addColorStop(0,`rgba(${r},${g},${b},${ga})`)
+          grd.addColorStop(0.5,`rgba(${r},${g},${b},${ga*0.3})`)
           grd.addColorStop(1,`rgba(${r},${g},${b},0)`)
-          ctx.beginPath(); ctx.arc(x,y,gR,0,Math.PI*2)
+          ctx.beginPath(); ctx.arc(x,y,bloomR,0,Math.PI*2)
           ctx.fillStyle=grd; ctx.fill()
         }
-        ctx.beginPath(); ctx.arc(x,y,size*0.72,0,Math.PI*2)
+        // Core particle — slightly larger for high-alpha (front-facing)
+        const coreR = size * (alpha > 0.72 ? 0.90 : 0.72)
+        ctx.beginPath(); ctx.arc(x,y,coreR,0,Math.PI*2)
         ctx.fillStyle=`rgba(${r},${g},${b},${alpha})`; ctx.fill()
       }
 
-      // Breathing central glow
-      const breathe=0.82+0.18*Math.sin(t*0.022)
-      const bGrd=ctx.createRadialGradient(tcx,tcy,0,tcx,tcy,scale*breathe*1.1)
-      bGrd.addColorStop(0,'rgba(200,169,106,0.055)')
-      bGrd.addColorStop(0.45,'rgba(200,169,106,0.020)')
-      bGrd.addColorStop(1,'rgba(200,169,106,0)')
-      ctx.beginPath(); ctx.arc(tcx,tcy,scale*breathe*1.1,0,Math.PI*2)
-      ctx.fillStyle=bGrd; ctx.fill()
+      // ── Bright hot-ring stroke at torus centre radius ───────────────────
+      // (igloo's segmented ring glow — a thin luminous circle)
+      const ringR   = scale * 0.92    // approximately traces the major radius
+      const ringPulse = 0.75 + 0.25 * Math.sin(t * 0.024 + 1.8)
+      const ringAlpha = 0.055 * ringPulse
+      ctx.save()
+      ctx.translate(tcx, tcy)
+      // Ellipse to match torus perspective tilt
+      ctx.scale(1, 0.42)
+      // Outer glow stroke
+      ctx.beginPath(); ctx.arc(0, 0, ringR, 0, Math.PI*2)
+      ctx.strokeStyle=`rgba(255,240,180,${ringAlpha * 0.8})`
+      ctx.lineWidth = 4.5; ctx.stroke()
+      // Bright inner stroke
+      ctx.beginPath(); ctx.arc(0, 0, ringR, 0, Math.PI*2)
+      ctx.strokeStyle=`rgba(255,252,225,${ringAlpha * 1.4})`
+      ctx.lineWidth = 1.2; ctx.stroke()
+      ctx.restore()
 
-      /* ── 9. Vignette (cinematic depth) ────────────────────────────────── */
+      /* ── 9. Scan-line sweep (technical feel) ─────────────────────────── */
+      scanY = (scanY + 0.8) % H
+      const slH = H * 0.055
+      const sg = ctx.createLinearGradient(0, scanY - slH, 0, scanY + slH)
+      sg.addColorStop(0,   'rgba(200,169,106,0)')
+      sg.addColorStop(0.40,'rgba(200,169,106,0.015)')
+      sg.addColorStop(0.50,'rgba(220,190,120,0.028)')
+      sg.addColorStop(0.60,'rgba(200,169,106,0.015)')
+      sg.addColorStop(1,   'rgba(200,169,106,0)')
+      ctx.fillStyle=sg
+      ctx.fillRect(0, scanY - slH, W, slH * 2)
+
+      /* ── 10. Vignette ─────────────────────────────────────────────────── */
       const vig=ctx.createRadialGradient(W/2,H/2,H*0.28,W/2,H/2,H*1.05)
       vig.addColorStop(0,'rgba(7,5,10,0)')
-      vig.addColorStop(1,'rgba(7,5,10,0.60)')
+      vig.addColorStop(1,'rgba(7,5,10,0.62)')
       ctx.fillStyle=vig; ctx.fillRect(0,0,W,H)
     }
 
@@ -448,7 +505,6 @@ export default function HeroCanvas3D() {
       absX=(e.clientX-rect.left)
       absY=(e.clientY-rect.top)
 
-      // Spawn trail particle with slight random velocity
       if(trails.length<MAX_TRAIL){
         trails.push({
           x:absX*(window.devicePixelRatio||1),
@@ -477,7 +533,6 @@ export default function HeroCanvas3D() {
       const cx=(e.clientX-rect.left)*dpr
       const cy=(e.clientY-rect.top) *dpr
       ripples.push({x:cx,y:cy,r:4,alpha:0.75})
-      // Burst of trail particles
       for(let i=0;i<16;i++){
         const ang=(i/16)*Math.PI*2
         const spd=Math.random()*4+1.5

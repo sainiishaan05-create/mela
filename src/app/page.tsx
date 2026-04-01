@@ -380,20 +380,25 @@ export default async function HomePage() {
         </div>
       </div>
 
+      {/* ── Cinematic section divider ── */}
+      <div className="divider-cinematic" />
+
       {/* ══════════════════════════════════════════════════════════════════════
           § 3  HOW IT WORKS
       ══════════════════════════════════════════════════════════════════════ */}
-      <section className="py-24 px-4 sm:px-6 relative overflow-hidden bg-dark-2">
+      <section className="py-24 px-4 sm:px-6 relative overflow-hidden bg-dark-2 section-immersive section-scanline" style={{'--scan-delay': '0.5s'} as React.CSSProperties}>
+        <div className="section-beam-top" />
         <div className="section-glow-top" />
 
         <div className="max-w-7xl mx-auto relative z-10">
           <Reveal className="text-center mb-20">
             <div className="divider-gold mx-auto mb-5" />
+            <p className="tech-label justify-center mb-3">PROCESS · V1.0</p>
             <p className="text-xs font-bold uppercase tracking-[0.2em] mb-4"
               style={{ color: 'rgba(200,169,106,0.7)' }}>
               How it works
             </p>
-            <h2 className="font-[family-name:var(--font-playfair)] text-4xl sm:text-5xl font-bold text-white mb-5">
+            <h2 className="font-[family-name:var(--font-playfair)] text-4xl sm:text-5xl font-bold text-white mb-5 title-glow">
               Find your vendor in minutes
             </h2>
             <p className="text-base max-w-md mx-auto" style={{ color: 'rgba(255,255,255,0.42)' }}>
@@ -444,19 +449,24 @@ export default async function HomePage() {
         </div>
       </section>
 
+      {/* ── Cinematic section divider ── */}
+      <div className="divider-cinematic" />
+
       {/* ══════════════════════════════════════════════════════════════════════
           § 4  CATEGORIES GRID
       ══════════════════════════════════════════════════════════════════════ */}
-      <section className="py-24 px-4 sm:px-6 bg-dark-1">
+      <section className="py-24 px-4 sm:px-6 bg-dark-1 section-immersive relative overflow-hidden section-scanline" style={{'--scan-delay': '2s'} as React.CSSProperties}>
+        <div className="section-beam-top" />
         <div className="max-w-7xl mx-auto">
           <Reveal className="flex items-end justify-between mb-14">
             <div>
               <div className="divider-gold mb-5" />
+              <p className="tech-label mb-2">DIRECTORY · {new Date().getFullYear()}</p>
               <p className="text-xs font-bold uppercase tracking-[0.2em] mb-3"
                 style={{ color: 'rgba(200,169,106,0.7)' }}>
                 Categories
               </p>
-              <h2 className="font-[family-name:var(--font-playfair)] text-4xl sm:text-5xl font-bold text-white">
+              <h2 className="font-[family-name:var(--font-playfair)] text-4xl sm:text-5xl font-bold text-white title-glow">
                 Every vendor you need
               </h2>
             </div>
@@ -498,20 +508,25 @@ export default async function HomePage() {
         </div>
       </section>
 
+      {/* ── Cinematic section divider ── */}
+      <div className="divider-cinematic" />
+
       {/* ══════════════════════════════════════════════════════════════════════
           § 5  WHY MELAA — Bento grid
       ══════════════════════════════════════════════════════════════════════ */}
-      <section className="py-24 px-4 sm:px-6 relative overflow-hidden bg-dark-2">
+      <section className="py-24 px-4 sm:px-6 relative overflow-hidden bg-dark-2 section-immersive section-scanline" style={{'--scan-delay': '4s'} as React.CSSProperties}>
+        <div className="section-beam-top" />
         <div className="section-glow-gold" />
 
         <div className="max-w-7xl mx-auto relative z-10">
           <Reveal className="text-center mb-16">
             <div className="divider-gold mx-auto mb-5" />
+            <p className="tech-label justify-center mb-3">PLATFORM · SOUTH ASIAN FIRST</p>
             <p className="text-xs font-bold uppercase tracking-[0.2em] mb-4"
               style={{ color: 'rgba(200,169,106,0.7)' }}>
               Why Melaa
             </p>
-            <h2 className="font-[family-name:var(--font-playfair)] text-4xl sm:text-5xl font-bold text-white mb-5">
+            <h2 className="font-[family-name:var(--font-playfair)] text-4xl sm:text-5xl font-bold text-white mb-5 title-glow">
               Built for your culture.<br />
               <span className="gradient-shimmer">Not adapted for it.</span>
             </h2>
@@ -642,10 +657,14 @@ export default async function HomePage() {
         </section>
       )}
 
+      {/* ── Cinematic section divider ── */}
+      <div className="divider-cinematic" />
+
       {/* ══════════════════════════════════════════════════════════════════════
           § 7  FOR VENDORS — Feature grid + pricing
       ══════════════════════════════════════════════════════════════════════ */}
-      <section className="py-24 px-4 sm:px-6 relative overflow-hidden bg-dark-3">
+      <section className="py-24 px-4 sm:px-6 relative overflow-hidden bg-dark-3 section-immersive section-scanline" style={{'--scan-delay': '1.5s'} as React.CSSProperties}>
+        <div className="section-beam-top" />
         <div className="absolute inset-0 pointer-events-none"
           style={{
             backgroundImage: 'radial-gradient(rgba(200,169,106,0.045) 1px, transparent 1px)',
@@ -658,11 +677,12 @@ export default async function HomePage() {
           {/* Header */}
           <Reveal className="text-center mb-20">
             <div className="divider-gold mx-auto mb-5" />
+            <p className="tech-label justify-center mb-3">VENDOR · GROWTH PLATFORM</p>
             <p className="text-xs font-bold uppercase tracking-[0.2em] mb-4"
               style={{ color: 'rgba(200,169,106,0.7)' }}>
               For Vendors
             </p>
-            <h2 className="font-[family-name:var(--font-playfair)] text-4xl sm:text-5xl font-bold text-white mb-5">
+            <h2 className="font-[family-name:var(--font-playfair)] text-4xl sm:text-5xl font-bold text-white mb-5 title-glow">
               Grow your wedding business<br />
               <span className="gradient-shimmer">with Melaa</span>
             </h2>
@@ -820,18 +840,23 @@ export default async function HomePage() {
         </section>
       )}
 
+      {/* ── Cinematic section divider ── */}
+      <div className="divider-cinematic" />
+
       {/* ══════════════════════════════════════════════════════════════════════
           § 9  GTA CITIES
       ══════════════════════════════════════════════════════════════════════ */}
-      <section className="py-24 px-4 sm:px-6 bg-dark-1">
+      <section className="py-24 px-4 sm:px-6 bg-dark-1 section-immersive relative overflow-hidden section-scanline" style={{'--scan-delay': '3.5s'} as React.CSSProperties}>
+        <div className="section-beam-top" />
         <div className="max-w-7xl mx-auto">
           <Reveal className="text-center mb-14">
             <div className="divider-gold mx-auto mb-5" />
+            <p className="tech-label justify-center mb-3">GTA · 8 CITIES COVERED</p>
             <p className="text-xs font-bold uppercase tracking-[0.2em] mb-4"
               style={{ color: 'rgba(200,169,106,0.7)' }}>
               Browse by City
             </p>
-            <h2 className="font-[family-name:var(--font-playfair)] text-4xl sm:text-5xl font-bold text-white">
+            <h2 className="font-[family-name:var(--font-playfair)] text-4xl sm:text-5xl font-bold text-white title-glow">
               Vendors across the GTA
             </h2>
           </Reveal>
@@ -863,10 +888,13 @@ export default async function HomePage() {
         </div>
       </section>
 
+      {/* ── Cinematic section divider ── */}
+      <div className="divider-cinematic" />
+
       {/* ══════════════════════════════════════════════════════════════════════
           § 10  FINAL CTA — Full-width immersive banner
       ══════════════════════════════════════════════════════════════════════ */}
-      <section className="py-24 sm:py-32 px-4 sm:px-6 relative overflow-hidden bg-dark-2">
+      <section className="py-24 sm:py-32 px-4 sm:px-6 relative overflow-hidden bg-dark-2 section-immersive section-scanline" style={{'--scan-delay': '6s'} as React.CSSProperties}>
         {/* Background elements */}
         <div className="absolute inset-0 pointer-events-none"
           style={{
@@ -895,7 +923,7 @@ export default async function HomePage() {
           </Reveal>
 
           <Reveal delay={80}>
-            <h2 className="font-[family-name:var(--font-playfair)] text-5xl sm:text-6xl lg:text-7xl font-bold text-white mb-6 leading-[1.06]">
+            <h2 className="font-[family-name:var(--font-playfair)] text-5xl sm:text-6xl lg:text-7xl font-bold text-white mb-6 leading-[1.06] title-glow">
               Your celebration<br />
               <span className="gradient-shimmer">deserves the best.</span>
             </h2>
