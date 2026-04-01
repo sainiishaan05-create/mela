@@ -7,7 +7,7 @@ import BrowseExplorer from '@/components/landing/BrowseExplorer'
 import Reveal from '@/components/ui/Reveal'
 import SearchBar from '@/components/ui/SearchBar'
 import {
-  ArrowRight, Sparkles, MapPin, CheckCircle2,
+  ArrowRight, Sparkles, CheckCircle2,
   Zap, Shield, Heart, TrendingUp,
   BadgeCheck, Inbox, BarChart2, Globe, Lock,
 } from 'lucide-react'
@@ -25,13 +25,6 @@ const MARQUEE = [
   '💍 Jewellery', '👗 Bridal Wear', '🍮 Mithai', '🕉️ Priests', '🐎 Baraat',
 ]
 
-const HERO_CARDS = [
-  { icon: '📸', cat: 'Photographer',      city: 'Toronto',     anim: 'float-card-a', delay: '0s',   top: '12%', left: '4%',  rotate: '-2.5deg' },
-  { icon: '💐', cat: 'Decor & Florals',   city: 'Brampton',    anim: 'float-card-b', delay: '0.5s', top: '6%',  right: '8%', rotate: '2deg' },
-  { icon: '💄', cat: 'Makeup Artist',     city: 'Mississauga', anim: 'float-card-c', delay: '0.2s', top: '40%', right: '3%', rotate: '-1.5deg' },
-  { icon: '🎶', cat: 'DJ & Entertainment',city: 'Vaughan',     anim: 'float-card-d', delay: '0.8s', top: '62%', left: '2%',  rotate: '2.5deg' },
-  { icon: '🍛', cat: 'Caterer',           city: 'Markham',     anim: 'float-card-e', delay: '1s',   top: '78%', right: '6%', rotate: '-1deg' },
-]
 
 const WHY_MELAA = [
   {
@@ -159,7 +152,7 @@ export default async function HomePage() {
           style={{ background: 'linear-gradient(to top, #07050a 0%, transparent 100%)' }} />
 
         <div className="relative z-20 w-full max-w-7xl mx-auto px-4 sm:px-6 min-h-screen flex items-center">
-          <div className="grid lg:grid-cols-[1.05fr_0.95fr] w-full gap-8 py-32 lg:py-0 items-center">
+          <div className="w-full py-32 lg:py-0 flex items-center justify-center lg:justify-start">
 
             {/* LEFT: Text */}
             <div className="max-w-2xl">
@@ -238,40 +231,6 @@ export default async function HomePage() {
               </div>
             </div>
 
-            {/* RIGHT: Floating cards */}
-            <div
-              className="hidden lg:block relative h-[580px] w-full"
-              style={{ animation: 'revealUp 1s 0.3s var(--ease-expo) both' }}
-            >
-              {HERO_CARDS.map(({ icon, cat, city, anim, delay, top, left, right, rotate }) => (
-                <div
-                  key={cat}
-                  className={`absolute ${anim}`}
-                  style={{ top, left: left ?? undefined, right: right ?? undefined, animationDelay: delay }}
-                >
-                  <div
-                    className="flex items-center gap-3 pl-3.5 pr-5 py-3 rounded-2xl select-none"
-                    style={{
-                      background: 'rgba(255,255,255,0.045)',
-                      border: '1px solid rgba(200,169,106,0.22)',
-                      backdropFilter: 'blur(20px)',
-                      boxShadow: '0 8px 32px rgba(0,0,0,0.35), 0 2px 8px rgba(0,0,0,0.2)',
-                      transform: `rotate(${rotate})`,
-                    }}
-                  >
-                    <span className="text-2xl leading-none">{icon}</span>
-                    <div>
-                      <p className="text-sm font-semibold text-white leading-tight">{cat}</p>
-                      <p className="text-xs mt-0.5 flex items-center gap-1"
-                        style={{ color: 'rgba(200,169,106,0.7)' }}>
-                        <MapPin className="w-2.5 h-2.5" />{city}
-                      </p>
-                    </div>
-                    <div className="ml-1 live-dot" style={{ width: 6, height: 6 }} />
-                  </div>
-                </div>
-              ))}
-            </div>
 
           </div>
         </div>
