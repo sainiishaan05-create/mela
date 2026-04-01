@@ -8,7 +8,7 @@ import SaveVendorButton from '@/components/vendors/SaveVendorButton'
 import ReviewSection from '@/components/vendors/ReviewSection'
 import Link from 'next/link'
 import {
-  MapPin, Globe, BadgeCheck, Phone, MessageCircle,
+  MapPin, Globe, BadgeCheck,
   ArrowLeft, ChevronRight, CheckCircle2, ArrowUpRight, Clock,
 } from 'lucide-react'
 
@@ -68,8 +68,6 @@ export default async function VendorProfilePage({ params }: Props) {
     ...(v.phone ? { telephone: v.phone } : {}),
     ...(v.website ? { sameAs: [v.website] } : {}),
   }
-
-  const waNumber = v.phone ? `1${v.phone.replace(/\D/g, '')}` : null
 
   return (
     <>
@@ -236,77 +234,48 @@ export default async function VendorProfilePage({ params }: Props) {
             {/* ── RIGHT SIDEBAR ── */}
             <div className="space-y-4">
 
-              {/* Contact card */}
-              <div className="bg-white border border-gray-100 rounded-3xl p-6 shadow-premium">
-                <h3 className="font-[family-name:var(--font-playfair)] font-bold text-lg mb-1">Contact {v.name}</h3>
-                <p className="text-xs text-gray-400 mb-5">Free · No booking fees · No signup</p>
-
-                <div className="space-y-2.5 mb-5">
-                  {v.phone && (
-                    <a href={`tel:${v.phone}`}
-                      className="flex items-center gap-3 p-3 rounded-2xl bg-gray-50 hover:bg-[#F5ECD7] hover:border-[#C8A96A]/20 border border-transparent transition-all duration-200 group">
-                      <div className="w-9 h-9 bg-white rounded-xl flex items-center justify-center shadow-sm shrink-0">
-                        <Phone className="w-4 h-4 text-[#C8A96A]" />
-                      </div>
-                      <div>
-                        <p className="text-[10px] text-gray-400 font-semibold uppercase tracking-wide">Phone</p>
-                        <p className="text-sm font-semibold text-gray-800 group-hover:text-[#C8A96A] transition-colors">{v.phone}</p>
-                      </div>
-                    </a>
-                  )}
-                  {v.website && (
-                    <a href={v.website} target="_blank" rel="noopener noreferrer"
-                      className="flex items-center gap-3 p-3 rounded-2xl bg-gray-50 hover:bg-[#F5ECD7] border border-transparent hover:border-[#C8A96A]/20 transition-all duration-200 group">
-                      <div className="w-9 h-9 bg-white rounded-xl flex items-center justify-center shadow-sm shrink-0">
-                        <Globe className="w-4 h-4 text-[#C8A96A]" />
-                      </div>
-                      <div className="min-w-0">
-                        <p className="text-[10px] text-gray-400 font-semibold uppercase tracking-wide">Website</p>
-                        <p className="text-sm font-semibold text-gray-800 group-hover:text-[#C8A96A] transition-colors truncate">Visit Website</p>
-                      </div>
-                      <ArrowUpRight className="w-3.5 h-3.5 text-gray-400 ml-auto shrink-0" />
-                    </a>
-                  )}
-                  {v.instagram && (
-                    <a href={`https://instagram.com/${v.instagram.replace('@', '')}`} target="_blank" rel="noopener noreferrer"
-                      className="flex items-center gap-3 p-3 rounded-2xl bg-gray-50 hover:bg-[#F5ECD7] border border-transparent hover:border-[#C8A96A]/20 transition-all duration-200 group">
-                      <div className="w-9 h-9 bg-white rounded-xl flex items-center justify-center shadow-sm shrink-0">
-                        <span className="text-[#C8A96A] text-sm">📷</span>
-                      </div>
-                      <div className="min-w-0">
-                        <p className="text-[10px] text-gray-400 font-semibold uppercase tracking-wide">Instagram</p>
-                        <p className="text-sm font-semibold text-gray-800 group-hover:text-[#C8A96A] transition-colors truncate">@{v.instagram.replace('@', '')}</p>
-                      </div>
-                    </a>
-                  )}
-                </div>
-
-                {waNumber && (
-                  <a href={`https://wa.me/${waNumber}`} target="_blank" rel="noopener noreferrer"
-                    className="btn-primary flex items-center justify-center gap-2 w-full bg-[#25D366] hover:bg-[#1ebe5d] text-white font-bold rounded-2xl px-4 py-3.5 text-sm mb-3 shadow-[0_4px_16px_rgba(37,211,102,0.3)]">
-                    <MessageCircle className="w-4 h-4" />
-                    Chat on WhatsApp
-                  </a>
-                )}
-                {v.phone && (
-                  <a href={`tel:${v.phone}`}
-                    className="flex items-center justify-center gap-2 w-full border border-gray-200 hover:border-[#C8A96A] hover:text-[#C8A96A] text-gray-700 font-semibold rounded-2xl px-4 py-3 text-sm transition-all duration-200 mb-3">
-                    <Phone className="w-4 h-4" />
-                    Call Now
-                  </a>
-                )}
-                <div className="flex items-center justify-center gap-1.5 text-xs text-gray-400">
-                  <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
-                  No booking fees · Contact directly
-                </div>
-              </div>
-
-              {/* Inquiry form */}
+              {/* Inquiry form — primary CTA */}
               <div className="bg-white border border-gray-100 rounded-3xl p-6 shadow-premium">
                 <h3 className="font-[family-name:var(--font-playfair)] font-bold text-lg mb-1">Send an Inquiry</h3>
                 <p className="text-xs text-gray-400 mb-5">Free · No signup required · Usually responds in 24h</p>
                 <LeadForm vendorId={v.id} vendorName={v.name} />
               </div>
+
+              {/* Contact links — website & instagram only */}
+              {(v.website || v.instagram) && (
+                <div className="bg-white border border-gray-100 rounded-3xl p-6 shadow-premium">
+                  <h3 className="font-[family-name:var(--font-playfair)] font-bold text-lg mb-1">Find Us Online</h3>
+                  <p className="text-xs text-gray-400 mb-5">Free · No booking fees · No signup</p>
+
+                  <div className="space-y-2.5">
+                    {v.website && (
+                      <a href={v.website} target="_blank" rel="noopener noreferrer"
+                        className="flex items-center gap-3 p-3 rounded-2xl bg-gray-50 hover:bg-[#F5ECD7] border border-transparent hover:border-[#C8A96A]/20 transition-all duration-200 group">
+                        <div className="w-9 h-9 bg-white rounded-xl flex items-center justify-center shadow-sm shrink-0">
+                          <Globe className="w-4 h-4 text-[#C8A96A]" />
+                        </div>
+                        <div className="min-w-0">
+                          <p className="text-[10px] text-gray-400 font-semibold uppercase tracking-wide">Website</p>
+                          <p className="text-sm font-semibold text-gray-800 group-hover:text-[#C8A96A] transition-colors truncate">Visit Website</p>
+                        </div>
+                        <ArrowUpRight className="w-3.5 h-3.5 text-gray-400 ml-auto shrink-0" />
+                      </a>
+                    )}
+                    {v.instagram && (
+                      <a href={`https://instagram.com/${v.instagram.replace('@', '')}`} target="_blank" rel="noopener noreferrer"
+                        className="flex items-center gap-3 p-3 rounded-2xl bg-gray-50 hover:bg-[#F5ECD7] border border-transparent hover:border-[#C8A96A]/20 transition-all duration-200 group">
+                        <div className="w-9 h-9 bg-white rounded-xl flex items-center justify-center shadow-sm shrink-0">
+                          <span className="text-[#C8A96A] text-sm">📷</span>
+                        </div>
+                        <div className="min-w-0">
+                          <p className="text-[10px] text-gray-400 font-semibold uppercase tracking-wide">Instagram</p>
+                          <p className="text-sm font-semibold text-gray-800 group-hover:text-[#C8A96A] transition-colors truncate">@{v.instagram.replace('@', '')}</p>
+                        </div>
+                      </a>
+                    )}
+                  </div>
+                </div>
+              )}
 
               {/* Claim / Verified CTA */}
               {v.claim_status !== 'claimed' ? (
