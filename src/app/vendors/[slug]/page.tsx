@@ -22,7 +22,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     .eq('slug', slug).single()
   if (!vendor) return { title: 'Vendor Not Found | Melaa' }
   return {
-    title: `${vendor.name} — ${vendor.category?.name} in ${vendor.city?.name} | Melaa`,
+    title: `${vendor.name} | ${vendor.category?.name} in ${vendor.city?.name} | Melaa`,
     description: vendor.description ?? `${vendor.name} is a trusted South Asian wedding ${vendor.category?.name} serving ${vendor.city?.name}, Ontario.`,
     openGraph: {
       title: `${vendor.name} | Melaa`,
@@ -33,7 +33,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 const WHAT_TO_EXPECT = [
   { icon: '🌺', text: 'Cultural understanding of South Asian traditions' },
-  { icon: '📍', text: 'GTA-based — available for local events' },
+  { icon: '📍', text: 'GTA-based, available for local events' },
   { icon: '📅', text: 'Experience with multi-day weddings' },
   { icon: '💬', text: 'Direct communication, no middlemen' },
   { icon: '🙏', text: 'Serving Sikh, Hindu, Muslim & more' },
@@ -282,7 +282,7 @@ export default async function VendorProfilePage({ params }: Props) {
                 <div className="bg-gradient-to-br from-[#C8A96A]/5 to-[#FDF6E9]/50 border border-[#C8A96A]/20 rounded-3xl p-5">
                   <p className="text-xs font-bold text-[#C8A96A] uppercase tracking-widest mb-1.5">Is this your business?</p>
                   <p className="text-sm text-gray-600 leading-relaxed mb-4">
-                    Take control of your listing, respond to inquiries, and start growing — from $49/mo.
+                    Take control of your listing, respond to inquiries and start growing from $49/mo.
                   </p>
                   <Link
                     href={`/claim/${slug}`}

@@ -93,25 +93,6 @@ export default function SearchBar({ dark = false }: { dark?: boolean }) {
             <ArrowRight style={{ width: 15, height: 15 }} />
           </button>
         </form>
-
-        {/* Dark suggestions dropdown */}
-        {showDropdown && (
-          <div className="search-dark-dropdown">
-            <p className="search-dark-dropdown-label">Popular searches</p>
-            {SUGGESTIONS.map(({ label, icon }) => (
-              <button
-                key={label}
-                onClick={() => submit(label)}
-                className="search-dark-suggestion"
-              >
-                <span className="text-sm leading-none">{icon}</span>
-                <span>{label}</span>
-                <ArrowRight className="ml-auto opacity-0 group-hover:opacity-100 transition-opacity"
-                  style={{ width: 13, height: 13, color: '#C8A96A' }} />
-              </button>
-            ))}
-          </div>
-        )}
       </div>
     )
   }

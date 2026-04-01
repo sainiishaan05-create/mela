@@ -13,12 +13,12 @@ export const metadata: Metadata = {
 const SOCIAL_PROOF: { initials: string; name: string; role: string; text: string }[] = []
 
 const FEATURES = [
-  { icon: '📍', title: 'GTA-Focused Discovery', desc: 'Appear in searches by couples in your exact city — not buried under national chains.' },
+  { icon: '📍', title: 'GTA-Focused Discovery', desc: 'Appear in searches by couples in your exact city, not buried under national chains.' },
   { icon: '📩', title: 'Direct Couple Inquiries', desc: 'Leads come straight to your inbox. No middlemen, no platform fees on bookings.' },
   { icon: '🏆', title: 'Verified Vendor Badge', desc: 'Stand out with a verified badge that builds instant trust with couples.' },
   { icon: '📊', title: 'Analytics Dashboard', desc: 'See exactly how many couples viewed your profile and where they came from.' },
   { icon: '🤖', title: 'AI Reply Suggestions', desc: 'Get AI-drafted responses to inquiries so you never miss a lead.' },
-  { icon: '🔒', title: 'Rate Locked Forever', desc: 'Founding rate of $49/mo is locked in permanently — never increases.' },
+  { icon: '🔒', title: 'Rate Locked Forever', desc: 'Founding rate of $49/mo is locked in permanently, never increasing.' },
 ]
 
 export default async function ListYourBusinessPage() {
@@ -68,7 +68,7 @@ export default async function ListYourBusinessPage() {
             <span className="gradient-text">Ready to Book</span>
           </h1>
           <p className="text-lg sm:text-xl max-w-2xl mx-auto mb-10" style={{ color: 'rgba(255,255,255,0.6)' }}>
-            South Asian weddings are a <strong className="text-white">$2B+ market in Canada</strong>. Your ideal clients are already searching on Mela — be where they look.
+            South Asian weddings are a <strong className="text-white">$2B+ market in Canada</strong>. Your ideal clients are already searching on Mela. Be where they look.
           </p>
 
           {/* Stats */}
@@ -166,7 +166,7 @@ export default async function ListYourBusinessPage() {
               <div>
                 <p className="font-bold text-sm mb-1" style={{ color: 'var(--color-text)' }}>Our Lead Guarantee</p>
                 <p className="text-xs leading-relaxed" style={{ color: 'var(--color-text-muted)' }}>
-                  If you don't receive at least one genuine inquiry in your first 90 days, we'll personally work with your profile until you do — or you owe us nothing.
+                  If you don't receive at least one genuine inquiry in your first 90 days, we'll personally work with your profile until you do, or you owe us nothing.
                 </p>
               </div>
             </div>
@@ -181,7 +181,7 @@ export default async function ListYourBusinessPage() {
                 <span className="text-5xl font-bold font-[family-name:var(--font-playfair)]" style={{ color: 'var(--color-gold)' }}>$0</span>
                 <span className="text-sm mb-2" style={{ color: 'rgba(255,255,255,0.5)' }}>for 90 days</span>
               </div>
-              <p className="text-sm text-white mb-3">Then <strong style={{ color: 'var(--color-gold)' }}>$49/mo locked forever</strong> — no credit card needed</p>
+              <p className="text-sm text-white mb-3">Then <strong style={{ color: 'var(--color-gold)' }}>$49/mo locked forever</strong>. No credit card needed</p>
               <div className="flex items-center justify-center gap-4 text-xs" style={{ color: 'rgba(255,255,255,0.5)' }}>
                 <span className="flex items-center gap-1"><CheckCircle2 className="w-3 h-3 text-emerald-400" /> No card required</span>
                 <span className="flex items-center gap-1"><CheckCircle2 className="w-3 h-3 text-emerald-400" /> Cancel anytime</span>

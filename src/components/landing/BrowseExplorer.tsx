@@ -81,7 +81,7 @@ export default function BrowseExplorer() {
           Find your perfect vendor
         </h2>
         <p className="text-base max-w-md mx-auto" style={{ color: 'rgba(255,255,255,0.40)' }}>
-          Browse {CATEGORIES.length}+ categories across 8 GTA cities — no account needed.
+          Browse {CATEGORIES.length}+ categories across 8 GTA cities. No account needed.
         </p>
       </div>
 

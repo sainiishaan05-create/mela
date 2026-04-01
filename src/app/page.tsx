@@ -42,12 +42,12 @@ const WHY_MELAA = [
   {
     Icon: Shield,
     title: 'Verified & Local',
-    desc: 'Only real, active GTA professionals who know what South Asian celebrations deserve — reviewed by us.',
+    desc: 'Only real, active GTA professionals who know what South Asian celebrations deserve, reviewed by our team.',
   },
   {
     Icon: Zap,
     title: 'Zero Fees. Ever.',
-    desc: 'Contact vendors directly — no booking fees, no commissions, no hidden costs. The way it should always be.',
+    desc: 'Contact vendors directly with no booking fees, no commissions, no hidden costs. The way it should always be.',
   },
 ]
 
@@ -57,7 +57,7 @@ const VENDOR_FEATURES = [
   { Icon: BadgeCheck, title: 'Verified badge',            desc: 'A verified badge that builds instant trust and sets you apart from the competition.' },
   { Icon: BarChart2,  title: 'Analytics dashboard',      desc: 'See exactly how many couples viewed your profile and where they came from.' },
   { Icon: Globe,      title: 'Your own profile page',     desc: 'A dedicated page with portfolio, contact info, and a link that\'s yours to share anywhere.' },
-  { Icon: Lock,       title: 'Rate locked forever',       desc: 'Founding rate of $49/mo is locked in permanently — never increases as the platform grows.' },
+  { Icon: Lock,       title: 'Rate locked forever',       desc: 'Founding rate of $49/mo is locked in permanently, never increasing as the platform grows.' },
 ]
 
 const PLANS = [
@@ -81,7 +81,7 @@ const PLANS = [
     name: 'Basic',
     price: '$49',
     period: '/month',
-    badge: 'Founding rate — 90 days free',
+    badge: 'Founding rate · 90 days free',
     desc: 'Priority placement, verified badge, full analytics.',
     cta: 'Start Free Trial',
     href: '/list-your-business?plan=basic',
@@ -196,7 +196,7 @@ export default async function HomePage() {
                 <strong style={{ color: 'rgba(200,169,106,0.9)', fontWeight: 600 }}>
                   {count}+ verified vendors
                 </strong>{' '}
-                across the GTA — photographers, caterers, DJs, mehndi artists, venues and more.
+                across the GTA: photographers, caterers, DJs, mehndi artists, venues and more.
                 Built exclusively for South Asian celebrations.
               </p>
 
@@ -337,7 +337,7 @@ export default async function HomePage() {
               <span className="gradient-shimmer">Not adapted for it.</span>
             </h2>
             <p className="text-base max-w-lg mx-auto" style={{ color: 'rgba(255,255,255,0.40)' }}>
-              Built from day one for South Asian celebrations — every vendor knows every ritual.
+              Built from day one for South Asian celebrations, where every vendor knows every ritual.
             </p>
           </Reveal>
 
@@ -367,7 +367,7 @@ export default async function HomePage() {
                     Every ceremony. Every tradition.
                   </h3>
                   <p className="text-sm leading-relaxed max-w-md" style={{ color: 'rgba(255,255,255,0.48)' }}>
-                    From Mehndi nights to Baraat processions, Sangeet to Nikah — our vendors know
+                    From Mehndi nights to Baraat processions, Sangeet to Nikah, our vendors know
                     every ritual, every detail, every expectation. No explaining required.
                   </p>
                   <div className="mt-6 flex flex-wrap gap-2">
@@ -616,8 +616,7 @@ export default async function HomePage() {
           <Reveal delay={160}>
             <p className="text-lg sm:text-xl mb-12 max-w-xl mx-auto"
               style={{ color: 'rgba(255,255,255,0.45)' }}>
-              Browse {count}+ South Asian wedding vendors across the GTA —
-              completely free, no account needed.
+              Browse {count}+ South Asian wedding vendors across the GTA, completely free with no account needed.
             </p>
           </Reveal>
 
