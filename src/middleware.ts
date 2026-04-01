@@ -3,7 +3,7 @@ import { NextResponse, type NextRequest } from 'next/server'
 
 // ─── MAINTENANCE MODE ────────────────────────────────────────────
 // Set to false and redeploy when ready to go back live.
-const MAINTENANCE = false
+const MAINTENANCE = true
 // ────────────────────────────────────────────────────────────────
 
 const MAINTENANCE_HTML = `<!DOCTYPE html>
