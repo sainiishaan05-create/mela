@@ -106,22 +106,34 @@ export default async function VendorProfilePage({ params }: Props) {
 
               {/* Hero card */}
               <div className="bg-white rounded-3xl overflow-hidden shadow-premium border border-gray-100">
-                {/* Hero image */}
+                {/* Hero image — cover photo if available, decorative placeholder otherwise */}
                 <div className="relative h-72 bg-[#111111] flex items-center justify-center overflow-hidden">
-                  {/* Decorative rings */}
-                  <div className="absolute w-64 h-64 rounded-full border border-white/5" />
-                  <div className="absolute w-40 h-40 rounded-full border border-white/8" />
-                  <div className="absolute w-24 h-24 rounded-full border border-white/10" />
-                  {/* Radial glow */}
-                  <div className="absolute inset-0 opacity-20"
-                    style={{ background: 'radial-gradient(circle at 50% 50%, #C8A96A 0%, transparent 65%)' }} />
-                  {/* Icon */}
-                  <div className="relative z-10 w-24 h-24 rounded-3xl bg-white/10 backdrop-blur-sm border border-white/20 flex items-center justify-center text-5xl shadow-lg">
-                    {v.category?.icon ?? '🏪'}
-                  </div>
+                  {v.portfolio_images && v.portfolio_images.length > 0 ? (
+                    /* Cover photo */
+                    // eslint-disable-next-line @next/next/no-img-element
+                    <img
+                      src={v.portfolio_images[0]}
+                      alt={`${v.name} cover photo`}
+                      className="absolute inset-0 w-full h-full object-cover"
+                    />
+                  ) : (
+                    /* Placeholder */
+                    <>
+                      <div className="absolute w-64 h-64 rounded-full border border-white/5" />
+                      <div className="absolute w-40 h-40 rounded-full border border-white/8" />
+                      <div className="absolute w-24 h-24 rounded-full border border-white/10" />
+                      <div className="absolute inset-0 opacity-20"
+                        style={{ background: 'radial-gradient(circle at 50% 50%, #C8A96A 0%, transparent 65%)' }} />
+                      <div className="relative z-10 w-24 h-24 rounded-3xl bg-white/10 backdrop-blur-sm border border-white/20 flex items-center justify-center text-5xl shadow-lg">
+                        {v.category?.icon ?? '🏪'}
+                      </div>
+                    </>
+                  )}
+                  {/* Dark overlay so badges stay readable over photos */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-black/20 pointer-events-none" />
                   {/* Tier badge */}
                   {v.tier !== 'free' && (
-                    <div className="absolute top-4 left-4">
+                    <div className="absolute top-4 left-4 z-10">
                       <span className={`text-xs font-bold px-3 py-1.5 rounded-full shadow-sm backdrop-blur-sm ${
                         v.tier === 'premium'
                           ? 'bg-amber-500/90 text-white'
@@ -133,13 +145,13 @@ export default async function VendorProfilePage({ params }: Props) {
                   )}
                   {/* Verified */}
                   {v.is_verified && (
-                    <div className="absolute top-4 right-4 bg-white/15 backdrop-blur-sm rounded-full px-3 py-1.5 border border-white/20 flex items-center gap-1.5">
+                    <div className="absolute top-4 right-4 z-10 bg-black/30 backdrop-blur-sm rounded-full px-3 py-1.5 border border-white/20 flex items-center gap-1.5">
                       <BadgeCheck className="w-4 h-4 text-[#C8A96A]" />
                       <span className="text-xs font-semibold text-white">Verified</span>
                     </div>
                   )}
-                  {/* Bottom fade */}
-                  <div className="absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-white/10 to-transparent" />
+                  {/* Bottom fade into content */}
+                  <div className="absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-white to-transparent pointer-events-none" />
                 </div>
 
                 {/* Vendor info */}
