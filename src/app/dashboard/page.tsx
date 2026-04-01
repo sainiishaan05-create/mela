@@ -3,6 +3,7 @@ import { createClient as createAdminClient } from '@supabase/supabase-js'
 import type { Metadata } from 'next'
 import { redirect } from 'next/navigation'
 import DashboardShell from './DashboardShell'
+import NoListingFound from './NoListingFound'
 
 function getServiceClient() {
   return createAdminClient(
@@ -64,8 +65,7 @@ export default async function DashboardPage({
   }
 
   if (!vendor) {
-    // Not a vendor — send them to the couple/client dashboard
-    redirect('/client/dashboard')
+    return <NoListingFound userEmail={user.email ?? ''} />
   }
 
   // Fetch leads, categories and cities via service client
