@@ -38,7 +38,7 @@ export default function ClientDashboardShell({ userEmail, initialSaved, initialR
     })
   }
 
-  const tabs: { id: Tab; label: string; icon: React.ElementType; count?: number }[] = [
+  const tabs: { id: Tab; label: string; icon: React.ComponentType<{ className?: string }>; count?: number }[] = [
     { id: 'saved',   label: 'Saved Vendors', icon: Heart,   count: saved.length },
     { id: 'reviews', label: 'My Reviews',     icon: Star,    count: reviews.length },
     { id: 'account', label: 'Account',        icon: User },
