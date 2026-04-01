@@ -6,10 +6,11 @@ import { createClient } from '@/lib/supabase/client'
 import { formatDistanceToNow, format, subWeeks, startOfWeek } from 'date-fns'
 import {
   LayoutDashboard, User, ImageIcon, Mail, BarChart2, CreditCard,
-  ExternalLink, LogOut, BadgeCheck, Upload, X, Loader2, Check,
+  ExternalLink, BadgeCheck, Upload, X, Loader2, Check,
   ArrowRight, Phone, Globe, AtSign, MapPin, Tag, ChevronRight,
   AlertCircle, Eye, TrendingUp, Star, Pencil, CheckCircle,
 } from 'lucide-react'
+import LogoutButton from '@/components/ui/LogoutButton'
 import type { Vendor, Category, City, Lead } from '@/types'
 
 type Tab = 'overview' | 'profile' | 'photos' | 'inquiries' | 'analytics' | 'subscription'
@@ -93,12 +94,6 @@ export default function DashboardShell({ vendor: initialVendor, leads: initialLe
   const unread = leads.filter(l => !l.is_read).length
   const { score, missing } = completeness(vendor)
 
-  async function handleLogout() {
-    const supabase = createClient()
-    await supabase.auth.signOut()
-    window.location.href = '/'
-  }
-
   return (
     <div className="min-h-screen bg-[#F7F5F2]">
       {justClaimed && (
@@ -164,13 +159,10 @@ export default function DashboardShell({ vendor: initialVendor, leads: initialLe
               <ExternalLink className="w-4 h-4 shrink-0" />
               View Public Profile
             </Link>
-            <button
-              onClick={handleLogout}
-              className="flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium text-gray-500 hover:bg-red-50 hover:text-red-600 transition-all"
-            >
-              <LogOut className="w-4 h-4 shrink-0" />
-              Log Out
-            </button>
+            <LogoutButton
+              label="Log Out"
+              className="flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium text-gray-500 hover:bg-red-50 hover:text-red-600 transition-all w-full"
+            />
           </div>
         </aside>
 

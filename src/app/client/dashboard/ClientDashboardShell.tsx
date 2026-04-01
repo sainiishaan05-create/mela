@@ -2,9 +2,9 @@
 
 import { useState } from 'react'
 import Link from 'next/link'
-import { createClient } from '@/lib/supabase/client'
-import { Heart, Star, User, LogOut, Trash2, ExternalLink, Search } from 'lucide-react'
+import { Heart, Star, User, Trash2, ExternalLink, Search } from 'lucide-react'
 import type { Review, SavedVendor } from '@/types'
+import LogoutButton from '@/components/ui/LogoutButton'
 
 type Tab = 'saved' | 'reviews' | 'account'
 
@@ -28,12 +28,6 @@ export default function ClientDashboardShell({ userEmail, initialSaved, initialR
   const [tab, setTab] = useState<Tab>('saved')
   const [saved, setSaved] = useState<SavedVendor[]>(initialSaved)
   const [reviews, setReviews] = useState<Review[]>(initialReviews)
-
-  async function handleLogout() {
-    const supabase = createClient()
-    await supabase.auth.signOut()
-    window.location.href = '/'
-  }
 
   async function unsave(vendorId: string) {
     setSaved(prev => prev.filter(s => s.vendor_id !== vendorId))
@@ -91,10 +85,10 @@ export default function ClientDashboardShell({ userEmail, initialSaved, initialR
               <Search className="w-4 h-4 shrink-0" />
               Browse Vendors
             </Link>
-            <button onClick={handleLogout} className="flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium text-gray-500 hover:bg-red-50 hover:text-red-600 transition-all">
-              <LogOut className="w-4 h-4 shrink-0" />
-              Log Out
-            </button>
+            <LogoutButton
+              label="Log Out"
+              className="flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium text-gray-500 hover:bg-red-50 hover:text-red-600 transition-all w-full"
+            />
           </div>
         </aside>
 
@@ -270,13 +264,10 @@ export default function ClientDashboardShell({ userEmail, initialSaved, initialR
                 </div>
               </div>
 
-              <button
-                onClick={handleLogout}
+              <LogoutButton
+                label="Sign out"
                 className="flex items-center gap-2 text-sm text-red-500 font-medium hover:text-red-600 transition-colors px-1"
-              >
-                <LogOut className="w-4 h-4" />
-                Sign out
-              </button>
+              />
             </div>
           )}
         </main>

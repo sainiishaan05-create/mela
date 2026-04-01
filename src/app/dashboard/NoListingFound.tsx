@@ -1,19 +1,14 @@
 'use client'
 
 import Link from 'next/link'
-import { createClient } from '@/lib/supabase/client'
-import { LogOut, Search, ArrowUpRight } from 'lucide-react'
+import { Search, ArrowUpRight } from 'lucide-react'
+import LogoutButton from '@/components/ui/LogoutButton'
 
 interface Props {
   userEmail: string
 }
 
 export default function NoListingFound({ userEmail }: Props) {
-  async function handleLogout() {
-    const supabase = createClient()
-    await supabase.auth.signOut()
-    window.location.href = '/'
-  }
 
   return (
     <div className="min-h-screen bg-[#F7F5F2] flex items-center justify-center px-4 py-12">
@@ -54,13 +49,12 @@ export default function NoListingFound({ userEmail }: Props) {
             <ArrowUpRight className="w-4 h-4" />
           </Link>
 
-          <button
-            onClick={handleLogout}
-            className="flex items-center justify-center gap-2 w-full text-gray-400 hover:text-red-500 font-medium px-6 py-3 rounded-full transition-colors text-sm"
-          >
-            <LogOut className="w-4 h-4" />
-            Sign out
-          </button>
+          <div className="flex justify-center">
+            <LogoutButton
+              label="Sign out"
+              className="flex items-center gap-2 text-gray-400 hover:text-red-500 font-medium px-6 py-3 rounded-full transition-colors text-sm"
+            />
+          </div>
         </div>
       </div>
     </div>
