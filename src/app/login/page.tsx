@@ -2,13 +2,17 @@
 
 import { useState } from 'react'
 import Link from 'next/link'
+import { useSearchParams } from 'next/navigation'
 import { createClient } from '@/lib/supabase/client'
+import { Suspense } from 'react'
 
-export default function LoginPage() {
+function LoginForm() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState<string | null>(null)
   const [loading, setLoading] = useState(false)
+  const searchParams = useSearchParams()
+  const next = searchParams.get('next') ?? '/dashboard'
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
@@ -31,7 +35,7 @@ export default function LoginPage() {
 
       // Hard redirect so the browser sends the new auth cookie with the
       // request — client-side router.push() races the middleware cookie check
-      window.location.href = '/dashboard'
+      window.location.href = next
     } catch {
       setError('An unexpected error occurred. Please try again.')
       setLoading(false)
@@ -39,67 +43,26 @@ export default function LoginPage() {
   }
 
   return (
-    <div
-      style={{
-        minHeight: '100vh',
-        backgroundColor: '#FAFAF7',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        padding: '2rem 1rem',
-      }}
-    >
-      <div
-        style={{
-          width: '100%',
-          maxWidth: '420px',
-          backgroundColor: '#fff',
-          borderRadius: '12px',
-          padding: '2.5rem 2rem',
-          boxShadow: '0 4px 24px rgba(26,26,26,0.08)',
-        }}
-      >
-        <div style={{ textAlign: 'center', marginBottom: '0.5rem' }}>
-          <Link href="/" style={{ fontFamily: 'var(--font-playfair)', fontSize: '1.5rem', fontWeight: 700, color: '#C8A96A', textDecoration: 'none' }}>
-            Mela
-          </Link>
-        </div>
-        <h1
-          style={{
-            fontFamily: 'var(--font-playfair)',
-            fontSize: '2rem',
-            fontWeight: 700,
-            color: '#1A1A1A',
-            marginBottom: '0.25rem',
-            textAlign: 'center',
-          }}
-        >
-          Welcome back
-        </h1>
-        <p
-          style={{
-            textAlign: 'center',
-            color: '#6b6b6b',
-            fontSize: '0.95rem',
-            marginBottom: '2rem',
-          }}
-        >
-          Sign in to your Mela vendor account
-        </p>
+    <div className="min-h-screen bg-[#FAFAF7] flex items-center justify-center px-4 py-12">
+      <div className="w-full max-w-md bg-white rounded-2xl p-10 shadow-[0_4px_24px_rgba(26,26,26,0.08)]">
 
-        <form onSubmit={handleSubmit} noValidate>
-          <div style={{ marginBottom: '1.25rem' }}>
-            <label
-              htmlFor="email"
-              style={{
-                display: 'block',
-                fontSize: '0.875rem',
-                fontWeight: 500,
-                color: '#1A1A1A',
-                marginBottom: '0.5rem',
-              }}
-            >
-              Email
+        {/* Brand */}
+        <div className="text-center mb-8">
+          <Link href="/" className="inline-block font-[family-name:var(--font-playfair)] text-2xl font-bold text-[#C8A96A]">
+            Melaa
+          </Link>
+          <h1 className="font-[family-name:var(--font-playfair)] text-2xl font-bold text-[#1A1A1A] mt-3">
+            Welcome back
+          </h1>
+          <p className="text-gray-500 text-sm mt-1">
+            Sign in to your Melaa account
+          </p>
+        </div>
+
+        <form onSubmit={handleSubmit} noValidate className="space-y-5">
+          <div>
+            <label htmlFor="email" className="block text-sm font-medium text-[#1A1A1A] mb-1.5">
+              Email address
             </label>
             <input
               id="email"
@@ -109,36 +72,19 @@ export default function LoginPage() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="you@example.com"
-              style={{
-                width: '100%',
-                padding: '0.625rem 0.875rem',
-                fontSize: '1rem',
-                border: '1.5px solid #d1d1d1',
-                borderRadius: '8px',
-                outline: 'none',
-                color: '#1A1A1A',
-                backgroundColor: '#FAFAF7',
-                boxSizing: 'border-box',
-                transition: 'border-color 0.15s',
-              }}
-              onFocus={(e) => (e.currentTarget.style.borderColor = '#C8A96A')}
-              onBlur={(e) => (e.currentTarget.style.borderColor = '#d1d1d1')}
+              className="w-full px-4 py-3 text-sm border border-gray-200 rounded-xl bg-[#FAFAF7] text-[#1A1A1A] outline-none focus:border-[#C8A96A] transition-colors"
             />
           </div>
 
-          <div style={{ marginBottom: '1.5rem' }}>
-            <label
-              htmlFor="password"
-              style={{
-                display: 'block',
-                fontSize: '0.875rem',
-                fontWeight: 500,
-                color: '#1A1A1A',
-                marginBottom: '0.5rem',
-              }}
-            >
-              Password
-            </label>
+          <div>
+            <div className="flex items-center justify-between mb-1.5">
+              <label htmlFor="password" className="block text-sm font-medium text-[#1A1A1A]">
+                Password
+              </label>
+              <Link href="/forgot-password" className="text-xs text-[#C8A96A] hover:underline">
+                Forgot password?
+              </Link>
+            </div>
             <input
               id="password"
               type="password"
@@ -147,36 +93,12 @@ export default function LoginPage() {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               placeholder="••••••••"
-              style={{
-                width: '100%',
-                padding: '0.625rem 0.875rem',
-                fontSize: '1rem',
-                border: '1.5px solid #d1d1d1',
-                borderRadius: '8px',
-                outline: 'none',
-                color: '#1A1A1A',
-                backgroundColor: '#FAFAF7',
-                boxSizing: 'border-box',
-                transition: 'border-color 0.15s',
-              }}
-              onFocus={(e) => (e.currentTarget.style.borderColor = '#C8A96A')}
-              onBlur={(e) => (e.currentTarget.style.borderColor = '#d1d1d1')}
+              className="w-full px-4 py-3 text-sm border border-gray-200 rounded-xl bg-[#FAFAF7] text-[#1A1A1A] outline-none focus:border-[#C8A96A] transition-colors"
             />
           </div>
 
           {error && (
-            <p
-              style={{
-                fontSize: '0.875rem',
-                color: '#c0392b',
-                marginBottom: '1.25rem',
-                textAlign: 'center',
-                background: '#fff5f5',
-                border: '1px solid #fecaca',
-                borderRadius: '8px',
-                padding: '0.625rem',
-              }}
-            >
+            <p className="text-sm text-red-600 text-center bg-red-50 border border-red-100 rounded-xl px-4 py-3">
               {error}
             </p>
           )}
@@ -184,36 +106,44 @@ export default function LoginPage() {
           <button
             type="submit"
             disabled={loading}
-            style={{
-              width: '100%',
-              padding: '0.75rem',
-              fontSize: '1rem',
-              fontWeight: 600,
-              color: '#FAFAF7',
-              backgroundColor: loading ? '#b8945a' : '#C8A96A',
-              border: 'none',
-              borderRadius: '8px',
-              cursor: loading ? 'not-allowed' : 'pointer',
-              transition: 'background-color 0.15s',
-            }}
+            className="w-full py-3 bg-[#C8A96A] hover:bg-[#B8945A] disabled:opacity-60 disabled:cursor-not-allowed text-white font-semibold rounded-xl transition-colors"
           >
             {loading ? 'Signing in…' : 'Sign in'}
           </button>
         </form>
 
-        <div style={{ marginTop: '1.25rem', textAlign: 'center' }}>
-          <Link href="/forgot-password" style={{ fontSize: '0.875rem', color: '#C8A96A', textDecoration: 'none' }}>
-            Forgot your password?
-          </Link>
+        {/* Sign up options */}
+        <div className="mt-8 pt-6 border-t border-gray-100">
+          <p className="text-center text-sm text-gray-500 mb-4">Don&apos;t have an account?</p>
+          <div className="grid grid-cols-2 gap-3">
+            <Link
+              href="/signup"
+              className="flex flex-col items-center gap-1 px-3 py-3.5 rounded-xl border border-gray-200 hover:border-[#C8A96A] hover:bg-[#F5ECD7]/40 transition-all text-center group"
+            >
+              <span className="text-xl">💍</span>
+              <span className="text-xs font-semibold text-gray-700 group-hover:text-[#C8A96A] transition-colors">I&apos;m a Couple</span>
+              <span className="text-[10px] text-gray-400">Save vendors &amp; leave reviews</span>
+            </Link>
+            <Link
+              href="/list-your-business"
+              className="flex flex-col items-center gap-1 px-3 py-3.5 rounded-xl border border-gray-200 hover:border-[#C8A96A] hover:bg-[#F5ECD7]/40 transition-all text-center group"
+            >
+              <span className="text-xl">🏪</span>
+              <span className="text-xs font-semibold text-gray-700 group-hover:text-[#C8A96A] transition-colors">I&apos;m a Vendor</span>
+              <span className="text-[10px] text-gray-400">List &amp; manage my business</span>
+            </Link>
+          </div>
         </div>
 
-        <div style={{ marginTop: '1rem', textAlign: 'center', fontSize: '0.875rem', color: '#6b6b6b' }}>
-          Don&apos;t have an account?{' '}
-          <Link href="/list-your-business" style={{ color: '#C8A96A', fontWeight: 600, textDecoration: 'none' }}>
-            List your business free
-          </Link>
-        </div>
       </div>
     </div>
+  )
+}
+
+export default function LoginPage() {
+  return (
+    <Suspense>
+      <LoginForm />
+    </Suspense>
   )
 }
