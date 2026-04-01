@@ -25,7 +25,7 @@ interface Trail  { x:number;y:number;life:number;maxLife:number;vx:number;vy:num
 interface Meteor { x:number;y:number;vx:number;vy:number;len:number;alpha:number;active:boolean;timer:number }
 interface Ripple { x:number;y:number;r:number;alpha:number }
 
-const NODE_COUNT  = 220
+const NODE_COUNT  = 500
 const MAX_TRAIL   = 40
 const MAX_METEOR  = 5
 
@@ -69,12 +69,12 @@ export default function HeroCanvas3D() {
       }))
 
       nodes = Array.from({length:NODE_COUNT},()=>{
-        const ba = Math.random()*0.30+0.08
+        const ba = Math.random()*0.35+0.10
         return{
           x:Math.random()*W, y:Math.random()*H,
-          vx:(Math.random()-0.5)*0.30,
-          vy:(Math.random()-0.5)*0.30,
-          r:Math.random()*2.2+0.6,
+          vx:(Math.random()-0.5)*0.18,
+          vy:-(Math.random()*0.45+0.15),   // always float upward
+          r:Math.random()*2.4+0.5,
           baseAlpha:ba, alpha:ba,
           phase:Math.random()*Math.PI*2,
           speed:Math.random()*0.012+0.004,
@@ -137,14 +137,15 @@ export default function HeroCanvas3D() {
       }
 
       /* ── 2. Node network ──────────────────────────────────────────────── */
-      const connDist   = Math.min(W,H)*0.12
-      const mouseDist  = Math.min(W,H)*0.22
-      const magnetDist = Math.min(W,H)*0.28
-      const repelDist  = Math.min(W,H)*0.08
-      const magnetF    = 0.035
-      const repelF     = 0.12
+      const connDist   = Math.min(W,H)*0.10
+      const mouseDist  = Math.min(W,H)*0.18
+      const magnetDist = Math.min(W,H)*0.24
+      const repelDist  = Math.min(W,H)*0.06
+      const magnetF    = 0.030
+      const repelF     = 0.10
 
-      // Physics
+      // Physics — nodes float upward, fade in at bottom, fade out at top
+      const fadeZone = H * 0.15   // top/bottom 15% is fade zone
       for(const n of nodes){
         const dxM=mAbsX-n.x, dyM=mAbsY-n.y
         const distM=Math.sqrt(dxM*dxM+dyM*dyM)
@@ -156,46 +157,87 @@ export default function HeroCanvas3D() {
           const str=(1-distM/magnetDist)*magnetF
           bx+=dxM*str; by+=dyM*str
         }
-        // Repel from cursor when very close (interactive push)
+        // Repel from cursor when very close
         if(distM<repelDist && distM>1){
           const str=(1-distM/repelDist)*repelF
           bx-=dxM/distM*str*8
           by-=dyM/distM*str*8
         }
 
-        // Gentle drift + sine wobble
-        n.x+=bx+Math.sin(t*n.speed+n.phase)*0.15
-        n.y+=by+Math.cos(t*n.speed*0.7+n.phase)*0.10
+        // Float upward + gentle sine wobble
+        n.x+=bx+Math.sin(t*n.speed+n.phase)*0.22
+        n.y+=by+Math.cos(t*n.speed*0.7+n.phase)*0.08
         n.speed2=bx*bx+by*by
 
-        // Twinkle
-        n.alpha=n.baseAlpha*(0.55+0.45*Math.sin(t*n.speed*2.5+n.phase))
+        // Edge fade: fade in near bottom, fade out near top
+        let edgeFade = 1
+        if(n.y < fadeZone)       edgeFade = Math.max(0, n.y / fadeZone)
+        if(n.y > H - fadeZone)   edgeFade = Math.max(0, (H - n.y) / fadeZone)
 
-        // Wrap edges
-        if(n.y<-20){n.y=H+10;n.x=Math.random()*W}
-        if(n.y>H+20){n.y=-10;n.x=Math.random()*W}
-        if(n.x<-20) n.x=W+10
-        if(n.x>W+20) n.x=-10
+        // Twinkle + edge fade
+        n.alpha = n.baseAlpha * (0.55+0.45*Math.sin(t*n.speed*2.5+n.phase)) * edgeFade
 
-        // Dampen velocity
-        n.vx*=0.995; n.vy*=0.995
+        // Respawn at bottom when exiting top (continuous upward flow)
+        if(n.y < -30){
+          n.y = H + Math.random()*60
+          n.x = Math.random()*W
+          n.vx = (Math.random()-0.5)*0.18
+          n.vy = -(Math.random()*0.45+0.15)
+        }
+        // Wrap horizontal
+        if(n.x<-30) n.x=W+10
+        if(n.x>W+30) n.x=-10
+
+        // Dampen velocity slowly
+        n.vx*=0.997; n.vy*=0.997
       }
 
-      // Connection lines between nodes
+      // Spatial grid for efficient O(n) connection checks at 500 nodes
+      const cellSize = connDist
+      const cols = Math.ceil(W/cellSize)+1
+      const rows = Math.ceil(H/cellSize)+1
+      const grid: number[][] = new Array(cols*rows)
+      for(let i=0;i<grid.length;i++) grid[i]=[]
       for(let i=0;i<nodes.length;i++){
-        const a=nodes[i]
-        for(let j=i+1;j<nodes.length;j++){
-          const b=nodes[j]
-          const dx=a.x-b.x, dy=a.y-b.y, dist=Math.sqrt(dx*dx+dy*dy)
-          if(dist<connDist){
-            const str=(1-dist/connDist)*Math.min(a.alpha,b.alpha)*0.60
-            ctx.beginPath(); ctx.moveTo(a.x,a.y); ctx.lineTo(b.x,b.y)
-            ctx.strokeStyle=`rgba(200,169,106,${str})`
-            ctx.lineWidth=(1-dist/connDist)*1.1
-            ctx.stroke()
+        const n=nodes[i]
+        const cx=Math.floor(n.x/cellSize), cy=Math.floor(n.y/cellSize)
+        if(cx>=0&&cx<cols&&cy>=0&&cy<rows) grid[cy*cols+cx].push(i)
+      }
+
+      // Connection lines between nearby nodes (grid-accelerated)
+      for(let gy=0;gy<rows;gy++){
+        for(let gx=0;gx<cols;gx++){
+          const cell=grid[gy*cols+gx]
+          // Check own cell + 4 neighbours (right, below, below-right, below-left)
+          const neighbours=[[gx,gy],[gx+1,gy],[gx,gy+1],[gx+1,gy+1],[gx-1,gy+1]]
+          for(const [nx2,ny2] of neighbours){
+            if(nx2<0||nx2>=cols||ny2<0||ny2>=rows) continue
+            const other=grid[ny2*cols+nx2]
+            const same=nx2===gx&&ny2===gy
+            for(let ii=0;ii<cell.length;ii++){
+              const ai=cell[ii], a=nodes[ai]
+              const jStart=same?ii+1:0
+              for(let jj=jStart;jj<other.length;jj++){
+                const bi=other[jj], b=nodes[bi]
+                const dx=a.x-b.x, dy=a.y-b.y, d2=dx*dx+dy*dy
+                if(d2<connDist*connDist){
+                  const dist=Math.sqrt(d2)
+                  const str=(1-dist/connDist)*Math.min(a.alpha,b.alpha)*0.55
+                  if(str>0.005){
+                    ctx.beginPath(); ctx.moveTo(a.x,a.y); ctx.lineTo(b.x,b.y)
+                    ctx.strokeStyle=`rgba(200,169,106,${str})`
+                    ctx.lineWidth=(1-dist/connDist)*1.0
+                    ctx.stroke()
+                  }
+                }
+              }
+            }
           }
         }
-        // Cursor connection lines
+      }
+
+      // Cursor connection lines
+      for(const a of nodes){
         const dx=a.x-mAbsX, dy=a.y-mAbsY, dist=Math.sqrt(dx*dx+dy*dy)
         if(dist<mouseDist){
           const str=(1-dist/mouseDist)*a.alpha*1.2
