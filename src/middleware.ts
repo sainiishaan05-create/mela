@@ -308,9 +308,10 @@ const MAINTENANCE_HTML = `<!DOCTYPE html>
 export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl
 
-  // Maintenance mode — block everything except /dashboard and /login
-  // so you can still log in and work on the site.
-  if (MAINTENANCE) {
+  // Maintenance mode — block public traffic on the live site.
+  // Localhost is always bypassed so you can develop freely.
+  const isLocalhost = request.headers.get('host')?.includes('localhost') || request.headers.get('host')?.includes('127.0.0.1')
+  if (MAINTENANCE && !isLocalhost) {
     const allowed = ['/dashboard', '/login', '/api/auth']
     const isAllowed = allowed.some(p => pathname.startsWith(p))
     if (!isAllowed) {
