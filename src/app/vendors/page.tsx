@@ -481,9 +481,8 @@ export default async function VendorsPage({ searchParams }: Props) {
                 {' '}for free
               </h3>
               <p className="relative text-gray-400 text-sm mb-7 max-w-sm mx-auto leading-relaxed">
-                90 days free, then lock in the Founding Vendor rate of{' '}
-                <span className="text-white font-semibold">$49/mo forever</span>{' '}
-                (normally $197/mo).
+                90 days free, no credit card required. Only the first 50 vendors get the{' '}
+                <span className="text-white font-semibold">$49/mo Founding Member</span> rate.
               </p>
               <Link
                 href="/list-your-business"

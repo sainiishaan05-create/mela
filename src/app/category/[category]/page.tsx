@@ -4,7 +4,12 @@ import type { Metadata } from 'next'
 import type { Vendor, Category, City } from '@/types'
 import VendorCard from '@/components/vendors/VendorCard'
 import Link from 'next/link'
-import { MapPin } from 'lucide-react'
+import { MapPin, ChevronRight } from 'lucide-react'
+
+const FEATURED_CITY_SLUGS = [
+  'toronto', 'brampton', 'mississauga', 'markham',
+  'vaughan', 'scarborough', 'richmond-hill', 'oakville',
+]
 
 interface Props {
   params: Promise<{ category: string }>
@@ -83,7 +88,7 @@ export default async function CategoryPage({ params, searchParams }: Props) {
             </span>
           </div>
 
-          {/* City filter pills */}
+          {/* City filter pills — featured cities only */}
           <div className="flex flex-wrap justify-center gap-2 animate-fade-up delay-300">
             <Link
               href={`/category/${category}`}
@@ -92,7 +97,9 @@ export default async function CategoryPage({ params, searchParams }: Props) {
               <MapPin className="w-3.5 h-3.5" />
               All Cities
             </Link>
-            {(cities as City[] ?? []).map((c) => (
+            {(cities as City[] ?? [])
+              .filter((c) => FEATURED_CITY_SLUGS.includes(c.slug))
+              .map((c) => (
               <Link
                 key={c.slug}
                 href={`/category/${category}/${c.slug}`}
@@ -101,6 +108,13 @@ export default async function CategoryPage({ params, searchParams }: Props) {
                 {c.name}
               </Link>
             ))}
+            <Link
+              href="/browse"
+              className="flex items-center gap-1 px-4 py-1.5 rounded-full text-sm font-semibold bg-white/5 text-white/50 border border-white/8 hover:bg-white/10 hover:text-white/70 transition-all duration-200"
+            >
+              More cities
+              <ChevronRight className="w-3 h-3" />
+            </Link>
           </div>
         </div>
       </section>
@@ -168,9 +182,8 @@ export default async function CategoryPage({ params, searchParams }: Props) {
               {' '}for free
             </h3>
             <p className="relative text-gray-400 text-sm mb-7 max-w-sm mx-auto leading-relaxed">
-              90 days free, then lock in the Founding Vendor rate of{' '}
-              <span className="text-white font-semibold">$49/mo forever</span>{' '}
-              (normally $197/mo).
+              90 days free, no credit card required. Only the first 50 vendors get the{' '}
+              <span className="text-white font-semibold">$49/mo Founding Member</span> rate.
             </p>
             <Link
               href="/list-your-business"

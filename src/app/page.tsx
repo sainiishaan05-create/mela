@@ -9,7 +9,6 @@ import SearchBar from '@/components/ui/SearchBar'
 import {
   ArrowRight, Sparkles, CheckCircle2,
   Zap, Shield, Heart, TrendingUp,
-  BadgeCheck, Inbox, BarChart2, Globe, Lock,
 } from 'lucide-react'
 
 export const revalidate = 300
@@ -24,7 +23,6 @@ const MARQUEE = [
   '💐 Decorators', '🏙️ Scarborough', '🏛️ Venues', '🌆 Richmond Hill', '🎬 Videographers',
   '💍 Jewellery', '👗 Bridal Wear', '🍮 Mithai', '🕉️ Priests', '🐎 Baraat',
 ]
-
 
 const WHY_MELAA = [
   {
@@ -41,69 +39,6 @@ const WHY_MELAA = [
     Icon: Zap,
     title: 'Zero Fees. Ever.',
     desc: 'Contact vendors directly with no booking fees, no commissions, no hidden costs. The way it should always be.',
-  },
-]
-
-const VENDOR_FEATURES = [
-  { Icon: TrendingUp, title: 'Get discovered instantly',  desc: 'Listed in front of thousands of South Asian couples actively searching in the GTA.' },
-  { Icon: Inbox,      title: 'Direct leads, no fees',     desc: 'Couples contact you directly. No platform cuts, no middlemen, no per-booking commissions.' },
-  { Icon: BadgeCheck, title: 'Verified badge',            desc: 'A verified badge that builds instant trust and sets you apart from the competition.' },
-  { Icon: BarChart2,  title: 'Analytics dashboard',      desc: 'See exactly how many couples viewed your profile and where they came from.' },
-  { Icon: Globe,      title: 'Your own profile page',     desc: 'A dedicated page with portfolio, contact info, and a link that\'s yours to share anywhere.' },
-  { Icon: Lock,       title: 'Rate locked forever',       desc: 'Founding rate of $49/mo is locked in permanently, never increasing as the platform grows.' },
-]
-
-const PLANS = [
-  {
-    name: 'Free',
-    price: '$0',
-    period: 'forever',
-    badge: null,
-    desc: 'Get listed and start getting found.',
-    cta: 'List for Free',
-    href: '/list-your-business',
-    highlight: false,
-    perks: [
-      'Listed in the directory',
-      'Basic profile page',
-      'Couples contact you directly',
-      'No time limit, no credit card',
-    ],
-  },
-  {
-    name: 'Basic',
-    price: '$49',
-    period: '/month',
-    badge: 'Founding rate · 90 days free',
-    desc: 'Priority placement, verified badge, full analytics.',
-    cta: 'Start Free Trial',
-    href: '/list-your-business?plan=basic',
-    highlight: true,
-    perks: [
-      'Everything in Free',
-      'Verified badge on profile',
-      'Priority placement in search',
-      'Direct inquiry notifications',
-      'Analytics dashboard',
-      'AI reply drafts',
-    ],
-  },
-  {
-    name: 'Premium',
-    price: 'TBD',
-    period: '',
-    badge: null,
-    desc: 'Maximum visibility across the platform.',
-    cta: 'Join Waitlist',
-    href: '/list-your-business?plan=premium',
-    highlight: false,
-    perks: [
-      'Everything in Basic',
-      'Top of every category',
-      'Featured on homepage',
-      'Weekly newsletter placement',
-      'Priority support',
-    ],
   },
 ]
 
@@ -266,22 +201,7 @@ export default async function HomePage() {
       <div className="divider-cinematic" />
 
       {/* ══════════════════════════════════════════════════════════════════════
-          § 3  BROWSE EXPLORER — Category + City selector
-      ══════════════════════════════════════════════════════════════════════ */}
-      <section className="py-24 px-4 sm:px-6 relative overflow-hidden bg-dark-2 section-immersive section-scanline" style={{'--scan-delay': '0.5s'} as React.CSSProperties}>
-        <div className="section-beam-top" />
-        <div className="section-glow-top" />
-        <div className="max-w-3xl mx-auto relative z-10">
-          <Reveal>
-            <BrowseExplorer />
-          </Reveal>
-        </div>
-      </section>
-
-      <div className="divider-cinematic" />
-
-      {/* ══════════════════════════════════════════════════════════════════════
-          § 4  WHY MELAA — Bento grid
+          § 3  WHY MELAA — Bento grid
       ══════════════════════════════════════════════════════════════════════ */}
       <section className="py-24 px-4 sm:px-6 relative overflow-hidden bg-dark-1 section-immersive section-scanline" style={{'--scan-delay': '4s'} as React.CSSProperties}>
         <div className="section-beam-top" />
@@ -386,6 +306,21 @@ export default async function HomePage() {
         </div>
       </section>
 
+      <div className="divider-cinematic" />
+
+      {/* ══════════════════════════════════════════════════════════════════════
+          § 4  BROWSE EXPLORER — Category + City selector
+      ══════════════════════════════════════════════════════════════════════ */}
+      <section className="py-24 px-4 sm:px-6 relative overflow-hidden bg-dark-2 section-immersive section-scanline" style={{'--scan-delay': '0.5s'} as React.CSSProperties}>
+        <div className="section-beam-top" />
+        <div className="section-glow-top" />
+        <div className="max-w-3xl mx-auto relative z-10">
+          <Reveal>
+            <BrowseExplorer />
+          </Reveal>
+        </div>
+      </section>
+
       {/* Featured vendors — only when present */}
       {featured.length > 0 && (
         <>
@@ -421,122 +356,7 @@ export default async function HomePage() {
       <div className="divider-cinematic" />
 
       {/* ══════════════════════════════════════════════════════════════════════
-          § 5  FOR VENDORS — Features + Pricing
-      ══════════════════════════════════════════════════════════════════════ */}
-      <section className="py-24 px-4 sm:px-6 relative overflow-hidden bg-dark-3 section-immersive section-scanline" style={{'--scan-delay': '1.5s'} as React.CSSProperties}>
-        <div className="section-beam-top" />
-        <div className="absolute inset-0 pointer-events-none"
-          style={{
-            backgroundImage: 'radial-gradient(rgba(200,169,106,0.04) 1px, transparent 1px)',
-            backgroundSize: '36px 36px',
-          }} />
-        <div className="section-glow-gold" />
-
-        <div className="max-w-7xl mx-auto relative z-10">
-
-          <Reveal className="text-center mb-16">
-            <div className="divider-gold mx-auto mb-5" />
-            <p className="tech-label justify-center mb-3">VENDOR · GROWTH PLATFORM</p>
-            <h2 className="font-[family-name:var(--font-playfair)] text-4xl sm:text-5xl font-bold text-white mb-4 title-glow">
-              Grow your wedding business<br />
-              <span className="gradient-shimmer">with Melaa</span>
-            </h2>
-            <p className="text-base max-w-lg mx-auto" style={{ color: 'rgba(255,255,255,0.42)' }}>
-              Start free, upgrade when you&apos;re ready.
-            </p>
-          </Reveal>
-
-          {/* Feature grid — 2 columns on mobile, 3 on desktop */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-20">
-            {VENDOR_FEATURES.map(({ Icon, title, desc }, i) => (
-              <Reveal key={title} delay={i * 50}>
-                <div className="flex items-start gap-4 p-6 rounded-2xl h-full glass-card-dark">
-                  <div className="icon-box-gold shrink-0">
-                    <Icon className="w-5 h-5" style={{ color: '#C8A96A' }} />
-                  </div>
-                  <div>
-                    <p className="font-semibold text-sm text-white mb-1.5">{title}</p>
-                    <p className="text-xs leading-relaxed" style={{ color: 'rgba(255,255,255,0.40)' }}>{desc}</p>
-                  </div>
-                </div>
-              </Reveal>
-            ))}
-          </div>
-
-          {/* Pricing */}
-          <Reveal className="text-center mb-10">
-            <p className="text-xs font-bold uppercase tracking-[0.2em] mb-3"
-              style={{ color: 'rgba(200,169,106,0.7)' }}>Pricing</p>
-            <h3 className="font-[family-name:var(--font-playfair)] text-3xl sm:text-4xl font-bold text-white">
-              Simple, transparent pricing
-            </h3>
-          </Reveal>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
-            {PLANS.map(({ name, price, period, badge, desc, cta, href, highlight, perks }, i) => (
-              <Reveal key={name} delay={i * 90}>
-                <div
-                  className={`rounded-3xl p-8 flex flex-col h-full relative overflow-visible ${highlight ? 'card-glow-highlight' : 'glass-card-dark'}`}
-                  style={highlight ? {
-                    background: 'linear-gradient(145deg, rgba(200,169,106,0.14) 0%, rgba(200,169,106,0.04) 100%)',
-                    border: '1.5px solid rgba(200,169,106,0.40)',
-                  } : {
-                    background: 'rgba(255,255,255,0.025)',
-                    border: '1px solid rgba(200,169,106,0.10)',
-                  }}
-                >
-                  {badge && <div className="pricing-badge">{badge}</div>}
-
-                  <p className="font-semibold text-xs uppercase tracking-[0.18em] mb-5"
-                    style={{ color: 'rgba(200,169,106,0.65)' }}>{name}</p>
-
-                  <div className="mb-2 flex items-end gap-1">
-                    <span className="font-[family-name:var(--font-playfair)] text-4xl font-black text-white">
-                      {price}
-                    </span>
-                    {period && (
-                      <span className="text-sm mb-1.5" style={{ color: 'rgba(255,255,255,0.38)' }}>
-                        {period}
-                      </span>
-                    )}
-                  </div>
-
-                  <p className="text-sm mb-7" style={{ color: 'rgba(255,255,255,0.42)' }}>{desc}</p>
-
-                  <ul className="space-y-3 mb-7 flex-1">
-                    {perks.map(perk => (
-                      <li key={perk} className="flex items-start gap-2.5 text-sm"
-                        style={{ color: 'rgba(255,255,255,0.62)' }}>
-                        <CheckCircle2 className="w-4 h-4 shrink-0 mt-0.5" style={{ color: '#C8A96A' }} />
-                        {perk}
-                      </li>
-                    ))}
-                  </ul>
-
-                  <Link
-                    href={href}
-                    className={`block text-center py-3.5 rounded-2xl font-semibold text-sm transition-all duration-200 ${
-                      highlight ? 'btn-gold-glow justify-center' : 'border hover:bg-white/5'
-                    }`}
-                    style={!highlight ? {
-                      border: '1px solid rgba(200,169,106,0.25)',
-                      color: 'rgba(200,169,106,0.8)',
-                    } : undefined}
-                  >
-                    {cta}
-                  </Link>
-                </div>
-              </Reveal>
-            ))}
-          </div>
-
-        </div>
-      </section>
-
-      <div className="divider-cinematic" />
-
-      {/* ══════════════════════════════════════════════════════════════════════
-          § 6  FINAL CTA
+          § 5  FINAL CTA
       ══════════════════════════════════════════════════════════════════════ */}
       <section className="py-24 sm:py-32 px-4 sm:px-6 relative overflow-hidden bg-dark-2 section-immersive section-scanline" style={{'--scan-delay': '6s'} as React.CSSProperties}>
         <div className="absolute inset-0 pointer-events-none"

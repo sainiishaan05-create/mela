@@ -7,14 +7,14 @@ export const revalidate = 300
 
 export const metadata: Metadata = {
   title: 'Pricing | Melaa | South Asian Wedding Vendors GTA',
-  description: 'Start free for 90 days. Founding Vendors lock in $49/mo forever. Regular pricing starts at $197/mo.',
+  description: 'Start free for 90 days. First 50 Founding Vendors get the exclusive $49/mo rate. Premium plan at $99/mo.',
 }
 
 const PLAN_BASE = [
   {
     name: 'Free',
     price: '$0',
-    period: 'forever',
+    period: '/always free',
     description: 'Get discovered by couples today',
     primary: false,
     highlight: null,
@@ -43,16 +43,16 @@ const PLAN_BASE = [
       'Lead notifications by email',
       'AI-drafted reply suggestions',
       'Analytics dashboard',
-      'Rate locked in forever at $49/mo',
+      'Founding rate: only for the first 50 vendors',
     ],
     cta: 'Claim Founding Spot',
     href: '/list-your-business',
   },
   {
     name: 'Premium',
-    price: '$297',
+    price: '$99',
     period: '/month',
-    description: 'For serious wedding professionals',
+    description: 'Maximum visibility for top vendors',
     primary: false,
     highlight: null,
     features: [
@@ -70,7 +70,7 @@ const PLAN_BASE = [
 
 const FAQS = [
   { q: 'Do I need a credit card to start?', a: 'No. Your first 90 days are completely free. No card required to get listed and start receiving leads from couples.' },
-  { q: 'What happens after 90 days?', a: 'Founding Vendors lock in $49/mo forever. That rate never goes up. The regular price for new vendors after founding spots are gone is $197/mo.' },
+  { q: 'What happens after 90 days?', a: 'The first 50 vendors to sign up get the exclusive $49/mo Founding Member rate. Once all 50 spots are claimed, standard pricing applies for new vendors.' },
   { q: 'Can I cancel anytime?', a: 'Yes. No contracts, no cancellation fees. Cancel or downgrade whenever you like, no questions asked.' },
   { q: 'How quickly will I get leads?', a: "Most vendors receive their first inquiry within 7 days of going live. We help optimize profiles that aren't converting." },
   { q: 'What cities do you cover?', a: 'All of the GTA: Toronto, Brampton, Mississauga, Markham, Vaughan, Scarborough, Richmond Hill, Kitchener-Waterloo and surrounding areas.' },

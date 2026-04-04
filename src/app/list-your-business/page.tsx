@@ -6,7 +6,7 @@ import { CheckCircle2, ArrowRight, Sparkles, Shield, Zap, TrendingUp, Users, Sta
 
 export const metadata: Metadata = {
   title: 'List Your Business Free | Melaa | Wedding & Event Vendors GTA',
-  description: 'Join as a Founding Vendor on Melaa. Free for 90 days, then lock in $49/mo forever. Get discovered by thousands of South Asian families in the GTA.',
+  description: 'Join as a Founding Vendor on Melaa. Free for 90 days. First 50 vendors get the exclusive $49/mo rate. Get discovered by thousands of South Asian families in the GTA.',
 }
 
 // Real testimonials only — do not add placeholder/fabricated quotes here
@@ -18,7 +18,7 @@ const FEATURES = [
   { icon: '🏆', title: 'Verified Vendor Badge', desc: 'Stand out with a verified badge that builds instant trust with couples.' },
   { icon: '📊', title: 'Analytics Dashboard', desc: 'See exactly how many couples viewed your profile and where they came from.' },
   { icon: '🤖', title: 'AI Reply Suggestions', desc: 'Get AI-drafted responses to inquiries so you never miss a lead.' },
-  { icon: '🔒', title: 'Rate Locked Forever', desc: 'Founding rate of $49/mo is locked in permanently, never increasing.' },
+  { icon: '🔒', title: 'Exclusive Founding Rate', desc: 'Only the first 50 vendors get the $49/mo rate. Claim your spot before they\'re gone.' },
 ]
 
 export default async function ListYourBusinessPage() {
@@ -140,7 +140,7 @@ export default async function ListYourBusinessPage() {
                 {[
                   { day: 'Today', icon: '🚀', text: 'Profile goes live. Couples in the GTA can find and contact you immediately.' },
                   { day: 'Days 1–90', icon: '📩', text: 'Receive leads completely free. We prove our value before you pay a cent.' },
-                  { day: 'Day 90', icon: '🔒', text: 'Lock in $49/mo founding rate forever. Regular price goes to $197/mo after.' },
+                  { day: 'Day 90', icon: '🔒', text: 'Founding Members continue at $49/mo. Only 50 spots available at this rate.' },
                   { day: 'Ongoing', icon: '📈', text: 'Priority placement, verified badge, unlimited leads, full analytics.' },
                 ].map(({ day, icon, text }) => (
                   <div key={day} className="flex gap-4">
@@ -181,7 +181,7 @@ export default async function ListYourBusinessPage() {
                 <span className="text-5xl font-bold font-[family-name:var(--font-playfair)]" style={{ color: 'var(--color-gold)' }}>$0</span>
                 <span className="text-sm mb-2" style={{ color: 'rgba(255,255,255,0.5)' }}>for 90 days</span>
               </div>
-              <p className="text-sm text-white mb-3">Then <strong style={{ color: 'var(--color-gold)' }}>$49/mo locked forever</strong>. No credit card needed</p>
+              <p className="text-sm text-white mb-3">Then <strong style={{ color: 'var(--color-gold)' }}>$49/mo</strong> for the first 50 vendors. No credit card needed</p>
               <div className="flex items-center justify-center gap-4 text-xs" style={{ color: 'rgba(255,255,255,0.5)' }}>
                 <span className="flex items-center gap-1"><CheckCircle2 className="w-3 h-3 text-emerald-400" /> No card required</span>
                 <span className="flex items-center gap-1"><CheckCircle2 className="w-3 h-3 text-emerald-400" /> Cancel anytime</span>

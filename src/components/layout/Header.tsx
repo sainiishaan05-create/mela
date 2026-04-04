@@ -1,7 +1,7 @@
 'use client'
 
 import Link from 'next/link'
-import { Menu, X, Sparkles, ChevronDown, MapPin, Search, ArrowRight, User } from 'lucide-react'
+import { Menu, X, Sparkles, ChevronDown, MapPin, Search, ArrowRight, User, Grid3X3, ChevronRight } from 'lucide-react'
 import { useState, useEffect, useRef } from 'react'
 import { usePathname, useRouter } from 'next/navigation'
 import { createClient } from '@/lib/supabase/client'
@@ -15,61 +15,70 @@ const NAV_SUGGESTIONS = [
   { label: 'Wedding Decorators', href: '/vendors?search=Wedding+Decorators' },
 ]
 
-const CATEGORIES_NAV = [
-  { label: 'Photographers', href: '/category/photographers', icon: '📸', group: 'Capture & Media' },
-  { label: 'Videographers', href: '/category/videographers', icon: '🎥', group: 'Capture & Media' },
-  { label: 'Photo Booths', href: '/category/photo-booths', icon: '🎭', group: 'Capture & Media' },
-  { label: 'Makeup Artists', href: '/category/makeup-artists', icon: '💄', group: 'Beauty & Style' },
-  { label: 'Mehndi Artists', href: '/category/mehndi-artists', icon: '🌿', group: 'Beauty & Style' },
-  { label: 'Hair Stylists', href: '/category/hair-stylists', icon: '💇', group: 'Beauty & Style' },
-  { label: 'Nail Artists', href: '/category/nail-artists', icon: '💅', group: 'Beauty & Style' },
-  { label: 'Bridal Fitness', href: '/category/bridal-fitness', icon: '🧘', group: 'Beauty & Style' },
-  { label: 'Wedding Venues', href: '/category/wedding-venues', icon: '🏛️', group: 'Venue & Decor' },
-  { label: 'Decorators', href: '/category/decorators', icon: '🌸', group: 'Venue & Decor' },
-  { label: 'Mandap Rental', href: '/category/mandap-rental', icon: '🕌', group: 'Venue & Decor' },
-  { label: 'Florists', href: '/category/florists', icon: '💐', group: 'Venue & Decor' },
-  { label: 'Sound & Lighting', href: '/category/sound-lighting', icon: '💡', group: 'Venue & Decor' },
-  { label: 'Tent Rentals', href: '/category/tent-rentals', icon: '⛺', group: 'Venue & Decor' },
-  { label: 'Linen & Furniture', href: '/category/linen-furniture', icon: '🪑', group: 'Venue & Decor' },
-  { label: 'Catering', href: '/category/catering', icon: '🍽️', group: 'Food & Sweets' },
-  { label: 'Sweets & Mithai', href: '/category/sweets-mithai', icon: '🍬', group: 'Food & Sweets' },
-  { label: 'Cake & Desserts', href: '/category/cakes-desserts', icon: '🎂', group: 'Food & Sweets' },
-  { label: 'DJs & Entertainment', href: '/category/djs-entertainment', icon: '🎵', group: 'Entertainment' },
-  { label: 'Dhol Players & Bhangra', href: '/category/dhol-players', icon: '🥁', group: 'Entertainment' },
-  { label: 'Sangeet Entertainment', href: '/category/sangeet-entertainment', icon: '🎤', group: 'Entertainment' },
-  { label: 'Baraat & Entertainment', href: '/category/baraat-entertainment', icon: '🐎', group: 'Entertainment' },
-  { label: 'Bridal Wear', href: '/category/bridal-wear', icon: '👗', group: 'Fashion & More' },
-  { label: 'Jewellery', href: '/category/jewellery', icon: '💎', group: 'Fashion & More' },
-  { label: 'Invitations & Cards', href: '/category/invitations', icon: '💌', group: 'Fashion & More' },
-  { label: 'Transportation', href: '/category/transportation', icon: '🚗', group: 'Fashion & More' },
-  { label: 'Priest Services', href: '/category/priest-services', icon: '🕉️', group: 'Fashion & More' },
-  { label: 'Wedding Planners', href: '/category/wedding-planners', icon: '📋', group: 'Fashion & More' },
-  { label: 'Honeymoon Travel', href: '/category/honeymoon-travel', icon: '✈️', group: 'Fashion & More' },
+/* Top-level categories shown in the dropdown — the most searched */
+const FEATURED_CATEGORIES = [
+  { label: 'Photographers', href: '/category/photographers', icon: '📸' },
+  { label: 'Videographers', href: '/category/videographers', icon: '🎥' },
+  { label: 'Makeup Artists', href: '/category/makeup-artists', icon: '💄' },
+  { label: 'Mehndi Artists', href: '/category/mehndi-artists', icon: '🌿' },
+  { label: 'Catering', href: '/category/catering', icon: '🍽️' },
+  { label: 'Wedding Venues', href: '/category/wedding-venues', icon: '🏛️' },
+  { label: 'Decorators', href: '/category/decorators', icon: '🌸' },
+  { label: 'DJs & Entertainment', href: '/category/djs-entertainment', icon: '🎵' },
+  { label: 'Bridal Wear', href: '/category/bridal-wear', icon: '👗' },
+  { label: 'Jewellery', href: '/category/jewellery', icon: '💎' },
 ]
 
-const CITIES_NAV_GTA = [
+/* Top cities shown in the dropdown */
+const FEATURED_CITIES = [
+  'Toronto', 'Brampton', 'Mississauga', 'Markham',
+  'Vaughan', 'Scarborough', 'Richmond Hill', 'Oakville',
+]
+
+/* Full lists for mobile only */
+const ALL_CATEGORIES = [
+  { label: 'Photographers', href: '/category/photographers', icon: '📸' },
+  { label: 'Videographers', href: '/category/videographers', icon: '🎥' },
+  { label: 'Photo Booths', href: '/category/photo-booths', icon: '🎭' },
+  { label: 'Makeup Artists', href: '/category/makeup-artists', icon: '💄' },
+  { label: 'Mehndi Artists', href: '/category/mehndi-artists', icon: '🌿' },
+  { label: 'Hair Stylists', href: '/category/hair-stylists', icon: '💇' },
+  { label: 'Nail Artists', href: '/category/nail-artists', icon: '💅' },
+  { label: 'Bridal Fitness', href: '/category/bridal-fitness', icon: '🧘' },
+  { label: 'Wedding Venues', href: '/category/wedding-venues', icon: '🏛️' },
+  { label: 'Decorators', href: '/category/decorators', icon: '🌸' },
+  { label: 'Mandap Rental', href: '/category/mandap-rental', icon: '🕌' },
+  { label: 'Florists', href: '/category/florists', icon: '💐' },
+  { label: 'Sound & Lighting', href: '/category/sound-lighting', icon: '💡' },
+  { label: 'Tent Rentals', href: '/category/tent-rentals', icon: '⛺' },
+  { label: 'Linen & Furniture', href: '/category/linen-furniture', icon: '🪑' },
+  { label: 'Catering', href: '/category/catering', icon: '🍽️' },
+  { label: 'Sweets & Mithai', href: '/category/sweets-mithai', icon: '🍬' },
+  { label: 'Cake & Desserts', href: '/category/cakes-desserts', icon: '🎂' },
+  { label: 'DJs & Entertainment', href: '/category/djs-entertainment', icon: '🎵' },
+  { label: 'Dhol Players & Bhangra', href: '/category/dhol-players', icon: '🥁' },
+  { label: 'Sangeet Entertainment', href: '/category/sangeet-entertainment', icon: '🎤' },
+  { label: 'Baraat & Entertainment', href: '/category/baraat-entertainment', icon: '🐎' },
+  { label: 'Bridal Wear', href: '/category/bridal-wear', icon: '👗' },
+  { label: 'Jewellery', href: '/category/jewellery', icon: '💎' },
+  { label: 'Invitations & Cards', href: '/category/invitations', icon: '💌' },
+  { label: 'Transportation', href: '/category/transportation', icon: '🚗' },
+  { label: 'Priest Services', href: '/category/priest-services', icon: '🕉️' },
+  { label: 'Wedding Planners', href: '/category/wedding-planners', icon: '📋' },
+  { label: 'Honeymoon Travel', href: '/category/honeymoon-travel', icon: '✈️' },
+]
+
+const ALL_CITIES_MOBILE = [
   'Toronto', 'Brampton', 'Mississauga', 'Markham', 'Vaughan', 'Scarborough',
   'Richmond Hill', 'Oakville', 'Etobicoke', 'North York', 'Thornhill', 'Woodbridge',
-  'Malton', 'Port Credit', 'Streetsville', 'Meadowvale', 'Concord', 'Maple',
+  'Milton', 'Hamilton', 'Kitchener', 'Waterloo', 'Guelph', 'Newmarket',
 ]
-
-const CITIES_NAV_SURROUNDING = [
-  'Ajax', 'Pickering', 'Oshawa', 'Whitby', 'Bowmanville',
-  'Burlington', 'Milton', 'Halton Hills', 'Georgetown',
-  'Caledon', 'Bolton', 'King City', 'Kleinburg', 'Nobleton',
-  'Newmarket', 'Aurora', 'Bradford', 'East Gwillimbury', 'Innisfil', 'Barrie',
-  'Hamilton', 'Brantford', 'Kitchener', 'Waterloo', 'Cambridge', 'Guelph',
-  'Stouffville', 'Uxbridge', 'Peterborough',
-  'St. Catharines', 'Niagara Falls', 'London', 'Windsor',
-]
-
-const CITIES_NAV = [...CITIES_NAV_GTA, ...CITIES_NAV_SURROUNDING]
 
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
   const [browseOpen, setBrowseOpen] = useState(false)
-  const [citiesOpen, setCitiesOpen] = useState(false)
+  const [browseTab, setBrowseTab] = useState<'categories' | 'cities'>('categories')
   const [mobileBrowseOpen, setMobileBrowseOpen] = useState(false)
   const [mobileCitiesOpen, setMobileCitiesOpen] = useState(false)
   const [searchQuery, setSearchQuery] = useState('')
@@ -92,10 +101,8 @@ export default function Header() {
   }, [])
 
   const browseRef = useRef<HTMLDivElement>(null)
-  const citiesRef = useRef<HTMLDivElement>(null)
   const navSearchRef = useRef<HTMLFormElement>(null)
   const browseTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
-  const citiesTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 12)
@@ -106,7 +113,6 @@ export default function Header() {
   useEffect(() => {
     setMenuOpen(false)
     setBrowseOpen(false)
-    setCitiesOpen(false)
   }, [pathname])
 
   useEffect(() => {
@@ -132,13 +138,15 @@ export default function Header() {
 
   const openBrowse = () => { if (browseTimer.current) clearTimeout(browseTimer.current); setBrowseOpen(true) }
   const closeBrowse = () => { browseTimer.current = setTimeout(() => setBrowseOpen(false), 120) }
-  const openCities = () => { if (citiesTimer.current) clearTimeout(citiesTimer.current); setCitiesOpen(true) }
-  const closeCities = () => { citiesTimer.current = setTimeout(() => setCitiesOpen(false), 120) }
 
   function handleSearch(e: React.FormEvent) {
     e.preventDefault()
     const q = searchQuery.trim()
     if (q) router.push(`/vendors?search=${encodeURIComponent(q)}`)
+  }
+
+  function citySlug(city: string) {
+    return city.toLowerCase().replace(/ /g, '-').replace(/\./g, '')
   }
 
   return (
@@ -159,10 +167,10 @@ export default function Header() {
             Melaa
           </Link>
 
-          {/* Desktop nav — left side */}
+          {/* Desktop nav */}
           <nav className="hidden md:flex items-center gap-0.5 text-sm text-gray-600 shrink-0">
 
-            {/* Browse dropdown */}
+            {/* Unified Browse dropdown */}
             <div ref={browseRef} className="relative" onMouseEnter={openBrowse} onMouseLeave={closeBrowse}>
               <button
                 className="flex items-center gap-1 px-3 py-2 rounded-lg font-medium transition-all duration-200"
@@ -173,7 +181,7 @@ export default function Header() {
                 <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-200 ${browseOpen ? 'rotate-180' : ''}`} />
               </button>
 
-              {/* Mega dropdown */}
+              {/* Dropdown panel */}
               <div
                 onMouseEnter={openBrowse}
                 onMouseLeave={closeBrowse}
@@ -185,97 +193,83 @@ export default function Header() {
                   background: 'var(--color-bg)',
                   borderColor: 'var(--color-taupe)',
                 }}
-                className="absolute top-full left-0 mt-2 w-[860px] rounded-2xl shadow-2xl p-6 z-50 border"
+                className="absolute top-full left-0 mt-2 w-[420px] rounded-2xl shadow-2xl z-50 border overflow-hidden"
               >
-                <div className="grid grid-cols-5 gap-6">
-                  {(['Capture & Media', 'Beauty & Style', 'Venue & Decor', 'Food & Sweets', 'Entertainment'] as const).map((grp) => (
-                    <div key={grp}>
-                      <p className="text-[10px] font-bold uppercase tracking-widest mb-2" style={{ color: 'var(--color-taupe)' }}>{grp}</p>
-                      <div className="space-y-0.5">
-                        {CATEGORIES_NAV.filter(c => c.group === grp).map(({ label, href, icon }) => (
-                          <Link key={href} href={href} className="nav-link flex items-center gap-2 py-1.5 px-2 text-sm">
-                            <span className="text-sm leading-none">{icon}</span>
-                            <span className="leading-tight text-xs">{label}</span>
+                {/* Tabs */}
+                <div className="flex border-b" style={{ borderColor: 'var(--color-taupe)' }}>
+                  <button
+                    onClick={() => setBrowseTab('categories')}
+                    className="flex-1 flex items-center justify-center gap-2 px-4 py-3.5 text-xs font-bold uppercase tracking-wider transition-all duration-200"
+                    style={{
+                      color: browseTab === 'categories' ? 'var(--color-gold-dark)' : '#9B8E82',
+                      borderBottom: browseTab === 'categories' ? '2px solid var(--color-gold-dark)' : '2px solid transparent',
+                      background: browseTab === 'categories' ? 'rgba(200,169,106,0.06)' : 'transparent',
+                    }}
+                  >
+                    <Grid3X3 className="w-3.5 h-3.5" />
+                    Categories
+                  </button>
+                  <button
+                    onClick={() => setBrowseTab('cities')}
+                    className="flex-1 flex items-center justify-center gap-2 px-4 py-3.5 text-xs font-bold uppercase tracking-wider transition-all duration-200"
+                    style={{
+                      color: browseTab === 'cities' ? 'var(--color-gold-dark)' : '#9B8E82',
+                      borderBottom: browseTab === 'cities' ? '2px solid var(--color-gold-dark)' : '2px solid transparent',
+                      background: browseTab === 'cities' ? 'rgba(200,169,106,0.06)' : 'transparent',
+                    }}
+                  >
+                    <MapPin className="w-3.5 h-3.5" />
+                    Cities
+                  </button>
+                </div>
+
+                {/* Tab content */}
+                <div className="p-4">
+                  {browseTab === 'categories' ? (
+                    <>
+                      <div className="grid grid-cols-2 gap-0.5">
+                        {FEATURED_CATEGORIES.map(({ label, href, icon }) => (
+                          <Link key={href} href={href}
+                            className="nav-link flex items-center gap-2.5 py-2.5 px-3 rounded-xl text-sm hover:bg-[#F5ECD7]/50 transition-colors duration-150 group"
+                          >
+                            <span className="text-base leading-none w-6 text-center">{icon}</span>
+                            <span className="text-gray-700 group-hover:text-gray-900 leading-tight">{label}</span>
                           </Link>
                         ))}
                       </div>
-                    </div>
-                  ))}
-                </div>
-                <div className="mt-4 pt-4 border-t flex items-center gap-4 flex-wrap" style={{ borderColor: 'var(--color-taupe)' }}>
-                  <p className="text-[10px] font-bold uppercase tracking-widest shrink-0" style={{ color: 'var(--color-taupe)' }}>Fashion & More</p>
-                  {CATEGORIES_NAV.filter(c => c.group === 'Fashion & More').map(({ label, href, icon }) => (
-                    <Link key={href} href={href}
-                      className="nav-link flex items-center gap-1.5 py-1.5 px-3 rounded-full text-xs border"
-                      style={{ borderColor: 'var(--color-taupe)', background: 'white' }}>
-                      <span>{icon}</span>{label}
-                    </Link>
-                  ))}
-                  <Link href="/vendors" className="ml-auto text-sm font-semibold hover:underline shrink-0" style={{ color: 'var(--color-gold-dark)' }}>
-                    All Vendors →
-                  </Link>
-                </div>
-              </div>
-            </div>
-
-            {/* Cities dropdown */}
-            <div ref={citiesRef} className="relative" onMouseEnter={openCities} onMouseLeave={closeCities}>
-              <button
-                className="nav-link flex items-center gap-1 px-3 py-2 font-medium"
-                style={{ color: citiesOpen ? 'var(--color-gold-dark)' : '#5C4F48', background: citiesOpen ? 'rgba(200,169,106,0.1)' : 'transparent' }}
-                aria-expanded={citiesOpen}
-              >
-                Cities
-                <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-200 ${citiesOpen ? 'rotate-180' : ''}`} />
-              </button>
-
-              <div
-                onMouseEnter={openCities}
-                onMouseLeave={closeCities}
-                style={{
-                  opacity: citiesOpen ? 1 : 0,
-                  transform: citiesOpen ? 'translateY(0)' : 'translateY(-4px)',
-                  pointerEvents: citiesOpen ? 'auto' : 'none',
-                  transition: 'opacity 200ms ease, transform 200ms ease',
-                  background: 'var(--color-bg)',
-                  borderColor: 'var(--color-taupe)',
-                }}
-                className="absolute top-full -right-4 mt-2 w-[620px] rounded-2xl shadow-2xl p-6 z-50 border"
-              >
-                <div className="grid grid-cols-2 gap-6">
-                  <div>
-                    <p className="text-[10px] font-bold uppercase tracking-widest mb-3" style={{ color: 'var(--color-taupe)' }}>GTA Core</p>
-                    <div className="grid grid-cols-2 gap-x-2">
-                      {CITIES_NAV_GTA.map((city) => {
-                        const slug = city.toLowerCase().replace(/ /g, '-').replace(/\./g, '')
-                        return (
-                          <Link key={city} href={`/city/${slug}`}
-                            className="nav-link flex items-center gap-1.5 text-xs py-1.5 px-2">
-                            <MapPin className="w-2.5 h-2.5 text-gray-400 shrink-0" />{city}
+                      <div className="mt-3 pt-3 border-t flex items-center justify-between" style={{ borderColor: 'var(--color-taupe)' }}>
+                        <Link href="/vendors" className="text-xs font-semibold flex items-center gap-1 hover:underline" style={{ color: 'var(--color-gold-dark)' }}>
+                          View all 29 categories
+                          <ChevronRight className="w-3 h-3" />
+                        </Link>
+                        <Link href="/vendors" className="text-xs text-gray-400 hover:text-gray-600 transition-colors">
+                          All Vendors
+                        </Link>
+                      </div>
+                    </>
+                  ) : (
+                    <>
+                      <div className="grid grid-cols-2 gap-0.5">
+                        {FEATURED_CITIES.map((city) => (
+                          <Link key={city} href={`/city/${citySlug(city)}`}
+                            className="nav-link flex items-center gap-2.5 py-2.5 px-3 rounded-xl text-sm hover:bg-[#F5ECD7]/50 transition-colors duration-150 group"
+                          >
+                            <MapPin className="w-3.5 h-3.5 text-gray-400 group-hover:text-[#C8A96A] shrink-0 transition-colors" />
+                            <span className="text-gray-700 group-hover:text-gray-900">{city}</span>
                           </Link>
-                        )
-                      })}
-                    </div>
-                  </div>
-                  <div>
-                    <p className="text-[10px] font-bold uppercase tracking-widest mb-3" style={{ color: 'var(--color-taupe)' }}>Surrounding Areas</p>
-                    <div className="grid grid-cols-2 gap-x-2 max-h-52 overflow-y-auto scrollbar-hide">
-                      {CITIES_NAV_SURROUNDING.map((city) => {
-                        const slug = city.toLowerCase().replace(/ /g, '-').replace(/\./g, '')
-                        return (
-                          <Link key={city} href={`/city/${slug}`}
-                            className="nav-link flex items-center gap-1.5 text-xs py-1.5 px-2">
-                            <MapPin className="w-2.5 h-2.5 text-gray-400 shrink-0" />{city}
-                          </Link>
-                        )
-                      })}
-                    </div>
-                  </div>
-                </div>
-                <div className="mt-4 pt-3 border-t" style={{ borderColor: 'var(--color-taupe)' }}>
-                  <Link href="/browse" className="text-xs font-semibold hover:underline" style={{ color: 'var(--color-gold-dark)' }}>
-                    Browse all Ontario cities →
-                  </Link>
+                        ))}
+                      </div>
+                      <div className="mt-3 pt-3 border-t flex items-center justify-between" style={{ borderColor: 'var(--color-taupe)' }}>
+                        <Link href="/browse" className="text-xs font-semibold flex items-center gap-1 hover:underline" style={{ color: 'var(--color-gold-dark)' }}>
+                          View all 50+ cities
+                          <ChevronRight className="w-3 h-3" />
+                        </Link>
+                        <Link href="/browse" className="text-xs text-gray-400 hover:text-gray-600 transition-colors">
+                          Browse by City
+                        </Link>
+                      </div>
+                    </>
+                  )}
                 </div>
               </div>
             </div>
@@ -424,7 +418,7 @@ export default function Header() {
             </button>
             <div style={{ maxHeight: mobileBrowseOpen ? '600px' : '0', overflow: 'hidden', transition: 'max-height 300ms ease' }}>
               <div className="pb-2 px-2">
-                {CATEGORIES_NAV.map(({ label, href, icon }) => (
+                {ALL_CATEGORIES.map(({ label, href, icon }) => (
                   <Link key={href} href={href} onClick={() => setMenuOpen(false)} className="nav-link flex items-center gap-3 px-4 py-3 text-sm">
                     <span className="text-base">{icon}</span>{label}
                   </Link>
@@ -442,16 +436,18 @@ export default function Header() {
               <span>Cities</span>
               <ChevronDown className={`w-4 h-4 text-gray-400 transition-transform duration-200 ${mobileCitiesOpen ? 'rotate-180' : ''}`} />
             </button>
-            <div style={{ maxHeight: mobileCitiesOpen ? '600px' : '0', overflow: 'hidden', transition: 'max-height 300ms ease' }}>
+            <div style={{ maxHeight: mobileCitiesOpen ? '400px' : '0', overflow: 'hidden', transition: 'max-height 300ms ease' }}>
               <div className="pb-2 px-2 grid grid-cols-2 gap-0.5">
-                {CITIES_NAV.map((city) => {
-                  const slug = city.toLowerCase().replace(/ /g, '-')
-                  return (
-                    <Link key={city} href={`/city/${slug}`} onClick={() => setMenuOpen(false)} className="nav-link flex items-center gap-1.5 px-4 py-2.5 text-sm">
-                      <MapPin className="w-3 h-3 text-gray-400 shrink-0" />{city}
-                    </Link>
-                  )
-                })}
+                {ALL_CITIES_MOBILE.map((city) => (
+                  <Link key={city} href={`/city/${citySlug(city)}`} onClick={() => setMenuOpen(false)} className="nav-link flex items-center gap-1.5 px-4 py-2.5 text-sm">
+                    <MapPin className="w-3 h-3 text-gray-400 shrink-0" />{city}
+                  </Link>
+                ))}
+              </div>
+              <div className="px-6 pb-3">
+                <Link href="/browse" onClick={() => setMenuOpen(false)} className="text-xs font-semibold" style={{ color: 'var(--color-gold-dark)' }}>
+                  View all cities →
+                </Link>
               </div>
             </div>
           </div>
