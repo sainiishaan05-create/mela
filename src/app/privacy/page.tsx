@@ -113,7 +113,14 @@ export default function PrivacyPage() {
           </section>
 
           <section>
-            <h2 className="text-xl font-semibold text-gray-900 mb-3">12. Contact</h2>
+            <h2 className="text-xl font-semibold text-gray-900 mb-3">12. Third-Party Transactions</h2>
+            <p className="text-gray-600 leading-relaxed">
+              Mela is a directory service that connects couples with vendors. We do not participate in, mediate, or bear any responsibility for transactions, agreements, disputes, or interactions between couples and vendors. Any arrangement between a couple and a vendor is solely between those parties. Mela does not endorse, guarantee, or warrant any vendor or their services.
+            </p>
+          </section>
+
+          <section>
+            <h2 className="text-xl font-semibold text-gray-900 mb-3">13. Contact</h2>
             <p className="text-gray-600 leading-relaxed">
               For privacy-related questions or requests, contact:{' '}
               <a href="mailto:hello@melaa.ca" className="text-rose-600 hover:underline">hello@melaa.ca</a>

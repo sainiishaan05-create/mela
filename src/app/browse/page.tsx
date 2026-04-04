@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { MapPin, ArrowRight } from 'lucide-react'
+import NewsletterSignup from '@/components/ui/NewsletterSignup'
 
 export const metadata: Metadata = {
   title: 'Browse by City | Melaa | Wedding & Event Vendors Ontario',
@@ -102,6 +103,11 @@ export default function BrowsePage() {
               </Link>
             ))}
           </div>
+        </div>
+
+        {/* Email capture for couples */}
+        <div className="mb-14">
+          <NewsletterSignup variant="card" />
         </div>
 
         {/* Browse all vendors CTA */}

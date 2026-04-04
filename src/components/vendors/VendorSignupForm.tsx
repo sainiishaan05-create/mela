@@ -1,8 +1,8 @@
 'use client'
 
-import { useState, useRef } from 'react'
+import { useState } from 'react'
 import { createClient } from '@/lib/supabase/client'
-import { Upload, X, ImageIcon, Loader2 } from 'lucide-react'
+import { Loader2, CheckCircle2, ArrowRight } from 'lucide-react'
 import type { Category, City } from '@/types'
 
 interface Props {
@@ -12,97 +12,60 @@ interface Props {
 
 export default function VendorSignupForm({ categories, cities }: Props) {
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle')
+  const [errorMsg, setErrorMsg] = useState('')
   const [form, setForm] = useState({
-    name: '', email: '', phone: '', category_id: '', city_id: '',
-    description: '', website: '', instagram: '', password: '', confirmPassword: '',
+    name: '', email: '', password: '', confirmPassword: '', category_id: '', city_id: '',
   })
-  const [images, setImages] = useState<string[]>([])
-  const [uploading, setUploading] = useState(false)
-  const [uploadError, setUploadError] = useState('')
-  const fileRef = useRef<HTMLInputElement>(null)
-
-  async function handleImageUpload(e: React.ChangeEvent<HTMLInputElement>) {
-    const files = Array.from(e.target.files ?? [])
-    if (!files.length) return
-    if (images.length + files.length > 6) {
-      setUploadError('Maximum 6 photos allowed.')
-      return
-    }
-    setUploading(true)
-    setUploadError('')
-    const supabase = createClient()
-    const uploaded: string[] = []
-    let failed = 0
-    for (const file of files) {
-      if (file.size > 5 * 1024 * 1024) {
-        setUploadError(`${file.name} is too large. Max 5MB per photo.`)
-        failed++
-        continue
-      }
-      const ext = file.name.split('.').pop()
-      const fileName = `${Date.now()}-${Math.random().toString(36).slice(2)}.${ext}`
-      const { data, error } = await supabase.storage
-        .from('vendor-images')
-        .upload(fileName, file, { upsert: false })
-      if (error) {
-        console.error('Upload error:', error.message)
-        failed++
-        if (error.message.includes('Bucket not found') || error.message.includes('not found')) {
-          setUploadError('Photo storage is being set up. Your listing will still go live without photos.')
-        } else {
-          setUploadError(`Failed to upload ${file.name}. Please try again.`)
-        }
-        continue
-      }
-      const { data: { publicUrl } } = supabase.storage
-        .from('vendor-images')
-        .getPublicUrl(data.path)
-      uploaded.push(publicUrl)
-    }
-    setImages(prev => [...prev, ...uploaded])
-    setUploading(false)
-    if (fileRef.current) fileRef.current.value = ''
-    if (failed > 0 && uploaded.length > 0) {
-      setUploadError(`${uploaded.length} photo(s) uploaded. ${failed} failed. You can continue without them.`)
-    }
-  }
-
-  function removeImage(url: string) {
-    setImages(prev => prev.filter(u => u !== url))
-  }
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
-    if (form.password.length < 8) { alert('Password must be at least 8 characters.'); return }
-    if (form.password !== form.confirmPassword) { alert('Passwords do not match.'); return }
+    setErrorMsg('')
+
+    if (form.password.length < 8) {
+      setErrorMsg('Password must be at least 8 characters.')
+      return
+    }
+    if (form.password !== form.confirmPassword) {
+      setErrorMsg('Passwords do not match.')
+      return
+    }
+
     setStatus('loading')
     try {
-      const { confirmPassword, ...payload } = form
-      void confirmPassword
       const res = await fetch('/api/vendors', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ ...payload, portfolio_images: images }),
+        body: JSON.stringify({
+          name: form.name,
+          email: form.email,
+          password: form.password,
+          category_id: form.category_id,
+          city_id: form.city_id,
+        }),
       })
       const data = await res.json()
-      if (!res.ok) { alert(data.error ?? 'Something went wrong.'); setStatus('error'); return }
+      if (!res.ok) {
+        setErrorMsg(data.error ?? 'Something went wrong. Please try again.')
+        setStatus('error')
+        return
+      }
 
-      // Auto-login the vendor so they land directly in their dashboard
+      // Auto-login so they land in their dashboard
       const supabase = createClient()
       const { error: signInError } = await supabase.auth.signInWithPassword({
         email: form.email,
         password: form.password,
       })
       if (signInError) {
-        // Login failed but signup succeeded — just show success screen
         console.warn('Auto-login failed after signup:', signInError.message)
         setStatus('success')
         return
       }
 
-      // Hard redirect so browser sends the auth cookie with the new request
+      // Hard redirect so browser sends the auth cookie
       window.location.href = '/dashboard?claimed=1'
     } catch {
+      setErrorMsg('Something went wrong. Please try again.')
       setStatus('error')
     }
   }
@@ -112,7 +75,7 @@ export default function VendorSignupForm({ categories, cities }: Props) {
       <div className="text-center py-8">
         <p className="text-5xl mb-4">🎉</p>
         <h2 className="font-[family-name:var(--font-playfair)] text-2xl font-bold mb-2">You&apos;re listed!</h2>
-        <p className="text-gray-500 mb-6">Your business is now live on Melaa. Couples can start finding you right away.</p>
+        <p className="text-gray-500 mb-6">Your business is now live on Melaa. Log in to complete your profile and start getting leads.</p>
         <a
           href="/login"
           className="inline-block bg-[#C8A96A] text-white font-semibold px-6 py-3 rounded-xl hover:bg-[#B8945A] transition-colors"
@@ -123,160 +86,121 @@ export default function VendorSignupForm({ categories, cities }: Props) {
     )
   }
 
-  const field = (label: string, key: keyof typeof form, type = 'text', placeholder = '') => (
-    <div>
-      <label className="block text-sm font-medium text-gray-700 mb-1">{label}</label>
-      <input
-        type={type}
-        placeholder={placeholder}
-        value={form[key]}
-        onChange={e => setForm(f => ({ ...f, [key]: e.target.value }))}
-        className="w-full border border-gray-200 rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:border-[#C8A96A]"
-      />
-    </div>
-  )
-
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
-      {field('Business Name *', 'name', 'text', 'e.g. Royal Photography')}
-      {field('Email Address *', 'email', 'email', 'you@example.com')}
+      {/* Step indicator */}
+      <div className="flex items-center gap-3 mb-2">
+        <div className="flex items-center gap-1.5">
+          <span className="w-6 h-6 rounded-full bg-[#C8A96A] text-white text-xs font-bold flex items-center justify-center">1</span>
+          <span className="text-xs font-semibold text-[#C8A96A]">Create account</span>
+        </div>
+        <div className="h-px flex-1 bg-gray-200" />
+        <div className="flex items-center gap-1.5 opacity-40">
+          <span className="w-6 h-6 rounded-full bg-gray-200 text-gray-500 text-xs font-bold flex items-center justify-center">2</span>
+          <span className="text-xs font-medium text-gray-400">Complete profile</span>
+        </div>
+      </div>
 
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-1">Password * <span className="text-gray-400 font-normal">(min. 8 characters, used to manage your listing)</span></label>
+        <label className="block text-sm font-medium text-gray-700 mb-1">Business Name</label>
         <input
-          type="password"
-          placeholder="Create a password"
+          type="text"
           required
-          minLength={8}
-          autoComplete="new-password"
-          value={form.password}
-          onChange={e => setForm(f => ({ ...f, password: e.target.value }))}
-          className="w-full border border-gray-200 rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:border-[#C8A96A]"
-        />
-      </div>
-      <div>
-        <label className="block text-sm font-medium text-gray-700 mb-1">Confirm Password *</label>
-        <input
-          type="password"
-          placeholder="Repeat your password"
-          required
-          minLength={8}
-          autoComplete="new-password"
-          value={form.confirmPassword}
-          onChange={e => setForm(f => ({ ...f, confirmPassword: e.target.value }))}
-          className="w-full border border-gray-200 rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:border-[#C8A96A]"
+          placeholder="e.g. Royal Photography"
+          value={form.name}
+          onChange={e => setForm(f => ({ ...f, name: e.target.value }))}
+          className="w-full border border-gray-200 rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:border-[#C8A96A] transition-colors"
         />
       </div>
 
-      {field('Phone Number', 'phone', 'tel', '+1 (416) 000-0000')}
+      <div>
+        <label className="block text-sm font-medium text-gray-700 mb-1">Email Address</label>
+        <input
+          type="email"
+          required
+          placeholder="you@example.com"
+          value={form.email}
+          onChange={e => setForm(f => ({ ...f, email: e.target.value }))}
+          className="w-full border border-gray-200 rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:border-[#C8A96A] transition-colors"
+        />
+      </div>
+
+      <div className="grid grid-cols-2 gap-3">
+        <div>
+          <label className="block text-sm font-medium text-gray-700 mb-1">Password</label>
+          <input
+            type="password"
+            required
+            minLength={8}
+            placeholder="Min. 8 characters"
+            autoComplete="new-password"
+            value={form.password}
+            onChange={e => setForm(f => ({ ...f, password: e.target.value }))}
+            className="w-full border border-gray-200 rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:border-[#C8A96A] transition-colors"
+          />
+        </div>
+        <div>
+          <label className="block text-sm font-medium text-gray-700 mb-1">Confirm</label>
+          <input
+            type="password"
+            required
+            minLength={8}
+            placeholder="Repeat password"
+            autoComplete="new-password"
+            value={form.confirmPassword}
+            onChange={e => setForm(f => ({ ...f, confirmPassword: e.target.value }))}
+            className="w-full border border-gray-200 rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:border-[#C8A96A] transition-colors"
+          />
+        </div>
+      </div>
 
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-1">Category *</label>
+        <label className="block text-sm font-medium text-gray-700 mb-1">Category</label>
         <select
           required
           value={form.category_id}
           onChange={e => setForm(f => ({ ...f, category_id: e.target.value }))}
-          className="w-full border border-gray-200 rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:border-[#C8A96A]"
+          className="w-full border border-gray-200 rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:border-[#C8A96A] transition-colors"
         >
-          <option value="">Select a category</option>
+          <option value="">What do you do?</option>
           {categories.map(c => <option key={c.id} value={c.id}>{c.icon} {c.name}</option>)}
         </select>
       </div>
 
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-1">City *</label>
+        <label className="block text-sm font-medium text-gray-700 mb-1">City</label>
         <select
           required
           value={form.city_id}
           onChange={e => setForm(f => ({ ...f, city_id: e.target.value }))}
-          className="w-full border border-gray-200 rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:border-[#C8A96A]"
+          className="w-full border border-gray-200 rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:border-[#C8A96A] transition-colors"
         >
-          <option value="">Select a city</option>
+          <option value="">Where are you based?</option>
           {cities.map(c => <option key={c.id} value={c.id}>{c.name}</option>)}
         </select>
       </div>
 
-      <div>
-        <label className="block text-sm font-medium text-gray-700 mb-1">About Your Business</label>
-        <textarea
-          rows={4}
-          placeholder="Describe your services, experience, and what makes you special..."
-          value={form.description}
-          onChange={e => setForm(f => ({ ...f, description: e.target.value }))}
-          className="w-full border border-gray-200 rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:border-[#C8A96A] resize-none"
-        />
-      </div>
-
-      {field('Website', 'website', 'url', 'https://yourwebsite.com')}
-      {field('Instagram', 'instagram', 'text', '@yourhandle')}
-
-      {/* ── Photo Upload ── */}
-      <div>
-        <label className="block text-sm font-medium text-gray-700 mb-1">
-          Portfolio Photos <span className="text-gray-400 font-normal">(up to 6 photos, max 5MB each)</span>
-        </label>
-
-        {/* Preview grid */}
-        {images.length > 0 && (
-          <div className="grid grid-cols-3 gap-2 mb-3">
-            {images.map((url) => (
-              <div key={url} className="relative aspect-square rounded-lg overflow-hidden border border-gray-200 group">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={url} alt="Portfolio" className="w-full h-full object-cover" />
-                <button
-                  type="button"
-                  onClick={() => removeImage(url)}
-                  className="absolute top-1 right-1 bg-black/60 hover:bg-black/80 text-white rounded-full p-0.5 opacity-0 group-hover:opacity-100 transition-opacity"
-                >
-                  <X className="w-3 h-3" />
-                </button>
-              </div>
-            ))}
-          </div>
-        )}
-
-        {/* Upload button */}
-        {images.length < 6 && (
-          <div>
-            <input
-              ref={fileRef}
-              type="file"
-              accept="image/jpeg,image/png,image/webp"
-              multiple
-              className="hidden"
-              onChange={handleImageUpload}
-              disabled={uploading}
-            />
-            <button
-              type="button"
-              onClick={() => fileRef.current?.click()}
-              disabled={uploading}
-              className="w-full flex items-center justify-center gap-2 border-2 border-dashed border-gray-200 hover:border-[#C8A96A] rounded-lg py-4 text-sm text-gray-500 hover:text-[#C8A96A] transition-colors disabled:opacity-50"
-            >
-              {uploading ? (
-                <><Loader2 className="w-4 h-4 animate-spin" /> Uploading...</>
-              ) : (
-                <><Upload className="w-4 h-4" /> <ImageIcon className="w-4 h-4" /> Add Photos</>
-              )}
-            </button>
-            <p className="text-xs text-gray-400 mt-1 text-center">{images.length}/6 photos added</p>
-          </div>
-        )}
-        {uploadError && (
-          <p className="text-xs text-amber-600 mt-2">{uploadError}</p>
-        )}
-      </div>
-
-      {status === 'error' && <p className="text-red-500 text-sm">Something went wrong. Please try again.</p>}
+      {errorMsg && (
+        <p className="text-red-500 text-sm bg-red-50 border border-red-100 rounded-lg px-3 py-2">{errorMsg}</p>
+      )}
 
       <button
         type="submit"
-        disabled={status === 'loading' || uploading}
-        className="w-full bg-[#C8A96A] text-white font-semibold py-3 rounded-xl hover:bg-[#B8945A] transition-colors disabled:opacity-60 text-base"
+        disabled={status === 'loading'}
+        className="w-full bg-[#C8A96A] text-white font-semibold py-3.5 rounded-xl hover:bg-[#B8945A] transition-colors disabled:opacity-60 text-base flex items-center justify-center gap-2"
       >
-        {status === 'loading' ? 'Submitting...' : 'List My Business Free →'}
+        {status === 'loading' ? (
+          <><Loader2 className="w-4 h-4 animate-spin" /> Creating your listing...</>
+        ) : (
+          <>Get Listed Free <ArrowRight className="w-4 h-4" /></>
+        )}
       </button>
-      <p className="text-xs text-center text-gray-400">No credit card required. Your listing goes live immediately.</p>
+
+      <div className="flex items-center justify-center gap-4 text-xs text-gray-400 pt-1">
+        <span className="flex items-center gap-1"><CheckCircle2 className="w-3 h-3 text-emerald-400" /> No credit card</span>
+        <span className="flex items-center gap-1"><CheckCircle2 className="w-3 h-3 text-emerald-400" /> Live in 30 seconds</span>
+        <span className="flex items-center gap-1"><CheckCircle2 className="w-3 h-3 text-emerald-400" /> Cancel anytime</span>
+      </div>
     </form>
   )
 }

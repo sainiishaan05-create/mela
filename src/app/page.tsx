@@ -198,12 +198,12 @@ export default async function HomePage() {
         </div>
       </div>
 
-      <div className="divider-cinematic" />
+      <div className="divider-cultural" />
 
       {/* ══════════════════════════════════════════════════════════════════════
           § 3  WHY MELAA — Bento grid
       ══════════════════════════════════════════════════════════════════════ */}
-      <section className="py-24 px-4 sm:px-6 relative overflow-hidden bg-dark-1 section-immersive section-scanline" style={{'--scan-delay': '4s'} as React.CSSProperties}>
+      <section className="py-24 px-4 sm:px-6 relative overflow-hidden bg-dark-1 bg-rangoli section-immersive section-scanline" style={{'--scan-delay': '4s'} as React.CSSProperties}>
         <div className="section-beam-top" />
         <div className="section-glow-gold" />
 

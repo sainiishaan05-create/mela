@@ -73,8 +73,14 @@ export default function TermsPage() {
 
           <section>
             <h2 className="text-xl font-semibold text-gray-900 mb-3">9. Limitation of Liability</h2>
-            <p className="text-gray-600 leading-relaxed">
+            <p className="text-gray-600 leading-relaxed mb-3">
               To the fullest extent permitted by law, Mela shall not be liable for any indirect, incidental, special, or consequential damages arising from your use of our platform or any vendor services found through our platform.
+            </p>
+            <p className="text-gray-600 leading-relaxed mb-3">
+              Mela is a directory and listing service only. We do not participate in, mediate, or assume any responsibility for transactions, agreements, disputes, or interactions between couples and vendors. Any arrangement made between a couple and a vendor, including pricing, service delivery, quality, cancellations, refunds, or any other matter, is solely between those parties.
+            </p>
+            <p className="text-gray-600 leading-relaxed">
+              Mela does not endorse, guarantee, or warrant any vendor listed on the platform. We are not responsible for any loss, damage, injury, or dispute arising from services provided by any vendor, whether or not that vendor was discovered through our platform.
             </p>
           </section>
 

@@ -3,6 +3,7 @@ import { notFound } from 'next/navigation'
 import type { Metadata } from 'next'
 import type { Vendor } from '@/types'
 import VendorCard from '@/components/vendors/VendorCard'
+import EmptyStateNotify from '@/components/ui/EmptyStateNotify'
 import Link from 'next/link'
 
 interface Props {
@@ -58,14 +59,12 @@ export default async function CategoryCityPage({ params }: Props) {
       </div>
 
       {filtered.length === 0 ? (
-        <div className="text-center py-20">
-          <p className="text-5xl mb-4">{cat.icon}</p>
-          <h2 className="font-[family-name:var(--font-playfair)] text-2xl font-bold mb-2">No {cat.name} in {cityData.name} yet</h2>
-          <p className="text-gray-500 mb-6">Be the first!</p>
-          <Link href="/list-your-business" className="bg-[#C8A96A] text-white px-6 py-3 rounded-full font-medium hover:bg-[#B8945A] transition-colors">
-            List Your Business
-          </Link>
-        </div>
+        <EmptyStateNotify
+          icon={cat.icon || '✨'}
+          title={`We're adding ${cat.name} in ${cityData.name} soon`}
+          subtitle={`We're actively reaching out to South Asian wedding ${cat.name.toLowerCase()} in ${cityData.name}. Get notified when they join.`}
+          citySlug={cityData.slug}
+        />
       ) : (
         <>
           <p className="text-sm text-gray-400 mb-4">{filtered.length} vendor{filtered.length !== 1 ? 's' : ''}</p>

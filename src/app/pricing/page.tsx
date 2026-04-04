@@ -78,11 +78,13 @@ const FAQS = [
 
 export default async function PricingPage() {
   const supabase = await createClient()
-  const { count: vendorCount } = await supabase
+  const { count: foundingCount } = await supabase
     .from('vendors')
     .select('*', { count: 'exact', head: true })
     .eq('is_active', true)
-  const spotsLeft = Math.max(0, 50 - (vendorCount ?? 0))
+    .neq('tier', 'free')
+  const spotsClaimed = Math.min(foundingCount ?? 0, 50)
+  const spotsLeft = Math.max(0, 50 - spotsClaimed)
 
   const plans = PLAN_BASE.map(plan => ({
     ...plan,
@@ -143,6 +145,20 @@ export default async function PricingPage() {
                 <div className="mb-5 bg-emerald-50 border border-emerald-100 text-emerald-700 text-xs font-bold px-4 py-2.5 rounded-2xl text-center flex items-center justify-center gap-2">
                   <CheckCircle2 className="w-3.5 h-3.5" />
                   {plan.highlight}
+                </div>
+              )}
+              {plan.primary && spotsLeft > 0 && (
+                <div className="mb-5 bg-[#FFF8EE] border border-[#C8A96A]/20 rounded-2xl p-4">
+                  <div className="flex items-center justify-between mb-2">
+                    <span className="text-xs font-semibold text-gray-600">{spotsClaimed} of 50 spots claimed</span>
+                    <span className="text-xs font-bold text-[#C8A96A]">{spotsLeft} left</span>
+                  </div>
+                  <div className="w-full h-2 bg-gray-100 rounded-full overflow-hidden">
+                    <div
+                      className="h-full rounded-full transition-all duration-700"
+                      style={{ width: `${(spotsClaimed / 50) * 100}%`, background: 'linear-gradient(90deg, #C8A96A, #d4a843)' }}
+                    />
+                  </div>
                 </div>
               )}
               <p className="font-[family-name:var(--font-playfair)] text-xl font-bold mb-2">{plan.name}</p>

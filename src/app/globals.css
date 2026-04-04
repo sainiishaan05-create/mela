@@ -1105,6 +1105,59 @@ img { transition: opacity 0.3s ease; }
     0 0 160px rgba(200,169,106,0.06);
 }
 
+/* ── Cultural texture divider (rangoli-inspired geometric) ────────────────── */
+.divider-cultural {
+  position: relative;
+  width: 100%;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+.divider-cultural::before {
+  content: '✦ ◆ ✦ ◆ ✦';
+  letter-spacing: 12px;
+  font-size: 8px;
+  color: rgba(200,169,106,0.25);
+}
+.divider-cultural::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(200,169,106,0.12) 20%, rgba(200,169,106,0.12) 80%, transparent);
+  z-index: -1;
+}
+
+/* ── Subtle rangoli background pattern ────────────────────────────────────── */
+.bg-rangoli {
+  background-image:
+    radial-gradient(circle at 50% 50%, rgba(200,169,106,0.03) 0%, transparent 50%),
+    radial-gradient(circle at 0% 0%, rgba(200,169,106,0.02) 0%, transparent 40%),
+    radial-gradient(circle at 100% 100%, rgba(200,169,106,0.02) 0%, transparent 40%);
+}
+
+/* ── Skeleton shimmer loading ─────────────────────────────────────────────── */
+.skeleton {
+  background: linear-gradient(90deg, #f0ede8 25%, #e8e4dd 37%, #f0ede8 63%);
+  background-size: 400% 100%;
+  animation: skeleton-shimmer 1.4s ease infinite;
+  border-radius: 12px;
+}
+.skeleton-dark {
+  background: linear-gradient(90deg, rgba(255,255,255,0.04) 25%, rgba(255,255,255,0.08) 37%, rgba(255,255,255,0.04) 63%);
+  background-size: 400% 100%;
+  animation: skeleton-shimmer 1.4s ease infinite;
+  border-radius: 12px;
+}
+@keyframes skeleton-shimmer {
+  0% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
 /* ── Mobile adjustments ───────────────────────────────────────────────────── */
 @media (max-width: 768px) {
   .section-scanline::before { animation-duration: 12s; }

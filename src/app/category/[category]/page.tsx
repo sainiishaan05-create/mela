@@ -5,6 +5,7 @@ import type { Vendor, Category, City } from '@/types'
 import VendorCard from '@/components/vendors/VendorCard'
 import Link from 'next/link'
 import { MapPin, ChevronRight } from 'lucide-react'
+import EmptyStateNotify from '@/components/ui/EmptyStateNotify'
 
 const FEATURED_CITY_SLUGS = [
   'toronto', 'brampton', 'mississauga', 'markham',
@@ -122,29 +123,12 @@ export default async function CategoryPage({ params, searchParams }: Props) {
       {/* ── Vendor grid ── */}
       <div className="max-w-6xl mx-auto px-4 py-10">
         {filteredVendors.length === 0 ? (
-          /* Empty state */
-          <div className="text-center py-24 bg-white rounded-2xl shadow-premium border border-gray-50">
-            <div className="text-6xl mb-5 animate-fade-up">{typedCat.icon}</div>
-            <h2 className="font-[family-name:var(--font-playfair)] text-2xl font-bold text-[#111111] mb-2 animate-fade-up delay-100">
-              No {typedCat.name} yet
-            </h2>
-            <p className="text-gray-400 text-sm mb-6 animate-fade-up delay-150">
-              Be the first {typedCat.name.toLowerCase()} on Melaa. It&apos;s completely free to start.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-3 justify-center animate-fade-up delay-200">
-              <Link
-                href="/vendors"
-                className="inline-block border border-gray-200 text-gray-600 px-6 py-2.5 rounded-full text-sm font-medium hover:border-gray-300 transition-colors"
-              >
-                Browse All Vendors
-              </Link>
-              <Link
-                href="/list-your-business"
-                className="btn-primary inline-block bg-[#C8A96A] text-white px-6 py-2.5 rounded-full text-sm font-semibold shadow-saffron"
-              >
-                List Your Business Free
-              </Link>
-            </div>
+          <div className="bg-white rounded-2xl shadow-premium border border-gray-50">
+            <EmptyStateNotify
+              icon={typedCat.icon || '✨'}
+              title={`We're adding ${typedCat.name} soon`}
+              subtitle={`We're actively reaching out to South Asian wedding ${typedCat.name.toLowerCase()} in the GTA. Get notified when they join.`}
+            />
           </div>
         ) : (
           <>

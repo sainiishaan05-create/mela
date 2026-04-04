@@ -97,9 +97,21 @@ export default function DashboardShell({ vendor: initialVendor, leads: initialLe
   return (
     <div className="min-h-screen bg-[#F7F5F2]">
       {justClaimed && (
-        <div className="bg-green-50 border-b border-green-200 px-4 py-3 flex items-center justify-center gap-2">
-          <CheckCircle className="w-4 h-4 text-green-600 shrink-0" />
-          <p className="text-green-800 font-medium text-sm">🎉 Your listing is now claimed! Welcome to Melaa.</p>
+        <div className="border-b px-4 py-4" style={{ background: 'linear-gradient(135deg, #FBF6EC 0%, #F5ECD7 100%)', borderColor: '#E8D5A0' }}>
+          <div className="max-w-3xl mx-auto flex flex-col sm:flex-row items-center gap-4">
+            <div className="text-4xl shrink-0">🎉</div>
+            <div className="text-center sm:text-left flex-1">
+              <p className="font-bold text-[#2B2623]">You&apos;re live on Melaa! Couples can find you right now.</p>
+              <p className="text-sm text-gray-500 mt-0.5">Complete your profile to get 3x more inquiries. Add a description, photos, and contact info.</p>
+            </div>
+            <button
+              onClick={() => setActiveTab('profile')}
+              className="shrink-0 text-sm font-semibold px-4 py-2 rounded-xl text-white flex items-center gap-1.5"
+              style={{ background: '#C8A96A' }}
+            >
+              Complete Profile <ArrowRight className="w-3.5 h-3.5" />
+            </button>
+          </div>
         </div>
       )}
       {justUpgraded && (
@@ -266,34 +278,52 @@ function OverviewTab({ vendor, leads, score, missing, setActiveTab }: {
         ))}
       </div>
 
-      {/* Profile completeness warning */}
-      {score < 80 && (
-        <div className="bg-[#FFF8EE] border border-[#C8A96A]/30 rounded-2xl p-5">
-          <div className="flex items-start gap-3">
-            <AlertCircle className="w-5 h-5 text-[#C8A96A] shrink-0 mt-0.5" />
-            <div className="flex-1">
-              <p className="font-semibold text-[#2B2623] text-sm mb-1">
-                Your profile is {score}% complete. Couples are less likely to contact incomplete profiles
-              </p>
-              <p className="text-xs text-gray-500 mb-3">Missing: {missing.join(', ')}</p>
-              <div className="flex gap-2">
-                <button
-                  onClick={() => setActiveTab('profile')}
-                  className="text-xs font-semibold px-3 py-1.5 rounded-lg text-white"
-                  style={{ background: '#C8A96A' }}
-                >
-                  Complete Profile
-                </button>
-                {missing.includes('Portfolio photos') && (
+      {/* Profile completion checklist */}
+      {score < 100 && (
+        <div className="bg-white border border-gray-100 rounded-2xl shadow-sm overflow-hidden">
+          <div className="p-5 border-b border-gray-100">
+            <div className="flex items-center justify-between mb-3">
+              <div>
+                <p className="font-semibold text-[#2B2623] text-sm">Complete your profile</p>
+                <p className="text-xs text-gray-400 mt-0.5">Vendors with complete profiles get 3x more inquiries</p>
+              </div>
+              <span className="text-sm font-bold" style={{ color: score >= 80 ? '#16a34a' : '#C8A96A' }}>{score}%</span>
+            </div>
+            <div className="w-full h-2 bg-gray-100 rounded-full overflow-hidden">
+              <div
+                className="h-full rounded-full transition-all duration-700"
+                style={{ width: `${score}%`, background: score >= 80 ? '#16a34a' : 'linear-gradient(90deg, #C8A96A, #d4a843)' }}
+              />
+            </div>
+          </div>
+          <div className="divide-y divide-gray-50">
+            {[
+              { label: 'Business name', done: !!vendor.name, tab: 'profile' as Tab },
+              { label: 'Email address', done: !!vendor.email, tab: 'profile' as Tab },
+              { label: 'Phone number', done: !!vendor.phone, tab: 'profile' as Tab },
+              { label: 'Description (50+ chars)', done: (vendor.description?.length ?? 0) >= 50, tab: 'profile' as Tab },
+              { label: 'Website', done: !!vendor.website, tab: 'profile' as Tab },
+              { label: 'Instagram', done: !!vendor.instagram, tab: 'profile' as Tab },
+              { label: 'Portfolio photos', done: (vendor.portfolio_images?.length ?? 0) > 0, tab: 'photos' as Tab },
+            ].map(({ label, done, tab }) => (
+              <div key={label} className="flex items-center gap-3 px-5 py-3">
+                {done ? (
+                  <CheckCircle className="w-4 h-4 text-emerald-500 shrink-0" />
+                ) : (
+                  <div className="w-4 h-4 rounded-full border-2 border-gray-200 shrink-0" />
+                )}
+                <span className={`flex-1 text-sm ${done ? 'text-gray-400 line-through' : 'text-[#2B2623]'}`}>{label}</span>
+                {!done && (
                   <button
-                    onClick={() => setActiveTab('photos')}
-                    className="text-xs font-semibold px-3 py-1.5 rounded-lg border border-[#C8A96A]/40 text-[#C8A96A]"
+                    onClick={() => setActiveTab(tab)}
+                    className="text-xs font-semibold px-3 py-1 rounded-lg transition-colors hover:bg-[#C8A96A]/10"
+                    style={{ color: '#C8A96A' }}
                   >
-                    Add Photos
+                    Add
                   </button>
                 )}
               </div>
-            </div>
+            ))}
           </div>
         </div>
       )}

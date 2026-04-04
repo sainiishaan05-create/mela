@@ -138,10 +138,10 @@ export default async function ListYourBusinessPage() {
               <p className="text-xs font-bold uppercase tracking-widest mb-5" style={{ color: 'var(--color-gold-dark)' }}>What Happens Next</p>
               <div className="space-y-5">
                 {[
-                  { day: 'Today', icon: '🚀', text: 'Profile goes live. Couples in the GTA can find and contact you immediately.' },
+                  { day: '30 Seconds', icon: '🚀', text: 'Sign up with just your name, email, category, and city. Your listing goes live instantly.' },
+                  { day: 'Next 5 Min', icon: '✏️', text: 'Complete your profile from the dashboard: add a description, photos, and contact info.' },
                   { day: 'Days 1–90', icon: '📩', text: 'Receive leads completely free. We prove our value before you pay a cent.' },
-                  { day: 'Day 90', icon: '🔒', text: 'Founding Members continue at $49/mo. Only 50 spots available at this rate.' },
-                  { day: 'Ongoing', icon: '📈', text: 'Priority placement, verified badge, unlimited leads, full analytics.' },
+                  { day: 'Day 90+', icon: '📈', text: 'Founding Members continue at $49/mo. Priority placement, verified badge, full analytics.' },
                 ].map(({ day, icon, text }) => (
                   <div key={day} className="flex gap-4">
                     <div className="flex flex-col items-center">
