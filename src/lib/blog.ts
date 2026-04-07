@@ -9,7 +9,16 @@ export type BlogPost = {
   coverImage: string
   readTime: number
   author: string
+  authorRole?: string
+  authorBio?: string
   tags: string[]
+}
+
+/** Default author info used when posts don't specify their own */
+export const DEFAULT_AUTHOR = {
+  name: 'Melaa Editorial Team',
+  role: 'Content Team',
+  bio: 'The Melaa Editorial Team covers everything South Asian couples and vendors need to know about planning celebrations in the GTA. Written by locals, for locals.',
 }
 
 export const blogPosts: BlogPost[] = [

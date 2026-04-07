@@ -157,11 +157,11 @@ export default function Footer() {
         <div className="border-t pt-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs" style={{ borderColor: 'rgba(255,255,255,0.06)', color: 'rgba(255,255,255,0.25)' }}>
           <p>© {new Date().getFullYear()} Melaa. Built with love for the South Asian community. 🌺</p>
           <div className="flex items-center gap-5">
-            <Link href="/vendors" className="hover:text-white transition-colors">Browse Vendors</Link>
-            <Link href="/list-your-business" className="hover:text-white transition-colors">List Free</Link>
+            <Link href="/about" className="hover:text-white transition-colors">About</Link>
+            <Link href="/contact" className="hover:text-white transition-colors">Contact</Link>
+            <Link href="/vendors" className="hover:text-white transition-colors">Browse</Link>
             <Link href="/privacy" className="hover:text-white transition-colors">Privacy</Link>
             <Link href="/terms" className="hover:text-white transition-colors">Terms</Link>
-            <a href="mailto:hello@melaa.ca" className="hover:text-white transition-colors">hello@melaa.ca</a>
           </div>
         </div>
       </div>

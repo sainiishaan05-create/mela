@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
-import { blogPosts } from '@/lib/blog'
+import { blogPosts, DEFAULT_AUTHOR } from '@/lib/blog'
 
 type PageProps = {
   params: Promise<{ slug: string }>
@@ -185,9 +185,27 @@ export default async function BlogPostPage({ params }: PageProps) {
             ))}
           </div>
 
+          {/* Author card */}
+          <div className="mt-10 p-6 bg-white border border-gray-100 rounded-2xl shadow-sm flex items-start gap-4">
+            <div className="w-12 h-12 rounded-full flex items-center justify-center shrink-0 font-[family-name:var(--font-playfair)] text-lg font-bold" style={{ background: '#F5ECD7', color: '#C8A96A' }}>
+              {(post.author || DEFAULT_AUTHOR.name).charAt(0)}
+            </div>
+            <div>
+              <p className="font-semibold text-sm" style={{ color: '#1E1916' }}>
+                {post.author || DEFAULT_AUTHOR.name}
+              </p>
+              <p className="text-xs mb-1.5" style={{ color: '#8A7B74' }}>
+                {post.authorRole || DEFAULT_AUTHOR.role}
+              </p>
+              <p className="text-xs leading-relaxed" style={{ color: '#8A7B74' }}>
+                {post.authorBio || DEFAULT_AUTHOR.bio}
+              </p>
+            </div>
+          </div>
+
           {/* Related Category Link */}
           {relatedCategory && (
-            <div className="mt-10 p-6 bg-[#FAFAF7] border border-gray-200 rounded-2xl">
+            <div className="mt-6 p-6 bg-[#FAFAF7] border border-gray-200 rounded-2xl">
               <p className="text-sm text-gray-500 mb-2 font-medium uppercase tracking-wide">
                 Related
               </p>
