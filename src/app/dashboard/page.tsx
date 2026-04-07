@@ -72,7 +72,7 @@ export default async function DashboardPage({
   const [{ data: leads }, { data: categories }, { data: cities }] = await Promise.all([
     service.from('leads').select('*').eq('vendor_id', vendor.id).order('created_at', { ascending: false }).limit(500),
     service.from('categories').select('id,slug,name,icon,description,created_at').eq('is_active', true).order('name'),
-    service.from('cities').select('id,slug,name,province,created_at').eq('is_active', true).order('name'),
+    service.from('cities').select('*').eq('is_active', true).order('name'),
   ])
 
   return (

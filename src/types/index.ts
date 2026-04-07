@@ -14,6 +14,8 @@ export interface City {
   slug: string
   name: string
   province: string
+  latitude: number | null
+  longitude: number | null
   created_at: string
 }
 
@@ -39,8 +41,12 @@ export interface Vendor {
   claimed_by_user_id: string | null
   claim_token: string | null
   claim_token_expires_at: string | null
+  latitude: number | null
+  longitude: number | null
+  address: string | null
   created_at: string
   // Joined fields
+  distance_km?: number
   category?: Category
   city?: City
 }

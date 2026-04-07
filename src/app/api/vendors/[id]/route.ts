@@ -36,10 +36,27 @@ export async function PATCH(
   const body = await req.json()
 
   // Only allow safe fields to be updated
-  const ALLOWED = ['name', 'phone', 'description', 'website', 'instagram', 'portfolio_images']
+  const ALLOWED = ['name', 'phone', 'description', 'website', 'instagram', 'portfolio_images', 'address']
   const updates: Record<string, unknown> = {}
   for (const key of ALLOWED) {
     if (key in body) updates[key] = body[key] ?? null
+  }
+
+  // Geocode address if provided/changed
+  if ('address' in body && body.address && typeof body.address === 'string' && body.address.trim().length > 5) {
+    try {
+      const geoRes = await fetch(
+        `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(body.address)}&format=json&limit=1&countrycodes=ca`,
+        { headers: { 'User-Agent': 'Melaa/1.0 (hello@melaa.ca)' } }
+      )
+      const geoData = await geoRes.json()
+      if (geoData?.[0]) {
+        updates.latitude = parseFloat(geoData[0].lat)
+        updates.longitude = parseFloat(geoData[0].lon)
+      }
+    } catch {
+      // Geocoding failed silently — address still saved, just no coordinates
+    }
   }
 
   if (Object.keys(updates).length === 0) {

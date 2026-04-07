@@ -402,6 +402,7 @@ function ProfileTab({ vendor, categories, cities, onSave }: {
     description: vendor.description ?? '',
     website: vendor.website ?? '',
     instagram: vendor.instagram ?? '',
+    address: vendor.address ?? '',
   })
   const [status, setStatus] = useState<'idle' | 'saving' | 'saved' | 'error'>('idle')
 
@@ -487,6 +488,14 @@ function ProfileTab({ vendor, categories, cities, onSave }: {
             <AtSign className="w-3.5 h-3.5 text-gray-400" /> Instagram Handle
           </label>
           <input value={form.instagram} onChange={e => setForm(f => ({ ...f, instagram: e.target.value }))} placeholder="@yourhandle" className={inputCls} />
+        </div>
+
+        <div>
+          <label className="block text-sm font-medium text-[#2B2623] mb-1.5 flex items-center gap-1.5">
+            <MapPin className="w-3.5 h-3.5 text-gray-400" /> Business Address <span className="text-gray-400 font-normal">(optional)</span>
+          </label>
+          <input value={form.address} onChange={e => setForm(f => ({ ...f, address: e.target.value }))} placeholder="123 Main St, Brampton, ON" className={inputCls} />
+          <p className="text-xs text-gray-400 mt-1">Helps couples find vendors near them. We only show your city, never the full address.</p>
         </div>
 
         {status === 'error' && (

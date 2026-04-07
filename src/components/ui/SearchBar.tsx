@@ -2,7 +2,7 @@
 
 import { useState, useRef, useEffect, useCallback } from 'react'
 import { useRouter } from 'next/navigation'
-import { Search, ArrowRight, X } from 'lucide-react'
+import { Search, ArrowRight, X, MapPin, Loader2 } from 'lucide-react'
 
 const SUGGESTIONS = [
   { label: 'Photographers in Brampton',   icon: '📸' },
@@ -16,9 +16,29 @@ const SUGGESTIONS = [
 export default function SearchBar({ dark = false }: { dark?: boolean }) {
   const [query,   setQuery]   = useState('')
   const [focused, setFocused] = useState(false)
+  const [locating, setLocating] = useState(false)
   const wrapperRef = useRef<HTMLDivElement>(null)
   const inputRef   = useRef<HTMLInputElement>(null)
   const router     = useRouter()
+
+  function handleNearMe() {
+    if (!navigator.geolocation) {
+      alert('Location is not supported by your browser.')
+      return
+    }
+    setLocating(true)
+    navigator.geolocation.getCurrentPosition(
+      (pos) => {
+        setLocating(false)
+        router.push(`/vendors?lat=${pos.coords.latitude.toFixed(4)}&lng=${pos.coords.longitude.toFixed(4)}&radius=25`)
+      },
+      () => {
+        setLocating(false)
+        alert('Unable to get your location. Please allow location access and try again.')
+      },
+      { timeout: 10000 }
+    )
+  }
 
   // Close on outside click
   const onDoc = useCallback((e: MouseEvent) => {
@@ -88,6 +108,20 @@ export default function SearchBar({ dark = false }: { dark?: boolean }) {
               <X style={{ width: 14, height: 14, color: 'rgba(255,255,255,0.4)' }} />
             </button>
           )}
+          <button
+            type="button"
+            onClick={handleNearMe}
+            disabled={locating}
+            className="shrink-0 mr-1 flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-semibold transition-all duration-200"
+            style={{
+              color: '#C8A96A',
+              background: 'rgba(200,169,106,0.1)',
+              border: '1px solid rgba(200,169,106,0.2)',
+            }}
+          >
+            {locating ? <Loader2 style={{ width: 14, height: 14 }} className="animate-spin" /> : <MapPin style={{ width: 14, height: 14 }} />}
+            Near Me
+          </button>
           <button type="submit" className="search-dark-btn">
             Search
             <ArrowRight style={{ width: 15, height: 15 }} />
@@ -132,8 +166,17 @@ export default function SearchBar({ dark = false }: { dark?: boolean }) {
           </button>
         )}
         <button
+          type="button"
+          onClick={handleNearMe}
+          disabled={locating}
+          className="m-1 mr-0 flex items-center gap-1.5 border border-[#C8A96A]/30 text-[#C8A96A] hover:bg-[#C8A96A]/10 font-semibold px-3 py-3 rounded-xl text-sm transition-colors duration-200 whitespace-nowrap"
+        >
+          {locating ? <Loader2 className="w-4 h-4 animate-spin" /> : <MapPin className="w-4 h-4" />}
+          Near Me
+        </button>
+        <button
           type="submit"
-          className="m-2 flex items-center gap-2 bg-[#C8A96A] hover:bg-[#B8945A] text-white font-semibold px-5 py-3 rounded-xl text-sm transition-colors duration-200 whitespace-nowrap"
+          className="m-2 ml-1 flex items-center gap-2 bg-[#C8A96A] hover:bg-[#B8945A] text-white font-semibold px-5 py-3 rounded-xl text-sm transition-colors duration-200 whitespace-nowrap"
         >
           Search
           <ArrowRight className="w-4 h-4" />

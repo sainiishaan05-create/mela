@@ -140,6 +140,11 @@ export default function VendorCard({ vendor }: VendorCardProps) {
             <div className="flex items-center gap-1 text-[11px]" style={{ color: 'var(--color-taupe)' }}>
               <MapPin className="w-3 h-3 shrink-0" />
               <span>{vendor.city.name}, ON</span>
+              {vendor.distance_km != null && (
+                <span className="ml-1 px-1.5 py-0.5 rounded-full text-[10px] font-semibold bg-[#C8A96A]/10 text-[#C8A96A]">
+                  {vendor.distance_km < 1 ? '<1' : vendor.distance_km} km
+                </span>
+              )}
             </div>
           )}
 

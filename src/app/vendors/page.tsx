@@ -31,11 +31,11 @@ const FEATURED_CATEGORY_SLUGS = [
 ]
 
 interface Props {
-  searchParams: Promise<{ category?: string; city?: string; search?: string; sort?: string; page?: string; badge?: string }>
+  searchParams: Promise<{ category?: string; city?: string; search?: string; sort?: string; page?: string; badge?: string; lat?: string; lng?: string; radius?: string }>
 }
 
 export default async function VendorsPage({ searchParams }: Props) {
-  const { category, city, search, sort, page: pageParam, badge } = await searchParams
+  const { category, city, search, sort, page: pageParam, badge, lat, lng, radius } = await searchParams
   const page = Math.max(1, parseInt(pageParam ?? '1', 10))
   const supabase = await createClient()
 
@@ -47,44 +47,99 @@ export default async function VendorsPage({ searchParams }: Props) {
   const activeCategory = (categories as Category[] ?? []).find(c => c.slug === category)
   const activeCity = (cities as City[] ?? []).find(c => c.slug === city)
 
-  let query = supabase
-    .from('vendors')
-    .select('*, category:categories(*), city:cities(*)', { count: 'exact' })
-    .eq('is_active', true)
+  // Location-based search mode
+  const isNearMe = !!(lat && lng)
+  const userLat = parseFloat(lat ?? '0')
+  const userLng = parseFloat(lng ?? '0')
+  const radiusKm = parseFloat(radius ?? '25')
 
-  if (category && activeCategory) {
-    query = query.eq('category_id', activeCategory.id)
-  }
+  let filteredVendors: Vendor[] = []
+  let totalVendors = 0
 
-  if (city && activeCity) {
-    query = query.eq('city_id', activeCity.id)
-  }
+  if (isNearMe) {
+    // Use the RPC function for distance-based search
+    const { data: nearVendors } = await supabase.rpc('vendors_near', {
+      user_lat: userLat,
+      user_lng: userLng,
+      radius_km: radiusKm,
+    })
 
-  const searchLower = search?.trim().toLowerCase()
-  if (searchLower) {
-    query = query.or(`name.ilike.%${searchLower}%,description.ilike.%${searchLower}%`)
-  }
+    let results = (nearVendors ?? []) as (Vendor & { distance_km: number })[]
 
-  if (sort === 'newest') {
-    query = query.order('created_at', { ascending: false })
+    // Apply category filter on results
+    if (category && activeCategory) {
+      results = results.filter(v => v.category_id === activeCategory.id)
+    }
+
+    // Apply search filter
+    const searchLower = search?.trim().toLowerCase()
+    if (searchLower) {
+      results = results.filter(v =>
+        v.name.toLowerCase().includes(searchLower) ||
+        (v.description?.toLowerCase().includes(searchLower) ?? false)
+      )
+    }
+
+    // Apply badge filter
+    if (badge === 'featured') results = results.filter(v => v.is_featured)
+    if (badge === 'premium') results = results.filter(v => v.tier === 'premium')
+    if (badge === 'verified') results = results.filter(v => v.is_verified)
+
+    totalVendors = results.length
+
+    // Paginate — RPC results need manual join for category/city
+    const from = (page - 1) * PAGE_SIZE
+    const paged = results.slice(from, from + PAGE_SIZE)
+
+    // Enrich with category and city objects
+    const catMap = Object.fromEntries((categories as Category[] ?? []).map(c => [c.id, c]))
+    const cityMap = Object.fromEntries((cities as City[] ?? []).map(c => [c.id, c]))
+    filteredVendors = paged.map(v => ({
+      ...v,
+      category: v.category_id ? catMap[v.category_id] : undefined,
+      city: v.city_id ? cityMap[v.city_id] : undefined,
+    }))
   } else {
-    query = query.order('is_featured', { ascending: false }).order('tier').order('created_at', { ascending: false })
+    // Standard query mode
+    let query = supabase
+      .from('vendors')
+      .select('*, category:categories(*), city:cities(*)', { count: 'exact' })
+      .eq('is_active', true)
+
+    if (category && activeCategory) {
+      query = query.eq('category_id', activeCategory.id)
+    }
+
+    if (city && activeCity) {
+      query = query.eq('city_id', activeCity.id)
+    }
+
+    const searchLower = search?.trim().toLowerCase()
+    if (searchLower) {
+      query = query.or(`name.ilike.%${searchLower}%,description.ilike.%${searchLower}%`)
+    }
+
+    if (sort === 'newest') {
+      query = query.order('created_at', { ascending: false })
+    } else {
+      query = query.order('is_featured', { ascending: false }).order('tier').order('created_at', { ascending: false })
+    }
+
+    if (badge === 'featured') query = query.eq('is_featured', true)
+    if (badge === 'premium') query = query.eq('tier', 'premium')
+    if (badge === 'verified') query = query.eq('is_verified', true)
+
+    const from = (page - 1) * PAGE_SIZE
+    const to = from + PAGE_SIZE - 1
+    query = query.range(from, to)
+
+    const { data: vendors, count: totalCount } = await query
+
+    filteredVendors = (vendors as Vendor[] ?? [])
+    totalVendors = totalCount ?? 0
   }
-
-  if (badge === 'featured') query = query.eq('is_featured', true)
-  if (badge === 'premium') query = query.eq('tier', 'premium')
-  if (badge === 'verified') query = query.eq('is_verified', true)
-
-  const from = (page - 1) * PAGE_SIZE
-  const to = from + PAGE_SIZE - 1
-  query = query.range(from, to)
-
-  const { data: vendors, count: totalCount } = await query
-
-  const filteredVendors = (vendors as Vendor[] ?? [])
-  const totalVendors = totalCount ?? 0
   const totalPages = Math.ceil(totalVendors / PAGE_SIZE)
-  const hasActiveFilters = !!(category || city || search || badge)
+  const hasActiveFilters = !!(category || city || search || badge || isNearMe)
 
   // Build paginated URL helper
   function pageUrl(p: number) {
@@ -94,6 +149,9 @@ export default async function VendorsPage({ searchParams }: Props) {
       ...(search ? { search } : {}),
       ...(sort ? { sort } : {}),
       ...(badge ? { badge } : {}),
+      ...(lat ? { lat } : {}),
+      ...(lng ? { lng } : {}),
+      ...(radius ? { radius } : {}),
       ...(p > 1 ? { page: String(p) } : {}),
     })
     const qs = params.toString()
@@ -361,6 +419,12 @@ export default async function VendorsPage({ searchParams }: Props) {
                     href={`/vendors?${new URLSearchParams({ ...(category ? { category } : {}), ...(city ? { city } : {}), ...(sort ? { sort } : {}) }).toString()}`}
                     className="hover:opacity-60 transition-opacity ml-0.5"
                   >✕</Link>
+                </span>
+              )}
+              {isNearMe && (
+                <span className="inline-flex items-center gap-1.5 bg-white text-emerald-600 text-xs font-semibold px-3 py-1 rounded-full border border-emerald-100 shadow-sm">
+                  📍 Within {radiusKm} km
+                  <Link href={`/vendors?${new URLSearchParams({ ...(category ? { category } : {}), ...(sort ? { sort } : {}), ...(badge ? { badge } : {}) }).toString()}`} className="hover:opacity-60 transition-opacity ml-0.5">✕</Link>
                 </span>
               )}
               <Link href="/vendors" className="ml-auto text-xs text-gray-400 hover:text-red-500 transition-colors font-medium">

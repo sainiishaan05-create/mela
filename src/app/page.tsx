@@ -124,7 +124,7 @@ export default async function HomePage() {
                 <strong style={{ color: 'rgba(200,169,106,0.9)', fontWeight: 600 }}>
                   {count}+ verified vendors
                 </strong>{' '}
-                across the GTA: photographers, caterers, DJs, mehndi artists, venues and more.
+                across the GTA: photographers, caterers, DJs, decor, venues and more.
                 Built exclusively for South Asian celebrations.
               </p>
 
@@ -203,7 +203,7 @@ export default async function HomePage() {
       {/* ══════════════════════════════════════════════════════════════════════
           § 3  WHY MELAA — Bento grid
       ══════════════════════════════════════════════════════════════════════ */}
-      <section className="py-24 px-4 sm:px-6 relative overflow-hidden bg-dark-1 bg-rangoli section-immersive section-scanline" style={{'--scan-delay': '4s'} as React.CSSProperties}>
+      <section className="py-16 px-4 sm:px-6 relative overflow-hidden bg-dark-1 bg-rangoli section-immersive section-scanline" style={{'--scan-delay': '4s'} as React.CSSProperties}>
         <div className="section-beam-top" />
         <div className="section-glow-gold" />
 
@@ -222,30 +222,25 @@ export default async function HomePage() {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
 
-            {/* Wide hero card */}
+            {/* Wide hero card — with figurines photo */}
             <Reveal className="md:col-span-2">
-              <div className="relative rounded-3xl overflow-hidden p-10 h-full"
+              <div className="relative rounded-3xl overflow-hidden h-full"
                 style={{
-                  background: 'rgba(200,169,106,0.055)',
                   border: '1px solid rgba(200,169,106,0.18)',
-                  minHeight: 280,
+                  minHeight: 320,
                 }}>
-                <div className="absolute inset-0 pointer-events-none"
-                  style={{
-                    backgroundImage: 'radial-gradient(rgba(200,169,106,0.055) 1px, transparent 1px)',
-                    backgroundSize: '28px 28px',
-                  }} />
-                <div className="absolute top-0 right-0 w-72 h-72 pointer-events-none"
-                  style={{
-                    background: 'radial-gradient(circle, rgba(200,169,106,0.12) 0%, transparent 70%)',
-                    transform: 'translate(30%,-30%)',
-                  }} />
-                <div className="relative z-10">
-                  <div className="text-4xl mb-5">🕉️</div>
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src="https://images.pexels.com/photos/12530976/pexels-photo-12530976.jpeg?auto=compress&cs=tinysrgb&w=900"
+                  alt="Traditional South Asian religious figurines"
+                  className="absolute inset-0 w-full h-full object-cover"
+                />
+                <div className="absolute inset-0" style={{ background: 'linear-gradient(135deg, rgba(7,5,10,0.82) 0%, rgba(7,5,10,0.5) 100%)' }} />
+                <div className="relative z-10 p-10">
                   <h3 className="font-[family-name:var(--font-playfair)] text-2xl font-bold text-white mb-3">
                     Every ceremony. Every tradition.
                   </h3>
-                  <p className="text-sm leading-relaxed max-w-md" style={{ color: 'rgba(255,255,255,0.48)' }}>
+                  <p className="text-sm leading-relaxed max-w-md" style={{ color: 'rgba(255,255,255,0.55)' }}>
                     From Mehndi nights to Baraat processions, Sangeet to Nikah, our vendors know
                     every ritual, every detail, every expectation. No explaining required.
                   </p>
@@ -253,9 +248,10 @@ export default async function HomePage() {
                     {['Mehndi', 'Baraat', 'Sangeet', 'Nikah', 'Anand Karaj', 'Vidai', 'Haldi', 'Walima'].map(c => (
                       <span key={c} className="text-xs px-3 py-1.5 rounded-full font-medium"
                         style={{
-                          border: '1px solid rgba(200,169,106,0.25)',
-                          color: '#C8A96A',
-                          background: 'rgba(200,169,106,0.07)',
+                          border: '1px solid rgba(255,255,255,0.2)',
+                          color: 'rgba(255,255,255,0.85)',
+                          background: 'rgba(255,255,255,0.06)',
+                          backdropFilter: 'blur(8px)',
                         }}>
                         {c}
                       </span>
@@ -306,15 +302,40 @@ export default async function HomePage() {
         </div>
       </section>
 
-      <div className="divider-cinematic" />
+      {/* ══════════════════════════════════════════════════════════════════════
+          PHOTO STRIP — Dark-toned South Asian wedding imagery
+      ══════════════════════════════════════════════════════════════════════ */}
+      <section className="py-0 bg-dark-1">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-0">
+          {[
+            { src: 'https://images.pexels.com/photos/34079355/pexels-photo-34079355.jpeg?auto=compress&cs=tinysrgb&w=500', alt: 'Floral mandap with chandeliers', label: 'Venues & Decor', icon: '🏛️' },
+            { src: 'https://images.pexels.com/photos/30184703/pexels-photo-30184703.jpeg?auto=compress&cs=tinysrgb&w=500', alt: 'Bridal jewelry and bangles', label: 'Jewellery', icon: '💎' },
+            { src: 'https://images.pexels.com/photos/33508474/pexels-photo-33508474.jpeg?auto=compress&cs=tinysrgb&w=500', alt: 'Marigold wedding entrance decor', label: 'Floral Design', icon: '💐' },
+            { src: 'https://images.pexels.com/photos/8887293/pexels-photo-8887293.jpeg?auto=compress&cs=tinysrgb&w=500', alt: 'Wedding ceremony diya lighting', label: 'Ceremonies', icon: '🕉️' },
+          ].map(({ src, alt, label, icon }) => (
+            <div key={alt} className="relative aspect-[4/3] overflow-hidden group cursor-pointer">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src={src} alt={alt} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" loading="lazy" />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent group-hover:from-black/50 transition-colors duration-500" />
+              <div className="absolute bottom-0 left-0 right-0 p-4">
+                <div className="flex items-center gap-2">
+                  <span className="text-base">{icon}</span>
+                  <span className="text-sm font-semibold text-white/90">{label}</span>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <div className="divider-cultural" />
 
       {/* ══════════════════════════════════════════════════════════════════════
           § 4  BROWSE EXPLORER — Category + City selector
       ══════════════════════════════════════════════════════════════════════ */}
-      <section className="py-24 px-4 sm:px-6 relative overflow-hidden bg-dark-2 section-immersive section-scanline" style={{'--scan-delay': '0.5s'} as React.CSSProperties}>
-        <div className="section-beam-top" />
+      <section className="py-12 px-4 sm:px-6 relative overflow-hidden bg-dark-2 ambient-particles section-immersive" style={{'--scan-delay': '0.5s'} as React.CSSProperties}>
         <div className="section-glow-top" />
-        <div className="max-w-3xl mx-auto relative z-10">
+        <div className="max-w-3xl mx-auto relative z-10 text-center">
           <Reveal>
             <BrowseExplorer />
           </Reveal>
@@ -325,7 +346,7 @@ export default async function HomePage() {
       {featured.length > 0 && (
         <>
           <div className="divider-cinematic" />
-          <section className="py-20 px-4 sm:px-6 bg-dark-2">
+          <section className="py-20 px-4 sm:px-6 bg-dark-2 ambient-particles">
             <div className="max-w-7xl mx-auto">
               <Reveal className="flex items-end justify-between mb-12">
                 <div>
@@ -358,7 +379,7 @@ export default async function HomePage() {
       {/* ══════════════════════════════════════════════════════════════════════
           § 5  FINAL CTA
       ══════════════════════════════════════════════════════════════════════ */}
-      <section className="py-24 sm:py-32 px-4 sm:px-6 relative overflow-hidden bg-dark-2 section-immersive section-scanline" style={{'--scan-delay': '6s'} as React.CSSProperties}>
+      <section className="py-24 sm:py-32 px-4 sm:px-6 relative overflow-hidden ornament-corners ambient-particles bg-dark-2 section-immersive section-scanline" style={{'--scan-delay': '6s'} as React.CSSProperties}>
         <div className="absolute inset-0 pointer-events-none"
           style={{
             backgroundImage: 'radial-gradient(rgba(200,169,106,0.05) 1px, transparent 1px)',

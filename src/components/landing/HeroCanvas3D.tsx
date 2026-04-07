@@ -105,8 +105,17 @@ export default function HeroCanvas3D() {
     }
 
     let t=0
+    let visible=true
+
+    // Pause animation when scrolled out of view for performance
+    const observer = new IntersectionObserver(([entry])=>{
+      visible=entry.isIntersecting
+      if(visible && !raf) loop()
+    }, { threshold: 0 })
+    observer.observe(canvas)
 
     function loop(){
+      if(!visible){ raf=0; return }
       raf=requestAnimationFrame(loop)
       t++
       ctx.clearRect(0,0,W,H)
@@ -369,6 +378,7 @@ export default function HeroCanvas3D() {
 
     return ()=>{
       cancelAnimationFrame(raf)
+      observer.disconnect()
       window.removeEventListener('resize',resize)
       window.removeEventListener('mousemove',onMove)
       window.removeEventListener('mouseleave',onLeave)
