@@ -23,15 +23,17 @@ const FEATURES = [
 
 export default async function ListYourBusinessPage() {
   const supabase = await createClient()
-  const [{ data: categories }, { data: cities }, { count: vendorCount }] = await Promise.all([
+  const [{ data: categories }, { data: cities }, { count: vendorCount }, { count: cityCount }] = await Promise.all([
     supabase.from('categories').select('*').order('name'),
     supabase.from('cities').select('*').order('name'),
     supabase.from('vendors').select('*', { count: 'exact', head: true }).eq('is_active', true),
+    supabase.from('cities').select('*', { count: 'exact', head: true }),
   ])
 
   // Spots left is intentionally not shown — the old calc (50 - total vendors) was broken
   const spotsLeft = 0
-  const count = vendorCount?.toLocaleString() ?? '1,200'
+  const count = (vendorCount ?? 0).toLocaleString()
+  const citiesTotal = cityCount ?? 0
 
   return (
     <div style={{ background: 'var(--color-bg)' }}>
@@ -75,7 +77,7 @@ export default async function ListYourBusinessPage() {
           <div className="flex flex-wrap items-center justify-center gap-8 mb-12">
             {[
               { val: count + '+', label: 'Active Vendors' },
-              { val: '55+', label: 'Ontario Cities' },
+              { val: `${citiesTotal}+`, label: 'Ontario Cities' },
               { val: '$0', label: 'Booking Fees' },
               { val: '90', label: 'Days Free Trial' },
             ].map(({ val, label }) => (

@@ -1,14 +1,15 @@
 import type { Metadata } from 'next'
 import NewsletterSignup from '@/components/ui/NewsletterSignup'
+import { getSiteStats } from '@/lib/stats'
 
 export const metadata: Metadata = {
   title: 'Subscribe | Melaa',
   description:
-    'Join 1,200+ South Asian couples and vendors. Get weekly vendor spotlights, planning guides, and exclusive deals from Melaa.',
+    'Join hundreds of South Asian couples and vendors. Get weekly vendor spotlights, planning guides, and exclusive deals from Melaa.',
   openGraph: {
     title: 'Subscribe | Melaa',
     description:
-      'Join 1,200+ South Asian couples and vendors. Get weekly vendor spotlights, planning guides, and exclusive deals from Melaa.',
+      'Join hundreds of South Asian couples and vendors. Get weekly vendor spotlights, planning guides, and exclusive deals from Melaa.',
     url: 'https://melaa.ca/subscribe',
     siteName: 'Melaa',
     locale: 'en_CA',
@@ -43,7 +44,8 @@ const benefits = [
   },
 ]
 
-export default function SubscribePage() {
+export default async function SubscribePage() {
+  const stats = await getSiteStats()
   return (
     <div className="min-h-screen bg-[#FAFAF7]">
       {/* Hero */}
@@ -87,8 +89,8 @@ export default function SubscribePage() {
             <span className="gradient-text">with Melaa</span>
           </h1>
           <p className="text-lg md:text-xl text-white/60 leading-relaxed max-w-xl mx-auto">
-            The insider newsletter for South Asian wedding planning in Canada. Join over 1,200 couples
-            and vendors already subscribed.
+            The insider newsletter for South Asian wedding planning in Canada. Join {stats.vendorCountWithPlus} vendors
+            and couples already connected through Melaa.
           </p>
         </div>
       </section>

@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import { createClient } from '@/lib/supabase/server'
+import { getSiteStats } from '@/lib/stats'
 import type { Vendor } from '@/types'
 import VendorCard from '@/components/vendors/VendorCard'
 import HeroCanvas3D from '@/components/landing/HeroCanvas3D'
@@ -48,17 +49,17 @@ const WHY_MELAA = [
 
 export default async function HomePage() {
   const supabase = await createClient()
-  const [{ count: vendorCount }, { data: featuredVendors }] = await Promise.all([
-    supabase.from('vendors').select('*', { count: 'exact', head: true }).eq('is_active', true),
+  const [stats, { data: featuredVendors }] = await Promise.all([
+    getSiteStats(),
     supabase.from('vendors')
       .select('*, category:categories(*), city:cities(*)')
       .eq('is_active', true).eq('is_featured', true)
       .order('created_at', { ascending: false }).limit(3),
   ])
   const featured = (featuredVendors as Vendor[]) ?? []
-  const count = (vendorCount != null && vendorCount > 100)
-    ? vendorCount.toLocaleString()
-    : '1,200'
+  const count = stats.vendorCountDisplay
+  const categoryCount = stats.categoryCount
+  const cityCount = stats.cityCount
 
   return (
     <div className="bg-dark-1">
@@ -151,10 +152,10 @@ export default async function HomePage() {
                 style={{ animation: 'revealUp 0.75s 0.46s var(--ease-expo) both' }}
               >
                 {[
-                  { val: count + '+', label: 'Verified Vendors' },
-                  { val: '14',        label: 'Categories' },
-                  { val: '8+',        label: 'GTA Cities' },
-                  { val: '$0',        label: 'Booking Fees' },
+                  { val: count + '+',        label: 'Verified Vendors' },
+                  { val: String(categoryCount), label: 'Categories' },
+                  { val: cityCount + '+',    label: 'GTA Cities' },
+                  { val: '$0',               label: 'Booking Fees' },
                 ].map(({ val, label }) => (
                   <div key={label}>
                     <p className="text-2xl font-bold font-[family-name:var(--font-playfair)]"
@@ -278,7 +279,7 @@ export default async function HomePage() {
                     Verified Vendors
                   </p>
                   <p className="text-xs mt-1" style={{ color: 'rgba(7,5,10,0.5)' }}>
-                    Across 8+ GTA cities and growing
+                    Across {cityCount}+ GTA cities and growing
                   </p>
                 </div>
               </div>
@@ -308,12 +309,12 @@ export default async function HomePage() {
       <section className="py-0 bg-dark-1">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-0">
           {[
-            { src: 'https://images.pexels.com/photos/34079355/pexels-photo-34079355.jpeg?auto=compress&cs=tinysrgb&w=500', alt: 'Floral mandap with chandeliers', label: 'Venues & Decor', icon: '🏛️' },
-            { src: 'https://images.pexels.com/photos/30184703/pexels-photo-30184703.jpeg?auto=compress&cs=tinysrgb&w=500', alt: 'Bridal jewelry and bangles', label: 'Jewellery', icon: '💎' },
-            { src: 'https://images.pexels.com/photos/33508474/pexels-photo-33508474.jpeg?auto=compress&cs=tinysrgb&w=500', alt: 'Marigold wedding entrance decor', label: 'Floral Design', icon: '💐' },
-            { src: 'https://images.pexels.com/photos/8887293/pexels-photo-8887293.jpeg?auto=compress&cs=tinysrgb&w=500', alt: 'Wedding ceremony diya lighting', label: 'Ceremonies', icon: '🕉️' },
-          ].map(({ src, alt, label, icon }) => (
-            <div key={alt} className="relative aspect-[4/3] overflow-hidden group cursor-pointer">
+            { src: 'https://images.pexels.com/photos/34079355/pexels-photo-34079355.jpeg?auto=compress&cs=tinysrgb&w=500', alt: 'Floral mandap with chandeliers', label: 'Venues & Decor', icon: '🏛️', href: '/category/wedding-venues' },
+            { src: 'https://images.pexels.com/photos/30184703/pexels-photo-30184703.jpeg?auto=compress&cs=tinysrgb&w=500', alt: 'Bridal jewelry and bangles', label: 'Jewellery', icon: '💎', href: '/category/jewellery' },
+            { src: 'https://images.pexels.com/photos/33508474/pexels-photo-33508474.jpeg?auto=compress&cs=tinysrgb&w=500', alt: 'Marigold wedding entrance decor', label: 'Floral Design', icon: '💐', href: '/category/decorators' },
+            { src: 'https://images.pexels.com/photos/8887293/pexels-photo-8887293.jpeg?auto=compress&cs=tinysrgb&w=500', alt: 'Wedding ceremony diya lighting', label: 'Ceremonies', icon: '🕉️', href: '/category/priest-services' },
+          ].map(({ src, alt, label, icon, href }) => (
+            <Link key={alt} href={href} className="relative aspect-[4/3] overflow-hidden group cursor-pointer">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img src={src} alt={alt} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" loading="lazy" />
               <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent group-hover:from-black/50 transition-colors duration-500" />
@@ -323,7 +324,7 @@ export default async function HomePage() {
                   <span className="text-sm font-semibold text-white/90">{label}</span>
                 </div>
               </div>
-            </div>
+            </Link>
           ))}
         </div>
       </section>

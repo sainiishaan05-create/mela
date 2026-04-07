@@ -31,6 +31,9 @@ export interface Vendor {
   website: string | null
   instagram: string | null
   portfolio_images: string[]
+  latitude: number | null
+  longitude: number | null
+  address: string | null
   tier: VendorTier
   is_verified: boolean
   is_featured: boolean
@@ -41,9 +44,6 @@ export interface Vendor {
   claimed_by_user_id: string | null
   claim_token: string | null
   claim_token_expires_at: string | null
-  latitude: number | null
-  longitude: number | null
-  address: string | null
   created_at: string
   // Joined fields
   distance_km?: number

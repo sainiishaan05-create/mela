@@ -80,7 +80,7 @@ export default function SignupPage() {
             Create your free account
           </h1>
           <p className="text-gray-500 text-sm mt-1">
-            For couples planning their day, or vendors growing their business
+            For anyone planning an event, or vendors growing their business
           </p>
         </div>
 
@@ -149,7 +149,7 @@ export default function SignupPage() {
         {/* Two paths */}
         <div className="mt-8 grid grid-cols-2 gap-3">
           <div className="bg-[#F5ECD7]/50 rounded-xl p-4">
-            <p className="text-xs font-bold text-[#C8A96A] uppercase tracking-widest mb-2">💍 Couples</p>
+            <p className="text-xs font-bold text-[#C8A96A] uppercase tracking-widest mb-2">✨ Planners</p>
             <ul className="space-y-1.5 text-xs text-gray-600">
               <li>✓ Save favourite vendors</li>
               <li>✓ Leave reviews</li>

@@ -5,7 +5,30 @@ export const alt = 'Melaa - South Asian Wedding Vendors GTA'
 export const size = { width: 1200, height: 630 }
 export const contentType = 'image/png'
 
+// Fetch live counts via Supabase REST (edge-compatible, no SDK needed)
+async function fetchCounts() {
+  try {
+    const url = process.env.NEXT_PUBLIC_SUPABASE_URL
+    const key = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+    if (!url || !key) return { vendors: 0, categories: 0, cities: 0 }
+    const headers = { apikey: key, Authorization: `Bearer ${key}`, Prefer: 'count=exact' }
+    const [v, c, t] = await Promise.all([
+      fetch(`${url}/rest/v1/vendors?is_active=eq.true&select=id`, { headers }),
+      fetch(`${url}/rest/v1/categories?select=id`, { headers }),
+      fetch(`${url}/rest/v1/cities?select=id`, { headers }),
+    ])
+    const parseCount = (res: Response) => {
+      const range = res.headers.get('content-range') || '0/0'
+      return parseInt(range.split('/')[1] || '0', 10)
+    }
+    return { vendors: parseCount(v), categories: parseCount(c), cities: parseCount(t) }
+  } catch {
+    return { vendors: 0, categories: 0, cities: 0 }
+  }
+}
+
 export default async function Image() {
+  const { vendors, categories, cities } = await fetchCounts()
   return new ImageResponse(
     (
       <div
@@ -50,9 +73,9 @@ export default async function Image() {
         {/* Stats row */}
         <div style={{ display: 'flex', gap: '48px' }}>
           {[
-            { val: '1,200+', label: 'Vendors' },
-            { val: '55+', label: 'Cities' },
-            { val: '33+', label: 'Categories' },
+            { val: `${vendors.toLocaleString()}+`, label: 'Vendors' },
+            { val: `${cities}+`, label: 'Cities' },
+            { val: `${categories}+`, label: 'Categories' },
             { val: '$0', label: 'Booking Fees' },
           ].map(({ val, label }) => (
             <div key={label} style={{ display: 'flex', flexDirection: 'column' }}>

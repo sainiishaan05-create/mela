@@ -120,8 +120,8 @@ function LoginForm() {
               href="/signup"
               className="flex flex-col items-center gap-1 px-3 py-3.5 rounded-xl border border-gray-200 hover:border-[#C8A96A] hover:bg-[#F5ECD7]/40 transition-all text-center group"
             >
-              <span className="text-xl">💍</span>
-              <span className="text-xs font-semibold text-gray-700 group-hover:text-[#C8A96A] transition-colors">I&apos;m a Couple</span>
+              <span className="text-xl">✨</span>
+              <span className="text-xs font-semibold text-gray-700 group-hover:text-[#C8A96A] transition-colors">Planning an Event</span>
               <span className="text-[10px] text-gray-400">Save vendors &amp; leave reviews</span>
             </Link>
             <Link

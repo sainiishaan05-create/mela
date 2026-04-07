@@ -6,6 +6,7 @@ import LeadForm from '@/components/vendors/LeadForm'
 import VendorCard from '@/components/vendors/VendorCard'
 import SaveVendorButton from '@/components/vendors/SaveVendorButton'
 import ReviewSection from '@/components/vendors/ReviewSection'
+import VendorMap from '@/components/vendors/VendorMap'
 import Link from 'next/link'
 import {
   MapPin, Globe, BadgeCheck,
@@ -63,7 +64,16 @@ export default async function VendorProfilePage({ params }: Props) {
     '@type': 'LocalBusiness',
     name: v.name,
     description: v.description ?? `${v.name} is a South Asian wedding ${v.category?.name} serving ${v.city?.name}.`,
-    address: { '@type': 'PostalAddress', addressLocality: v.city?.name ?? '', addressRegion: 'ON', addressCountry: 'CA' },
+    address: {
+      '@type': 'PostalAddress',
+      ...(v.address ? { streetAddress: v.address } : {}),
+      addressLocality: v.city?.name ?? '',
+      addressRegion: 'ON',
+      addressCountry: 'CA',
+    },
+    ...(v.latitude && v.longitude ? {
+      geo: { '@type': 'GeoCoordinates', latitude: v.latitude, longitude: v.longitude },
+    } : {}),
     url: `${siteUrl}/vendors/${slug}`,
     ...(v.phone ? { telephone: v.phone } : {}),
     ...(v.website ? { sameAs: [v.website] } : {}),
@@ -276,6 +286,31 @@ export default async function VendorProfilePage({ params }: Props) {
                   </div>
                 </div>
               )}
+
+              {/* Location card with map */}
+              <div className="bg-white border border-gray-100 rounded-3xl p-6 shadow-premium">
+                <h3 className="font-[family-name:var(--font-playfair)] font-bold text-lg mb-1">Location</h3>
+                <p className="text-xs text-gray-400 mb-4">Serving {v.city?.name ?? 'GTA'} & surrounding areas</p>
+                <VendorMap
+                  latitude={v.latitude}
+                  longitude={v.longitude}
+                  vendorName={v.name}
+                  address={v.address}
+                  cityName={v.city?.name}
+                />
+                {v.address && (
+                  <div className="mt-4 flex items-start gap-2.5 text-sm text-gray-600">
+                    <MapPin className="w-4 h-4 text-[#C8A96A] mt-0.5 shrink-0" />
+                    <span className="leading-snug">{v.address}</span>
+                  </div>
+                )}
+                {!v.address && v.city && (
+                  <div className="mt-4 flex items-center gap-2.5 text-sm text-gray-600">
+                    <MapPin className="w-4 h-4 text-[#C8A96A] shrink-0" />
+                    <span>{v.city.name}, {v.city.province ?? 'Ontario'}</span>
+                  </div>
+                )}
+              </div>
 
               {/* Claim / Verified CTA */}
               {v.claim_status !== 'claimed' ? (
