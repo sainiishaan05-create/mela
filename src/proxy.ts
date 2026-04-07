@@ -2,8 +2,8 @@ import { createServerClient } from '@supabase/ssr'
 import { NextResponse, type NextRequest } from 'next/server'
 
 // ─── MAINTENANCE MODE ────────────────────────────────────────────
-// Set to true and redeploy to show the "Launching Soon" page.
-const MAINTENANCE = false
+// Set to false and redeploy when ready to go back live.
+const MAINTENANCE = true
 // ────────────────────────────────────────────────────────────────
 
 const MAINTENANCE_HTML = `<!DOCTYPE html>
