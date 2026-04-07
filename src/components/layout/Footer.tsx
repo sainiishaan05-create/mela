@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import { getSiteStats } from '@/lib/stats'
 
 const CATEGORIES = [
   { label: 'Photographers', href: '/category/photographers' },
@@ -33,7 +34,8 @@ const VENDOR_LINKS = [
   { label: 'Blog', href: '/blog' },
 ]
 
-export default function Footer() {
+export default async function Footer() {
+  const stats = await getSiteStats()
   return (
     <footer style={{ background: '#0C0A08' }} className="text-gray-400 relative overflow-hidden">
       {/* Gold top line */}
@@ -78,9 +80,9 @@ export default function Footer() {
           {/* Trust stats */}
           <div className="flex flex-wrap gap-8">
             {[
-              { val: '1,200+', label: 'Verified Vendors' },
-              { val: '55+', label: 'Ontario Cities' },
-              { val: '33+', label: 'Categories' },
+              { val: stats.vendorCountWithPlus, label: 'Verified Vendors' },
+              { val: `${stats.cityCount}+`, label: 'Ontario Cities' },
+              { val: `${stats.categoryCount}+`, label: 'Categories' },
               { val: '$0', label: 'Booking Fees' },
             ].map(({ val, label }) => (
               <div key={label} className="text-center">

@@ -139,7 +139,13 @@ export default function VendorCard({ vendor }: VendorCardProps) {
           {vendor.city && (
             <div className="flex items-center gap-1 text-[11px]" style={{ color: 'var(--color-taupe)' }}>
               <MapPin className="w-3 h-3 shrink-0" />
-              <span>{vendor.city.name}, ON</span>
+              <span className="truncate">
+                {vendor.address ? (
+                  <>{vendor.address.length > 36 ? vendor.address.slice(0, 36) + '…' : vendor.address}</>
+                ) : (
+                  <>{vendor.city.name}, ON</>
+                )}
+              </span>
             </div>
           )}
 

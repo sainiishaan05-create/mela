@@ -29,6 +29,9 @@ export interface Vendor {
   website: string | null
   instagram: string | null
   portfolio_images: string[]
+  latitude: number | null
+  longitude: number | null
+  address: string | null
   tier: VendorTier
   is_verified: boolean
   is_featured: boolean

@@ -88,6 +88,7 @@ export default function Header() {
   const router = useRouter()
 
   const [isLoggedIn, setIsLoggedIn] = useState(false)
+  const [categoryCount, setCategoryCount] = useState<number | null>(null)
 
   useEffect(() => {
     const supabase = createClient()
@@ -98,6 +99,12 @@ export default function Header() {
       setIsLoggedIn(!!session)
     })
     return () => subscription.unsubscribe()
+  }, [])
+
+  useEffect(() => {
+    fetch('/api/stats').then(r => r.ok ? r.json() : null).then(data => {
+      if (data?.categoryCount) setCategoryCount(data.categoryCount)
+    }).catch(() => {})
   }, [])
 
   const browseRef = useRef<HTMLDivElement>(null)
@@ -239,7 +246,7 @@ export default function Header() {
                       </div>
                       <div className="mt-3 pt-3 border-t flex items-center justify-between" style={{ borderColor: 'var(--color-taupe)' }}>
                         <Link href="/vendors" className="text-xs font-semibold flex items-center gap-1 hover:underline" style={{ color: 'var(--color-gold-dark)' }}>
-                          View all 29 categories
+                          View all{categoryCount ? ` ${categoryCount}` : ''} categories
                           <ChevronRight className="w-3 h-3" />
                         </Link>
                         <Link href="/vendors" className="text-xs text-gray-400 hover:text-gray-600 transition-colors">

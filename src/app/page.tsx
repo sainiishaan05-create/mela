@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import { createClient } from '@/lib/supabase/server'
+import { getSiteStats } from '@/lib/stats'
 import type { Vendor } from '@/types'
 import VendorCard from '@/components/vendors/VendorCard'
 import HeroCanvas3D from '@/components/landing/HeroCanvas3D'
@@ -48,17 +49,17 @@ const WHY_MELAA = [
 
 export default async function HomePage() {
   const supabase = await createClient()
-  const [{ count: vendorCount }, { data: featuredVendors }] = await Promise.all([
-    supabase.from('vendors').select('*', { count: 'exact', head: true }).eq('is_active', true),
+  const [stats, { data: featuredVendors }] = await Promise.all([
+    getSiteStats(),
     supabase.from('vendors')
       .select('*, category:categories(*), city:cities(*)')
       .eq('is_active', true).eq('is_featured', true)
       .order('created_at', { ascending: false }).limit(3),
   ])
   const featured = (featuredVendors as Vendor[]) ?? []
-  const count = (vendorCount != null && vendorCount > 100)
-    ? vendorCount.toLocaleString()
-    : '1,200'
+  const count = stats.vendorCountDisplay
+  const categoryCount = stats.categoryCount
+  const cityCount = stats.cityCount
 
   return (
     <div className="bg-dark-1">
@@ -151,10 +152,10 @@ export default async function HomePage() {
                 style={{ animation: 'revealUp 0.75s 0.46s var(--ease-expo) both' }}
               >
                 {[
-                  { val: count + '+', label: 'Verified Vendors' },
-                  { val: '14',        label: 'Categories' },
-                  { val: '8+',        label: 'GTA Cities' },
-                  { val: '$0',        label: 'Booking Fees' },
+                  { val: count + '+',        label: 'Verified Vendors' },
+                  { val: String(categoryCount), label: 'Categories' },
+                  { val: cityCount + '+',    label: 'GTA Cities' },
+                  { val: '$0',               label: 'Booking Fees' },
                 ].map(({ val, label }) => (
                   <div key={label}>
                     <p className="text-2xl font-bold font-[family-name:var(--font-playfair)]"
@@ -222,30 +223,25 @@ export default async function HomePage() {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
 
-            {/* Wide hero card */}
+            {/* Wide hero card — with figurines photo */}
             <Reveal className="md:col-span-2">
-              <div className="relative rounded-3xl overflow-hidden p-10 h-full"
+              <div className="relative rounded-3xl overflow-hidden h-full"
                 style={{
-                  background: 'rgba(200,169,106,0.055)',
                   border: '1px solid rgba(200,169,106,0.18)',
-                  minHeight: 280,
+                  minHeight: 320,
                 }}>
-                <div className="absolute inset-0 pointer-events-none"
-                  style={{
-                    backgroundImage: 'radial-gradient(rgba(200,169,106,0.055) 1px, transparent 1px)',
-                    backgroundSize: '28px 28px',
-                  }} />
-                <div className="absolute top-0 right-0 w-72 h-72 pointer-events-none"
-                  style={{
-                    background: 'radial-gradient(circle, rgba(200,169,106,0.12) 0%, transparent 70%)',
-                    transform: 'translate(30%,-30%)',
-                  }} />
-                <div className="relative z-10">
-                  <div className="text-4xl mb-5">🕉️</div>
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src="https://images.pexels.com/photos/12530976/pexels-photo-12530976.jpeg?auto=compress&cs=tinysrgb&w=900"
+                  alt="Traditional South Asian religious figurines"
+                  className="absolute inset-0 w-full h-full object-cover"
+                />
+                <div className="absolute inset-0" style={{ background: 'linear-gradient(135deg, rgba(7,5,10,0.82) 0%, rgba(7,5,10,0.5) 100%)' }} />
+                <div className="relative z-10 p-10">
                   <h3 className="font-[family-name:var(--font-playfair)] text-2xl font-bold text-white mb-3">
                     Every ceremony. Every tradition.
                   </h3>
-                  <p className="text-sm leading-relaxed max-w-md" style={{ color: 'rgba(255,255,255,0.48)' }}>
+                  <p className="text-sm leading-relaxed max-w-md" style={{ color: 'rgba(255,255,255,0.55)' }}>
                     From Mehndi nights to Baraat processions, Sangeet to Nikah, our vendors know
                     every ritual, every detail, every expectation. No explaining required.
                   </p>
@@ -253,9 +249,10 @@ export default async function HomePage() {
                     {['Mehndi', 'Baraat', 'Sangeet', 'Nikah', 'Anand Karaj', 'Vidai', 'Haldi', 'Walima'].map(c => (
                       <span key={c} className="text-xs px-3 py-1.5 rounded-full font-medium"
                         style={{
-                          border: '1px solid rgba(200,169,106,0.25)',
-                          color: '#C8A96A',
-                          background: 'rgba(200,169,106,0.07)',
+                          border: '1px solid rgba(255,255,255,0.2)',
+                          color: 'rgba(255,255,255,0.85)',
+                          background: 'rgba(255,255,255,0.06)',
+                          backdropFilter: 'blur(8px)',
                         }}>
                         {c}
                       </span>
@@ -282,7 +279,7 @@ export default async function HomePage() {
                     Verified Vendors
                   </p>
                   <p className="text-xs mt-1" style={{ color: 'rgba(7,5,10,0.5)' }}>
-                    Across 8+ GTA cities and growing
+                    Across {cityCount}+ GTA cities and growing
                   </p>
                 </div>
               </div>
@@ -303,6 +300,32 @@ export default async function HomePage() {
               </Reveal>
             ))}
           </div>
+        </div>
+      </section>
+
+      {/* ══════════════════════════════════════════════════════════════════════
+          PHOTO STRIP — Dark-toned South Asian wedding imagery
+      ══════════════════════════════════════════════════════════════════════ */}
+      <section className="py-0 bg-dark-1">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-0">
+          {[
+            { src: 'https://images.pexels.com/photos/34079355/pexels-photo-34079355.jpeg?auto=compress&cs=tinysrgb&w=500', alt: 'Floral mandap with chandeliers', label: 'Venues & Decor', icon: '🏛️', href: '/category/wedding-venues' },
+            { src: 'https://images.pexels.com/photos/30184703/pexels-photo-30184703.jpeg?auto=compress&cs=tinysrgb&w=500', alt: 'Bridal jewelry and bangles', label: 'Jewellery', icon: '💎', href: '/category/jewellery' },
+            { src: 'https://images.pexels.com/photos/33508474/pexels-photo-33508474.jpeg?auto=compress&cs=tinysrgb&w=500', alt: 'Marigold wedding entrance decor', label: 'Floral Design', icon: '💐', href: '/category/decorators' },
+            { src: 'https://images.pexels.com/photos/8887293/pexels-photo-8887293.jpeg?auto=compress&cs=tinysrgb&w=500', alt: 'Wedding ceremony diya lighting', label: 'Ceremonies', icon: '🕉️', href: '/category/priest-services' },
+          ].map(({ src, alt, label, icon, href }) => (
+            <Link key={alt} href={href} className="relative aspect-[4/3] overflow-hidden group cursor-pointer">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src={src} alt={alt} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" loading="lazy" />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent group-hover:from-black/50 transition-colors duration-500" />
+              <div className="absolute bottom-0 left-0 right-0 p-4">
+                <div className="flex items-center gap-2">
+                  <span className="text-base">{icon}</span>
+                  <span className="text-sm font-semibold text-white/90">{label}</span>
+                </div>
+              </div>
+            </Link>
+          ))}
         </div>
       </section>
 

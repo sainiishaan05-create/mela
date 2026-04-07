@@ -175,7 +175,7 @@ export default function NewsletterSignup({ variant = 'dark' }: NewsletterSignupP
         {/* Trust bullets */}
         <div className={`flex flex-wrap gap-x-5 gap-y-1 text-sm ${subtextClass} mt-4`}>
           {[
-            { icon: '✓', text: 'Join 1,200+ couples & vendors' },
+            { icon: '✓', text: 'Join vendors & couples across the GTA' },
             { icon: '✓', text: 'Weekly vendor spotlights' },
             { icon: '✓', text: 'Unsubscribe anytime' },
           ].map(({ icon, text }) => (
