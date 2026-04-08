@@ -383,16 +383,16 @@ export default function Header() {
 
       {/* Mobile backdrop */}
       <div
-        className={`fixed inset-0 z-40 bg-black/20 backdrop-blur-sm md:hidden transition-opacity duration-300 ${menuOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`}
+        className={`fixed inset-0 z-[55] bg-black/30 backdrop-blur-sm md:hidden transition-opacity duration-300 ${menuOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`}
         onClick={() => setMenuOpen(false)}
       />
 
       {/* Mobile drawer */}
       <div
-        className={`fixed top-16 left-0 right-0 z-40 backdrop-blur-xl border-b shadow-xl md:hidden transition-all duration-300 overflow-y-auto max-h-[calc(100dvh-4rem)] ${
+        className={`fixed top-16 left-0 right-0 z-[60] border-b shadow-xl md:hidden transition-all duration-300 overflow-y-auto max-h-[calc(100dvh-4rem)] ${
           menuOpen ? 'opacity-100 translate-y-0 pointer-events-auto' : 'opacity-0 -translate-y-3 pointer-events-none'
         }`}
-        style={{ background: 'rgba(247,245,242,0.97)', borderColor: 'var(--color-taupe)' }}
+        style={{ background: '#F7F5F2', borderColor: 'var(--color-taupe)' }}
       >
         <nav className="max-w-7xl mx-auto px-4 py-4 flex flex-col gap-1">
 

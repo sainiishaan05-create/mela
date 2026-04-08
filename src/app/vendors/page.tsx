@@ -182,7 +182,7 @@ export default async function VendorsPage({ searchParams }: Props) {
     <div className="min-h-screen bg-[#FAFAF7]">
 
       {/* ── Sticky category + city pill bar ── */}
-      <div className="glass sticky top-16 z-40 border-b border-white/60">
+      <div className="glass sticky top-16 z-30 border-b border-white/60">
         <div className="max-w-7xl mx-auto px-4 py-3 space-y-2">
 
           {/* Directory label */}

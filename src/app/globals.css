@@ -846,10 +846,17 @@ img { transition: opacity 0.3s ease; }
 @media (max-width: 768px) {
   .btn-gold-glow, .btn-ghost-gold { padding: 12px 22px; font-size: 13px; }
 
-  /* Hero orbs scaled down on mobile */
-  .hero-orb-1 { width: 500px; height: 500px; top: -120px; left: calc(50% - 250px); }
-  .hero-orb-2 { width: 350px; height: 350px; }
-  .hero-orb-3 { width: 280px; height: 280px; }
+  /* Hero orbs scaled down + animations killed on mobile (perf) */
+  .hero-orb-1 { width: 500px; height: 500px; top: -120px; left: calc(50% - 250px); filter: blur(40px); animation: none; }
+  .hero-orb-2 { width: 350px; height: 350px; filter: blur(35px); animation: none; }
+  .hero-orb-3 { width: 280px; height: 280px; filter: blur(30px); animation: none; }
+
+  /* Kill all ambient particle animation on mobile */
+  .ambient-particles::before,
+  .ambient-particles::after { animation: none !important; }
+
+  /* Kill scanline animation on mobile */
+  .section-scanline::before { animation: none !important; display: none; }
 
   /* Section padding tightened further on small screens */
   .glass-card-dark { padding: 1.5rem; }

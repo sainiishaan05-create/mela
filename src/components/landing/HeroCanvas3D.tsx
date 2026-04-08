@@ -38,6 +38,11 @@ export default function HeroCanvas3D() {
     const ctx = canvas.getContext('2d') as CanvasRenderingContext2D
     if (!ctx) return
 
+    // Skip heavy canvas animation on mobile — huge lag source
+    const isMobile = window.matchMedia('(max-width: 768px)').matches
+    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    if (isMobile || prefersReduced) return
+
     let W=0, H=0, raf=0, absX=0, absY=0
 
     let nodes:   Node[]   = []
