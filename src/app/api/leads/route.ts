@@ -2,23 +2,20 @@ import { createClient } from '@/lib/supabase/server'
 import { NextResponse } from 'next/server'
 import Anthropic from '@anthropic-ai/sdk'
 import { Resend } from 'resend'
+import { escapeHtml as esc, rateLimit, clientIp, prune } from '@/lib/security'
 
 const resend = new Resend(process.env.RESEND_API_KEY)
 const anthropic = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY })
 
-/** Escape HTML special characters to prevent XSS in email templates */
-function esc(str: string | null | undefined): string {
-  if (!str) return ''
-  return str
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;')
-    .replace(/'/g, '&#39;')
-}
-
 export async function POST(req: Request) {
   try {
+    // Rate limit: 5 leads per 10 minutes per IP
+    prune()
+    const ip = clientIp(req)
+    if (!rateLimit(`leads:${ip}`, 5, 10 * 60 * 1000)) {
+      return NextResponse.json({ error: 'Too many requests. Please try again later.' }, { status: 429 })
+    }
+
     const body = await req.json()
     const { vendor_id, buyer_name, buyer_email, buyer_phone, event_date, event_type, message } = body
 

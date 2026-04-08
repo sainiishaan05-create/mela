@@ -1,6 +1,7 @@
 import { createClient } from '@/lib/supabase/server'
 import { NextResponse } from 'next/server'
 import { Resend } from 'resend'
+import { rateLimit, clientIp, prune } from '@/lib/security'
 
 const resend = new Resend(process.env.RESEND_API_KEY)
 
@@ -45,6 +46,13 @@ const WELCOME_HTML = `<!DOCTYPE html>
 
 export async function POST(request: Request) {
   try {
+    // Rate limit: 5 subscribes per hour per IP
+    prune()
+    const ip = clientIp(request)
+    if (!rateLimit(`newsletter:${ip}`, 5, 60 * 60 * 1000)) {
+      return NextResponse.json({ error: 'Too many requests. Please try again later.' }, { status: 429 })
+    }
+
     const { email, name, city, interests } = await request.json()
 
     if (!email || !email.includes('@')) {
