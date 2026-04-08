@@ -95,7 +95,6 @@ export async function POST(req: Request) {
         .update({
           claimed_by_user_id: user.id,
           claim_status: 'claimed',
-          claim_email: user.email,
           name, // let them update their business name at onboarding
           category_id,
           city_id,
@@ -152,7 +151,6 @@ export async function POST(req: Request) {
       portfolio_images: [],
       claimed_by_user_id: user.id,
       claim_status: 'claimed',
-      claim_email: user.email,
     })
 
     if (insertErr) throw insertErr

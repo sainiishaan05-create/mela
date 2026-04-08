@@ -20,10 +20,13 @@ export async function GET(req: NextRequest) {
 
   const supabase = getServiceClient()
 
-  // 1. Look up vendor by claim_token
+  // 1. Look up vendor by claim_token. We fall back to vendor.email since
+  // the optional claim_email column (for claimants using a different email
+  // than the scraped record) is not yet migrated on the live DB — see
+  // supabase/migrations/20260329_add_claim_email.sql.
   const { data: vendor, error: lookupError } = await supabase
     .from('vendors')
-    .select('id, name, slug, claim_email, claim_token, claim_token_expires_at')
+    .select('id, name, slug, email, claim_token, claim_token_expires_at')
     .eq('claim_token', token)
     .single()
 
@@ -40,8 +43,8 @@ export async function GET(req: NextRequest) {
     return NextResponse.redirect(`${siteUrl}/claim/${vendor.slug}?error=token_expired`)
   }
 
-  // 3. Create or retrieve Supabase Auth user using claimant email (not vendor.email which may be null)
-  const claimEmail = vendor.claim_email
+  // 3. Create or retrieve Supabase Auth user using the vendor's email
+  const claimEmail = vendor.email
   if (!claimEmail) {
     return NextResponse.redirect(`${siteUrl}/claim/${vendor.slug}?error=missing_claim_email`)
   }

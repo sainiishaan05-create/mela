@@ -137,12 +137,12 @@ async function lookupAndAutoClaim(
 
   // Unclaimed — auto-claim it
   if (vendor.claim_status === 'unclaimed' || !vendor.claimed_by_user_id) {
+    void userEmail // reserved for when claim_email column is migrated
     const { error: updateError } = await supabase
       .from('vendors')
       .update({
         claimed_by_user_id: userId,
         claim_status: 'claimed',
-        claim_email: userEmail,
       })
       .eq('id', vendor.id)
       .eq('claim_status', 'unclaimed') // race-condition guard

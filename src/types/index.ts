@@ -40,7 +40,10 @@ export interface Vendor {
   is_active: boolean
   stripe_customer_id: string | null
   claim_status: 'unclaimed' | 'pending' | 'claimed'
-  claim_email: string | null
+  /** Optional column — not yet migrated on the live DB, see
+   * supabase/migrations/20260329_add_claim_email.sql. Kept on the type
+   * so existing dashboard reads don't break. */
+  claim_email?: string | null
   claimed_by_user_id: string | null
   claim_token: string | null
   claim_token_expires_at: string | null
