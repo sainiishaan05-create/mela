@@ -37,20 +37,8 @@ export default function ContactPage() {
   return (
     <div style={{ background: 'var(--color-bg)' }}>
 
-      {/* Hero */}
-      <section className="bg-luxury-dark bg-jali aurora-orbs hero-borderlines relative py-20 px-4 sm:px-6 overflow-hidden">
-        <div className="orb orb-1" />
-        <div className="orb orb-2" />
-        <div className="hero-gradient-glow" />
-        <div className="hero-arcs" />
-        <div className="hero-slashes" />
-        <div className="hero-side-rails hidden md:block" />
-        <div className="hero-hash-top" />
-        <div className="hero-hash-bottom" />
-        <div className="hero-flourish hero-flourish-tl hidden md:block" />
-        <div className="hero-flourish hero-flourish-tr hidden md:block" />
-        <div className="hero-flourish hero-flourish-bl hidden md:block" />
-        <div className="hero-flourish hero-flourish-br hidden md:block" />
+      {/* Hero — Mehndi Vines identity */}
+      <section className="bg-luxury-dark hero-mehndi-vines relative py-20 px-4 sm:px-6">
         <div className="relative z-10 max-w-3xl mx-auto text-center">
           <p className="section-label mb-5 justify-center">Contact</p>
           <h1 className="font-[family-name:var(--font-playfair)] text-4xl sm:text-5xl font-bold text-white mb-5">

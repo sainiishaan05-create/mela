@@ -38,21 +38,8 @@ export default async function ListYourBusinessPage() {
   return (
     <div style={{ background: 'var(--color-bg)' }}>
 
-      {/* ── HERO ── */}
-      <section className="bg-luxury-dark bg-mandala aurora-orbs hero-borderlines relative py-20 px-4 sm:px-6 overflow-hidden">
-        <div className="orb orb-1" />
-        <div className="orb orb-2" />
-        <div className="hero-gradient-glow" />
-        <div className="hero-arcs" />
-        <div className="hero-slashes" />
-        <div className="hero-side-rails hidden md:block" />
-        <div className="hero-hash-top" />
-        <div className="hero-hash-bottom" />
-        <div className="hero-flourish hero-flourish-tl hidden md:block" />
-        <div className="hero-flourish hero-flourish-tr hidden md:block" />
-        <div className="hero-flourish hero-flourish-bl hidden md:block" />
-        <div className="hero-flourish hero-flourish-br hidden md:block" />
-        <div className="hero-watermark hidden md:block">Grow.</div>
+      {/* ── HERO — Mandap Pillars identity ── */}
+      <section className="bg-luxury-dark hero-mandap relative py-20 px-4 sm:px-6">
         <div className="relative z-10 max-w-4xl mx-auto text-center">
           {/* Urgency badge */}
           {spotsLeft > 0 && (

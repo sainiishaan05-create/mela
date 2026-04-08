@@ -10,19 +10,8 @@ export default function TermsPage() {
   return (
     <main className="min-h-screen bg-white">
       {/* Hero */}
-      <section className="bg-luxury-dark bg-ornament aurora-orbs hero-borderlines relative py-16 px-4 sm:px-6 overflow-hidden">
-        <div className="orb orb-1" />
-        <div className="orb orb-2" />
-        <div className="hero-gradient-glow" />
-        <div className="hero-arcs" />
-        <div className="hero-slashes" />
-        <div className="hero-hash-top" />
-        <div className="hero-hash-bottom" />
-        <div className="hero-flourish hero-flourish-tl hidden md:block" />
-        <div className="hero-flourish hero-flourish-tr hidden md:block" />
-        <div className="hero-flourish hero-flourish-bl hidden md:block" />
-        <div className="hero-flourish hero-flourish-br hidden md:block" />
-        <div className="legal-watermark hidden md:block" style={{ transform: 'translate(-50%, -50%) rotate(2deg)' }}>§</div>
+      {/* Hero — Rangoli Mandala identity */}
+      <section className="bg-luxury-dark hero-rangoli relative py-16 px-4 sm:px-6">
         <div className="relative z-10 max-w-3xl mx-auto text-center">
           <p className="section-label mb-5 justify-center">Legal</p>
           <h1 className="font-[family-name:var(--font-playfair)] text-4xl sm:text-5xl font-bold text-white mb-3">Terms of Service</h1>

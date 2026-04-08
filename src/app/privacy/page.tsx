@@ -9,19 +9,8 @@ export const metadata: Metadata = {
 export default function PrivacyPage() {
   return (
     <main className="min-h-screen bg-white">
-      {/* Hero */}
-      <section className="bg-luxury-dark bg-mandala aurora-orbs hero-borderlines relative py-16 px-4 sm:px-6 overflow-hidden">
-        <div className="orb orb-1" />
-        <div className="orb orb-2" />
-        <div className="hero-gradient-glow" />
-        <div className="hero-arcs" />
-        <div className="hero-slashes" />
-        <div className="hero-hash-top" />
-        <div className="hero-hash-bottom" />
-        <div className="hero-flourish hero-flourish-tl hidden md:block" />
-        <div className="hero-flourish hero-flourish-tr hidden md:block" />
-        <div className="hero-flourish hero-flourish-bl hidden md:block" />
-        <div className="hero-flourish hero-flourish-br hidden md:block" />
+      {/* Hero — Jali Lattice identity */}
+      <section className="bg-luxury-dark hero-jali-frame relative py-16 px-4 sm:px-6">
         <div className="legal-watermark hidden md:block">§</div>
         <div className="relative z-10 max-w-3xl mx-auto text-center">
           <p className="section-label mb-5 justify-center">Legal</p>

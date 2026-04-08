@@ -94,20 +94,8 @@ export default async function PricingPage() {
   return (
     <div className="bg-[#FAFAF7] min-h-screen">
 
-      {/* ── Hero ── */}
-      <section className="bg-luxury-dark bg-paisley aurora-orbs hero-borderlines text-white relative overflow-hidden">
-        <div className="orb orb-1" />
-        <div className="orb orb-2" />
-        <div className="hero-gradient-glow" />
-        <div className="hero-arcs" />
-        <div className="hero-slashes" />
-        <div className="hero-side-rails hidden md:block" />
-        <div className="hero-hash-top" />
-        <div className="hero-hash-bottom" />
-        <div className="hero-flourish hero-flourish-tl hidden md:block" />
-        <div className="hero-flourish hero-flourish-tr hidden md:block" />
-        <div className="hero-flourish hero-flourish-bl hidden md:block" />
-        <div className="hero-flourish hero-flourish-br hidden md:block" />
+      {/* ── Hero — Mughal Arch identity ── */}
+      <section className="bg-luxury-dark hero-mughal-arch text-white relative">
         <div className="relative max-w-4xl mx-auto px-4 sm:px-6 py-20 text-center z-10">
           <p className="section-label mb-5 justify-center">Pricing</p>
           <h1 className="font-[family-name:var(--font-playfair)] text-4xl sm:text-5xl md:text-6xl font-bold mb-5">

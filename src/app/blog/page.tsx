@@ -51,20 +51,8 @@ const rest = blogPosts.slice(1)
 export default function BlogIndexPage() {
   return (
     <div className="min-h-screen bg-[#FAFAF7]">
-      {/* Hero */}
-      <section className="bg-luxury-dark bg-paisley aurora-orbs hero-borderlines relative overflow-hidden">
-        <div className="orb orb-1" />
-        <div className="orb orb-2" />
-        <div className="hero-gradient-glow" />
-        <div className="hero-arcs" />
-        <div className="hero-slashes" />
-        <div className="hero-side-rails hidden md:block" />
-        <div className="hero-hash-top" />
-        <div className="hero-hash-bottom" />
-        <div className="hero-flourish hero-flourish-tl hidden md:block" />
-        <div className="hero-flourish hero-flourish-tr hidden md:block" />
-        <div className="hero-flourish hero-flourish-bl hidden md:block" />
-        <div className="hero-flourish hero-flourish-br hidden md:block" />
+      {/* Hero — Manuscript identity */}
+      <section className="bg-luxury-dark hero-manuscript relative">
         <div className="relative z-10 max-w-5xl mx-auto px-6 py-20 md:py-28 text-center">
           <div className="masthead mb-6">
             <span className="masthead-title">Melaa Editorial</span>

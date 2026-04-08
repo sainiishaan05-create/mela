@@ -27,20 +27,9 @@ export default async function AboutPage() {
   return (
     <div style={{ background: 'var(--color-bg)' }}>
 
-      {/* Hero */}
-      <section className="bg-luxury-dark bg-ornament aurora-orbs hero-borderlines relative py-20 px-4 sm:px-6 overflow-hidden">
-        <div className="orb orb-1" />
-        <div className="orb orb-2" />
-        <div className="hero-gradient-glow" />
-        <div className="hero-arcs" />
-        <div className="hero-slashes" />
-        <div className="hero-side-rails hidden md:block" />
-        <div className="hero-hash-top" />
-        <div className="hero-hash-bottom" />
-        <div className="hero-flourish hero-flourish-tl hidden md:block" />
-        <div className="hero-flourish hero-flourish-tr hidden md:block" />
-        <div className="hero-flourish hero-flourish-bl hidden md:block" />
-        <div className="hero-flourish hero-flourish-br hidden md:block" />
+      {/* Hero — Paisley Cascade identity */}
+      <section className="bg-luxury-dark hero-paisley-cascade relative py-20 px-4 sm:px-6">
+        <div className="paisley-accent" />
         <div className="relative z-10 max-w-3xl mx-auto text-center">
           <p className="section-label mb-5 justify-center">Our Story</p>
           <h1 className="font-[family-name:var(--font-playfair)] text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-5">
