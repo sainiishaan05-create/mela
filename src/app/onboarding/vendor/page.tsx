@@ -49,7 +49,7 @@ export default async function VendorOnboardingPage() {
   // Load categories + cities for the form
   const [{ data: categories }, { data: cities }] = await Promise.all([
     svc.from('categories').select('*').order('name'),
-    svc.from('cities').select('*').eq('is_active', true).order('name'),
+    svc.from('cities').select('*').order('name'),
   ])
 
   return (
