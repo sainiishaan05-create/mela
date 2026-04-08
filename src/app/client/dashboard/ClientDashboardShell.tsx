@@ -58,7 +58,7 @@ export default function ClientDashboardShell({ userEmail, initialSaved, initialR
             </div>
             <p className="font-semibold text-sm text-[#2B2623] truncate">{userEmail}</p>
             <span className="inline-block mt-2 text-[10px] font-bold uppercase tracking-widest px-2 py-0.5 rounded-full bg-[#F5ECD7] text-[#C8A96A]">
-              Couple Account
+              Client Account
             </span>
             {hasVendorListing ? (
               <Link href="/dashboard" className="mt-3 block text-[11px] font-semibold text-[#C8A96A] hover:underline">
@@ -197,7 +197,7 @@ export default function ClientDashboardShell({ userEmail, initialSaved, initialR
                 <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-12 text-center">
                   <div className="text-5xl mb-4">✍️</div>
                   <h2 className="font-[family-name:var(--font-playfair)] text-xl font-bold text-gray-800 mb-2">No reviews yet</h2>
-                  <p className="text-gray-500 text-sm mb-6">Visit a vendor&apos;s profile and share your experience to help other couples.</p>
+                  <p className="text-gray-500 text-sm mb-6">Visit a vendor&apos;s profile and share your experience to help other clients.</p>
                   <Link href="/vendors" className="inline-flex items-center gap-2 bg-[#C8A96A] text-white px-6 py-3 rounded-full font-semibold text-sm hover:bg-[#B8945A] transition-colors">
                     Browse Vendors
                   </Link>
@@ -250,7 +250,7 @@ export default function ClientDashboardShell({ userEmail, initialSaved, initialR
                 </div>
                 <div className="p-5">
                   <p className="text-xs font-bold uppercase tracking-widest text-gray-400 mb-1">Account type</p>
-                  <p className="text-sm font-medium text-[#2B2623]">Couple / Client</p>
+                  <p className="text-sm font-medium text-[#2B2623]">Client / Client</p>
                 </div>
                 <div className="p-5">
                   <p className="text-xs font-bold uppercase tracking-widest text-gray-400 mb-2">Password</p>

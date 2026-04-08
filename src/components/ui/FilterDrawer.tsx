@@ -71,53 +71,64 @@ export default function FilterDrawer({
     setSelectedCity('')
     setSelectedSort('')
     setCitySearch('')
+    // Actually clear filters from the URL too — user expects immediate reset
+    window.location.href = '/vendors'
   }
 
   return (
     <>
       {/* Overlay */}
       <div
-        className={`fixed inset-0 z-50 bg-black/40 backdrop-blur-sm transition-opacity duration-300 ${
+        className={`fixed inset-0 z-[65] bg-black/40 backdrop-blur-sm transition-opacity duration-300 ${
           isOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
         }`}
         onClick={onClose}
         aria-hidden="true"
       />
 
-      {/* Drawer panel */}
+      {/* Drawer panel — uses svh for Safari compatibility + flex column with sticky header/footer */}
       <div
-        className={`fixed bottom-0 left-0 right-0 z-50 bg-white rounded-t-3xl shadow-2xl max-h-[85vh] overflow-y-auto transition-transform duration-300 ease-out ${
+        className={`fixed bottom-0 left-0 right-0 z-[70] bg-white rounded-t-3xl shadow-2xl flex flex-col transition-transform duration-300 ease-out ${
           isOpen ? 'translate-y-0' : 'translate-y-full'
         }`}
+        style={{
+          maxHeight: '90svh',
+          height: '90svh',
+          paddingBottom: 'env(safe-area-inset-bottom)',
+        }}
         role="dialog"
         aria-modal="true"
         aria-label="Filter vendors"
       >
-        {/* Drag handle */}
-        <div className="pt-4 pb-2 flex justify-center">
-          <div className="w-12 h-1 rounded-full bg-gray-200" />
-        </div>
-
-        <div className="px-5 pb-8">
-          {/* Header */}
-          <div className="flex items-center justify-between mb-6">
+        {/* Sticky top header — Drag handle + title + close */}
+        <div className="shrink-0 bg-white rounded-t-3xl border-b border-gray-100">
+          <div className="pt-3 pb-1 flex justify-center">
+            <div className="w-12 h-1 rounded-full bg-gray-200" />
+          </div>
+          <div className="flex items-center justify-between px-5 py-3">
             <h2 className="text-lg font-bold text-[#111111]">Filters</h2>
             <div className="flex items-center gap-3">
               <button
+                type="button"
                 onClick={handleClearAll}
-                className="text-sm text-gray-400 hover:text-red-500 font-medium transition-colors"
+                className="text-sm text-gray-500 hover:text-red-500 font-semibold transition-colors py-2 px-2"
               >
                 Clear All
               </button>
               <button
+                type="button"
                 onClick={onClose}
-                className="w-8 h-8 flex items-center justify-center rounded-full bg-gray-100 hover:bg-gray-200 transition-colors"
+                className="w-10 h-10 flex items-center justify-center rounded-full bg-gray-100 hover:bg-gray-200 transition-colors"
                 aria-label="Close filters"
               >
-                <X className="w-4 h-4 text-gray-600" />
+                <X className="w-5 h-5 text-gray-700" />
               </button>
             </div>
           </div>
+        </div>
+
+        {/* Scrollable middle */}
+        <div className="flex-1 overflow-y-auto overscroll-contain px-5 pt-4 pb-4" style={{ WebkitOverflowScrolling: 'touch' }}>
 
           {/* Category section */}
           <div className="mb-6">
@@ -139,6 +150,7 @@ export default function FilterDrawer({
               {categories.map(cat => (
                 <button
                   key={cat.slug}
+                  type="button"
                   onClick={() => setSelectedCategory(cat.slug)}
                   className={`flex items-center gap-2 px-3 py-2.5 rounded-xl text-sm font-medium transition-all duration-150 border ${
                     selectedCategory === cat.slug
@@ -204,7 +216,7 @@ export default function FilterDrawer({
           <div className="h-px bg-gray-100 mb-6" />
 
           {/* Sort section */}
-          <div className="mb-8">
+          <div className="mb-4">
             <h3 className="font-semibold text-xs uppercase tracking-widest text-gray-400 mb-3">
               Sort By
             </h3>
@@ -215,6 +227,7 @@ export default function FilterDrawer({
               ].map(opt => (
                 <button
                   key={opt.value}
+                  type="button"
                   onClick={() => setSelectedSort(opt.value)}
                   className={`flex-1 px-4 py-2.5 rounded-xl text-sm font-medium transition-all duration-150 border ${
                     selectedSort === opt.value || (!selectedSort && !opt.value)
@@ -227,9 +240,12 @@ export default function FilterDrawer({
               ))}
             </div>
           </div>
+        </div>
 
-          {/* Apply button */}
+        {/* Sticky bottom action bar — always visible */}
+        <div className="shrink-0 bg-white border-t border-gray-100 px-5 pt-4 pb-6">
           <button
+            type="button"
             onClick={handleApply}
             className="w-full bg-[#C8A96A] text-white font-bold py-4 rounded-2xl shadow-saffron text-base transition-opacity hover:opacity-90 active:opacity-80"
           >

@@ -198,7 +198,7 @@ export default function ReviewSection({ vendorId, vendorName }: Props) {
             <textarea
               value={body}
               onChange={e => setBody(e.target.value)}
-              placeholder="Tell couples what it was like to work with this vendor..."
+              placeholder="Tell clients what it was like to work with this vendor..."
               rows={3}
               className="w-full px-3 py-2.5 text-sm border border-gray-200 rounded-xl bg-white outline-none focus:border-[#C8A96A] transition-colors resize-none"
             />

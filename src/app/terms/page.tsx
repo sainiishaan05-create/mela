@@ -32,7 +32,7 @@ export default function TermsPage() {
           <section>
             <h2 className="text-xl font-semibold text-gray-900 mb-3 font-[family-name:var(--font-playfair)]" style={{ color: 'var(--color-gold-dark)' }}>2. Description of Service</h2>
             <p className="text-gray-600 leading-relaxed">
-              Mela is an online directory that connects couples planning South Asian weddings in the Greater Toronto Area with local wedding vendors. We offer free and paid listing tiers for vendors, and free browsing for couples.
+              Mela is an online directory that connects clients planning South Asian weddings in the Greater Toronto Area with local wedding vendors. We offer free and paid listing tiers for vendors, and free browsing for clients.
             </p>
           </section>
 
@@ -74,7 +74,7 @@ export default function TermsPage() {
           <section>
             <h2 className="text-xl font-semibold text-gray-900 mb-3 font-[family-name:var(--font-playfair)]" style={{ color: 'var(--color-gold-dark)' }}>8. Disclaimer of Warranties</h2>
             <p className="text-gray-600 leading-relaxed">
-              Mela is provided "as is" without warranties of any kind. We do not endorse, verify, or guarantee any vendor listed on our platform. Couples should conduct their own due diligence before booking any vendor.
+              Mela is provided "as is" without warranties of any kind. We do not endorse, verify, or guarantee any vendor listed on our platform. Clients should conduct their own due diligence before booking any vendor.
             </p>
           </section>
 
@@ -84,7 +84,7 @@ export default function TermsPage() {
               To the fullest extent permitted by law, Mela shall not be liable for any indirect, incidental, special, or consequential damages arising from your use of our platform or any vendor services found through our platform.
             </p>
             <p className="text-gray-600 leading-relaxed mb-3">
-              Mela is a directory and listing service only. We do not participate in, mediate, or assume any responsibility for transactions, agreements, disputes, or interactions between couples and vendors. Any arrangement made between a couple and a vendor, including pricing, service delivery, quality, cancellations, refunds, or any other matter, is solely between those parties.
+              Mela is a directory and listing service only. We do not participate in, mediate, or assume any responsibility for transactions, agreements, disputes, or interactions between clients and vendors. Any arrangement made between a client and a vendor, including pricing, service delivery, quality, cancellations, refunds, or any other matter, is solely between those parties.
             </p>
             <p className="text-gray-600 leading-relaxed">
               Mela does not endorse, guarantee, or warrant any vendor listed on the platform. We are not responsible for any loss, damage, injury, or dispute arising from services provided by any vendor, whether or not that vendor was discovered through our platform.

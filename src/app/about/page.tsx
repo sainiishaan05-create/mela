@@ -12,8 +12,8 @@ export const metadata: Metadata = {
 
 const VALUES = [
   { Icon: Heart, title: 'South Asian First', desc: 'Every vendor on Melaa understands your traditions, ceremonies, and celebrations. No explaining, no compromises.' },
-  { Icon: Zap, title: 'Zero Fees, Always', desc: 'Couples browse and contact vendors for free. No booking fees, no commissions, no hidden costs. Ever.' },
-  { Icon: Users, title: 'Community Driven', desc: 'Vendor-recommended features ship first. Couples vote on what they want to see next.' },
+  { Icon: Zap, title: 'Zero Fees, Always', desc: 'Clients browse and contact vendors for free. No booking fees, no commissions, no hidden costs. Ever.' },
+  { Icon: Users, title: 'Community Driven', desc: 'Vendor-recommended features ship first. Clients vote on what they want to see next.' },
 ]
 
 export default async function AboutPage() {

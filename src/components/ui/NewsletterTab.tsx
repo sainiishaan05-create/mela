@@ -128,7 +128,7 @@ export default function NewsletterTab() {
           <div className="flex flex-col gap-1 mt-3 text-xs text-gray-400">
             <span className="flex items-center gap-1.5">
               <span style={{ color: '#C8A96A' }} className="font-bold">✓</span>
-              Join vendors & couples across the GTA
+              Join vendors & clients across the GTA
             </span>
             <span className="flex items-center gap-1.5">
               <span style={{ color: '#C8A96A' }} className="font-bold">✓</span>

@@ -35,7 +35,7 @@ export default function PrivacyPage() {
             <ul className="list-disc pl-6 space-y-2 text-gray-600">
               <li><strong>Account information:</strong> Name, email address, and password when you create a vendor account.</li>
               <li><strong>Vendor listing information:</strong> Business name, phone number, address, website, Instagram handle, and photos you provide.</li>
-              <li><strong>Inquiry information:</strong> Name, email, phone, and message when couples submit inquiries through vendor profiles.</li>
+              <li><strong>Inquiry information:</strong> Name, email, phone, and message when clients submit inquiries through vendor profiles.</li>
               <li><strong>Payment information:</strong> Billing details processed securely by Stripe. We do not store payment card details.</li>
               <li><strong>Usage data:</strong> Pages visited, time spent, browser type, IP address, and referral source via analytics tools.</li>
             </ul>
@@ -45,7 +45,7 @@ export default function PrivacyPage() {
             <h2 className="text-xl font-semibold text-gray-900 mb-3 font-[family-name:var(--font-playfair)]" style={{ color: 'var(--color-gold-dark)' }}>3. How We Use Your Information</h2>
             <ul className="list-disc pl-6 space-y-2 text-gray-600">
               <li>To provide and maintain our directory service</li>
-              <li>To forward couple inquiries to the relevant vendor</li>
+              <li>To forward client inquiries to the relevant vendor</li>
               <li>To process payments and manage subscriptions</li>
               <li>To send transactional emails (account confirmation, inquiry notifications)</li>
               <li>To improve our platform through analytics</li>
@@ -65,7 +65,7 @@ export default function PrivacyPage() {
             <h2 className="text-xl font-semibold text-gray-900 mb-3 font-[family-name:var(--font-playfair)]" style={{ color: 'var(--color-gold-dark)' }}>5. Sharing Your Information</h2>
             <p className="text-gray-600 leading-relaxed mb-3">We do not sell your personal information. We share information only with:</p>
             <ul className="list-disc pl-6 space-y-2 text-gray-600">
-              <li><strong>Vendors:</strong> When a couple submits an inquiry, we share the couple's contact details with the relevant vendor.</li>
+              <li><strong>Vendors:</strong> When a client submits an inquiry, we share the client's contact details with the relevant vendor.</li>
               <li><strong>Service providers:</strong> Supabase (database), Stripe (payments), Resend (email), Vercel (hosting), Google Analytics (analytics). These providers process data only as necessary to provide their services.</li>
             </ul>
           </section>
@@ -122,7 +122,7 @@ export default function PrivacyPage() {
           <section>
             <h2 className="text-xl font-semibold text-gray-900 mb-3 font-[family-name:var(--font-playfair)]" style={{ color: 'var(--color-gold-dark)' }}>12. Third-Party Transactions</h2>
             <p className="text-gray-600 leading-relaxed">
-              Mela is a directory service that connects couples with vendors. We do not participate in, mediate, or bear any responsibility for transactions, agreements, disputes, or interactions between couples and vendors. Any arrangement between a couple and a vendor is solely between those parties. Mela does not endorse, guarantee, or warrant any vendor or their services.
+              Mela is a directory service that connects clients with vendors. We do not participate in, mediate, or bear any responsibility for transactions, agreements, disputes, or interactions between clients and vendors. Any arrangement between a client and a vendor is solely between those parties. Mela does not endorse, guarantee, or warrant any vendor or their services.
             </p>
           </section>
 

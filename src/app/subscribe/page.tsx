@@ -5,11 +5,11 @@ import { getSiteStats } from '@/lib/stats'
 export const metadata: Metadata = {
   title: 'Subscribe | Melaa',
   description:
-    'Join hundreds of South Asian couples and vendors. Get weekly vendor spotlights, planning guides, and exclusive deals from Melaa.',
+    'Join hundreds of South Asian clients and vendors. Get weekly vendor spotlights, planning guides, and exclusive deals from Melaa.',
   openGraph: {
     title: 'Subscribe | Melaa',
     description:
-      'Join hundreds of South Asian couples and vendors. Get weekly vendor spotlights, planning guides, and exclusive deals from Melaa.',
+      'Join hundreds of South Asian clients and vendors. Get weekly vendor spotlights, planning guides, and exclusive deals from Melaa.',
     url: 'https://melaa.ca/subscribe',
     siteName: 'Melaa',
     locale: 'en_CA',
@@ -40,7 +40,7 @@ const benefits = [
     icon: '🌺',
     title: 'Community Stories',
     description:
-      'Real wedding recaps, couple features, and behind-the-scenes looks at the most beautiful South Asian celebrations.',
+      'Real wedding recaps, client features, and behind-the-scenes looks at the most beautiful South Asian celebrations.',
   },
 ]
 
@@ -90,7 +90,7 @@ export default async function SubscribePage() {
           </h1>
           <p className="text-lg md:text-xl text-white/60 leading-relaxed max-w-xl mx-auto">
             The insider newsletter for South Asian wedding planning in Canada. Join {stats.vendorCountWithPlus} vendors
-            and couples already connected through Melaa.
+            and clients already connected through Melaa.
           </p>
         </div>
       </section>

@@ -23,7 +23,7 @@ const PLAN_BASE = [
       'Appear in search results',
       'Category & city pages',
       'Contact info visible',
-      'Up to 3 couple inquiries/month',
+      'Up to 3 client inquiries/month',
     ],
     cta: 'Get Listed Free',
     href: '/list-your-business',
@@ -38,12 +38,12 @@ const PLAN_BASE = [
     features: [
       'Everything in Free',
       'Priority placement in search',
-      'Unlimited couple inquiries',
+      'Unlimited client inquiries',
       'Verified vendor badge',
       'Lead notifications by email',
       'AI-drafted reply suggestions',
       'Analytics dashboard',
-      'Direct couple inquiries — no middleman',
+      'Direct client inquiries — no middleman',
     ],
     cta: 'Claim Founding Spot',
     href: '/list-your-business',
@@ -129,11 +129,12 @@ export default async function PricingPage() {
         <div className="grid md:grid-cols-3 gap-6 items-start">
           {plans.map((plan, idx) => (
             <div key={plan.name}
-              className={`relative bg-white rounded-3xl border-2 p-8 overflow-hidden transition-all duration-300 ${
+              className={`relative bg-white rounded-3xl border-2 p-8 transition-all duration-300 ${
                 plan.primary
-                  ? 'border-[#C8A96A] shadow-saffron md:scale-105 md:-my-4 visible-brackets'
+                  ? 'border-[#C8A96A] shadow-saffron md:scale-105 md:-my-4 visible-brackets mt-6 md:mt-0'
                   : 'border-gray-100 shadow-premium hover:shadow-premium-hover'
               }`}
+              style={plan.primary ? undefined : { overflow: 'hidden' }}
             >
               {plan.primary && (<><span className="vb-bl" /><span className="vb-br" /></>)}
               <span className="plan-numeral">{String(idx + 1).padStart(2, '0')}</span>
@@ -221,7 +222,7 @@ export default async function PricingPage() {
             <div className="p-8">
               <h2 className="font-[family-name:var(--font-playfair)] text-2xl font-bold mb-3">Our Lead Guarantee</h2>
               <p className="text-gray-600 leading-relaxed">
-                If you don&apos;t receive at least one genuine couple inquiry in your first 90 days, we&apos;ll personally
+                If you don&apos;t receive at least one genuine client inquiry in your first 90 days, we&apos;ll personally
                 work with your profile until you do, or you owe us absolutely nothing. No questions asked.
               </p>
             </div>

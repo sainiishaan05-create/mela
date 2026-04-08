@@ -221,7 +221,7 @@ export default function BlogIndexPage() {
             Get articles delivered to your inbox
           </h2>
           <p className="text-white/50 text-base mb-8 max-w-md mx-auto">
-            Weekly vendor spotlights, planning guides, and exclusive deals for South Asian couples in the GTA.
+            Weekly vendor spotlights, planning guides, and exclusive deals for South Asian clients in the GTA.
           </p>
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
             <Link

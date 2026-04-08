@@ -101,7 +101,7 @@ export default function DashboardShell({ vendor: initialVendor, leads: initialLe
           <div className="max-w-3xl mx-auto flex flex-col sm:flex-row items-center gap-4">
             <div className="text-4xl shrink-0">🎉</div>
             <div className="text-center sm:text-left flex-1">
-              <p className="font-bold text-[#2B2623]">You&apos;re live on Melaa! Couples can find you right now.</p>
+              <p className="font-bold text-[#2B2623]">You&apos;re live on Melaa! Clients can find you right now.</p>
               <p className="text-sm text-gray-500 mt-0.5">Complete your profile to get 3x more inquiries. Add a description, photos, and contact info.</p>
             </div>
             <button
@@ -495,7 +495,7 @@ function ProfileTab({ vendor, categories, cities, onSave }: {
             <MapPin className="w-3.5 h-3.5 text-gray-400" /> Business Address <span className="text-gray-400 font-normal">(optional)</span>
           </label>
           <input value={form.address} onChange={e => setForm(f => ({ ...f, address: e.target.value }))} placeholder="123 Main St, Brampton, ON" className={inputCls} />
-          <p className="text-xs text-gray-400 mt-1">Helps couples find vendors near them. We only show your city, never the full address.</p>
+          <p className="text-xs text-gray-400 mt-1">Helps clients find vendors near them. We only show your city, never the full address.</p>
         </div>
 
         {status === 'error' && (
@@ -913,7 +913,7 @@ function SubscriptionTab({ vendor, userId }: { vendor: Props['vendor']; userId: 
               <Check className="w-4 h-4 text-[#C8A96A]" /> Featured placement in search results
             </div>
             <div className="flex items-center gap-2 text-sm text-gray-600">
-              <Check className="w-4 h-4 text-[#C8A96A]" /> Direct inquiry leads from couples
+              <Check className="w-4 h-4 text-[#C8A96A]" /> Direct inquiry leads from clients
             </div>
             <div className="flex items-center gap-2 text-sm text-gray-600">
               <Check className="w-4 h-4 text-[#C8A96A]" /> Verified badge on your profile
@@ -929,7 +929,7 @@ function SubscriptionTab({ vendor, userId }: { vendor: Props['vendor']; userId: 
           </div>
         ) : (
           <div>
-            <p className="text-sm text-gray-500 mb-5">You&apos;re on the free tier. Upgrade to get featured placement and direct leads from couples searching for vendors like you.</p>
+            <p className="text-sm text-gray-500 mb-5">You&apos;re on the free tier. Upgrade to get featured placement and direct leads from clients searching for vendors like you.</p>
 
             {/* Basic plan card */}
             <div className="border-2 border-[#C8A96A] rounded-2xl p-5 mb-4 relative overflow-hidden">

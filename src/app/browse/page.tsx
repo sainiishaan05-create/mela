@@ -105,7 +105,7 @@ export default function BrowsePage() {
           </div>
         </div>
 
-        {/* Email capture for couples */}
+        {/* Email capture for clients */}
         <div className="mb-14">
           <NewsletterSignup variant="card" />
         </div>

@@ -35,52 +35,11 @@ const FEATURED_CITIES = [
   'Vaughan', 'Scarborough', 'Richmond Hill', 'Oakville',
 ]
 
-/* Full lists for mobile only */
-const ALL_CATEGORIES = [
-  { label: 'Photographers', href: '/category/photographers', icon: '📸' },
-  { label: 'Videographers', href: '/category/videographers', icon: '🎥' },
-  { label: 'Photo Booths', href: '/category/photo-booths', icon: '🎭' },
-  { label: 'Makeup Artists', href: '/category/makeup-artists', icon: '💄' },
-  { label: 'Mehndi Artists', href: '/category/mehndi-artists', icon: '🌿' },
-  { label: 'Hair Stylists', href: '/category/hair-stylists', icon: '💇' },
-  { label: 'Nail Artists', href: '/category/nail-artists', icon: '💅' },
-  { label: 'Bridal Fitness', href: '/category/bridal-fitness', icon: '🧘' },
-  { label: 'Wedding Venues', href: '/category/wedding-venues', icon: '🏛️' },
-  { label: 'Decorators', href: '/category/decorators', icon: '🌸' },
-  { label: 'Mandap Rental', href: '/category/mandap-rental', icon: '🕌' },
-  { label: 'Florists', href: '/category/florists', icon: '💐' },
-  { label: 'Sound & Lighting', href: '/category/sound-lighting', icon: '💡' },
-  { label: 'Tent Rentals', href: '/category/tent-rentals', icon: '⛺' },
-  { label: 'Linen & Furniture', href: '/category/linen-furniture', icon: '🪑' },
-  { label: 'Catering', href: '/category/catering', icon: '🍽️' },
-  { label: 'Sweets & Mithai', href: '/category/sweets-mithai', icon: '🍬' },
-  { label: 'Cake & Desserts', href: '/category/cakes-desserts', icon: '🎂' },
-  { label: 'DJs & Entertainment', href: '/category/djs-entertainment', icon: '🎵' },
-  { label: 'Dhol Players & Bhangra', href: '/category/dhol-players', icon: '🥁' },
-  { label: 'Sangeet Entertainment', href: '/category/sangeet-entertainment', icon: '🎤' },
-  { label: 'Baraat & Entertainment', href: '/category/baraat-entertainment', icon: '🐎' },
-  { label: 'Bridal Wear', href: '/category/bridal-wear', icon: '👗' },
-  { label: 'Jewellery', href: '/category/jewellery', icon: '💎' },
-  { label: 'Invitations & Cards', href: '/category/invitations', icon: '💌' },
-  { label: 'Transportation', href: '/category/transportation', icon: '🚗' },
-  { label: 'Priest Services', href: '/category/priest-services', icon: '🕉️' },
-  { label: 'Wedding Planners', href: '/category/wedding-planners', icon: '📋' },
-  { label: 'Honeymoon Travel', href: '/category/honeymoon-travel', icon: '✈️' },
-]
-
-const ALL_CITIES_MOBILE = [
-  'Toronto', 'Brampton', 'Mississauga', 'Markham', 'Vaughan', 'Scarborough',
-  'Richmond Hill', 'Oakville', 'Etobicoke', 'North York', 'Thornhill', 'Woodbridge',
-  'Milton', 'Hamilton', 'Kitchener', 'Waterloo', 'Guelph', 'Newmarket',
-]
-
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
   const [browseOpen, setBrowseOpen] = useState(false)
   const [browseTab, setBrowseTab] = useState<'categories' | 'cities'>('categories')
-  const [mobileBrowseOpen, setMobileBrowseOpen] = useState(false)
-  const [mobileCitiesOpen, setMobileCitiesOpen] = useState(false)
   const [searchQuery, setSearchQuery] = useState('')
   const [searchFocused, setSearchFocused] = useState(false)
   const [navDropdownStyle, setNavDropdownStyle] = useState<React.CSSProperties>({})
@@ -410,54 +369,18 @@ export default function Header() {
             </div>
           </form>
 
-          <Link href="/vendors" onClick={() => setMenuOpen(false)} className="nav-link px-4 py-3.5 text-sm font-medium">
-            Browse All Vendors
+          <Link href="/vendors" onClick={() => setMenuOpen(false)} className="nav-link flex items-center justify-between px-4 py-3.5 text-sm font-medium">
+            <span>Browse All Vendors</span>
+            <ChevronRight className="w-4 h-4 text-gray-400" />
           </Link>
-
-          {/* Categories accordion */}
-          <div>
-            <button
-              onClick={() => setMobileBrowseOpen(prev => !prev)}
-              className="nav-link w-full flex items-center justify-between px-4 py-3.5 text-sm font-medium"
-            >
-              <span>Categories</span>
-              <ChevronDown className={`w-4 h-4 text-gray-400 transition-transform duration-200 ${mobileBrowseOpen ? 'rotate-180' : ''}`} />
-            </button>
-            <div style={{ maxHeight: mobileBrowseOpen ? '600px' : '0', overflow: 'hidden', transition: 'max-height 300ms ease' }}>
-              <div className="pb-2 px-2">
-                {ALL_CATEGORIES.map(({ label, href, icon }) => (
-                  <Link key={href} href={href} onClick={() => setMenuOpen(false)} className="nav-link flex items-center gap-3 px-4 py-3 text-sm">
-                    <span className="text-base">{icon}</span>{label}
-                  </Link>
-                ))}
-              </div>
-            </div>
-          </div>
-
-          {/* Cities accordion */}
-          <div>
-            <button
-              onClick={() => setMobileCitiesOpen(prev => !prev)}
-              className="nav-link w-full flex items-center justify-between px-4 py-3.5 text-sm font-medium"
-            >
-              <span>Cities</span>
-              <ChevronDown className={`w-4 h-4 text-gray-400 transition-transform duration-200 ${mobileCitiesOpen ? 'rotate-180' : ''}`} />
-            </button>
-            <div style={{ maxHeight: mobileCitiesOpen ? '400px' : '0', overflow: 'hidden', transition: 'max-height 300ms ease' }}>
-              <div className="pb-2 px-2 grid grid-cols-2 gap-0.5">
-                {ALL_CITIES_MOBILE.map((city) => (
-                  <Link key={city} href={`/city/${citySlug(city)}`} onClick={() => setMenuOpen(false)} className="nav-link flex items-center gap-1.5 px-4 py-2.5 text-sm">
-                    <MapPin className="w-3 h-3 text-gray-400 shrink-0" />{city}
-                  </Link>
-                ))}
-              </div>
-              <div className="px-6 pb-3">
-                <Link href="/browse" onClick={() => setMenuOpen(false)} className="text-xs font-semibold" style={{ color: 'var(--color-gold-dark)' }}>
-                  View all cities →
-                </Link>
-              </div>
-            </div>
-          </div>
+          <Link href="/vendors" onClick={() => setMenuOpen(false)} className="nav-link flex items-center justify-between px-4 py-3.5 text-sm font-medium">
+            <span>Browse by Category</span>
+            <ChevronRight className="w-4 h-4 text-gray-400" />
+          </Link>
+          <Link href="/browse" onClick={() => setMenuOpen(false)} className="nav-link flex items-center justify-between px-4 py-3.5 text-sm font-medium">
+            <span>Browse by City</span>
+            <ChevronRight className="w-4 h-4 text-gray-400" />
+          </Link>
 
           <Link href="/list-your-business" onClick={() => setMenuOpen(false)} className={`nav-link px-4 py-3.5 text-sm font-medium ${pathname === '/list-your-business' ? 'active' : ''}`}>
             For Vendors

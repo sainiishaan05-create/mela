@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import VendorSignupForm from '@/components/vendors/VendorSignupForm'
 import { createClient } from '@/lib/supabase/server'
 import Link from 'next/link'
-import { CheckCircle2, ArrowRight, Sparkles, Shield, Zap, TrendingUp, Users, Star } from 'lucide-react'
+import { CheckCircle2, ArrowRight, Sparkles, Shield, Zap, TrendingUp, Users, Star, MapPin, Inbox, BadgeCheck, BarChart3, Bot, Lock } from 'lucide-react'
 
 export const metadata: Metadata = {
   title: 'List Your Business Free | Melaa | Wedding & Event Vendors GTA',
@@ -13,12 +13,12 @@ export const metadata: Metadata = {
 const SOCIAL_PROOF: { initials: string; name: string; role: string; text: string }[] = []
 
 const FEATURES = [
-  { icon: '📍', title: 'GTA-Focused Discovery', desc: 'Show up in your city. Not buried by national chains.' },
-  { icon: '📩', title: 'Direct Couple Inquiries', desc: 'Couples message you directly. No platform middleman.' },
-  { icon: '🏆', title: 'Verified Vendor Badge', desc: 'Stand out with a verified badge that builds instant trust.' },
-  { icon: '📊', title: 'Analytics Dashboard', desc: 'View rates, inquiry sources, conversion metrics.' },
-  { icon: '🤖', title: 'AI Reply Suggestions', desc: 'Turn inquiries into bookings faster with AI-drafted replies.' },
-  { icon: '🔒', title: 'Exclusive Founding Rate', desc: 'Only the first 50 vendors get the $49/mo rate.' },
+  { Icon: MapPin,     title: 'GTA-Focused Discovery',  desc: 'Show up in your city. Not buried by national chains.' },
+  { Icon: Inbox,      title: 'Direct Client Inquiries', desc: 'Clients message you directly. No platform middleman.' },
+  { Icon: BadgeCheck, title: 'Verified Vendor Badge',   desc: 'Stand out with a badge that builds instant trust.' },
+  { Icon: BarChart3,  title: 'Analytics Dashboard',     desc: 'View rates, inquiry sources, conversion metrics.' },
+  { Icon: Bot,        title: 'AI Reply Suggestions',    desc: 'Turn inquiries into bookings with AI-drafted replies.' },
+  { Icon: Lock,       title: 'Exclusive Founding Rate', desc: 'Only the first 50 vendors get the $49/mo rate.' },
 ]
 
 export default async function ListYourBusinessPage() {
@@ -56,7 +56,7 @@ export default async function ListYourBusinessPage() {
           )}
 
           <h1 className="font-[family-name:var(--font-playfair)] text-3xl sm:text-5xl lg:text-6xl font-bold text-white leading-[1.1] sm:leading-[1.08] mb-6">
-            Get Found by Couples<br />
+            Get Found by Clients<br />
             <span className="gradient-text">Ready to Book</span>
           </h1>
           <p className="text-lg sm:text-xl max-w-2xl mx-auto mb-10" style={{ color: 'rgba(255,255,255,0.6)' }}>
@@ -117,12 +117,18 @@ export default async function ListYourBusinessPage() {
               Everything you need to<br />grow your wedding business
             </h2>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-12">
-              {FEATURES.map(({ icon, title, desc }) => (
-                <div key={title} className="bento-card p-5">
-                  <span className="text-2xl mb-3 block">{icon}</span>
-                  <p className="font-semibold text-sm mb-1" style={{ color: 'var(--color-text)' }}>{title}</p>
-                  <p className="text-xs leading-relaxed" style={{ color: 'var(--color-text-muted)' }}>{desc}</p>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-12">
+              {FEATURES.map(({ Icon, title, desc }) => (
+                <div key={title} className="flex items-start gap-4 p-4 rounded-2xl border transition-colors hover:border-[#C8A96A]/40"
+                  style={{ borderColor: 'var(--color-taupe)', background: 'white' }}>
+                  <div className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0"
+                    style={{ background: 'rgba(200,169,106,0.1)', border: '1px solid rgba(200,169,106,0.2)' }}>
+                    <Icon className="w-4 h-4" style={{ color: 'var(--color-gold-dark)' }} />
+                  </div>
+                  <div>
+                    <p className="font-semibold text-sm mb-0.5" style={{ color: 'var(--color-text)' }}>{title}</p>
+                    <p className="text-xs leading-relaxed" style={{ color: 'var(--color-text-muted)' }}>{desc}</p>
+                  </div>
                 </div>
               ))}
             </div>
@@ -132,16 +138,16 @@ export default async function ListYourBusinessPage() {
               <p className="text-xs font-bold uppercase tracking-widest mb-5" style={{ color: 'var(--color-gold-dark)' }}>What Happens Next</p>
               <div className="space-y-5">
                 {[
-                  { day: '30 Seconds', icon: '🚀', text: 'Sign up with just your name, email, category, and city. Your listing goes live instantly.' },
-                  { day: 'Next 5 Min', icon: '✏️', text: 'Complete your profile from the dashboard: add a description, photos, and contact info.' },
-                  { day: 'Days 1–90', icon: '📩', text: 'Receive leads completely free. We prove our value before you pay a cent.' },
-                  { day: 'Day 90+', icon: '📈', text: 'Founding Members continue at $49/mo. Priority placement, verified badge, full analytics.' },
-                ].map(({ day, icon, text }) => (
+                  { day: '30 Seconds', Icon: Zap,        text: 'Sign up with name, email, category and city. Your listing goes live instantly.' },
+                  { day: 'Next 5 Min', Icon: Sparkles,   text: 'Complete your profile — description, photos, contact info.' },
+                  { day: 'Days 1–90',  Icon: Inbox,      text: 'Receive leads completely free. We prove our value before you pay a cent.' },
+                  { day: 'Day 90+',    Icon: TrendingUp, text: 'Founding Members continue at $49/mo. Priority placement, verified badge, full analytics.' },
+                ].map(({ day, Icon, text }) => (
                   <div key={day} className="flex gap-4">
                     <div className="flex flex-col items-center">
-                      <div className="w-8 h-8 rounded-full flex items-center justify-center text-sm shrink-0"
-                        style={{ background: 'var(--color-gold-light)' }}>
-                        {icon}
+                      <div className="w-9 h-9 rounded-full flex items-center justify-center shrink-0"
+                        style={{ background: 'rgba(200,169,106,0.12)', border: '1px solid rgba(200,169,106,0.25)' }}>
+                        <Icon className="w-4 h-4" style={{ color: 'var(--color-gold-dark)' }} />
                       </div>
                       <div className="w-px flex-1 mt-2" style={{ background: 'var(--color-taupe)' }} />
                     </div>
@@ -160,7 +166,7 @@ export default async function ListYourBusinessPage() {
               <p className="text-[10px] font-bold uppercase tracking-[0.22em] mb-2" style={{ color: 'var(--color-gold-dark)' }}>Melaa Lead Guarantee</p>
               <p className="font-[family-name:var(--font-playfair)] text-lg font-bold mb-3" style={{ color: 'var(--color-text)' }}>One inquiry in 90 days — or nothing.</p>
               <p className="text-xs leading-relaxed max-w-md mx-auto" style={{ color: 'var(--color-text-muted)' }}>
-                If you don&apos;t receive at least one genuine couple inquiry in your first 90 days, we&apos;ll personally optimize your profile until you do. Otherwise, you owe us nothing.
+                If you don&apos;t receive at least one genuine client inquiry in your first 90 days, we&apos;ll personally optimize your profile until you do. Otherwise, you owe us nothing.
               </p>
             </div>
           </div>

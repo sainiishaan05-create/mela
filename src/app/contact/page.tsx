@@ -61,7 +61,7 @@ export default function ContactPage() {
                 Reach us directly
               </h2>
               <p className="text-sm leading-relaxed" style={{ color: 'var(--color-text-muted)' }}>
-                Couples, vendors, partners — all welcome.
+                Clients, vendors, partners — all welcome.
               </p>
             </div>
 
