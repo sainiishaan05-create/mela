@@ -2,8 +2,9 @@ import { createServerClient } from '@supabase/ssr'
 import { NextResponse, type NextRequest } from 'next/server'
 
 // ─── MAINTENANCE MODE ────────────────────────────────────────────
-// Set to true and redeploy if you need to take the site offline.
-const MAINTENANCE = false
+// Scheduled launch: 2026-04-08 at 1:00 PM EST.
+// Will be flipped to false automatically by scheduled task.
+const MAINTENANCE = true
 // ────────────────────────────────────────────────────────────────
 
 const MAINTENANCE_HTML = `<!DOCTYPE html>
