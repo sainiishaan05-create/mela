@@ -361,7 +361,7 @@ export default function Header() {
                 style={{ borderColor: 'var(--color-taupe)', color: '#5C4F48' }}
               >
                 <User className="w-3.5 h-3.5" />
-                Login
+                Log In
               </Link>
             )}
             <Link href="/list-your-business" className="btn-gold hidden md:inline-flex items-center gap-1.5 text-sm px-4 py-2.5 rounded-full">
@@ -478,7 +478,7 @@ export default function Header() {
             ) : (
               <Link href="/login" onClick={() => setMenuOpen(false)} className="flex items-center justify-center gap-2 w-full text-sm font-medium px-4 py-3.5 rounded-xl border transition-colors" style={{ borderColor: 'var(--color-taupe)', color: '#5C4F48' }}>
                 <User className="w-4 h-4" />
-                Vendor Login
+                Log In
               </Link>
             )}
             <Link href="/list-your-business" onClick={() => setMenuOpen(false)} className="btn-gold flex items-center justify-center gap-2 w-full text-sm px-4 py-3.5 rounded-xl">

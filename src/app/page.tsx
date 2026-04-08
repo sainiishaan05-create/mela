@@ -126,7 +126,6 @@ export default async function HomePage() {
                   {count}+ verified vendors
                 </strong>{' '}
                 across the GTA: photographers, caterers, DJs, decor, venues and more.
-                Built exclusively for South Asian celebrations.
               </p>
 
               <div style={{ animation: 'revealUp 0.75s 0.30s var(--ease-expo) both' }} className="mb-10">
@@ -354,7 +353,7 @@ export default async function HomePage() {
                   <div className="divider-gold mb-4" />
                   <p className="tech-label mb-2">FEATURED · THIS WEEK</p>
                   <h2 className="font-[family-name:var(--font-playfair)] text-3xl sm:text-4xl font-bold text-white title-glow">
-                    Top vendors
+                    Vendors worth booking
                   </h2>
                 </div>
                 <Link href="/vendors"
@@ -409,8 +408,8 @@ export default async function HomePage() {
 
           <Reveal delay={80}>
             <h2 className="font-[family-name:var(--font-playfair)] text-5xl sm:text-6xl lg:text-7xl font-bold text-white mb-6 leading-[1.06] title-glow">
-              Your celebration<br />
-              <span className="gradient-shimmer">deserves the best.</span>
+              Your celebration deserves<br />
+              <span className="gradient-shimmer">vendors who get it.</span>
             </h2>
           </Reveal>
 

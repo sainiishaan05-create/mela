@@ -38,21 +38,26 @@ export default function ContactPage() {
     <div style={{ background: 'var(--color-bg)' }}>
 
       {/* Hero */}
-      <section className="relative overflow-hidden py-20 px-4 sm:px-6" style={{ background: 'var(--color-bg-dark)' }}>
-        <div className="absolute inset-0 pointer-events-none" style={{
-          backgroundImage: 'radial-gradient(rgba(200,169,106,0.1) 1px, transparent 1px)',
-          backgroundSize: '36px 36px',
-        }} />
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] pointer-events-none" style={{
-          background: 'radial-gradient(ellipse at center top, rgba(200,169,106,0.18) 0%, transparent 70%)',
-        }} />
+      <section className="bg-luxury-dark bg-jali aurora-orbs hero-borderlines relative py-20 px-4 sm:px-6 overflow-hidden">
+        <div className="orb orb-1" />
+        <div className="orb orb-2" />
+        <div className="hero-gradient-glow" />
+        <div className="hero-arcs" />
+        <div className="hero-slashes" />
+        <div className="hero-side-rails hidden md:block" />
+        <div className="hero-hash-top" />
+        <div className="hero-hash-bottom" />
+        <div className="hero-flourish hero-flourish-tl hidden md:block" />
+        <div className="hero-flourish hero-flourish-tr hidden md:block" />
+        <div className="hero-flourish hero-flourish-bl hidden md:block" />
+        <div className="hero-flourish hero-flourish-br hidden md:block" />
         <div className="relative z-10 max-w-3xl mx-auto text-center">
-          <p className="text-xs font-bold uppercase tracking-[0.2em] mb-4" style={{ color: '#C8A96A' }}>Contact</p>
+          <p className="section-label mb-5 justify-center">Contact</p>
           <h1 className="font-[family-name:var(--font-playfair)] text-4xl sm:text-5xl font-bold text-white mb-5">
             Get in Touch
           </h1>
           <p className="text-lg max-w-xl mx-auto" style={{ color: 'rgba(255,255,255,0.55)' }}>
-            Have a question, want to partner, or need help with your listing? We are here for you.
+            Questions? Partnerships? Vendor support? Reach us directly.
           </p>
         </div>
       </section>
@@ -65,10 +70,10 @@ export default function ContactPage() {
           <div className="lg:col-span-2 space-y-6">
             <div>
               <h2 className="font-[family-name:var(--font-playfair)] text-2xl font-bold mb-4" style={{ color: 'var(--color-text)' }}>
-                Let&apos;s talk
+                Reach us directly
               </h2>
               <p className="text-sm leading-relaxed" style={{ color: 'var(--color-text-muted)' }}>
-                Whether you are a couple looking for vendors or a vendor wanting to grow your business, we would love to hear from you.
+                Couples, vendors, partners — all welcome.
               </p>
             </div>
 
@@ -79,7 +84,7 @@ export default function ContactPage() {
                 { Icon: MapPin, label: 'Serving', value: 'Greater Toronto Area, Ontario', href: null },
               ].map(({ Icon, label, value, href }) => (
                 <div key={label} className="flex items-start gap-3">
-                  <div className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0" style={{ background: 'var(--color-gold-light)' }}>
+                  <div className="roundel-seal shrink-0">
                     <Icon className="w-4 h-4" style={{ color: 'var(--color-gold-dark)' }} />
                   </div>
                   <div>
@@ -110,20 +115,26 @@ export default function ContactPage() {
           {/* Right — Form */}
           <div className="lg:col-span-3">
             {status === 'success' ? (
-              <div className="rounded-2xl border p-12 text-center" style={{ borderColor: 'var(--color-taupe)', background: 'white' }}>
-                <CheckCircle2 className="w-12 h-12 mx-auto mb-4 text-emerald-500" />
-                <h3 className="font-[family-name:var(--font-playfair)] text-2xl font-bold mb-2" style={{ color: 'var(--color-text)' }}>
-                  Message Sent
-                </h3>
-                <p className="text-sm mb-6" style={{ color: 'var(--color-text-muted)' }}>
-                  We will get back to you within 2 hours. Check your email for a confirmation.
-                </p>
-                <Link href="/" className="text-sm font-semibold hover:underline" style={{ color: 'var(--color-gold-dark)' }}>
-                  Back to Home
-                </Link>
+              <div className="invitation-border p-12 text-center relative">
+                <div className="relative z-10">
+                  <div className="monogram-seal">M</div>
+                  <CheckCircle2 className="w-10 h-10 mx-auto mb-3 text-emerald-500" />
+                  <h3 className="font-[family-name:var(--font-playfair)] text-2xl font-bold mb-2" style={{ color: 'var(--color-text)' }}>
+                    Message Sent
+                  </h3>
+                  <p className="text-sm mb-6" style={{ color: 'var(--color-text-muted)' }}>
+                    We&apos;ll get back to you within 2 hours.
+                  </p>
+                  <Link href="/" className="text-sm font-semibold hover:underline" style={{ color: 'var(--color-gold-dark)' }}>
+                    Back to Home
+                  </Link>
+                </div>
               </div>
             ) : (
-              <form onSubmit={handleSubmit} className="rounded-2xl border p-8 space-y-5" style={{ borderColor: 'var(--color-taupe)', background: 'white' }}>
+              <form onSubmit={handleSubmit} className="invitation-border p-8 space-y-5 relative">
+                <div className="relative z-10 space-y-5">
+                <div className="monogram-seal">M</div>
+                <p className="cordially-invited">You are cordially invited to reach out</p>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
                     <label className="block text-sm font-medium mb-1.5" style={{ color: 'var(--color-text)' }}>Name</label>
@@ -174,6 +185,7 @@ export default function ContactPage() {
                   {status === 'loading' ? <Loader2 className="w-4 h-4 animate-spin" /> : <Send className="w-4 h-4" />}
                   {status === 'loading' ? 'Sending...' : 'Send Message'}
                 </button>
+                </div>
               </form>
             )}
           </div>

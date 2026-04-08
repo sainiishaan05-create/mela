@@ -13,7 +13,7 @@ export const metadata: Metadata = {
 const VALUES = [
   { Icon: Heart, title: 'South Asian First', desc: 'Every vendor on Melaa understands your traditions, ceremonies, and celebrations. No explaining, no compromises.' },
   { Icon: Zap, title: 'Zero Fees, Always', desc: 'Couples browse and contact vendors for free. No booking fees, no commissions, no hidden costs. Ever.' },
-  { Icon: Users, title: 'Community Driven', desc: 'Built by and for the South Asian community in the GTA. Your feedback shapes everything we build.' },
+  { Icon: Users, title: 'Community Driven', desc: 'Vendor-recommended features ship first. Couples vote on what they want to see next.' },
 ]
 
 export default async function AboutPage() {
@@ -28,18 +28,23 @@ export default async function AboutPage() {
     <div style={{ background: 'var(--color-bg)' }}>
 
       {/* Hero */}
-      <section className="relative overflow-hidden py-20 px-4 sm:px-6" style={{ background: 'var(--color-bg-dark)' }}>
-        <div className="absolute inset-0 pointer-events-none" style={{
-          backgroundImage: 'radial-gradient(rgba(200,169,106,0.1) 1px, transparent 1px)',
-          backgroundSize: '36px 36px',
-        }} />
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] pointer-events-none" style={{
-          background: 'radial-gradient(ellipse at center top, rgba(200,169,106,0.18) 0%, transparent 70%)',
-        }} />
+      <section className="bg-luxury-dark bg-ornament aurora-orbs hero-borderlines relative py-20 px-4 sm:px-6 overflow-hidden">
+        <div className="orb orb-1" />
+        <div className="orb orb-2" />
+        <div className="hero-gradient-glow" />
+        <div className="hero-arcs" />
+        <div className="hero-slashes" />
+        <div className="hero-side-rails hidden md:block" />
+        <div className="hero-hash-top" />
+        <div className="hero-hash-bottom" />
+        <div className="hero-flourish hero-flourish-tl hidden md:block" />
+        <div className="hero-flourish hero-flourish-tr hidden md:block" />
+        <div className="hero-flourish hero-flourish-bl hidden md:block" />
+        <div className="hero-flourish hero-flourish-br hidden md:block" />
         <div className="relative z-10 max-w-3xl mx-auto text-center">
-          <p className="text-xs font-bold uppercase tracking-[0.2em] mb-4" style={{ color: '#C8A96A' }}>Our Story</p>
+          <p className="section-label mb-5 justify-center">Our Story</p>
           <h1 className="font-[family-name:var(--font-playfair)] text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-5">
-            Built for <span className="gradient-text">your culture.</span>
+            A platform our <span className="gradient-text">families deserved.</span>
           </h1>
           <p className="text-lg max-w-xl mx-auto" style={{ color: 'rgba(255,255,255,0.55)' }}>
             Melaa exists because South Asian families in the GTA deserve a platform that understands their celebrations from the inside out.
@@ -49,39 +54,32 @@ export default async function AboutPage() {
 
       {/* Story */}
       <section className="max-w-3xl mx-auto px-6 py-16">
-        <h2 className="font-[family-name:var(--font-playfair)] text-3xl font-bold mb-6" style={{ color: 'var(--color-text)' }}>
+        <p className="chapter-label">Chapter One</p>
+        <h2 className="font-[family-name:var(--font-playfair)] text-3xl font-bold mb-8 text-center" style={{ color: 'var(--color-text)' }}>
           Why Melaa Exists
         </h2>
         <div className="space-y-5 text-base leading-relaxed" style={{ color: 'var(--color-text-muted)' }}>
-          <p>
-            Planning a South Asian wedding in the GTA should be exciting, not exhausting. But for too many families,
-            the process means scrolling through generic directories full of vendors who have never seen a baraat, have
-            no idea what a mandap is, and cannot tell the difference between a Sangeet and a reception.
+          <p className="drop-cap">
+            Planning a South Asian wedding in the GTA should be exciting. For too many families, it means scrolling through generic directories full of vendors who have never seen a baraat and cannot tell a Sangeet from a reception.
+          </p>
+          <p className="pull-quote">
+            Photographers who have shot a hundred pheras. Caterers who know a Gujarati thali from a Punjabi spread. Decorators who can build a mandap that takes your breath away.
           </p>
           <p>
-            Melaa was started to fix that. We are building the only vendor directory in the Greater Toronto Area that
-            is designed from day one for South Asian weddings and events. Every vendor listed here knows your rituals,
-            your food, your music, and your expectations, because they come from the same community you do.
-          </p>
-          <p>
-            We believe couples should be able to find photographers who have shot a hundred pheras, caterers who know
-            the difference between a Gujarati thali and a Punjabi spread, and decorators who can build a mandap that
-            takes your breath away, all without leaving one platform.
-          </p>
-          <p>
-            That is Melaa. Built for your culture. Not adapted for it.
+            Melaa is the only vendor directory in the Greater Toronto Area built from day one for South Asian weddings and events. Every vendor listed here knows your rituals, your food, your music, and your expectations — because they come from the same community you do.
           </p>
         </div>
       </section>
 
       {/* Values */}
       <section className="max-w-5xl mx-auto px-6 pb-16">
+        <p className="chapter-label">Chapter Two</p>
         <h2 className="font-[family-name:var(--font-playfair)] text-2xl font-bold text-center mb-10" style={{ color: 'var(--color-text)' }}>
           What We Believe
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {VALUES.map(({ Icon, title, desc }) => (
-            <div key={title} className="bento-card p-7 text-center">
+            <div key={title} className="bento-card value-topbar p-7 text-center">
               <div className="w-12 h-12 rounded-xl mx-auto mb-4 flex items-center justify-center" style={{ background: 'var(--color-gold-light)' }}>
                 <Icon className="w-5 h-5" style={{ color: 'var(--color-gold-dark)' }} />
               </div>
@@ -93,17 +91,21 @@ export default async function AboutPage() {
       </section>
 
       {/* Stats */}
-      <section className="border-y py-12 px-6" style={{ borderColor: 'var(--color-taupe)', background: 'white' }}>
-        <div className="max-w-4xl mx-auto flex flex-wrap items-center justify-center gap-12">
+      <section className="border-y py-14 px-6" style={{ borderColor: 'var(--color-taupe)', background: 'white' }}>
+        <p className="chapter-label">Chapter Three · By the Numbers</p>
+        <div className="max-w-4xl mx-auto flex flex-wrap items-center justify-center gap-x-4 gap-y-8">
           {[
             { val: (vendorCount ?? 1200).toLocaleString() + '+', label: 'Verified Vendors' },
             { val: (cityCount ?? 55) + '+', label: 'Ontario Cities' },
             { val: (categoryCount ?? 33) + '+', label: 'Categories' },
             { val: '$0', label: 'Booking Fees' },
-          ].map(({ val, label }) => (
-            <div key={label} className="text-center">
-              <p className="font-[family-name:var(--font-playfair)] text-3xl font-bold" style={{ color: 'var(--color-gold-dark)' }}>{val}</p>
-              <p className="text-xs tracking-wide mt-1" style={{ color: 'var(--color-text-muted)' }}>{label}</p>
+          ].map(({ val, label }, i, arr) => (
+            <div key={label} className="flex items-center gap-4">
+              <div className="text-center">
+                <p className="font-[family-name:var(--font-playfair)] text-3xl font-bold" style={{ color: 'var(--color-gold-dark)' }}>{val}</p>
+                <p className="text-xs tracking-wide mt-1" style={{ color: 'var(--color-text-muted)' }}>{label}</p>
+              </div>
+              {i < arr.length - 1 && <span className="stat-divider">◆</span>}
             </div>
           ))}
         </div>

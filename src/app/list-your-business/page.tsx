@@ -13,12 +13,12 @@ export const metadata: Metadata = {
 const SOCIAL_PROOF: { initials: string; name: string; role: string; text: string }[] = []
 
 const FEATURES = [
-  { icon: '📍', title: 'GTA-Focused Discovery', desc: 'Appear in searches by couples in your exact city, not buried under national chains.' },
-  { icon: '📩', title: 'Direct Couple Inquiries', desc: 'Leads come straight to your inbox. No middlemen, no platform fees on bookings.' },
-  { icon: '🏆', title: 'Verified Vendor Badge', desc: 'Stand out with a verified badge that builds instant trust with couples.' },
-  { icon: '📊', title: 'Analytics Dashboard', desc: 'See exactly how many couples viewed your profile and where they came from.' },
-  { icon: '🤖', title: 'AI Reply Suggestions', desc: 'Get AI-drafted responses to inquiries so you never miss a lead.' },
-  { icon: '🔒', title: 'Exclusive Founding Rate', desc: 'Only the first 50 vendors get the $49/mo rate. Claim your spot before they\'re gone.' },
+  { icon: '📍', title: 'GTA-Focused Discovery', desc: 'Show up in your city. Not buried by national chains.' },
+  { icon: '📩', title: 'Direct Couple Inquiries', desc: 'Couples message you directly. No platform middleman.' },
+  { icon: '🏆', title: 'Verified Vendor Badge', desc: 'Stand out with a verified badge that builds instant trust.' },
+  { icon: '📊', title: 'Analytics Dashboard', desc: 'View rates, inquiry sources, conversion metrics.' },
+  { icon: '🤖', title: 'AI Reply Suggestions', desc: 'Turn inquiries into bookings faster with AI-drafted replies.' },
+  { icon: '🔒', title: 'Exclusive Founding Rate', desc: 'Only the first 50 vendors get the $49/mo rate.' },
 ]
 
 export default async function ListYourBusinessPage() {
@@ -39,17 +39,20 @@ export default async function ListYourBusinessPage() {
     <div style={{ background: 'var(--color-bg)' }}>
 
       {/* ── HERO ── */}
-      <section className="relative overflow-hidden py-20 px-4 sm:px-6" style={{ background: 'var(--color-bg-dark)' }}>
-        {/* Dot grid */}
-        <div className="absolute inset-0 pointer-events-none" style={{
-          backgroundImage: 'radial-gradient(rgba(200,169,106,0.1) 1px, transparent 1px)',
-          backgroundSize: '36px 36px',
-        }} />
-        {/* Glow */}
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] pointer-events-none" style={{
-          background: 'radial-gradient(ellipse at center top, rgba(200,169,106,0.18) 0%, transparent 70%)',
-        }} />
-
+      <section className="bg-luxury-dark bg-mandala aurora-orbs hero-borderlines relative py-20 px-4 sm:px-6 overflow-hidden">
+        <div className="orb orb-1" />
+        <div className="orb orb-2" />
+        <div className="hero-gradient-glow" />
+        <div className="hero-arcs" />
+        <div className="hero-slashes" />
+        <div className="hero-side-rails hidden md:block" />
+        <div className="hero-hash-top" />
+        <div className="hero-hash-bottom" />
+        <div className="hero-flourish hero-flourish-tl hidden md:block" />
+        <div className="hero-flourish hero-flourish-tr hidden md:block" />
+        <div className="hero-flourish hero-flourish-bl hidden md:block" />
+        <div className="hero-flourish hero-flourish-br hidden md:block" />
+        <div className="hero-watermark hidden md:block">Grow.</div>
         <div className="relative z-10 max-w-4xl mx-auto text-center">
           {/* Urgency badge */}
           {spotsLeft > 0 && (
@@ -96,23 +99,25 @@ export default async function ListYourBusinessPage() {
         </div>
       </section>
 
-      {/* ── SOCIAL PROOF STRIP ── */}
-      <div className="border-y py-6 px-4" style={{ borderColor: 'var(--color-taupe)', background: 'var(--color-section)' }}>
-        <div className="max-w-5xl mx-auto grid grid-cols-1 sm:grid-cols-3 gap-4">
-          {SOCIAL_PROOF.map(({ initials, name, role, text }) => (
-            <div key={name} className="flex items-start gap-3">
-              <div className="w-9 h-9 rounded-full flex items-center justify-center text-xs font-bold shrink-0"
-                style={{ background: 'var(--color-gold-light)', color: 'var(--color-gold-dark)' }}>
-                {initials}
+      {/* ── SOCIAL PROOF STRIP (hidden until real testimonials exist) ── */}
+      {SOCIAL_PROOF.length > 0 && (
+        <div className="border-y py-6 px-4" style={{ borderColor: 'var(--color-taupe)', background: 'var(--color-section)' }}>
+          <div className="max-w-5xl mx-auto grid grid-cols-1 sm:grid-cols-3 gap-4">
+            {SOCIAL_PROOF.map(({ initials, name, role, text }) => (
+              <div key={name} className="flex items-start gap-3">
+                <div className="w-9 h-9 rounded-full flex items-center justify-center text-xs font-bold shrink-0"
+                  style={{ background: 'var(--color-gold-light)', color: 'var(--color-gold-dark)' }}>
+                  {initials}
+                </div>
+                <div>
+                  <p className="text-xs font-semibold" style={{ color: 'var(--color-text)' }}>{name} · <span style={{ color: 'var(--color-text-muted)' }}>{role}</span></p>
+                  <p className="text-xs mt-0.5" style={{ color: 'var(--color-text-muted)' }}>&ldquo;{text}&rdquo;</p>
+                </div>
               </div>
-              <div>
-                <p className="text-xs font-semibold" style={{ color: 'var(--color-text)' }}>{name} · <span style={{ color: 'var(--color-text-muted)' }}>{role}</span></p>
-                <p className="text-xs mt-0.5" style={{ color: 'var(--color-text-muted)' }}>"{text}"</p>
-              </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
-      </div>
+      )}
 
       {/* ── MAIN CONTENT: 2-col ── */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 py-20">
@@ -162,15 +167,14 @@ export default async function ListYourBusinessPage() {
               </div>
             </div>
 
-            {/* Guarantee */}
-            <div className="mt-6 rounded-2xl border-2 p-6 flex gap-4" style={{ borderColor: 'var(--color-gold)', background: 'var(--color-gold-light)' }}>
-              <span className="text-3xl shrink-0">🛡️</span>
-              <div>
-                <p className="font-bold text-sm mb-1" style={{ color: 'var(--color-text)' }}>Our Lead Guarantee</p>
-                <p className="text-xs leading-relaxed" style={{ color: 'var(--color-text-muted)' }}>
-                  If you don't receive at least one genuine inquiry in your first 90 days, we'll personally work with your profile until you do, or you owe us nothing.
-                </p>
-              </div>
+            {/* Guarantee Certificate */}
+            <div className="mt-8 certificate-frame text-center">
+              <div className="monogram-seal">M</div>
+              <p className="text-[10px] font-bold uppercase tracking-[0.22em] mb-2" style={{ color: 'var(--color-gold-dark)' }}>Melaa Lead Guarantee</p>
+              <p className="font-[family-name:var(--font-playfair)] text-lg font-bold mb-3" style={{ color: 'var(--color-text)' }}>One inquiry in 90 days — or nothing.</p>
+              <p className="text-xs leading-relaxed max-w-md mx-auto" style={{ color: 'var(--color-text-muted)' }}>
+                If you don&apos;t receive at least one genuine couple inquiry in your first 90 days, we&apos;ll personally optimize your profile until you do. Otherwise, you owe us nothing.
+              </p>
             </div>
           </div>
 

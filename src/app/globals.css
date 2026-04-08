@@ -1201,6 +1201,962 @@ img { transition: opacity 0.3s ease; }
   pointer-events: none;
 }
 
+/* ══════════════════════════════════════════════════════════════════════════
+   SOUTH ASIAN PATTERN BACKGROUNDS — subtle cultural motifs, blended in
+   SVG inlined as data-URIs so they load instantly with no network request
+   ══════════════════════════════════════════════════════════════════════════ */
+
+/* ── Paisley motif (lightweight stylized boteh) ──────────────────────────── */
+.bg-paisley {
+  position: relative;
+}
+.bg-paisley::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.22;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'><g fill='none' stroke='%23C8A96A' stroke-width='1.2'><path d='M50 150 Q30 100 60 70 Q90 40 110 60 Q130 80 110 110 Q90 140 50 150 Z'/><circle cx='70' cy='100' r='6'/><circle cx='85' cy='85' r='3'/><circle cx='95' cy='105' r='2.5'/><path d='M60 110 Q70 95 85 100'/><path d='M150 50 Q130 0 160 -30' transform='translate(0 30)'/><path d='M150 150 Q130 100 160 70 Q190 40 210 60' stroke-width='0.8'/></g></svg>");
+  background-size: 240px 240px;
+  background-repeat: repeat;
+  mask-image: linear-gradient(180deg, transparent 0%, black 30%, black 70%, transparent 100%);
+  -webkit-mask-image: linear-gradient(180deg, transparent 0%, black 30%, black 70%, transparent 100%);
+}
+
+/* ── Mandala rosette — radial dot mandalas ─────────────────────────────── */
+.bg-mandala {
+  position: relative;
+}
+.bg-mandala::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.25;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 160 160'><g fill='%23C8A96A'><circle cx='80' cy='80' r='2.5'/><circle cx='80' cy='50' r='1.5'/><circle cx='80' cy='110' r='1.5'/><circle cx='50' cy='80' r='1.5'/><circle cx='110' cy='80' r='1.5'/><circle cx='60' cy='60' r='1'/><circle cx='100' cy='60' r='1'/><circle cx='60' cy='100' r='1'/><circle cx='100' cy='100' r='1'/><circle cx='80' cy='35' r='0.8'/><circle cx='80' cy='125' r='0.8'/><circle cx='35' cy='80' r='0.8'/><circle cx='125' cy='80' r='0.8'/><circle cx='45' cy='45' r='0.8'/><circle cx='115' cy='45' r='0.8'/><circle cx='45' cy='115' r='0.8'/><circle cx='115' cy='115' r='0.8'/></g><g fill='none' stroke='%23C8A96A' stroke-width='0.5'><circle cx='80' cy='80' r='22'/><circle cx='80' cy='80' r='42'/></g></svg>");
+  background-size: 200px 200px;
+  background-repeat: repeat;
+  mask-image: radial-gradient(ellipse 100% 80% at 50% 50%, black 30%, transparent 100%);
+  -webkit-mask-image: radial-gradient(ellipse 100% 80% at 50% 50%, black 30%, transparent 100%);
+}
+
+/* ── Ornamental border pattern — Hindu/Sanskrit-style repeating motif ─── */
+.bg-ornament {
+  position: relative;
+}
+.bg-ornament::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.22;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 120'><g fill='none' stroke='%23C8A96A' stroke-width='0.8'><path d='M10 60 Q30 30 60 60 Q90 90 110 60'/><path d='M10 60 Q30 90 60 60 Q90 30 110 60'/><circle cx='60' cy='60' r='4' fill='%23C8A96A' fill-opacity='0.3'/><circle cx='20' cy='60' r='1.5' fill='%23C8A96A'/><circle cx='100' cy='60' r='1.5' fill='%23C8A96A'/><path d='M60 20 L65 30 L60 40 L55 30 Z' fill='%23C8A96A' fill-opacity='0.2'/><path d='M60 80 L65 90 L60 100 L55 90 Z' fill='%23C8A96A' fill-opacity='0.2'/></g></svg>");
+  background-size: 180px 180px;
+  background-repeat: repeat;
+  mask-image: linear-gradient(180deg, transparent 0%, black 25%, black 75%, transparent 100%);
+  -webkit-mask-image: linear-gradient(180deg, transparent 0%, black 25%, black 75%, transparent 100%);
+}
+
+/* ── Dotted diamond lattice — inspired by jali screen work ──────────────── */
+.bg-jali {
+  position: relative;
+}
+.bg-jali::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.20;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 80 80'><g fill='%23C8A96A'><circle cx='40' cy='20' r='1.4'/><circle cx='20' cy='40' r='1.4'/><circle cx='60' cy='40' r='1.4'/><circle cx='40' cy='60' r='1.4'/><circle cx='40' cy='40' r='0.6'/></g><g fill='none' stroke='%23C8A96A' stroke-width='0.4'><path d='M40 20 L20 40 L40 60 L60 40 Z'/></g></svg>");
+  background-size: 100px 100px;
+  background-repeat: repeat;
+}
+
+/* Light mode variant — darker ink for visibility on white */
+.bg-paisley-light::before,
+.bg-mandala-light::before,
+.bg-ornament-light::before,
+.bg-jali-light::before {
+  opacity: 0.08;
+  filter: brightness(0.6);
+}
+
+/* ══════════════════════════════════════════════════════════════════════════
+   LUXURY DESIGN UTILITIES — apply to any section for ambient atmosphere
+   ══════════════════════════════════════════════════════════════════════════ */
+
+/* ── Luxury dark base: fills any section with rich layered background ──── */
+.bg-luxury-dark {
+  position: relative;
+  background: #0C0A08;
+  overflow: hidden;
+}
+.bg-luxury-dark::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    radial-gradient(ellipse 80% 50% at 50% 0%, rgba(200,169,106,0.08) 0%, transparent 70%),
+    radial-gradient(ellipse 60% 40% at 100% 100%, rgba(200,169,106,0.04) 0%, transparent 60%),
+    radial-gradient(ellipse 50% 30% at 0% 100%, rgba(200,169,106,0.03) 0%, transparent 60%);
+  pointer-events: none;
+}
+.bg-luxury-dark::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    radial-gradient(rgba(200,169,106,0.06) 1px, transparent 1px);
+  background-size: 40px 40px;
+  mask-image: radial-gradient(ellipse 100% 80% at 50% 50%, black 40%, transparent 100%);
+  -webkit-mask-image: radial-gradient(ellipse 100% 80% at 50% 50%, black 40%, transparent 100%);
+  pointer-events: none;
+}
+
+/* ── Gold grid overlay: architectural blueprint feel ────────────────────── */
+.grid-gold {
+  position: relative;
+}
+.grid-gold::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(200,169,106,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(200,169,106,0.04) 1px, transparent 1px);
+  background-size: 60px 60px;
+  mask-image: linear-gradient(180deg, transparent 0%, black 20%, black 80%, transparent 100%);
+  -webkit-mask-image: linear-gradient(180deg, transparent 0%, black 20%, black 80%, transparent 100%);
+  pointer-events: none;
+}
+
+/* ── Gold aurora orbs: ambient glowing shapes ───────────────────────────── */
+.aurora-orbs {
+  position: relative;
+  overflow: hidden;
+}
+.aurora-orbs > .orb {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  filter: blur(80px);
+  will-change: transform;
+}
+/* Aurora orbs removed — blobs were bleeding into hero text. Heroes now use
+   only line-based decorative elements (flourishes, arcs, slashes, hash marks,
+   borderlines, side rails). Empty .orb divs in JSX are no-ops. */
+.aurora-orbs > .orb { display: none; }
+@keyframes aurora-drift {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  25% { transform: translate(50px, -30px) scale(1.1); }
+  50% { transform: translate(-40px, 40px) scale(0.95); }
+  75% { transform: translate(30px, 20px) scale(1.05); }
+}
+
+/* ── Ornamental frame: gold line borders on edges ───────────────────────── */
+.frame-gold {
+  position: relative;
+}
+.frame-gold::before,
+.frame-gold::after {
+  content: '';
+  position: absolute;
+  pointer-events: none;
+}
+.frame-gold::before {
+  top: 32px; left: 32px; right: 32px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(200,169,106,0.2) 20%, rgba(200,169,106,0.2) 80%, transparent);
+}
+.frame-gold::after {
+  bottom: 32px; left: 32px; right: 32px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(200,169,106,0.12) 20%, rgba(200,169,106,0.12) 80%, transparent);
+}
+
+/* ── Corner brackets: ornamental corner accents ─────────────────────────── */
+.corner-brackets {
+  position: relative;
+}
+.corner-brackets > .bracket {
+  position: absolute;
+  width: 28px;
+  height: 28px;
+  border: 1px solid rgba(200,169,106,0.25);
+  pointer-events: none;
+}
+.corner-brackets > .bracket-tl {
+  top: 24px; left: 24px;
+  border-right: none; border-bottom: none;
+}
+.corner-brackets > .bracket-tr {
+  top: 24px; right: 24px;
+  border-left: none; border-bottom: none;
+}
+.corner-brackets > .bracket-bl {
+  bottom: 24px; left: 24px;
+  border-right: none; border-top: none;
+}
+.corner-brackets > .bracket-br {
+  bottom: 24px; right: 24px;
+  border-left: none; border-top: none;
+}
+
+/* ── Radiating spokes: a subtle starburst behind hero text ──────────────── */
+.spoke-burst {
+  position: relative;
+}
+.spoke-burst::before {
+  content: '';
+  position: absolute;
+  top: 50%; left: 50%;
+  width: 600px; height: 600px;
+  transform: translate(-50%, -50%);
+  background-image:
+    conic-gradient(from 0deg,
+      transparent 0deg, rgba(200,169,106,0.03) 2deg, transparent 4deg,
+      transparent 30deg, rgba(200,169,106,0.03) 32deg, transparent 34deg,
+      transparent 60deg, rgba(200,169,106,0.03) 62deg, transparent 64deg,
+      transparent 90deg, rgba(200,169,106,0.03) 92deg, transparent 94deg,
+      transparent 120deg, rgba(200,169,106,0.03) 122deg, transparent 124deg,
+      transparent 150deg, rgba(200,169,106,0.03) 152deg, transparent 154deg,
+      transparent 180deg, rgba(200,169,106,0.03) 182deg, transparent 184deg,
+      transparent 210deg, rgba(200,169,106,0.03) 212deg, transparent 214deg,
+      transparent 240deg, rgba(200,169,106,0.03) 242deg, transparent 244deg,
+      transparent 270deg, rgba(200,169,106,0.03) 272deg, transparent 274deg,
+      transparent 300deg, rgba(200,169,106,0.03) 302deg, transparent 304deg,
+      transparent 330deg, rgba(200,169,106,0.03) 332deg, transparent 334deg,
+      transparent 360deg);
+  mask-image: radial-gradient(circle, black 0%, transparent 70%);
+  -webkit-mask-image: radial-gradient(circle, black 0%, transparent 70%);
+  pointer-events: none;
+  animation: spoke-rotate 120s linear infinite;
+}
+@keyframes spoke-rotate {
+  from { transform: translate(-50%, -50%) rotate(0deg); }
+  to { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+/* ── Section label: small all-caps gold marker for eyebrow text ─────────── */
+.section-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: rgba(200,169,106,0.8);
+}
+.section-label::before,
+.section-label::after {
+  content: '';
+  width: 24px;
+  height: 1px;
+  background: rgba(200,169,106,0.4);
+}
+
+/* ══════════════════════════════════════════════════════════════════════════
+   PAGE IDENTITY UTILITIES — bold, visible, purposeful decorations
+   ══════════════════════════════════════════════════════════════════════════ */
+
+/* ── PRICING: Premium Spec Sheet ────────────────────────────────────────── */
+.plan-numeral {
+  position: absolute;
+  top: -30px; right: -10px;
+  font-family: var(--font-playfair), serif;
+  font-size: 180px;
+  font-weight: 900;
+  color: rgba(200, 169, 106, 0.08);
+  line-height: 1;
+  pointer-events: none;
+  user-select: none;
+  letter-spacing: -0.04em;
+}
+
+.visible-brackets {
+  position: relative;
+}
+.visible-brackets::before,
+.visible-brackets::after,
+.visible-brackets > .vb-bl,
+.visible-brackets > .vb-br {
+  content: '';
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  border: 2px solid rgba(200, 169, 106, 0.55);
+  pointer-events: none;
+}
+.visible-brackets::before {
+  top: -2px; left: -2px;
+  border-right: none; border-bottom: none;
+  border-top-left-radius: 12px;
+}
+.visible-brackets::after {
+  top: -2px; right: -2px;
+  border-left: none; border-bottom: none;
+  border-top-right-radius: 12px;
+}
+.visible-brackets > .vb-bl {
+  bottom: -2px; left: -2px;
+  border-right: none; border-top: none;
+  border-bottom-left-radius: 12px;
+}
+.visible-brackets > .vb-br {
+  bottom: -2px; right: -2px;
+  border-left: none; border-top: none;
+  border-bottom-right-radius: 12px;
+}
+
+.spec-divider {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  justify-content: center;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.22em;
+  color: rgba(200, 169, 106, 0.7);
+}
+.spec-divider::before,
+.spec-divider::after {
+  content: '';
+  flex: 1;
+  max-width: 120px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(200, 169, 106, 0.5));
+}
+.spec-divider::after {
+  background: linear-gradient(90deg, rgba(200, 169, 106, 0.5), transparent);
+}
+
+.plan-bar {
+  height: 3px;
+  background: linear-gradient(90deg, transparent, rgba(200, 169, 106, 0.6), transparent);
+  margin: -8px -32px 24px;
+}
+
+.q-label {
+  font-family: var(--font-playfair), serif;
+  font-size: 14px;
+  font-weight: 700;
+  color: #C8A96A;
+  margin-right: 6px;
+}
+
+/* ── LIST YOUR BUSINESS: Founder's Pitch ────────────────────────────────── */
+.hero-watermark {
+  position: absolute;
+  bottom: -60px;
+  right: -20px;
+  font-family: var(--font-playfair), serif;
+  font-size: 240px;
+  font-weight: 900;
+  color: rgba(200, 169, 106, 0.05);
+  line-height: 1;
+  pointer-events: none;
+  user-select: none;
+  font-style: italic;
+}
+
+.timeline-rail {
+  position: relative;
+}
+.timeline-rail::before {
+  content: '';
+  position: absolute;
+  left: 20px;
+  top: 20px;
+  bottom: 20px;
+  width: 2px;
+  background: linear-gradient(180deg, rgba(200, 169, 106, 0.5), rgba(200, 169, 106, 0.15));
+  pointer-events: none;
+}
+
+.certificate-frame {
+  position: relative;
+  padding: 32px;
+  border: 2px solid rgba(200, 169, 106, 0.5);
+  border-radius: 16px;
+  background: white;
+}
+.certificate-frame::before {
+  content: '';
+  position: absolute;
+  inset: 6px;
+  border: 1px solid rgba(200, 169, 106, 0.3);
+  border-radius: 12px;
+  pointer-events: none;
+}
+
+.feature-tick {
+  position: relative;
+}
+.feature-tick::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 24px;
+  height: 3px;
+  background: #C8A96A;
+}
+
+/* ── ABOUT: Story Journal ────────────────────────────────────────────────── */
+.drop-cap::first-letter {
+  font-family: var(--font-playfair), serif;
+  font-size: 80px;
+  font-weight: 900;
+  color: #C8A96A;
+  float: left;
+  line-height: 0.85;
+  margin: 8px 12px 0 0;
+}
+
+.pull-quote {
+  position: relative;
+  padding: 40px 60px;
+  margin: 32px 0;
+  text-align: center;
+  font-family: var(--font-playfair), serif;
+  font-size: 22px;
+  font-style: italic;
+  color: #2B2623;
+  line-height: 1.5;
+  border-top: 1px solid rgba(200, 169, 106, 0.4);
+  border-bottom: 1px solid rgba(200, 169, 106, 0.4);
+}
+.pull-quote::before,
+.pull-quote::after {
+  position: absolute;
+  font-family: var(--font-playfair), serif;
+  font-size: 72px;
+  color: rgba(200, 169, 106, 0.6);
+  line-height: 1;
+}
+.pull-quote::before {
+  content: '\201C';
+  top: 8px; left: 16px;
+}
+.pull-quote::after {
+  content: '\201D';
+  bottom: -8px; right: 16px;
+}
+
+.chapter-label {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  justify-content: center;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.28em;
+  color: rgba(200, 169, 106, 0.75);
+  margin-bottom: 24px;
+}
+.chapter-label::before,
+.chapter-label::after {
+  content: '';
+  width: 48px;
+  height: 1px;
+  background: rgba(200, 169, 106, 0.4);
+}
+
+.value-topbar {
+  position: relative;
+  padding-top: 36px !important;
+}
+.value-topbar::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 48px;
+  height: 3px;
+  background: #C8A96A;
+  border-radius: 2px;
+}
+
+.stat-divider {
+  position: relative;
+  color: rgba(200, 169, 106, 0.3);
+  font-size: 20px;
+  line-height: 1;
+  user-select: none;
+}
+
+/* ── CONTACT: Wedding Invitation ─────────────────────────────────────────── */
+.invitation-border {
+  position: relative;
+  border: 2px solid rgba(200, 169, 106, 0.5);
+  border-radius: 20px;
+  background: white;
+}
+.invitation-border::before {
+  content: '';
+  position: absolute;
+  inset: 6px;
+  border: 1px solid rgba(200, 169, 106, 0.3);
+  border-radius: 14px;
+  pointer-events: none;
+}
+
+.monogram-seal {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  border: 2px solid #C8A96A;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-playfair), serif;
+  font-size: 28px;
+  font-weight: 900;
+  color: #C8A96A;
+  background: white;
+  margin: 0 auto 16px;
+  position: relative;
+}
+.monogram-seal::before {
+  content: '';
+  position: absolute;
+  inset: -6px;
+  border: 1px solid rgba(200, 169, 106, 0.25);
+  border-radius: 50%;
+}
+
+.roundel-seal {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(200, 169, 106, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(200, 169, 106, 0.06);
+  position: relative;
+}
+.roundel-seal::before {
+  content: '';
+  position: absolute;
+  inset: -4px;
+  border: 1px solid rgba(200, 169, 106, 0.2);
+  border-radius: 50%;
+}
+
+.cordially-invited {
+  font-family: var(--font-playfair), serif;
+  font-size: 12px;
+  font-style: italic;
+  text-transform: uppercase;
+  letter-spacing: 0.22em;
+  color: rgba(200, 169, 106, 0.8);
+  text-align: center;
+  margin-bottom: 8px;
+}
+
+/* ── BLOG: Editorial Magazine ────────────────────────────────────────────── */
+.masthead {
+  text-align: center;
+  padding: 20px 0 24px;
+}
+.masthead-title {
+  font-family: var(--font-playfair), serif;
+  font-size: 13px;
+  font-weight: 900;
+  letter-spacing: 0.5em;
+  color: rgba(200, 169, 106, 0.85);
+  text-transform: uppercase;
+  display: inline-flex;
+  align-items: center;
+  gap: 16px;
+}
+.masthead-title::before,
+.masthead-title::after {
+  content: '';
+  width: 60px;
+  height: 1px;
+  background: rgba(200, 169, 106, 0.4);
+}
+
+.cover-ribbon {
+  position: absolute;
+  top: 20px;
+  left: -32px;
+  background: #C8A96A;
+  color: #0C0A08;
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: 0.2em;
+  padding: 6px 40px;
+  transform: rotate(-45deg);
+  transform-origin: center;
+  z-index: 20;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.issue-number {
+  font-family: var(--font-playfair), serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: rgba(200, 169, 106, 0.7);
+  letter-spacing: 0.12em;
+}
+
+/* ── VENDORS: Directory Index ────────────────────────────────────────────── */
+.directory-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.3em;
+  color: rgba(200, 169, 106, 0.75);
+}
+.directory-label::before,
+.directory-label::after {
+  content: '';
+  width: 40px;
+  height: 1px;
+  background: rgba(200, 169, 106, 0.35);
+}
+
+.filter-accent {
+  position: relative;
+  padding-left: 14px;
+}
+.filter-accent::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 2px;
+  bottom: 2px;
+  width: 3px;
+  background: #C8A96A;
+  border-radius: 2px;
+}
+
+/* ── LEGAL: Manuscript Style ─────────────────────────────────────────────── */
+.legal-section-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(200, 169, 106, 0.5);
+  font-family: var(--font-playfair), serif;
+  font-size: 13px;
+  font-weight: 700;
+  color: #C8A96A;
+  background: rgba(200, 169, 106, 0.08);
+  margin-right: 12px;
+  flex-shrink: 0;
+}
+
+.legal-gutter {
+  position: relative;
+  padding-left: 32px;
+}
+.legal-gutter::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 8px;
+  bottom: 8px;
+  width: 2px;
+  background: linear-gradient(180deg, rgba(200, 169, 106, 0.45), rgba(200, 169, 106, 0.1));
+  pointer-events: none;
+}
+
+.legal-watermark {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-family: var(--font-playfair), serif;
+  font-size: 220px;
+  font-weight: 900;
+  color: rgba(200, 169, 106, 0.07);
+  pointer-events: none;
+  user-select: none;
+  line-height: 1;
+}
+
+.legal-flourish {
+  display: flex;
+  justify-content: center;
+  margin: 24px 0;
+  color: rgba(200, 169, 106, 0.4);
+  font-size: 16px;
+  letter-spacing: 12px;
+  user-select: none;
+}
+
+/* ══════════════════════════════════════════════════════════════════════════
+   VIBRANT HERO DECORATIONS — line art, scrollwork, geometric structure
+   ══════════════════════════════════════════════════════════════════════════ */
+
+/* ── Art deco corner scrollwork (visible SVG line art) ──────────────────── */
+.hero-flourish {
+  position: absolute;
+  width: 220px;
+  height: 220px;
+  pointer-events: none;
+  opacity: 0.7;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 240 240'><g fill='none' stroke='%23C8A96A' stroke-width='1.5' stroke-linecap='round'><line x1='10' y1='10' x2='200' y2='10' stroke-width='2'/><line x1='10' y1='10' x2='10' y2='200' stroke-width='2'/><path d='M10 10 L40 10 L40 40 L10 40 Z' stroke-width='1'/><circle cx='25' cy='25' r='3' fill='%23C8A96A'/><line x1='10' y1='60' x2='10' y2='90'/><line x1='10' y1='100' x2='10' y2='110'/><line x1='10' y1='120' x2='10' y2='150'/><line x1='60' y1='10' x2='90' y2='10'/><line x1='100' y1='10' x2='110' y2='10'/><line x1='120' y1='10' x2='150' y2='10'/><path d='M10 180 Q30 160 60 165 Q90 170 100 200' stroke-width='1.2'/><path d='M180 10 Q160 30 165 60 Q170 90 200 100' stroke-width='1.2'/><circle cx='100' cy='200' r='2.5' fill='%23C8A96A'/><circle cx='200' cy='100' r='2.5' fill='%23C8A96A'/><path d='M10 10 L60 60' stroke-width='0.8' stroke-dasharray='3 3'/><path d='M50 80 Q70 80 80 100' stroke-width='0.8'/><path d='M80 50 Q80 70 100 80' stroke-width='0.8'/><path d='M40 40 L70 40 L70 70 L40 70 Z' stroke-width='0.6' opacity='0.6'/><circle cx='55' cy='55' r='1.5' fill='%23C8A96A'/></g></svg>");
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+.hero-flourish-tl { top: 20px; left: 20px; }
+.hero-flourish-tr { top: 20px; right: 20px; transform: scaleX(-1); }
+.hero-flourish-bl { bottom: 20px; left: 20px; transform: scaleY(-1); }
+.hero-flourish-br { bottom: 20px; right: 20px; transform: scale(-1, -1); }
+
+/* ── Diagonal slash lines crossing the hero ────────────────────────────── */
+.hero-slashes {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+.hero-slashes::before,
+.hero-slashes::after {
+  content: '';
+  position: absolute;
+  width: 200%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(200,169,106,0.35) 30%, rgba(200,169,106,0.5) 50%, rgba(200,169,106,0.35) 70%, transparent);
+}
+.hero-slashes::before {
+  top: 28%;
+  left: -50%;
+  transform: rotate(-8deg);
+}
+.hero-slashes::after {
+  bottom: 28%;
+  left: -50%;
+  transform: rotate(8deg);
+}
+
+/* ── Ornamental center divider — horizontal line + diamond marks ───────── */
+.hero-divider-line {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin: 20px auto;
+  max-width: 300px;
+}
+.hero-divider-line::before,
+.hero-divider-line::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(200,169,106,0.6));
+}
+.hero-divider-line::after {
+  background: linear-gradient(90deg, rgba(200,169,106,0.6), transparent);
+}
+.hero-divider-line > .diamond {
+  width: 8px;
+  height: 8px;
+  background: #C8A96A;
+  transform: rotate(45deg);
+}
+
+/* ── Vertical side rails (left + right of hero) ────────────────────────── */
+.hero-side-rails {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+.hero-side-rails::before,
+.hero-side-rails::after {
+  content: '';
+  position: absolute;
+  top: 60px;
+  bottom: 60px;
+  width: 1px;
+  background: linear-gradient(180deg,
+    transparent 0%,
+    rgba(200,169,106,0.4) 15%,
+    rgba(200,169,106,0.6) 50%,
+    rgba(200,169,106,0.4) 85%,
+    transparent 100%);
+}
+.hero-side-rails::before { left: 60px; }
+.hero-side-rails::after { right: 60px; }
+
+/* ── Concentric arc lines (architectural feel) ─────────────────────────── */
+.hero-arcs {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 1px;
+  height: 1px;
+  pointer-events: none;
+}
+.hero-arcs::before,
+.hero-arcs::after {
+  content: '';
+  position: absolute;
+  top: 50%; left: 50%;
+  border-radius: 50%;
+  border: 1px solid rgba(200,169,106,0.18);
+  transform: translate(-50%, -50%);
+}
+.hero-arcs::before {
+  width: 600px;
+  height: 600px;
+}
+.hero-arcs::after {
+  width: 900px;
+  height: 900px;
+  border-color: rgba(200,169,106,0.10);
+}
+
+/* ── Hash mark borders (like a measurement scale) ──────────────────────── */
+.hero-hash-top,
+.hero-hash-bottom {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80%;
+  max-width: 600px;
+  height: 14px;
+  pointer-events: none;
+  background-image: repeating-linear-gradient(90deg,
+    rgba(200,169,106,0.5) 0 1px,
+    transparent 1px 30px);
+}
+.hero-hash-top { top: 16px; }
+.hero-hash-bottom { bottom: 16px; }
+
+/* ── Floating glowing accent dots ──────────────────────────────────────── */
+.hero-accent-dots {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+.hero-accent-dots::before,
+.hero-accent-dots::after {
+  content: '';
+  position: absolute;
+  border-radius: 50%;
+  background: radial-gradient(circle, #F0C97A 0%, rgba(200,169,106,0.6) 30%, transparent 70%);
+  filter: blur(1px);
+  animation: dot-pulse 4s ease-in-out infinite;
+}
+.hero-accent-dots::before {
+  top: 25%;
+  left: 12%;
+  width: 8px;
+  height: 8px;
+}
+.hero-accent-dots::after {
+  bottom: 30%;
+  right: 15%;
+  width: 6px;
+  height: 6px;
+  animation-delay: -2s;
+}
+@keyframes dot-pulse {
+  0%, 100% { opacity: 0.3; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.4); }
+}
+
+/* ── Top + bottom gold borderlines (on hero) ───────────────────────────── */
+.hero-borderlines {
+  position: relative;
+}
+.hero-borderlines::before,
+.hero-borderlines::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg,
+    transparent 0%,
+    rgba(200,169,106,0.3) 15%,
+    rgba(200,169,106,0.5) 50%,
+    rgba(200,169,106,0.3) 85%,
+    transparent 100%);
+  pointer-events: none;
+}
+.hero-borderlines::before { top: 0; }
+.hero-borderlines::after { bottom: 0; }
+
+/* ── Hero starburst — 8-pointed gold star at center ─────────────────────── */
+.hero-starburst {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 1px;
+  height: 1px;
+  pointer-events: none;
+}
+.hero-starburst::before {
+  content: '';
+  position: absolute;
+  top: 50%; left: 50%;
+  width: 800px;
+  height: 800px;
+  transform: translate(-50%, -50%);
+  background: conic-gradient(
+    from 0deg,
+    transparent 0deg, rgba(200,169,106,0.10) 5deg, transparent 10deg,
+    transparent 80deg, rgba(200,169,106,0.10) 85deg, transparent 90deg,
+    transparent 170deg, rgba(200,169,106,0.10) 175deg, transparent 180deg,
+    transparent 260deg, rgba(200,169,106,0.10) 265deg, transparent 270deg,
+    transparent 350deg, rgba(200,169,106,0.10) 355deg, transparent 360deg
+  );
+  mask-image: radial-gradient(circle, black 0%, transparent 60%);
+  -webkit-mask-image: radial-gradient(circle, black 0%, transparent 60%);
+}
+
+/* ── Subtle top gradient (cleaner, no text bleed) ──────────────────────── */
+.hero-gradient-glow {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(ellipse 70% 40% at 50% 0%, rgba(200,169,106,0.10) 0%, transparent 70%);
+}
+
+/* ── Mobile responsive adjustments ───────────────────────────────────────── */
+@media (max-width: 768px) {
+  .plan-numeral { font-size: 100px; top: -20px; }
+  .hero-watermark { font-size: 140px; }
+  .drop-cap::first-letter { font-size: 56px; }
+  .pull-quote { font-size: 16px; padding: 24px 32px; }
+  .legal-watermark { font-size: 120px; }
+  .visible-brackets::before,
+  .visible-brackets::after,
+  .visible-brackets > .vb-bl,
+  .visible-brackets > .vb-br {
+    width: 24px; height: 24px;
+  }
+  .cover-ribbon { font-size: 9px; padding: 4px 32px; }
+  .hero-flourish { width: 100px; height: 100px; }
+  .hero-starburst::before { width: 500px; height: 500px; }
+}
+
+/* ── Mobile: reduce blur intensity for perf ─────────────────────────────── */
+@media (max-width: 768px) {
+  .aurora-orbs > .orb { filter: blur(60px); }
+  .spoke-burst::before { display: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .aurora-orbs > .orb,
+  .spoke-burst::before { animation: none; }
+}
+
 /* ── Skeleton shimmer loading ─────────────────────────────────────────────── */
 .skeleton {
   background: linear-gradient(90deg, #f0ede8 25%, #e8e4dd 37%, #f0ede8 63%);

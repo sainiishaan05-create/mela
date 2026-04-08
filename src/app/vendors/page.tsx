@@ -185,6 +185,11 @@ export default async function VendorsPage({ searchParams }: Props) {
       <div className="glass sticky top-16 z-40 border-b border-white/60">
         <div className="max-w-7xl mx-auto px-4 py-3 space-y-2">
 
+          {/* Directory label */}
+          <div className="flex justify-center pt-1">
+            <span className="directory-label">Directory</span>
+          </div>
+
           {/* Category pills — curated 12, scrollable */}
           <div className="flex gap-2 overflow-x-auto pb-0.5 scrollbar-hide">
             <Link

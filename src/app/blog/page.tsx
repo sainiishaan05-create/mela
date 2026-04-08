@@ -52,24 +52,22 @@ export default function BlogIndexPage() {
   return (
     <div className="min-h-screen bg-[#FAFAF7]">
       {/* Hero */}
-      <section className="relative bg-[#111111] overflow-hidden">
-        <div
-          aria-hidden
-          className="absolute top-0 left-1/2 -translate-x-1/2 w-[700px] h-[350px] pointer-events-none opacity-20"
-          style={{ background: 'radial-gradient(ellipse at 50% 0%, #C8A96A 0%, transparent 70%)' }}
-        />
-        <div
-          aria-hidden
-          className="absolute inset-0 pointer-events-none opacity-30"
-          style={{
-            backgroundImage: 'radial-gradient(circle, rgba(255,255,255,0.03) 1px, transparent 1px)',
-            backgroundSize: '30px 30px',
-          }}
-        />
+      <section className="bg-luxury-dark bg-paisley aurora-orbs hero-borderlines relative overflow-hidden">
+        <div className="orb orb-1" />
+        <div className="orb orb-2" />
+        <div className="hero-gradient-glow" />
+        <div className="hero-arcs" />
+        <div className="hero-slashes" />
+        <div className="hero-side-rails hidden md:block" />
+        <div className="hero-hash-top" />
+        <div className="hero-hash-bottom" />
+        <div className="hero-flourish hero-flourish-tl hidden md:block" />
+        <div className="hero-flourish hero-flourish-tr hidden md:block" />
+        <div className="hero-flourish hero-flourish-bl hidden md:block" />
+        <div className="hero-flourish hero-flourish-br hidden md:block" />
         <div className="relative z-10 max-w-5xl mx-auto px-6 py-20 md:py-28 text-center">
-          <div className="inline-flex items-center gap-2 mb-6 px-4 py-2 rounded-full border border-white/10 bg-white/5">
-            <BookOpen className="w-3.5 h-3.5 text-[#C8A96A]" />
-            <span className="text-xs font-bold uppercase tracking-widest text-[#C8A96A]">The Melaa Blog</span>
+          <div className="masthead mb-6">
+            <span className="masthead-title">Melaa Editorial</span>
           </div>
           <h1 className="font-[family-name:var(--font-playfair)] text-4xl md:text-6xl font-bold text-white mb-5 leading-tight">
             Wedding Planning{' '}
@@ -93,7 +91,8 @@ export default function BlogIndexPage() {
       {featured && (
         <section className="max-w-6xl mx-auto px-4 -mt-6 relative z-10 mb-12">
           <Link href={`/blog/${featured.slug}`} className="group block">
-            <article className="bg-white rounded-3xl overflow-hidden shadow-premium hover:shadow-premium-hover card-interactive border border-gray-100/80">
+            <article className="bg-white rounded-3xl overflow-hidden shadow-premium hover:shadow-premium-hover card-interactive border border-gray-100/80 relative">
+              <div className="cover-ribbon">COVER STORY</div>
               <div className="flex flex-col lg:flex-row">
                 {/* Image */}
                 <div className="relative lg:w-1/2 h-64 lg:h-auto overflow-hidden">
@@ -184,9 +183,12 @@ export default function BlogIndexPage() {
 
                 {/* Content */}
                 <div className="p-5 flex flex-col flex-1">
-                  <span className={`inline-block text-[10px] font-bold px-2.5 py-1 rounded-full mb-3 w-fit ${categoryColors[post.category] ?? 'bg-gray-100 text-gray-600'}`}>
-                    {categoryLabels[post.category] ?? post.category}
-                  </span>
+                  <div className="flex items-center justify-between mb-3">
+                    <span className={`inline-block text-[10px] font-bold px-2.5 py-1 rounded-full ${categoryColors[post.category] ?? 'bg-gray-100 text-gray-600'}`}>
+                      {categoryLabels[post.category] ?? post.category}
+                    </span>
+                    <span className="issue-number">№ {String(i + 2).padStart(2, '0')}</span>
+                  </div>
 
                   <h3 className="font-[family-name:var(--font-playfair)] text-base font-bold text-[#111111] mb-2 leading-snug group-hover:text-[#C8A96A] transition-colors duration-200 line-clamp-2">
                     {post.title}

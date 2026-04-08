@@ -15,7 +15,7 @@ const PLAN_BASE = [
     name: 'Free',
     price: '$0',
     period: '/always free',
-    description: 'Get discovered by couples today',
+    description: 'Show up in search. No waiting.',
     primary: false,
     highlight: null,
     features: [
@@ -43,7 +43,7 @@ const PLAN_BASE = [
       'Lead notifications by email',
       'AI-drafted reply suggestions',
       'Analytics dashboard',
-      'Founding rate: only for the first 50 vendors',
+      'Direct couple inquiries — no middleman',
     ],
     cta: 'Claim Founding Spot',
     href: '/list-your-business',
@@ -52,7 +52,7 @@ const PLAN_BASE = [
     name: 'Premium',
     price: '$99',
     period: '/month',
-    description: 'Maximum visibility for top vendors',
+    description: 'Always featured at top. Homepage rotation included.',
     primary: false,
     highlight: null,
     features: [
@@ -69,7 +69,7 @@ const PLAN_BASE = [
 ]
 
 const FAQS = [
-  { q: 'Do I need a credit card to start?', a: 'No. Your first 90 days are completely free. No card required to get listed and start receiving leads from couples.' },
+  { q: 'Do I need a credit card to start?', a: 'No. Start free for 90 days. No card required.' },
   { q: 'What happens after 90 days?', a: 'The first 50 vendors to sign up get the exclusive $49/mo Founding Member rate. Once all 50 spots are claimed, standard pricing applies for new vendors.' },
   { q: 'Can I cancel anytime?', a: 'Yes. No contracts, no cancellation fees. Cancel or downgrade whenever you like, no questions asked.' },
   { q: 'How quickly will I get leads?', a: "Most vendors receive their first inquiry within 7 days of going live. We help optimize profiles that aren't converting." },
@@ -95,13 +95,21 @@ export default async function PricingPage() {
     <div className="bg-[#FAFAF7] min-h-screen">
 
       {/* ── Hero ── */}
-      <section className="bg-[#111111] text-white relative overflow-hidden">
-        <div className="absolute inset-0 opacity-15"
-          style={{ background: 'radial-gradient(ellipse at 30% 50%, #C8A96A 0%, transparent 60%)' }} />
-        <div className="absolute inset-0 opacity-[0.03]"
-          style={{ backgroundImage: 'linear-gradient(rgba(255,255,255,0.4) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.4) 1px, transparent 1px)', backgroundSize: '48px 48px' }} />
-        <div className="relative max-w-4xl mx-auto px-4 sm:px-6 py-20 text-center">
-          <p className="text-[#C8A96A] text-xs font-bold uppercase tracking-widest mb-4">Pricing</p>
+      <section className="bg-luxury-dark bg-paisley aurora-orbs hero-borderlines text-white relative overflow-hidden">
+        <div className="orb orb-1" />
+        <div className="orb orb-2" />
+        <div className="hero-gradient-glow" />
+        <div className="hero-arcs" />
+        <div className="hero-slashes" />
+        <div className="hero-side-rails hidden md:block" />
+        <div className="hero-hash-top" />
+        <div className="hero-hash-bottom" />
+        <div className="hero-flourish hero-flourish-tl hidden md:block" />
+        <div className="hero-flourish hero-flourish-tr hidden md:block" />
+        <div className="hero-flourish hero-flourish-bl hidden md:block" />
+        <div className="hero-flourish hero-flourish-br hidden md:block" />
+        <div className="relative max-w-4xl mx-auto px-4 sm:px-6 py-20 text-center z-10">
+          <p className="section-label mb-5 justify-center">Pricing</p>
           <h1 className="font-[family-name:var(--font-playfair)] text-4xl sm:text-5xl md:text-6xl font-bold mb-5">
             Simple, Honest Pricing
           </h1>
@@ -109,7 +117,12 @@ export default async function PricingPage() {
             We only make money when you succeed. Start free for 90 days, no credit card, no commitment.
           </p>
           {spotsLeft > 0 && (
-            <div className="inline-flex items-center gap-2.5 bg-white/8 border border-white/15 text-sm px-5 py-2.5 rounded-full backdrop-blur-sm">
+            <div className="inline-flex items-center gap-2.5 text-sm px-5 py-2.5 rounded-full"
+              style={{
+                background: 'rgba(12, 10, 8, 0.85)',
+                border: '1px solid rgba(200, 169, 106, 0.4)',
+                backdropFilter: 'blur(8px)',
+              }}>
               <span className="relative flex h-2 w-2">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#C8A96A] opacity-75" />
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-[#C8A96A]" />
@@ -124,15 +137,19 @@ export default async function PricingPage() {
 
       {/* ── Plans ── */}
       <section className="max-w-6xl mx-auto px-4 sm:px-6 py-16">
+        <div className="spec-divider mb-12">Pricing Specification</div>
         <div className="grid md:grid-cols-3 gap-6 items-start">
-          {plans.map((plan) => (
+          {plans.map((plan, idx) => (
             <div key={plan.name}
-              className={`relative bg-white rounded-3xl border-2 p-8 transition-all duration-300 ${
+              className={`relative bg-white rounded-3xl border-2 p-8 overflow-hidden transition-all duration-300 ${
                 plan.primary
-                  ? 'border-[#C8A96A] shadow-saffron md:scale-105 md:-my-4'
+                  ? 'border-[#C8A96A] shadow-saffron md:scale-105 md:-my-4 visible-brackets'
                   : 'border-gray-100 shadow-premium hover:shadow-premium-hover'
               }`}
             >
+              {plan.primary && (<><span className="vb-bl" /><span className="vb-br" /></>)}
+              <span className="plan-numeral">{String(idx + 1).padStart(2, '0')}</span>
+              <div className="plan-bar" />
               {plan.badge && (
                 <div className="absolute -top-3.5 left-1/2 -translate-x-1/2">
                   <span className="inline-flex items-center gap-1.5 bg-[#C8A96A] text-white text-xs font-bold px-4 py-1.5 rounded-full shadow-saffron whitespace-nowrap">
@@ -226,12 +243,13 @@ export default async function PricingPage() {
 
       {/* ── FAQ ── */}
       <section className="max-w-3xl mx-auto px-4 sm:px-6 pb-20">
+        <div className="spec-divider mb-6">Frequently Asked</div>
         <h2 className="font-[family-name:var(--font-playfair)] text-3xl font-bold text-center mb-10">Common Questions</h2>
         <div className="space-y-3">
-          {FAQS.map(({ q, a }) => (
+          {FAQS.map(({ q, a }, idx) => (
             <div key={q} className="bg-white rounded-2xl border border-gray-100 shadow-premium p-6 hover:shadow-premium-hover hover:border-gray-200 transition-all duration-200">
-              <p className="font-semibold text-gray-900 mb-2">{q}</p>
-              <p className="text-sm text-gray-500 leading-relaxed">{a}</p>
+              <p className="font-semibold text-gray-900 mb-2"><span className="q-label">Q{idx + 1}.</span>{q}</p>
+              <p className="text-sm text-gray-500 leading-relaxed pl-7">{a}</p>
             </div>
           ))}
         </div>

@@ -145,7 +145,7 @@ export default async function Footer() {
             <p className="text-white text-xs font-bold uppercase tracking-widest mb-5">Get Listed</p>
             <div className="rounded-2xl p-5" style={{ border: '1px solid rgba(200,169,106,0.2)', background: 'rgba(200,169,106,0.06)' }}>
               <p className="text-xs font-semibold mb-1" style={{ color: 'var(--color-gold)' }}>Founding Vendor Rate</p>
-              <p className="text-xs mb-4" style={{ color: 'rgba(255,255,255,0.4)' }}>First 50 vendors get the exclusive $49/mo rate. Start free for 90 days.</p>
+              <p className="text-xs mb-4" style={{ color: 'rgba(255,255,255,0.4)' }}>First 50 vendors get $49/mo. Start free.</p>
               <Link href="/list-your-business"
                 className="inline-block text-xs font-bold px-4 py-2.5 rounded-xl transition-colors duration-200"
                 style={{ background: 'var(--color-gold)', color: 'var(--color-text)' }}>
@@ -157,7 +157,7 @@ export default async function Footer() {
 
         {/* Bottom bar */}
         <div className="border-t pt-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs" style={{ borderColor: 'rgba(255,255,255,0.06)', color: 'rgba(255,255,255,0.25)' }}>
-          <p>© {new Date().getFullYear()} Melaa. Built with love for the South Asian community. 🌺</p>
+          <p>© {new Date().getFullYear()} Melaa. Trusted by {stats.vendorCountWithPlus} vendors across the GTA.</p>
           <div className="flex items-center gap-5">
             <Link href="/about" className="hover:text-white transition-colors">About</Link>
             <Link href="/contact" className="hover:text-white transition-colors">Contact</Link>
