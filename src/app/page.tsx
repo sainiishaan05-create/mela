@@ -87,11 +87,11 @@ export default async function HomePage() {
         <div className="absolute bottom-0 inset-x-0 h-56 z-10 pointer-events-none"
           style={{ background: 'linear-gradient(to top, #07050a 0%, transparent 100%)' }} />
 
-        <div className="relative z-20 w-full max-w-7xl mx-auto px-4 sm:px-6 min-h-screen flex items-center">
-          <div className="w-full py-32 lg:py-0 flex items-center justify-center lg:justify-start">
+        <div className="relative z-20 w-full max-w-7xl mx-auto px-4 sm:px-6 min-h-[88vh] sm:min-h-screen flex items-center">
+          <div className="w-full py-20 sm:py-32 lg:py-0 flex items-center justify-start">
 
             {/* LEFT: Text */}
-            <div className="max-w-2xl">
+            <div className="max-w-2xl w-full">
               <div className="mb-8 inline-flex items-center gap-2.5 px-4 py-2.5 rounded-full"
                 style={{
                   background: 'rgba(200,169,106,0.08)',
@@ -106,7 +106,7 @@ export default async function HomePage() {
               </div>
 
               <h1
-                className="font-[family-name:var(--font-playfair)] text-5xl sm:text-6xl lg:text-[5rem] font-bold leading-[1.04] tracking-tight mb-6 text-white"
+                className="font-[family-name:var(--font-playfair)] text-[2rem] sm:text-6xl lg:text-[5rem] font-bold leading-[1.06] tracking-tight mb-6 text-white"
                 style={{ animation: 'revealUp 0.75s 0.12s var(--ease-expo) both' }}
               >
                 Your perfect<br />
@@ -147,7 +147,7 @@ export default async function HomePage() {
               </div>
 
               <div
-                className="flex flex-wrap gap-x-10 gap-y-5"
+                className="grid grid-cols-2 gap-x-4 gap-y-5 sm:flex sm:flex-wrap sm:gap-x-10"
                 style={{ animation: 'revealUp 0.75s 0.46s var(--ease-expo) both' }}
               >
                 {[
@@ -157,7 +157,7 @@ export default async function HomePage() {
                   { val: '$0',               label: 'Booking Fees' },
                 ].map(({ val, label }) => (
                   <div key={label}>
-                    <p className="text-2xl font-bold font-[family-name:var(--font-playfair)]"
+                    <p className="text-xl sm:text-2xl font-bold font-[family-name:var(--font-playfair)]"
                       style={{ color: '#C8A96A' }}>{val}</p>
                     <p className="text-xs tracking-wide mt-0.5"
                       style={{ color: 'rgba(255,255,255,0.32)' }}>{label}</p>

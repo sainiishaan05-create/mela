@@ -32,7 +32,7 @@ export default function ContactPage() {
     }
   }
 
-  const inputCls = 'w-full border rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-[#C8A96A] focus:ring-2 focus:ring-[#C8A96A]/10 transition-all'
+  const inputCls = 'w-full border rounded-xl px-4 py-3.5 text-sm focus:outline-none focus:border-[#C8A96A] focus:ring-2 focus:ring-[#C8A96A]/10 transition-all'
 
   return (
     <div style={{ background: 'var(--color-bg)' }}>
@@ -41,7 +41,7 @@ export default function ContactPage() {
       <section className="bg-luxury-dark hero-mehndi-vines relative py-20 px-4 sm:px-6">
         <div className="relative z-10 max-w-3xl mx-auto text-center">
           <p className="section-label mb-5 justify-center">Contact</p>
-          <h1 className="font-[family-name:var(--font-playfair)] text-4xl sm:text-5xl font-bold text-white mb-5">
+          <h1 className="font-[family-name:var(--font-playfair)] text-3xl sm:text-5xl font-bold text-white mb-5">
             Get in Touch
           </h1>
           <p className="text-lg max-w-xl mx-auto" style={{ color: 'rgba(255,255,255,0.55)' }}>
@@ -168,7 +168,7 @@ export default function ContactPage() {
 
                 <button
                   type="submit" disabled={status === 'loading'}
-                  className="btn-gold w-full flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl text-sm font-semibold disabled:opacity-60"
+                  className="btn-gold w-full flex items-center justify-center gap-2 px-6 py-4 rounded-xl text-sm font-semibold disabled:opacity-60"
                 >
                   {status === 'loading' ? <Loader2 className="w-4 h-4 animate-spin" /> : <Send className="w-4 h-4" />}
                   {status === 'loading' ? 'Sending...' : 'Send Message'}

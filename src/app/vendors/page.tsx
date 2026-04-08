@@ -481,12 +481,12 @@ export default async function VendorsPage({ searchParams }: Props) {
 
           {/* ── Pagination ── */}
           {totalPages > 1 && (
-            <nav className="flex items-center justify-center gap-1.5 mt-12" aria-label="Pagination">
+            <nav className="flex flex-wrap items-center justify-center gap-1.5 mt-12" aria-label="Pagination">
               {/* Prev */}
               <Link
                 href={page > 1 ? pageUrl(page - 1) : '#'}
                 aria-disabled={page === 1}
-                className={`flex items-center gap-1.5 px-4 py-2 rounded-xl text-sm font-medium transition-all duration-150 ${
+                className={`flex items-center gap-1.5 px-4 py-3 rounded-xl text-sm font-medium transition-all duration-150 ${
                   page === 1
                     ? 'text-gray-300 pointer-events-none'
                     : 'text-gray-600 hover:bg-white hover:shadow-sm hover:text-[#C8A96A] border border-transparent hover:border-gray-100'
@@ -496,7 +496,7 @@ export default async function VendorsPage({ searchParams }: Props) {
               </Link>
 
               {/* Page numbers */}
-              <div className="flex items-center gap-1">
+              <div className="flex flex-wrap items-center justify-center gap-1">
                 {pageNumbers.map((p, i) =>
                   p === '...' ? (
                     <span key={`ellipsis-${i}`} className="px-2 py-2 text-sm text-gray-300 select-none">
@@ -506,7 +506,7 @@ export default async function VendorsPage({ searchParams }: Props) {
                     <Link
                       key={p}
                       href={pageUrl(p)}
-                      className={`w-9 h-9 flex items-center justify-center rounded-xl text-sm font-medium transition-all duration-150 ${
+                      className={`w-11 h-11 flex items-center justify-center rounded-xl text-sm font-medium transition-all duration-150 ${
                         p === page
                           ? 'bg-[#111111] text-white shadow-sm'
                           : 'text-gray-600 hover:bg-white hover:shadow-sm hover:text-[#C8A96A] border border-transparent hover:border-gray-100'
@@ -522,7 +522,7 @@ export default async function VendorsPage({ searchParams }: Props) {
               <Link
                 href={page < totalPages ? pageUrl(page + 1) : '#'}
                 aria-disabled={page === totalPages}
-                className={`flex items-center gap-1.5 px-4 py-2 rounded-xl text-sm font-medium transition-all duration-150 ${
+                className={`flex items-center gap-1.5 px-4 py-3 rounded-xl text-sm font-medium transition-all duration-150 ${
                   page === totalPages
                     ? 'text-gray-300 pointer-events-none'
                     : 'text-gray-600 hover:bg-white hover:shadow-sm hover:text-[#C8A96A] border border-transparent hover:border-gray-100'

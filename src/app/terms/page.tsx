@@ -14,7 +14,7 @@ export default function TermsPage() {
       <section className="bg-luxury-dark hero-rangoli relative py-16 px-4 sm:px-6">
         <div className="relative z-10 max-w-3xl mx-auto text-center">
           <p className="section-label mb-5 justify-center">Legal</p>
-          <h1 className="font-[family-name:var(--font-playfair)] text-4xl sm:text-5xl font-bold text-white mb-3">Terms of Service</h1>
+          <h1 className="font-[family-name:var(--font-playfair)] text-3xl sm:text-5xl font-bold text-white mb-3">Terms of Service</h1>
           <p className="text-sm" style={{ color: 'rgba(255,255,255,0.5)' }}>Last updated: March 2025</p>
         </div>
       </section>

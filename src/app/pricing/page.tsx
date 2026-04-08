@@ -98,7 +98,7 @@ export default async function PricingPage() {
       <section className="bg-luxury-dark hero-mughal-arch text-white relative">
         <div className="relative max-w-4xl mx-auto px-4 sm:px-6 py-20 text-center z-10">
           <p className="section-label mb-5 justify-center">Pricing</p>
-          <h1 className="font-[family-name:var(--font-playfair)] text-4xl sm:text-5xl md:text-6xl font-bold mb-5">
+          <h1 className="font-[family-name:var(--font-playfair)] text-3xl sm:text-5xl md:text-6xl font-bold mb-5">
             Simple, Honest Pricing
           </h1>
           <p className="text-gray-400 text-lg max-w-xl mx-auto mb-8">
@@ -185,7 +185,7 @@ export default async function PricingPage() {
                 ))}
               </ul>
               <Link href={plan.href}
-                className={`btn-primary flex items-center justify-center gap-2 w-full font-bold py-3.5 rounded-2xl text-sm transition-colors ${
+                className={`btn-primary flex items-center justify-center gap-2 w-full font-bold py-4 rounded-2xl text-sm transition-colors ${
                   plan.primary ? 'bg-[#C8A96A] text-white shadow-saffron' : 'border border-gray-200 text-gray-700 hover:border-[#C8A96A] hover:text-[#C8A96A]'
                 }`}>
                 {plan.cta}

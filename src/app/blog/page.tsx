@@ -57,7 +57,7 @@ export default function BlogIndexPage() {
           <div className="masthead mb-6">
             <span className="masthead-title">Melaa Editorial</span>
           </div>
-          <h1 className="font-[family-name:var(--font-playfair)] text-4xl md:text-6xl font-bold text-white mb-5 leading-tight">
+          <h1 className="font-[family-name:var(--font-playfair)] text-3xl sm:text-4xl md:text-6xl font-bold text-white mb-5 leading-tight">
             Wedding Planning{' '}
             <span className="gradient-text">Guides & Tips</span>
           </h1>

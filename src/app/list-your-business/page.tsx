@@ -55,7 +55,7 @@ export default async function ListYourBusinessPage() {
             </div>
           )}
 
-          <h1 className="font-[family-name:var(--font-playfair)] text-4xl sm:text-5xl lg:text-6xl font-bold text-white leading-[1.08] mb-6">
+          <h1 className="font-[family-name:var(--font-playfair)] text-3xl sm:text-5xl lg:text-6xl font-bold text-white leading-[1.1] sm:leading-[1.08] mb-6">
             Get Found by Couples<br />
             <span className="gradient-text">Ready to Book</span>
           </h1>

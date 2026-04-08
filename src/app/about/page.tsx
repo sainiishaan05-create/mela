@@ -32,7 +32,7 @@ export default async function AboutPage() {
         <div className="paisley-accent" />
         <div className="relative z-10 max-w-3xl mx-auto text-center">
           <p className="section-label mb-5 justify-center">Our Story</p>
-          <h1 className="font-[family-name:var(--font-playfair)] text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-5">
+          <h1 className="font-[family-name:var(--font-playfair)] text-3xl sm:text-5xl lg:text-6xl font-bold text-white mb-5 leading-[1.1]">
             A platform our <span className="gradient-text">families deserved.</span>
           </h1>
           <p className="text-lg max-w-xl mx-auto" style={{ color: 'rgba(255,255,255,0.55)' }}>

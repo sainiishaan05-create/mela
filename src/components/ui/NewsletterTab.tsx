@@ -34,12 +34,12 @@ export default function NewsletterTab() {
         />
       )}
 
-      {/* Floating tab trigger (hidden when panel is open) */}
+      {/* Floating tab trigger (desktop only — mobile uses footer link instead) */}
       {!open && (
         <button
           onClick={() => setOpen(true)}
           aria-label="Open newsletter signup"
-          className="fixed right-0 top-1/2 -translate-y-1/2 z-50 flex flex-col items-center gap-2 rounded-l-2xl px-2.5 py-5 cursor-pointer shadow-saffron transition-all duration-300 hover:px-3.5 group"
+          className="hidden md:flex fixed right-0 top-1/2 -translate-y-1/2 z-50 flex-col items-center gap-2 rounded-l-2xl px-2.5 py-5 cursor-pointer shadow-saffron transition-all duration-300 hover:px-3.5 group"
           style={{ background: '#C8A96A' }}
         >
           {/* Envelope icon */}

@@ -94,7 +94,7 @@ export default async function Footer() {
         </div>
 
         {/* Links grid */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-10 mb-14">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 mb-14">
           {/* Categories */}
           <div>
             <p className="text-white text-xs font-bold uppercase tracking-widest mb-5">Categories</p>
@@ -156,14 +156,14 @@ export default async function Footer() {
         </div>
 
         {/* Bottom bar */}
-        <div className="border-t pt-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs" style={{ borderColor: 'rgba(255,255,255,0.06)', color: 'rgba(255,255,255,0.25)' }}>
-          <p>© {new Date().getFullYear()} Melaa. Trusted by {stats.vendorCountWithPlus} vendors across the GTA.</p>
-          <div className="flex items-center gap-5">
-            <Link href="/about" className="hover:text-white transition-colors">About</Link>
-            <Link href="/contact" className="hover:text-white transition-colors">Contact</Link>
-            <Link href="/vendors" className="hover:text-white transition-colors">Browse</Link>
-            <Link href="/privacy" className="hover:text-white transition-colors">Privacy</Link>
-            <Link href="/terms" className="hover:text-white transition-colors">Terms</Link>
+        <div className="border-t pt-6 pb-8 sm:pb-0 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs" style={{ borderColor: 'rgba(255,255,255,0.06)', color: 'rgba(255,255,255,0.25)' }}>
+          <p className="text-center sm:text-left">© {new Date().getFullYear()} Melaa. Trusted by {stats.vendorCountWithPlus} vendors across the GTA.</p>
+          <div className="flex flex-wrap items-center justify-center gap-x-5 gap-y-2">
+            <Link href="/about" className="hover:text-white transition-colors py-2 px-1.5">About</Link>
+            <Link href="/contact" className="hover:text-white transition-colors py-2 px-1.5">Contact</Link>
+            <Link href="/vendors" className="hover:text-white transition-colors py-2 px-1.5">Browse</Link>
+            <Link href="/privacy" className="hover:text-white transition-colors py-2 px-1.5">Privacy</Link>
+            <Link href="/terms" className="hover:text-white transition-colors py-2 px-1.5">Terms</Link>
           </div>
         </div>
       </div>

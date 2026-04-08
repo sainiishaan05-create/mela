@@ -2102,7 +2102,7 @@ img { transition: opacity 0.3s ease; }
   opacity: 0.4;
 }
 
-/* Mobile: simplify all hero identities */
+/* Tablet: simplify all hero identities */
 @media (max-width: 768px) {
   .hero-mughal-arch::before { width: 400px; height: 400px; opacity: 0.35; }
   .hero-mandap::before { opacity: 0.4; }
@@ -2112,6 +2112,28 @@ img { transition: opacity 0.3s ease; }
   .hero-mehndi-vines::before,
   .hero-mehndi-vines::after { width: 140px; opacity: 0.4; }
   .hero-rangoli::before { width: 400px; height: 400px; opacity: 0.3; }
+}
+
+/* Phone: aggressively shrink so SVGs never overflow 375px viewports */
+@media (max-width: 480px) {
+  .hero-mughal-arch::before { width: 320px; height: 320px; opacity: 0.32; }
+  .hero-mandap::before { opacity: 0.35; }
+  .hero-paisley-cascade::before { width: 160px; height: 160px; opacity: 0.3; top: -20px; left: -20px; }
+  .hero-paisley-cascade::after { width: 130px; height: 130px; opacity: 0.28; bottom: -15px; right: -15px; }
+  .hero-mehndi-vines::before,
+  .hero-mehndi-vines::after { width: 90px; opacity: 0.4; }
+  .hero-rangoli::before { width: 320px; height: 320px; opacity: 0.25; }
+  .hero-jali-frame::before { background-size: 60px 60px; }
+  .hero-manuscript::before,
+  .hero-manuscript::after { left: 6%; right: 6%; }
+  /* Ensure heroes never cause horizontal page scroll on phones */
+  .hero-mughal-arch,
+  .hero-mandap,
+  .hero-paisley-cascade,
+  .hero-mehndi-vines,
+  .hero-manuscript,
+  .hero-jali-frame,
+  .hero-rangoli { overflow: hidden; }
 }
 
 /* ══════════════════════════════════════════════════════════════════════════
