@@ -5,6 +5,7 @@ import Link from 'next/link'
 import { useSearchParams } from 'next/navigation'
 import { createClient } from '@/lib/supabase/client'
 import { Suspense } from 'react'
+import GoogleSignInButton from '@/components/auth/GoogleSignInButton'
 
 function LoginForm() {
   const [email, setEmail] = useState('')
@@ -13,6 +14,7 @@ function LoginForm() {
   const [loading, setLoading] = useState(false)
   const searchParams = useSearchParams()
   const next = searchParams.get('next') ?? '/dashboard'
+  const oauthError = searchParams.get('error')
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
@@ -57,6 +59,22 @@ function LoginForm() {
           <p className="text-gray-500 text-sm mt-1">
             Sign in to your Melaa account
           </p>
+        </div>
+
+        {oauthError && (
+          <div className="mb-5 text-sm text-red-600 text-center bg-red-50 border border-red-100 rounded-xl px-4 py-3">
+            Sign-in failed. Please try again.
+          </div>
+        )}
+
+        {/* Google sign-in */}
+        <GoogleSignInButton next={searchParams.get('next') ?? undefined} />
+
+        {/* Divider */}
+        <div className="flex items-center gap-3 my-6">
+          <div className="flex-1 h-px bg-gray-200" />
+          <span className="text-xs text-gray-400 font-medium">or continue with email</span>
+          <div className="flex-1 h-px bg-gray-200" />
         </div>
 
         <form onSubmit={handleSubmit} noValidate className="space-y-5">

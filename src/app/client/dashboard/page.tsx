@@ -23,7 +23,7 @@ export default async function ClientDashboardPage() {
 
   const admin = service()
 
-  const [{ data: savedRaw }, { data: reviewsRaw }] = await Promise.all([
+  const [{ data: savedRaw }, { data: reviewsRaw }, { data: ownedVendor }] = await Promise.all([
     admin
       .from('saved_vendors')
       .select('*, vendor:vendors(*, category:categories(*), city:cities(*))')
@@ -34,6 +34,12 @@ export default async function ClientDashboardPage() {
       .select('*, vendor:vendors(id, name, slug, category:categories(name, icon))')
       .eq('user_id', user.id)
       .order('created_at', { ascending: false }),
+    // Check if user owns a vendor (so we can show "Switch to vendor view")
+    admin
+      .from('vendors')
+      .select('id, slug')
+      .eq('claimed_by_user_id', user.id)
+      .maybeSingle(),
   ])
 
   return (
@@ -41,6 +47,7 @@ export default async function ClientDashboardPage() {
       userEmail={user.email ?? ''}
       initialSaved={(savedRaw ?? []) as SavedVendor[]}
       initialReviews={(reviewsRaw ?? []) as Review[]}
+      hasVendorListing={!!ownedVendor}
     />
   )
 }

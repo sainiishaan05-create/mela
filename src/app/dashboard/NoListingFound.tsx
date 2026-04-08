@@ -49,6 +49,14 @@ export default function NoListingFound({ userEmail }: Props) {
             <ArrowUpRight className="w-4 h-4" />
           </Link>
 
+          <Link
+            href="/client/dashboard"
+            className="flex items-center justify-center gap-2 w-full text-gray-500 hover:text-[#C8A96A] font-medium px-6 py-3 text-sm transition-colors"
+          >
+            Not a vendor? Switch to customer view
+            <ArrowUpRight className="w-3.5 h-3.5" />
+          </Link>
+
           <div className="flex justify-center">
             <LogoutButton
               label="Sign out"

@@ -12,6 +12,7 @@ interface Props {
   userEmail: string
   initialSaved: SavedVendor[]
   initialReviews: Review[]
+  hasVendorListing?: boolean
 }
 
 function StarRow({ rating }: { rating: number }) {
@@ -24,7 +25,7 @@ function StarRow({ rating }: { rating: number }) {
   )
 }
 
-export default function ClientDashboardShell({ userEmail, initialSaved, initialReviews }: Props) {
+export default function ClientDashboardShell({ userEmail, initialSaved, initialReviews, hasVendorListing }: Props) {
   const [tab, setTab] = useState<Tab>('saved')
   const [saved, setSaved] = useState<SavedVendor[]>(initialSaved)
   const [reviews, setReviews] = useState<Review[]>(initialReviews)
@@ -59,6 +60,15 @@ export default function ClientDashboardShell({ userEmail, initialSaved, initialR
             <span className="inline-block mt-2 text-[10px] font-bold uppercase tracking-widest px-2 py-0.5 rounded-full bg-[#F5ECD7] text-[#C8A96A]">
               Couple Account
             </span>
+            {hasVendorListing ? (
+              <Link href="/dashboard" className="mt-3 block text-[11px] font-semibold text-[#C8A96A] hover:underline">
+                → Switch to vendor dashboard
+              </Link>
+            ) : (
+              <Link href="/list-your-business" className="mt-3 block text-[11px] font-semibold text-[#C8A96A] hover:underline">
+                Run a business? List free →
+              </Link>
+            )}
           </div>
 
           {/* Nav */}

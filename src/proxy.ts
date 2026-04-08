@@ -312,7 +312,7 @@ export async function proxy(request: NextRequest) {
   // Localhost is always bypassed so you can develop freely.
   const isLocalhost = request.headers.get('host')?.includes('localhost') || request.headers.get('host')?.includes('127.0.0.1')
   if (MAINTENANCE && !isLocalhost) {
-    const allowed = ['/dashboard', '/client/dashboard', '/login', '/api/auth', '/api/webhooks', '/api/stripe/webhook']
+    const allowed = ['/dashboard', '/client/dashboard', '/login', '/signup', '/auth/callback', '/auth/confirm', '/api/auth', '/api/webhooks', '/api/stripe/webhook']
     const isAllowed = allowed.some(p => pathname.startsWith(p))
     if (!isAllowed) {
       return new NextResponse(MAINTENANCE_HTML, {
