@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import { Loader2, ArrowRight } from 'lucide-react'
 import type { Category, City } from '@/types'
+import FormSelect from '@/components/ui/FormSelect'
 
 interface Props {
   categories: Category[]
@@ -70,11 +71,10 @@ export default function VendorOnboardingForm({ categories, cities }: Props) {
         <label className="block text-sm font-semibold text-[#1A1A1A] mb-1.5">
           What do you do?
         </label>
-        <select
+        <FormSelect
           required
           value={form.category_id}
           onChange={e => setForm(f => ({ ...f, category_id: e.target.value }))}
-          className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm bg-[#FAFAF7] text-[#1A1A1A] outline-none focus:border-[#C8A96A] transition-colors"
         >
           <option value="">Select a category…</option>
           {categories.map(c => (
@@ -82,18 +82,17 @@ export default function VendorOnboardingForm({ categories, cities }: Props) {
               {c.name}
             </option>
           ))}
-        </select>
+        </FormSelect>
       </div>
 
       <div>
         <label className="block text-sm font-semibold text-[#1A1A1A] mb-1.5">
           Where are you based?
         </label>
-        <select
+        <FormSelect
           required
           value={form.city_id}
           onChange={e => setForm(f => ({ ...f, city_id: e.target.value }))}
-          className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm bg-[#FAFAF7] text-[#1A1A1A] outline-none focus:border-[#C8A96A] transition-colors"
         >
           <option value="">Select a city…</option>
           {cities.map(c => (
@@ -101,7 +100,7 @@ export default function VendorOnboardingForm({ categories, cities }: Props) {
               {c.name}
             </option>
           ))}
-        </select>
+        </FormSelect>
       </div>
 
       {errorMsg && (

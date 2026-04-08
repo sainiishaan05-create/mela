@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useCallback } from 'react'
 import { createClient } from '@supabase/supabase-js'
+import FormSelect from '@/components/ui/FormSelect'
 
 // ─── Constants ────────────────────────────────────────────────────────────────
 
@@ -287,7 +288,7 @@ export default function OutreachPage() {
     'w-full rounded-lg border border-[#E5E5E0] bg-white px-3 py-2 text-sm text-[#1A1A1A] placeholder-[#ADADAD] focus:border-[#C8A96A] focus:outline-none focus:ring-1 focus:ring-[#C8A96A] transition-colors'
 
   const selectClass =
-    'w-full rounded-lg border border-[#E5E5E0] bg-white px-3 py-2 text-sm text-[#1A1A1A] focus:border-[#C8A96A] focus:outline-none focus:ring-1 focus:ring-[#C8A96A] transition-colors'
+    'w-full min-h-[48px] appearance-none rounded-lg border border-[#E5E5E0] bg-white pl-3 pr-10 py-2 text-sm text-[#1A1A1A] bg-no-repeat bg-[right_12px_center] bg-[length:14px] focus:border-[#C8A96A] focus:outline-none focus:ring-1 focus:ring-[#C8A96A] transition-colors'
 
   const platformContactLabel: Record<Platform, string> = {
     instagram: 'Instagram Handle',
@@ -342,17 +343,17 @@ export default function OutreachPage() {
             <label className="text-xs font-semibold uppercase tracking-wide text-[#6B6B6B]">
               Platform
             </label>
-            <select
+            <FormSelect
               value={platform}
               onChange={(e) => setPlatform(e.target.value as Platform)}
-              className={selectClass}
+              variant="white"
             >
               {PLATFORMS.map((p) => (
                 <option key={p.value} value={p.value}>
                   {p.label}
                 </option>
               ))}
-            </select>
+            </FormSelect>
           </div>
 
           {/* Contact handle / number / email */}
@@ -374,17 +375,17 @@ export default function OutreachPage() {
             <label className="text-xs font-semibold uppercase tracking-wide text-[#6B6B6B]">
               Category
             </label>
-            <select
+            <FormSelect
               value={category}
               onChange={(e) => setCategory(e.target.value)}
-              className={selectClass}
+              variant="white"
             >
               {CATEGORIES.map((c) => (
                 <option key={c.value} value={c.value}>
                   {c.label}
                 </option>
               ))}
-            </select>
+            </FormSelect>
           </div>
 
           {/* City */}
@@ -392,17 +393,17 @@ export default function OutreachPage() {
             <label className="text-xs font-semibold uppercase tracking-wide text-[#6B6B6B]">
               City
             </label>
-            <select
+            <FormSelect
               value={city}
               onChange={(e) => setCity(e.target.value)}
-              className={selectClass}
+              variant="white"
             >
               {CITIES.map((c) => (
                 <option key={c.value} value={c.value}>
                   {c.label}
                 </option>
               ))}
-            </select>
+            </FormSelect>
           </div>
 
           {/* Generate button (vertically centered in its cell) */}

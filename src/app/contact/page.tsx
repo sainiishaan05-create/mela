@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import { Mail, Clock, Send, CheckCircle2, Loader2, MapPin } from 'lucide-react'
 import Link from 'next/link'
+import FormSelect from '@/components/ui/FormSelect'
 
 const SUBJECTS = [
   'General Inquiry',
@@ -154,13 +155,13 @@ export default function ContactPage() {
 
                 <div>
                   <label className="block text-sm font-medium mb-1.5" style={{ color: 'var(--color-text)' }}>Subject</label>
-                  <select
+                  <FormSelect
                     required value={form.subject} onChange={e => setForm(f => ({ ...f, subject: e.target.value }))}
-                    className={inputCls} style={{ borderColor: 'var(--color-taupe)' }}
+                    variant="white"
                   >
                     <option value="">Select a topic</option>
                     {SUBJECTS.map(s => <option key={s} value={s}>{s}</option>)}
-                  </select>
+                  </FormSelect>
                 </div>
 
                 <div>

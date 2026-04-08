@@ -4,6 +4,7 @@ import { useState, useRef } from 'react'
 import { createClient } from '@/lib/supabase/client'
 import { Upload, X, Loader2, ImageIcon } from 'lucide-react'
 import type { Vendor, Category, City } from '@/types'
+import FormSelect from '@/components/ui/FormSelect'
 
 interface Props {
   vendor: Vendor
@@ -107,19 +108,27 @@ export default function EditVendorForm({ vendor, categories, cities }: Props) {
       {/* Category */}
       <div>
         <label className="block text-sm font-medium text-gray-700 mb-1">Category</label>
-        <select value={form.category_id} onChange={e => setForm(f => ({ ...f, category_id: e.target.value }))} className={inputClass}>
+        <FormSelect
+          value={form.category_id}
+          onChange={e => setForm(f => ({ ...f, category_id: e.target.value }))}
+          variant="white"
+        >
           <option value="">Select a category</option>
           {categories.map(c => <option key={c.id} value={c.id}>{c.icon} {c.name}</option>)}
-        </select>
+        </FormSelect>
       </div>
 
       {/* City */}
       <div>
         <label className="block text-sm font-medium text-gray-700 mb-1">City</label>
-        <select value={form.city_id} onChange={e => setForm(f => ({ ...f, city_id: e.target.value }))} className={inputClass}>
+        <FormSelect
+          value={form.city_id}
+          onChange={e => setForm(f => ({ ...f, city_id: e.target.value }))}
+          variant="white"
+        >
           <option value="">Select a city</option>
           {cities.map(c => <option key={c.id} value={c.id}>{c.name}</option>)}
-        </select>
+        </FormSelect>
       </div>
 
       {/* Portfolio Images */}

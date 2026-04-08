@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import FormSelect from '@/components/ui/FormSelect'
 
 interface LeadFormProps {
   vendorId: string
@@ -76,10 +77,10 @@ export default function LeadForm({ vendorId, vendorName }: LeadFormProps) {
         onChange={e => setForm(f => ({ ...f, event_date: e.target.value }))}
         className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-[#C8A96A]"
       />
-      <select
+      <FormSelect
         value={form.event_type}
         onChange={e => setForm(f => ({ ...f, event_type: e.target.value }))}
-        className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-[#C8A96A]"
+        variant="white"
       >
         <option>Wedding</option>
         <option>Engagement</option>
@@ -87,7 +88,7 @@ export default function LeadForm({ vendorId, vendorName }: LeadFormProps) {
         <option>Sangeet</option>
         <option>Reception</option>
         <option>Other</option>
-      </select>
+      </FormSelect>
       <textarea
         required
         placeholder="Tell them about your event..."

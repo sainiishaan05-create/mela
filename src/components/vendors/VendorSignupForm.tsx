@@ -5,6 +5,7 @@ import { createClient } from '@/lib/supabase/client'
 import { Loader2, CheckCircle2, ArrowRight } from 'lucide-react'
 import type { Category, City } from '@/types'
 import GoogleSignInButton from '@/components/auth/GoogleSignInButton'
+import FormSelect from '@/components/ui/FormSelect'
 
 interface Props {
   categories: Category[]
@@ -224,28 +225,28 @@ export default function VendorSignupForm({ categories, cities }: Props) {
 
       <div>
         <label className="block text-sm font-medium text-gray-700 mb-1">Category</label>
-        <select
+        <FormSelect
           required
           value={form.category_id}
           onChange={e => setForm(f => ({ ...f, category_id: e.target.value }))}
-          className="w-full border border-gray-200 rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:border-[#C8A96A] transition-colors"
+          variant="white"
         >
           <option value="">What do you do?</option>
           {categories.map(c => <option key={c.id} value={c.id}>{c.icon} {c.name}</option>)}
-        </select>
+        </FormSelect>
       </div>
 
       <div>
         <label className="block text-sm font-medium text-gray-700 mb-1">City</label>
-        <select
+        <FormSelect
           required
           value={form.city_id}
           onChange={e => setForm(f => ({ ...f, city_id: e.target.value }))}
-          className="w-full border border-gray-200 rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:border-[#C8A96A] transition-colors"
+          variant="white"
         >
           <option value="">Where are you based?</option>
           {cities.map(c => <option key={c.id} value={c.id}>{c.name}</option>)}
-        </select>
+        </FormSelect>
       </div>
 
       {errorMsg && (
