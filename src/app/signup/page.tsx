@@ -4,6 +4,7 @@ import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import GoogleSignInButton from '@/components/auth/GoogleSignInButton'
+import AuthSessionBanner from '@/components/auth/AuthSessionBanner'
 
 export default function SignupPage() {
   const router = useRouter()
@@ -84,6 +85,8 @@ export default function SignupPage() {
             One click to get started — no password needed
           </p>
         </div>
+
+        <AuthSessionBanner continueHref="/dashboard" continueLabel="Continue" />
 
         {/* Google sign-in */}
         <GoogleSignInButton />

@@ -6,6 +6,7 @@ import { useSearchParams } from 'next/navigation'
 import { createClient } from '@/lib/supabase/client'
 import { Suspense } from 'react'
 import GoogleSignInButton from '@/components/auth/GoogleSignInButton'
+import AuthSessionBanner from '@/components/auth/AuthSessionBanner'
 
 function LoginForm() {
   const [email, setEmail] = useState('')
@@ -66,6 +67,8 @@ function LoginForm() {
             Sign-in failed. Please try again.
           </div>
         )}
+
+        <AuthSessionBanner continueHref={next} continueLabel="Continue" />
 
         {/* Google sign-in */}
         <GoogleSignInButton next={searchParams.get('next') ?? undefined} />

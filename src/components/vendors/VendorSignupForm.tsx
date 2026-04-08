@@ -1,9 +1,10 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { createClient } from '@/lib/supabase/client'
 import { Loader2, CheckCircle2, ArrowRight } from 'lucide-react'
 import type { Category, City } from '@/types'
+import GoogleSignInButton from '@/components/auth/GoogleSignInButton'
 
 interface Props {
   categories: Category[]
@@ -13,9 +14,26 @@ interface Props {
 export default function VendorSignupForm({ categories, cities }: Props) {
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle')
   const [errorMsg, setErrorMsg] = useState('')
+  const [authedEmail, setAuthedEmail] = useState<string | null>(null)
+  const [authChecked, setAuthChecked] = useState(false)
   const [form, setForm] = useState({
     name: '', email: '', password: '', confirmPassword: '', category_id: '', city_id: '',
   })
+
+  // Detect an existing session so we can shortcut to /onboarding/vendor
+  useEffect(() => {
+    const supabase = createClient()
+    supabase.auth.getUser().then(({ data }) => {
+      setAuthedEmail(data.user?.email ?? null)
+      setAuthChecked(true)
+    })
+  }, [])
+
+  async function handleSwitchAccount() {
+    const supabase = createClient()
+    await supabase.auth.signOut()
+    setAuthedEmail(null)
+  }
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
@@ -86,8 +104,43 @@ export default function VendorSignupForm({ categories, cities }: Props) {
     )
   }
 
+  // If the visitor is already signed in, shortcut them straight to onboarding
+  // (prevents the "email already exists" bug from filling the form twice).
+  if (authChecked && authedEmail) {
+    return (
+      <div className="space-y-4">
+        <div className="p-5 rounded-2xl border border-[#C8A96A]/25 bg-[#FFFDF7]">
+          <p className="text-[10px] font-bold uppercase tracking-[0.22em] text-[#C8A96A] mb-1">
+            Signed in
+          </p>
+          <p className="text-sm text-gray-700 mb-4">
+            as <span className="font-semibold text-[#1A1A1A]">{authedEmail}</span>
+          </p>
+          <a
+            href="/onboarding/vendor"
+            className="w-full bg-[#C8A96A] text-white font-semibold py-3.5 rounded-xl hover:bg-[#B8945A] transition-colors text-base flex items-center justify-center gap-2"
+          >
+            Complete your vendor listing <ArrowRight className="w-4 h-4" />
+          </a>
+          <button
+            type="button"
+            onClick={handleSwitchAccount}
+            className="mt-3 w-full text-xs text-gray-500 hover:text-gray-800 transition-colors"
+          >
+            Not you? Use a different account
+          </button>
+        </div>
+        <div className="flex items-center justify-center gap-4 text-xs text-gray-400 pt-1">
+          <span className="flex items-center gap-1"><CheckCircle2 className="w-3 h-3 text-emerald-400" /> No credit card</span>
+          <span className="flex items-center gap-1"><CheckCircle2 className="w-3 h-3 text-emerald-400" /> Live in 30 seconds</span>
+          <span className="flex items-center gap-1"><CheckCircle2 className="w-3 h-3 text-emerald-400" /> Cancel anytime</span>
+        </div>
+      </div>
+    )
+  }
+
   return (
-    <form onSubmit={handleSubmit} className="space-y-4">
+    <div className="space-y-4">
       {/* Step indicator */}
       <div className="flex items-center gap-3 mb-2">
         <div className="flex items-center gap-1.5">
@@ -100,6 +153,21 @@ export default function VendorSignupForm({ categories, cities }: Props) {
           <span className="text-xs font-medium text-gray-400">Complete profile</span>
         </div>
       </div>
+
+      {/* Fast path — Google (takes vendors straight to a lightweight onboarding page) */}
+      <GoogleSignInButton
+        next="/onboarding/vendor"
+        label="Continue with Google"
+      />
+
+      {/* Divider */}
+      <div className="flex items-center gap-3 py-1">
+        <div className="flex-1 h-px bg-gray-200" />
+        <span className="text-[11px] text-gray-400 font-semibold uppercase tracking-wider">or use email</span>
+        <div className="flex-1 h-px bg-gray-200" />
+      </div>
+
+      <form onSubmit={handleSubmit} className="space-y-4">
 
       <div>
         <label className="block text-sm font-medium text-gray-700 mb-1">Business Name</label>
@@ -196,11 +264,12 @@ export default function VendorSignupForm({ categories, cities }: Props) {
         )}
       </button>
 
-      <div className="flex items-center justify-center gap-4 text-xs text-gray-400 pt-1">
-        <span className="flex items-center gap-1"><CheckCircle2 className="w-3 h-3 text-emerald-400" /> No credit card</span>
-        <span className="flex items-center gap-1"><CheckCircle2 className="w-3 h-3 text-emerald-400" /> Live in 30 seconds</span>
-        <span className="flex items-center gap-1"><CheckCircle2 className="w-3 h-3 text-emerald-400" /> Cancel anytime</span>
-      </div>
-    </form>
+        <div className="flex items-center justify-center gap-4 text-xs text-gray-400 pt-1">
+          <span className="flex items-center gap-1"><CheckCircle2 className="w-3 h-3 text-emerald-400" /> No credit card</span>
+          <span className="flex items-center gap-1"><CheckCircle2 className="w-3 h-3 text-emerald-400" /> Live in 30 seconds</span>
+          <span className="flex items-center gap-1"><CheckCircle2 className="w-3 h-3 text-emerald-400" /> Cancel anytime</span>
+        </div>
+      </form>
+    </div>
   )
 }
