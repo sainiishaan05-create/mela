@@ -32,9 +32,9 @@ const PLAN_BASE = [
     name: 'Founding Member',
     price: '$49',
     period: '/month',
-    description: 'First 90 days completely free',
+    description: 'Try it free for 90 days, then $49/mo — cancel anytime',
     primary: true,
-    highlight: '90 days free, no credit card',
+    highlight: '90-day free trial · no card required',
     features: [
       'Everything in Free',
       'Priority placement in search',
@@ -94,38 +94,55 @@ export default async function PricingPage() {
   return (
     <div className="bg-[#FAFAF7] min-h-screen">
 
-      {/* ── Hero — Mughal Arch identity ── */}
-      <section className="bg-luxury-dark hero-mughal-arch text-white relative">
-        <div className="relative max-w-4xl mx-auto px-4 sm:px-6 py-20 text-center z-10">
-          <p className="section-label mb-5 justify-center">Pricing</p>
-          <h1 className="font-[family-name:var(--font-playfair)] text-3xl sm:text-5xl md:text-6xl font-bold mb-5">
-            Simple, Honest Pricing
-          </h1>
-          <p className="text-gray-400 text-lg max-w-xl mx-auto mb-8">
-            We only make money when you succeed. Start free for 90 days, no credit card, no commitment.
-          </p>
-          {spotsLeft > 0 && (
-            <div className="inline-flex items-center gap-2.5 text-sm px-5 py-2.5 rounded-full"
-              style={{
-                background: 'rgba(12, 10, 8, 0.85)',
-                border: '1px solid rgba(200, 169, 106, 0.4)',
-                backdropFilter: 'blur(8px)',
-              }}>
-              <span className="relative flex h-2 w-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#C8A96A] opacity-75" />
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-[#C8A96A]" />
-              </span>
-              <span className="text-gray-300">
-                Only <span className="text-[#C8A96A] font-bold">{spotsLeft} founding spots</span> remaining at $49/mo
-              </span>
+      {/* ── Hero — left-aligned numeric receipt look ── */}
+      <section className="bg-luxury-dark hero-mughal-arch text-white relative overflow-hidden">
+        <div className="relative max-w-6xl mx-auto px-4 sm:px-6 py-20 lg:py-28 z-10">
+          <div className="grid lg:grid-cols-[auto_1fr] gap-10 lg:gap-16 items-end">
+            {/* Big 49 number — the hero is the price */}
+            <div className="flex items-start">
+              <span className="text-[#C8A96A] text-3xl font-bold mt-3 mr-1">$</span>
+              <span className="font-[family-name:var(--font-playfair)] text-[120px] sm:text-[160px] lg:text-[200px] leading-none font-bold text-white">49</span>
+              <div className="ml-3 mt-6">
+                <p className="text-xs font-bold uppercase tracking-[0.2em] text-[#C8A96A] mb-1">/month</p>
+                <p className="text-xs text-gray-500">after 90 days free</p>
+              </div>
             </div>
-          )}
+            <div>
+              <p className="text-xs font-bold uppercase tracking-[0.22em] text-[#C8A96A] mb-4">Founding Member Rate</p>
+              <h1 className="font-[family-name:var(--font-playfair)] text-3xl sm:text-4xl lg:text-5xl font-bold mb-5 leading-[1.08]">
+                Fifty vendors. One price.<br />
+                <span className="italic text-gray-300">Then it doubles.</span>
+              </h1>
+              <p className="text-gray-400 text-base sm:text-lg max-w-lg mb-6">
+                Every early vendor has locked in $49/mo forever. Once spot 50 is claimed, the rate becomes $99. Free 90-day trial — no card required, cancel anytime.
+              </p>
+              {spotsLeft > 0 && (
+                <div className="inline-flex items-center gap-2.5 text-sm px-5 py-2.5 rounded-full"
+                  style={{
+                    background: 'rgba(12, 10, 8, 0.85)',
+                    border: '1px solid rgba(200, 169, 106, 0.4)',
+                    backdropFilter: 'blur(8px)',
+                  }}>
+                  <span className="relative flex h-2 w-2">
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#C8A96A] opacity-75" />
+                    <span className="relative inline-flex rounded-full h-2 w-2 bg-[#C8A96A]" />
+                  </span>
+                  <span className="text-gray-300">
+                    <span className="text-[#C8A96A] font-bold">{spotsLeft} spots</span> remaining
+                  </span>
+                </div>
+              )}
+            </div>
+          </div>
         </div>
       </section>
 
       {/* ── Plans ── */}
-      <section className="max-w-6xl mx-auto px-4 sm:px-6 py-16">
-        <div className="spec-divider mb-12">Pricing Specification</div>
+      <section className="max-w-6xl mx-auto px-4 sm:px-6 py-16 pt-20">
+        <div className="text-center mb-12">
+          <p className="text-xs font-bold uppercase tracking-[0.22em] text-[#C8A96A] mb-2">Choose your tier</p>
+          <div className="inline-block h-px w-12 bg-[#C8A96A]/40" />
+        </div>
         <div className="grid md:grid-cols-3 gap-6 items-start">
           {plans.map((plan, idx) => (
             <div key={plan.name}
@@ -232,8 +249,11 @@ export default async function PricingPage() {
 
       {/* ── FAQ ── */}
       <section className="max-w-3xl mx-auto px-4 sm:px-6 pb-20">
-        <div className="spec-divider mb-6">Frequently Asked</div>
-        <h2 className="font-[family-name:var(--font-playfair)] text-3xl font-bold text-center mb-10">Common Questions</h2>
+        <div className="flex items-center gap-4 mb-10">
+          <div className="h-px flex-1 bg-gray-200" />
+          <span className="text-xs font-bold uppercase tracking-[0.2em] text-gray-500">Questions answered</span>
+          <div className="h-px flex-1 bg-gray-200" />
+        </div>
         <div className="space-y-3">
           {FAQS.map(({ q, a }, idx) => (
             <div key={q} className="bg-white rounded-2xl border border-gray-100 shadow-premium p-6 hover:shadow-premium-hover hover:border-gray-200 transition-all duration-200">

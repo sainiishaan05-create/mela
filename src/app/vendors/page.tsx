@@ -181,8 +181,23 @@ export default async function VendorsPage({ searchParams }: Props) {
   return (
     <div className="min-h-screen bg-[#FAFAF7]">
 
-      {/* ── Sticky category + city pill bar ── */}
-      <div className="glass sticky top-16 z-30 border-b border-white/60">
+      {/* ── Sticky filter bar — MOBILE: compact Filters button only ── */}
+      <div className="glass sticky top-16 z-30 border-b border-white/60 lg:hidden">
+        <div className="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
+          <MobileFilterButton
+            categories={(categories as Category[] ?? []).map(c => ({ ...c, icon: c.icon ?? '' }))}
+            cities={cities as City[] ?? []}
+            activeCategory={category}
+            activeCity={city}
+            activeSort={sort}
+            search={search}
+          />
+          <span className="text-xs text-gray-500 font-medium">{totalVendors} vendors</span>
+        </div>
+      </div>
+
+      {/* ── Sticky filter bar — DESKTOP: full category + city pills ── */}
+      <div className="glass sticky top-16 z-30 border-b border-white/60 hidden lg:block">
         <div className="max-w-7xl mx-auto px-4 py-3 space-y-2">
 
           {/* Directory label */}
@@ -190,7 +205,7 @@ export default async function VendorsPage({ searchParams }: Props) {
             <span className="directory-label">Directory</span>
           </div>
 
-          {/* Category pills — curated 12, scrollable */}
+          {/* Category pills */}
           <div className="flex gap-2 overflow-x-auto pb-0.5 scrollbar-hide">
             <Link
               href={city ? `/vendors?city=${city}` : '/vendors'}
@@ -219,47 +234,6 @@ export default async function VendorsPage({ searchParams }: Props) {
                   {cat.name}
                 </Link>
               ))}
-          </div>
-
-          {/* City pills — visible on mobile (sidebar handles desktop) */}
-          <div className="flex gap-2 overflow-x-auto pb-0.5 scrollbar-hide lg:hidden">
-            <Link
-              href={category ? `/vendors?category=${category}` : '/vendors'}
-              className={`shrink-0 flex items-center gap-1 px-3 py-1 rounded-full text-xs font-semibold transition-all duration-200 ${
-                !city
-                  ? 'bg-[#C8A96A]/15 text-[#C8A96A] border border-[#C8A96A]/30'
-                  : 'bg-white/70 text-gray-500 border border-gray-200/80 hover:border-[#C8A96A]/40 hover:text-[#C8A96A]'
-              }`}
-            >
-              <MapPin className="w-3 h-3" />
-              All Cities
-            </Link>
-            {(cities as City[] ?? []).map((c) => (
-              <Link
-                key={c.slug}
-                href={`/vendors?city=${c.slug}${category ? `&category=${category}` : ''}`}
-                className={`shrink-0 flex items-center gap-1 px-3 py-1 rounded-full text-xs font-semibold transition-all duration-200 ${
-                  city === c.slug
-                    ? 'bg-[#C8A96A]/15 text-[#C8A96A] border border-[#C8A96A]/30'
-                    : 'bg-white/70 text-gray-500 border border-gray-200/80 hover:border-[#C8A96A]/40 hover:text-[#C8A96A]'
-                }`}
-              >
-                {c.name}
-              </Link>
-            ))}
-          </div>
-
-          {/* Mobile filter button */}
-          <div className="flex items-center justify-between lg:hidden pt-1 pb-1">
-            <MobileFilterButton
-              categories={(categories as Category[] ?? []).map(c => ({ ...c, icon: c.icon ?? '' }))}
-              cities={cities as City[] ?? []}
-              activeCategory={category}
-              activeCity={city}
-              activeSort={sort}
-              search={search}
-            />
-            <span className="text-xs text-gray-400">{totalVendors} vendors</span>
           </div>
         </div>
       </div>

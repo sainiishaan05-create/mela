@@ -37,16 +37,26 @@ export default function ContactPage() {
   return (
     <div style={{ background: 'var(--color-bg)' }}>
 
-      {/* Hero — Mehndi Vines identity */}
-      <section className="bg-luxury-dark hero-mehndi-vines relative py-20 px-4 sm:px-6">
-        <div className="relative z-10 max-w-3xl mx-auto text-center">
-          <p className="section-label mb-5 justify-center">Contact</p>
-          <h1 className="font-[family-name:var(--font-playfair)] text-3xl sm:text-5xl font-bold text-white mb-5">
-            Get in Touch
-          </h1>
-          <p className="text-lg max-w-xl mx-auto" style={{ color: 'rgba(255,255,255,0.55)' }}>
-            Questions? Partnerships? Vendor support? Reach us directly.
-          </p>
+      {/* Hero — left-aligned with envelope affordance, no section-label template */}
+      <section className="bg-luxury-dark hero-mehndi-vines relative py-16 sm:py-24 px-4 sm:px-6 overflow-hidden">
+        <div className="relative z-10 max-w-5xl mx-auto">
+          <div className="max-w-2xl">
+            <div className="flex items-center gap-3 mb-6">
+              <div className="w-10 h-10 rounded-full flex items-center justify-center" style={{ background: 'rgba(200,169,106,0.12)', border: '1px solid rgba(200,169,106,0.25)' }}>
+                <Mail className="w-4 h-4" style={{ color: 'var(--color-gold)' }} />
+              </div>
+              <a href="mailto:hello@melaa.ca" className="text-xs font-bold uppercase tracking-[0.22em] hover:underline" style={{ color: 'var(--color-gold)' }}>
+                hello@melaa.ca
+              </a>
+            </div>
+            <h1 className="font-[family-name:var(--font-playfair)] text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-5 leading-[1.05]">
+              Reply within<br/>
+              <span className="italic gradient-text">two hours.</span>
+            </h1>
+            <p className="text-base sm:text-lg max-w-xl" style={{ color: 'rgba(255,255,255,0.55)' }}>
+              No chatbots. No ticket queues. A human reads everything that comes into this inbox.
+            </p>
+          </div>
         </div>
       </section>
 
