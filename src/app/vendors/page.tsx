@@ -17,6 +17,7 @@ const PAGE_SIZE = 48
 const FEATURED_CATEGORY_SLUGS = [
   'photographers',
   'videographers',
+  'content-creators',
   'makeup-artists',
   'mehndi-artists',
   'catering',
@@ -26,7 +27,6 @@ const FEATURED_CATEGORY_SLUGS = [
   'bridal-wear',
   'jewellery',
   'baraat-entertainment',
-  'priest-services',
 ]
 
 interface Props {

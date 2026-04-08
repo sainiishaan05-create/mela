@@ -9,6 +9,7 @@ import FormSelect from '@/components/ui/FormSelect'
 const CATEGORIES = [
   { value: 'photographers', label: 'Photographers' },
   { value: 'videographers', label: 'Videographers' },
+  { value: 'content-creators', label: 'Content Creators' },
   { value: 'decorators', label: 'Decorators' },
   { value: 'catering', label: 'Catering' },
   { value: 'djs-entertainment', label: 'DJs & Entertainment' },

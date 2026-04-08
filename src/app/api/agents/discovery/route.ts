@@ -13,6 +13,7 @@ export const maxDuration = 300
 const CAT: Record<string, string> = {
   photographers:     '405a6dfa-e380-43ec-bc7a-a964f87dda43',
   videographers:     'f72a47f0-e91d-4a02-8e8d-b8368d12e97a',
+  contentcreators:   'd141f8d4-b76d-4bf4-aaa9-750d6ee47b4c',
   decorators:        'ec5ee74d-5d79-4b29-b9eb-d9b16d3f1a39',
   catering:          'adec2576-e00c-4913-8669-c9ee8e8e300a',
   djs:               '1b14c2a1-4487-4125-bcf0-7eaf276decde',
@@ -74,9 +75,9 @@ const CITY: Record<string, string> = {
 
 const ALL_CITY_KEYS = Object.keys(CITY)
 
-// 6 agent teams — each covers a slice of the 25 categories
+// 6 agent teams — each covers a slice of the 25+ categories
 const AGENT_ASSIGNMENTS = [
-  { agentName: 'Photography-Video',   catKeys: ['photographers', 'videographers'] },
+  { agentName: 'Photography-Video',   catKeys: ['photographers', 'videographers', 'contentcreators'] },
   { agentName: 'Food-Entertainment',  catKeys: ['catering', 'djs', 'sweets', 'cakes'] },
   { agentName: 'Beauty-Style',        catKeys: ['makeup', 'mehndi', 'bridalwear', 'invitations'] },
   { agentName: 'Events-Ceremony',     catKeys: ['decorators', 'planners', 'mandap', 'priest', 'venues'] },
@@ -87,6 +88,7 @@ const AGENT_ASSIGNMENTS = [
 const CAT_LABELS: Record<string, string> = {
   photographers:  'South Asian Wedding Photography',
   videographers:  'South Asian Wedding Videography',
+  contentcreators:'South Asian Wedding Content Creators (Reels, Social Media, Same-Day Edits)',
   catering:       'South Asian Wedding Catering & Banquet',
   djs:            'South Asian Wedding DJ & Entertainment',
   makeup:         'Indian Bridal Makeup & Hair Artists',

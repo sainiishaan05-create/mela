@@ -21,7 +21,7 @@ export default async function AboutPage() {
   const [{ count: vendorCount }, { count: cityCount }, { count: categoryCount }] = await Promise.all([
     supabase.from('vendors').select('*', { count: 'exact', head: true }).eq('is_active', true),
     supabase.from('cities').select('*', { count: 'exact', head: true }),
-    supabase.from('categories').select('*', { count: 'exact', head: true }).eq('is_active', true),
+    supabase.from('categories').select('*', { count: 'exact', head: true }),
   ])
 
   return (

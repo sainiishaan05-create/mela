@@ -5,8 +5,9 @@ import { useRouter } from 'next/navigation'
 import { ChevronDown, ArrowRight, Sparkles, MapPin, Search } from 'lucide-react'
 
 const CATEGORIES = [
-  { label: 'Photographers',      slug: 'photographers',    icon: '📸' },
-  { label: 'Videographers',      slug: 'videographers',     icon: '🎬' },
+  { label: 'Photographers',      slug: 'photographers',     icon: '📸' },
+  { label: 'Videographers',      slug: 'videographers',     icon: '🎥' },
+  { label: 'Content Creators',   slug: 'content-creators',  icon: '🎬' },
   { label: 'Makeup Artists',     slug: 'makeup-artists',    icon: '💄' },
   { label: 'Mehndi Artists',     slug: 'mehndi-artists',    icon: '🌿' },
   { label: 'Catering',           slug: 'catering',          icon: '🍛' },
@@ -16,7 +17,6 @@ const CATEGORIES = [
   { label: 'Priest Services',    slug: 'priest-services',   icon: '🕉️' },
   { label: 'Jewellery',          slug: 'jewellery',         icon: '💍' },
   { label: 'Bridal Wear',        slug: 'bridal-wear',       icon: '👗' },
-  { label: 'Sweets & Mithai',    slug: 'sweets-mithai',     icon: '🍮' },
 ]
 
 const CITIES = [

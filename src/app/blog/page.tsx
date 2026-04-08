@@ -12,6 +12,7 @@ export const metadata: Metadata = {
 const categoryLabels: Record<string, string> = {
   photographers: 'Photography',
   videographers: 'Videography',
+  'content-creators': 'Content Creation',
   decorators: 'Decoration',
   catering: 'Catering',
   'djs-entertainment': 'DJ & Entertainment',
@@ -27,6 +28,7 @@ const categoryLabels: Record<string, string> = {
 const categoryColors: Record<string, string> = {
   photographers: 'bg-rose-50 text-rose-600',
   videographers: 'bg-violet-50 text-violet-600',
+  'content-creators': 'bg-indigo-50 text-indigo-600',
   decorators: 'bg-pink-50 text-pink-600',
   catering: 'bg-amber-50 text-amber-700',
   'djs-entertainment': 'bg-blue-50 text-blue-600',

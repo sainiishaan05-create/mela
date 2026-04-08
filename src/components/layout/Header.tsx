@@ -19,6 +19,7 @@ const NAV_SUGGESTIONS = [
 const FEATURED_CATEGORIES = [
   { label: 'Photographers', href: '/category/photographers', icon: '📸' },
   { label: 'Videographers', href: '/category/videographers', icon: '🎥' },
+  { label: 'Content Creators', href: '/category/content-creators', icon: '🎬' },
   { label: 'Makeup Artists', href: '/category/makeup-artists', icon: '💄' },
   { label: 'Mehndi Artists', href: '/category/mehndi-artists', icon: '🌿' },
   { label: 'Catering', href: '/category/catering', icon: '🍽️' },
@@ -26,7 +27,6 @@ const FEATURED_CATEGORIES = [
   { label: 'Decorators', href: '/category/decorators', icon: '🌸' },
   { label: 'DJs & Entertainment', href: '/category/djs-entertainment', icon: '🎵' },
   { label: 'Bridal Wear', href: '/category/bridal-wear', icon: '👗' },
-  { label: 'Jewellery', href: '/category/jewellery', icon: '💎' },
 ]
 
 /* Top cities shown in the dropdown */
