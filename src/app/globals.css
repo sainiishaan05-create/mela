@@ -129,9 +129,23 @@ a { transition: color 0.15s ease; }
 
 /* ── Animation Utilities ────────────────────── */
 .animate-fade-up    { animation: fadeUp 0.7s var(--ease-expo) both; }
-.animate-fade-in    { animation: fadeIn 0.5s var(--ease-apple) both; }
+.animate-fade-in    { animation: fadeIn 0.3s var(--ease-apple) both; }
 .animate-scale-in   { animation: scaleIn 0.45s var(--ease-bounce) both; }
 .animate-slide-down { animation: slideDown 0.3s var(--ease-apple) both; }
+.animate-sheet-up {
+  animation: sheetUp 0.32s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+.animate-sheet-scale {
+  animation: sheetScale 0.28s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+@keyframes sheetUp {
+  from { transform: translate3d(0, 100%, 0); }
+  to { transform: translate3d(0, 0, 0); }
+}
+@keyframes sheetScale {
+  from { transform: translate(-50%, -50%) scale(0.96); opacity: 0; }
+  to { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+}
 .animate-float      { animation: float 4s ease-in-out infinite; }
 .animate-pulse-soft { animation: pulse-soft 2.5s ease-in-out infinite; }
 .animate-spin-slow  { animation: spin-slow 10s linear infinite; }
