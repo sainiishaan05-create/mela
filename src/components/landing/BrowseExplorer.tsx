@@ -5,18 +5,18 @@ import { useRouter } from 'next/navigation'
 import { ChevronDown, ArrowRight, Sparkles, MapPin, Search } from 'lucide-react'
 
 const CATEGORIES = [
-  { label: 'Photographers',      slug: 'photographers',     icon: '📸' },
-  { label: 'Videographers',      slug: 'videographers',     icon: '🎥' },
-  { label: 'Content Creators',   slug: 'content-creators',  icon: '🎬' },
-  { label: 'Makeup Artists',     slug: 'makeup-artists',    icon: '💄' },
-  { label: 'Mehndi Artists',     slug: 'mehndi-artists',    icon: '🌿' },
-  { label: 'Catering',           slug: 'catering',          icon: '🍛' },
-  { label: 'Decorators',         slug: 'decorators',        icon: '💐' },
-  { label: 'DJs & Entertainment',slug: 'djs-entertainment', icon: '🎶' },
-  { label: 'Wedding Venues',     slug: 'wedding-venues',    icon: '🏛️' },
-  { label: 'Priest Services',    slug: 'priest-services',   icon: '🕉️' },
-  { label: 'Jewellery',          slug: 'jewellery',         icon: '💍' },
-  { label: 'Bridal Wear',        slug: 'bridal-wear',       icon: '👗' },
+  { label: 'Photographers',         slug: 'photographers',         icon: '📸' },
+  { label: 'Videographers',         slug: 'videographers',         icon: '🎥' },
+  { label: 'Content Creators',      slug: 'content-creators',      icon: '🎬' },
+  { label: 'Makeup Artists',        slug: 'makeup-artists',        icon: '💄' },
+  { label: 'Mehndi Artists',        slug: 'mehndi-artists',        icon: '🌿' },
+  { label: 'Catering',              slug: 'catering',              icon: '🍛' },
+  { label: 'Favours & Live Stations', slug: 'favours-live-stations', icon: '🎁' },
+  { label: 'Decorators',            slug: 'decorators',            icon: '💐' },
+  { label: 'DJs & Entertainment',   slug: 'djs-entertainment',     icon: '🎶' },
+  { label: 'Wedding Venues',        slug: 'wedding-venues',        icon: '🏛️' },
+  { label: 'Priest Services',       slug: 'priest-services',       icon: '🕉️' },
+  { label: 'Bridal Wear',           slug: 'bridal-wear',           icon: '👗' },
 ]
 
 const CITIES = [

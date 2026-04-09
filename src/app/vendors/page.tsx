@@ -22,10 +22,10 @@ const FEATURED_CATEGORY_SLUGS = [
   'mehndi-artists',
   'catering',
   'decorators',
+  'favours-live-stations',
   'djs-entertainment',
   'wedding-venues',
   'bridal-wear',
-  'jewellery',
   'baraat-entertainment',
 ]
 

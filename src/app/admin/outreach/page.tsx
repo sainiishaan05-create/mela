@@ -12,6 +12,7 @@ const CATEGORIES = [
   { value: 'content-creators', label: 'Content Creators' },
   { value: 'decorators', label: 'Decorators' },
   { value: 'catering', label: 'Catering' },
+  { value: 'favours-live-stations', label: 'Favours & Live Stations' },
   { value: 'djs-entertainment', label: 'DJs & Entertainment' },
   { value: 'makeup-artists', label: 'Makeup Artists' },
   { value: 'mandap-rental', label: 'Mandap Rental' },
