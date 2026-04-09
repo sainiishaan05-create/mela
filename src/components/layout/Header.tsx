@@ -204,7 +204,7 @@ export default function Header() {
                         ))}
                       </div>
                       <div className="mt-3 pt-3 border-t flex items-center justify-between" style={{ borderColor: 'var(--color-taupe)' }}>
-                        <Link href="/vendors" className="text-xs font-semibold flex items-center gap-1 hover:underline" style={{ color: 'var(--color-gold-dark)' }}>
+                        <Link href="/browse/categories" className="text-xs font-semibold flex items-center gap-1 hover:underline" style={{ color: 'var(--color-gold-dark)' }}>
                           View all{categoryCount ? ` ${categoryCount}` : ''} categories
                           <ChevronRight className="w-3 h-3" />
                         </Link>
@@ -391,7 +391,7 @@ export default function Header() {
             <span>Browse All Vendors</span>
             <ChevronRight className="w-4 h-4 text-gray-400" />
           </Link>
-          <Link href="/vendors" onClick={() => setMenuOpen(false)} className="nav-link flex items-center justify-between px-4 py-3.5 text-sm font-medium">
+          <Link href="/browse/categories" onClick={() => setMenuOpen(false)} className="nav-link flex items-center justify-between px-4 py-3.5 text-sm font-medium">
             <span>Browse by Category</span>
             <ChevronRight className="w-4 h-4 text-gray-400" />
           </Link>
