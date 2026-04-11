@@ -22,25 +22,25 @@ const benefits = [
     icon: '📸',
     title: 'Vendor Spotlights',
     description:
-      'Every week we feature the best South Asian wedding photographers, decorators, caterers, and more across the GTA.',
+      'Every week we pick 3 standout vendors (photographers, decorators, caterers) and tell you why GTA families trust them.',
   },
   {
     icon: '📋',
-    title: 'Planning Guides',
+    title: 'Planning Tips',
     description:
-      'Practical tips for weddings and events, from budgeting and timelines to negotiating with vendors.',
+      'How much to budget for a Desi wedding in Brampton. When to book your mehndi artist. What to ask a caterer. Real answers, not generic advice.',
   },
   {
     icon: '🏷️',
-    title: 'Exclusive Deals',
+    title: 'Subscriber-Only Deals',
     description:
-      'Subscriber-only promotions and early access from top-rated vendors on the Melaa platform.',
+      'Vendors on Melaa sometimes run promotions for couples who found them through us. Subscribers get them first.',
   },
   {
     icon: '🌺',
-    title: 'Community Stories',
+    title: 'Real Weddings',
     description:
-      'Real wedding recaps, client features, and behind-the-scenes looks at the most beautiful South Asian celebrations.',
+      'See how other South Asian families in the GTA pulled off their weddings. Vendor picks, budgets, what they would do differently.',
   },
 ]
 
@@ -82,15 +82,15 @@ export default async function SubscribePage() {
           </div>
 
           <h1
-            className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-5 leading-tight"
+            className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-5 leading-tight"
             style={{ fontFamily: 'var(--font-playfair)' }}
           >
-            Stay Connected{' '}
-            <span className="gradient-text">with Melaa</span>
+            The GTA&apos;s only{' '}
+            <span className="gradient-text">Desi wedding</span>{' '}
+            newsletter
           </h1>
           <p className="text-lg md:text-xl text-white/60 leading-relaxed max-w-xl mx-auto">
-            The insider newsletter for South Asian wedding planning in Canada. Join {stats.vendorCountWithPlus} vendors
-            and clients already connected through Melaa.
+            Every week: new vendor spotlights, real planning tips for South Asian weddings, and deals you won&apos;t find anywhere else. Free, no spam, unsubscribe anytime.
           </p>
         </div>
       </section>

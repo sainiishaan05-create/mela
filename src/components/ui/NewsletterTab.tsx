@@ -118,17 +118,17 @@ export default function NewsletterTab() {
               className="text-lg font-bold text-[#1A1A1A] mb-1"
               style={{ fontFamily: 'var(--font-playfair)' }}
             >
-              Stay in the loop
+              Get the Desi wedding newsletter
             </h3>
             <p className="text-sm text-gray-500 leading-relaxed">
-              Vendor spotlights, planning tips, and exclusive deals. All free.
+              New vendors, planning tips, and deals every week. Free.
             </p>
           </div>
           <PanelForm />
           <div className="flex flex-col gap-1 mt-3 text-xs text-gray-400">
             <span className="flex items-center gap-1.5">
               <span style={{ color: '#C8A96A' }} className="font-bold">✓</span>
-              Join vendors & clients across the GTA
+              New vendors added weekly
             </span>
             <span className="flex items-center gap-1.5">
               <span style={{ color: '#C8A96A' }} className="font-bold">✓</span>

@@ -83,10 +83,10 @@ export default function NewsletterSignup({ variant = 'dark' }: NewsletterSignupP
             className="text-2xl md:text-3xl font-bold mb-2"
             style={{ fontFamily: 'var(--font-playfair)' }}
           >
-            Stay in the loop
+            Get the Desi wedding newsletter
           </h2>
           <p className={`text-base ${subtextClass} leading-relaxed`}>
-            Wedding tips, vendor spotlights, and exclusive deals. Delivered to your inbox.
+            New vendor spotlights, real planning tips, and deals every week. Free.
           </p>
         </div>
 
@@ -175,8 +175,8 @@ export default function NewsletterSignup({ variant = 'dark' }: NewsletterSignupP
         {/* Trust bullets */}
         <div className={`flex flex-wrap gap-x-5 gap-y-1 text-sm ${subtextClass} mt-4`}>
           {[
-            { icon: '✓', text: 'Join vendors & clients across the GTA' },
-            { icon: '✓', text: 'Weekly vendor spotlights' },
+            { icon: '✓', text: 'New vendors added weekly' },
+            { icon: '✓', text: 'Planning tips for Desi weddings' },
             { icon: '✓', text: 'Unsubscribe anytime' },
           ].map(({ icon, text }) => (
             <span key={text} className="flex items-center gap-1.5">
