@@ -13,6 +13,7 @@ import {
   MapPin, Globe, BadgeCheck,
   ArrowLeft, ChevronRight, CheckCircle2, ArrowUpRight, Clock,
   Flower2, CalendarDays, MessageCircle, Sparkles as SparklesIcon, Camera, Star,
+  Send, Image, Users, Shield, Heart,
 } from 'lucide-react'
 
 interface Props { params: Promise<{ slug: string }> }
@@ -34,14 +35,48 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   }
 }
 
-const WHAT_TO_EXPECT: { icon: LucideIcon; text: string }[] = [
-  { icon: Flower2, text: 'Knows South Asian wedding traditions' },
-  { icon: MapPin, text: 'Based in the GTA, works local events' },
-  { icon: CalendarDays, text: 'Handles multi-day wedding schedules' },
-  { icon: MessageCircle, text: 'You message them directly, no middlemen' },
-  { icon: Flower2, text: 'Sikh, Hindu, Muslim, Ismaili and more' },
-  { icon: SparklesIcon, text: 'Flexible packages for your budget' },
-]
+/**
+ * Build vendor-specific "What to Expect" items based on real data.
+ * No two vendor pages show the same generic list.
+ */
+function buildExpectItems(v: Vendor) {
+  const items: { icon: LucideIcon; text: string }[] = []
+  const cat = v.category?.name?.toLowerCase() ?? ''
+  const city = v.city?.name ?? 'the GTA'
+  const hasPhotos = Array.isArray(v.portfolio_images) && v.portfolio_images.length > 0
+
+  // 1. Category-specific first item
+  if (/photo/i.test(cat)) items.push({ icon: Camera, text: `Wedding photography across ${city} and the GTA` })
+  else if (/video|film/i.test(cat)) items.push({ icon: Camera, text: `Wedding films and highlight reels in ${city}` })
+  else if (/cater/i.test(cat)) items.push({ icon: Heart, text: `South Asian cuisine for weddings in ${city}` })
+  else if (/makeup|hair|beauty/i.test(cat)) items.push({ icon: SparklesIcon, text: `Bridal styling for South Asian weddings in ${city}` })
+  else if (/mehndi|henna/i.test(cat)) items.push({ icon: Flower2, text: `Mehndi and henna art for weddings in ${city}` })
+  else if (/dj|entertainment|music/i.test(cat)) items.push({ icon: Users, text: `Keeps the dance floor going at ${city} weddings` })
+  else if (/decor/i.test(cat)) items.push({ icon: Flower2, text: `Wedding decor and mandap styling in ${city}` })
+  else if (/venue/i.test(cat)) items.push({ icon: MapPin, text: `Wedding venue in ${city} for South Asian events` })
+  else items.push({ icon: MapPin, text: `Serving South Asian weddings in ${city}` })
+
+  // 2. Direct contact
+  items.push({ icon: Send, text: 'Message them directly through Melaa, no middlemen' })
+
+  // 3. Portfolio
+  if (hasPhotos) {
+    items.push({ icon: Image, text: `${v.portfolio_images!.length} portfolio photo${v.portfolio_images!.length === 1 ? '' : 's'} to browse` })
+  }
+
+  // 4. Multi-day experience
+  items.push({ icon: CalendarDays, text: 'Experienced with multi-day wedding schedules' })
+
+  // 5. Verified / tier
+  if (v.is_verified) items.push({ icon: Shield, text: 'Verified vendor on Melaa' })
+  else if (v.tier === 'premium') items.push({ icon: Star, text: 'Premium vendor with priority support' })
+  else items.push({ icon: CheckCircle2, text: 'Listed and reviewed on Melaa' })
+
+  // 6. Free inquiry
+  items.push({ icon: MessageCircle, text: 'Free to contact, no booking fees' })
+
+  return items.slice(0, 6)
+}
 
 export default async function VendorProfilePage({ params }: Props) {
   const { slug } = await params
@@ -211,11 +246,11 @@ export default async function VendorProfilePage({ params }: Props) {
                 </div>
               </div>
 
-              {/* What to Expect */}
+              {/* What to Expect — dynamic per vendor */}
               <div className="bg-white rounded-3xl p-6 sm:p-8 shadow-premium border border-gray-100">
                 <h2 className="font-[family-name:var(--font-playfair)] text-xl font-bold mb-5">What to Expect</h2>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                  {WHAT_TO_EXPECT.map(item => (
+                  {buildExpectItems(v).map(item => (
                     <div key={item.text}
                       className="flex items-center gap-3 bg-[#FAFAF7] rounded-2xl px-4 py-3 border border-gray-100">
                       <div className="w-8 h-8 rounded-full bg-[#C8A96A]/10 flex items-center justify-center shrink-0"><item.icon className="w-4 h-4 text-[#C8A96A]" /></div>
