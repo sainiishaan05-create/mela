@@ -16,7 +16,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { data: c } = await supabase.from('cities').select('*').eq('slug', city).single()
   if (!c) return { title: 'Not Found' }
   return {
-    title: `South Asian Wedding Vendors in ${c.name} | Melaa`,
+    title: `South Asian Wedding & Event Vendors in ${c.name} | Melaa`,
     description: `Find South Asian wedding photographers, decorators, caterers and more in ${c.name}, Ontario.`,
   }
 }
@@ -38,9 +38,9 @@ export default async function CityPage({ params }: Props) {
   return (
     <div className="max-w-6xl mx-auto px-4 py-10">
       <h1 className="font-[family-name:var(--font-playfair)] text-3xl md:text-4xl font-bold mb-2">
-        Wedding Vendors in {cityData.name}
+        Wedding & Event Vendors in {cityData.name}
       </h1>
-      <p className="text-gray-500 mb-8">South Asian wedding vendors serving {cityData.name}, Ontario</p>
+      <p className="text-gray-500 mb-8">South Asian wedding & event vendors serving {cityData.name}, Ontario</p>
 
       {/* Category filter */}
       <div className="flex flex-wrap gap-2 mb-8">
@@ -55,7 +55,7 @@ export default async function CityPage({ params }: Props) {
         <EmptyStateNotify
           icon="🏙️"
           title={`We're adding vendors in ${cityData.name} soon`}
-          subtitle={`We're actively reaching out to South Asian wedding vendors in ${cityData.name}. Be the first to know when they join.`}
+          subtitle={`We're actively reaching out to South Asian wedding & event vendors in ${cityData.name}. Be the first to know when they join.`}
           citySlug={city}
         />
       ) : (

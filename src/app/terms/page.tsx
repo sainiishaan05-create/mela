@@ -32,7 +32,7 @@ export default function TermsPage() {
           <section>
             <h2 className="text-xl font-semibold text-gray-900 mb-3 font-[family-name:var(--font-playfair)]" style={{ color: 'var(--color-gold-dark)' }}>2. Description of Service</h2>
             <p className="text-gray-600 leading-relaxed">
-              Melaa is an online directory that connects clients planning South Asian weddings in the Greater Toronto Area with local wedding vendors. We offer free and paid listing tiers for vendors, and free browsing for clients.
+              Melaa is an online directory that connects clients planning South Asian weddings and events in the Greater Toronto Area with local wedding vendors. We offer free and paid listing tiers for vendors, and free browsing for clients.
             </p>
           </section>
 

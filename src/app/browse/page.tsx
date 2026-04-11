@@ -5,7 +5,7 @@ import NewsletterSignup from '@/components/ui/NewsletterSignup'
 
 export const metadata: Metadata = {
   title: 'Browse by City | Melaa | Wedding & Event Vendors Ontario',
-  description: 'Find South Asian wedding vendors across 55+ Ontario cities. Browse photographers, caterers, decorators, DJs, and more in your city.',
+  description: 'Find South Asian wedding & event vendors across 55+ Ontario cities. Browse photographers, caterers, decorators, DJs, and more in your city.',
 }
 
 const GTA_CORE = [

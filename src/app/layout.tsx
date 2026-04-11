@@ -32,7 +32,7 @@ export const metadata: Metadata = {
     siteName: 'Melaa',
     locale: 'en_CA',
     type: 'website',
-    images: [{ url: '/og-image.png', width: 1200, height: 630, alt: 'Melaa - South Asian Wedding Vendors GTA' }],
+    images: [{ url: '/og-image.png', width: 1200, height: 630, alt: 'Melaa - South Asian Wedding & Event Vendors GTA' }],
   },
   twitter: {
     card: 'summary_large_image',

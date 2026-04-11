@@ -7,8 +7,8 @@ import FilterBar from '@/components/vendors/FilterBar'
 import AppliedFilterChips from '@/components/vendors/AppliedFilterChips'
 
 export const metadata: Metadata = {
-  title: 'Find South Asian Wedding Vendors in GTA | Melaa',
-  description: 'Browse 2,700+ trusted South Asian wedding vendors in Brampton, Mississauga, Toronto and across the GTA. Photographers, caterers, decorators, mehndi artists and more.',
+  title: 'Find South Asian Wedding & Event Vendors in GTA | Melaa',
+  description: 'Browse 2,700+ trusted South Asian wedding & event vendors in Brampton, Mississauga, Toronto and across the GTA. Photographers, caterers, decorators, mehndi artists and more.',
 }
 
 const PAGE_SIZE = 48
@@ -209,7 +209,7 @@ export default async function VendorsPage({ searchParams }: Props) {
           <h1 className="font-[family-name:var(--font-playfair)] text-2xl md:text-3xl font-bold text-[#111111] leading-tight">
             {activeCategory
               ? activeCategory.name
-              : 'South Asian Wedding Vendors'}
+              : 'South Asian Wedding & Event Vendors'}
             {activeCity ? (
               <span className="text-gray-400 font-normal"> in {activeCity.name}</span>
             ) : (

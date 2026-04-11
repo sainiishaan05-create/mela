@@ -82,7 +82,7 @@ export default async function ShareCardPage({ params }: Props) {
             Melaa
           </h2>
           <p className="text-[11px] mt-1.5" style={{ color: 'rgba(255,255,255,0.3)' }}>
-            South Asian Wedding Vendors
+            South Asian Wedding & Event Vendors
           </p>
         </div>
 

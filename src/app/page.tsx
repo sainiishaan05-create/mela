@@ -101,7 +101,7 @@ export default async function HomePage() {
                 }}>
                 <span className="live-dot" />
                 <span className="text-xs font-bold tracking-widest uppercase" style={{ color: '#C8A96A' }}>
-                  GTA&apos;s #1 South Asian Wedding Platform
+                  GTA&apos;s #1 South Asian Wedding & Event Platform
                 </span>
               </div>
 
@@ -111,7 +111,7 @@ export default async function HomePage() {
               >
                 Your perfect<br />
                 <span className="gradient-shimmer">South Asian</span><br />
-                wedding awaits.
+                celebration awaits.
               </h1>
 
               <p
@@ -413,7 +413,7 @@ export default async function HomePage() {
           <Reveal delay={160}>
             <p className="text-lg sm:text-xl mb-12 max-w-xl mx-auto"
               style={{ color: 'rgba(255,255,255,0.45)' }}>
-              Browse {count}+ South Asian wedding vendors across the GTA, completely free with no account needed.
+              Browse {count}+ South Asian wedding & event vendors across the GTA, completely free with no account needed.
             </p>
           </Reveal>
 

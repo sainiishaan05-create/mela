@@ -6,7 +6,7 @@ import { createClient } from '@/lib/supabase/server'
 export const revalidate = 300
 
 export const metadata: Metadata = {
-  title: 'About Melaa | Our Story | South Asian Wedding Vendors GTA',
+  title: 'About Melaa | Our Story | South Asian Wedding & Event Vendors GTA',
   description: 'Melaa was built for South Asian families in the GTA who deserve vendors that understand their culture, traditions, and celebrations.',
 }
 

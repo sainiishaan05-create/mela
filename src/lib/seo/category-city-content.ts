@@ -16,7 +16,7 @@ export function getIntroText(catSlug: string, catName: string, cityName: string)
   const lower = catName.toLowerCase()
 
   if (PHOTO_VIDEO.has(catSlug)) {
-    return `Need a ${lower} who actually gets South Asian weddings in ${cityName}? Someone who knows the baraat, the pheras, the reception dances? Melaa has ${lower} across ${cityName} that families in the GTA already trust. Browse their work, compare a few, and message them for free.`
+    return `Need a ${lower} who actually gets South Asian weddings and events in ${cityName}? Someone who knows the baraat, the pheras, the reception dances? Melaa has ${lower} across ${cityName} that families in the GTA already trust. Browse their work, compare a few, and message them for free.`
   }
   if (FOOD.has(catSlug)) {
     return `Good food makes or breaks a South Asian wedding. Whether it's biryani for 500 or a live pani puri counter, find ${lower} in ${cityName} who cook the dishes your guests actually want. Check menus, read what other families said, and reach out directly on Melaa.`
@@ -29,7 +29,7 @@ export function getIntroText(catSlug: string, catName: string, cityName: string)
   }
 
   // Default (venues, planners, decor, florists, etc.)
-  return `Planning a South Asian wedding in ${cityName}? Find ${lower} here who actually understand the culture and know what families in the GTA need. Browse profiles, compare a few, and reach out for free.`
+  return `Planning a South Asian wedding or event in ${cityName}? Find ${lower} here who actually understand the culture and know what families in the GTA need. Browse profiles, compare a few, and reach out for free.`
 }
 
 export function getFaqs(catSlug: string, catName: string, cityName: string): { question: string; answer: string }[] {

@@ -6,7 +6,7 @@ import { createClient } from '@/lib/supabase/server'
 export const revalidate = 300
 
 export const metadata: Metadata = {
-  title: 'Pricing | Melaa | South Asian Wedding Vendors GTA',
+  title: 'Pricing | Melaa | South Asian Wedding & Event Vendors GTA',
   description: 'Start free for 90 days. First 50 Founding Vendors get the exclusive $49/mo rate. Premium plan at $99/mo.',
 }
 

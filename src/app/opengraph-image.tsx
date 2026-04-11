@@ -1,7 +1,7 @@
 import { ImageResponse } from 'next/og'
 
 export const runtime = 'edge'
-export const alt = 'Melaa - South Asian Wedding Vendors GTA'
+export const alt = 'Melaa - South Asian Wedding & Event Vendors GTA'
 export const size = { width: 1200, height: 630 }
 export const contentType = 'image/png'
 
@@ -64,7 +64,7 @@ export default async function Image() {
 
         {/* Tagline */}
         <div style={{ fontSize: 36, fontWeight: 700, color: '#ffffff', marginBottom: 8 }}>
-          South Asian Wedding Vendors
+          South Asian Wedding & Event Vendors
         </div>
         <div style={{ fontSize: 24, color: 'rgba(255,255,255,0.5)', marginBottom: 48 }}>
           Greater Toronto Area

@@ -54,7 +54,7 @@ function buildExpectItems(v: Vendor) {
   else if (/dj|entertainment|music/i.test(cat)) items.push({ icon: Users, text: `Keeps the dance floor going at ${city} weddings` })
   else if (/decor/i.test(cat)) items.push({ icon: Flower2, text: `Wedding decor and mandap styling in ${city}` })
   else if (/venue/i.test(cat)) items.push({ icon: MapPin, text: `Wedding venue in ${city} for South Asian events` })
-  else items.push({ icon: MapPin, text: `Serving South Asian weddings in ${city}` })
+  else items.push({ icon: MapPin, text: `Serving South Asian weddings and events in ${city}` })
 
   // 2. Direct contact
   items.push({ icon: Send, text: 'Message them directly through Melaa, no middlemen' })
