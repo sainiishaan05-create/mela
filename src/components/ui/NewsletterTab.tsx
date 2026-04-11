@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
+import { Flower2, CheckCircle2, Check } from 'lucide-react'
 import NewsletterSignup from './NewsletterSignup'
 
 export default function NewsletterTab() {
@@ -106,7 +107,7 @@ export default function NewsletterTab() {
         <div className="px-6 pb-6 pt-2">
           <div className="mb-4">
             <div className="flex items-center gap-2 mb-2">
-              <span className="text-lg" role="img" aria-label="hibiscus">🌺</span>
+              <Flower2 className="w-4 h-4 text-[#C8A96A]" />
               <span
                 className="text-xs font-semibold uppercase tracking-widest"
                 style={{ color: '#C8A96A' }}
@@ -127,11 +128,11 @@ export default function NewsletterTab() {
           <PanelForm />
           <div className="flex flex-col gap-1 mt-3 text-xs text-gray-400">
             <span className="flex items-center gap-1.5">
-              <span style={{ color: '#C8A96A' }} className="font-bold">✓</span>
+              <Check className="w-3 h-3" style={{ color: '#C8A96A' }} />
               New vendors added weekly
             </span>
             <span className="flex items-center gap-1.5">
-              <span style={{ color: '#C8A96A' }} className="font-bold">✓</span>
+              <Check className="w-3 h-3" style={{ color: '#C8A96A' }} />
               Unsubscribe anytime
             </span>
           </div>
@@ -178,7 +179,7 @@ function PanelForm() {
         style={{ background: 'rgba(200,169,106,0.1)', border: '1px solid rgba(200,169,106,0.25)' }}
       >
         <p className="text-sm font-semibold" style={{ color: '#C8A96A' }}>
-          🎉 You&apos;re subscribed!
+          <CheckCircle2 className="w-4 h-4 text-emerald-500 inline mr-1" /> You&apos;re subscribed!
         </p>
         <p className="text-xs text-gray-500 mt-0.5">Welcome to Melaa.</p>
       </div>

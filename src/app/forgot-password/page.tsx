@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import Link from 'next/link'
+import { Mail } from 'lucide-react'
 
 export default function ForgotPasswordPage() {
   const [email, setEmail] = useState('')
@@ -31,7 +32,7 @@ export default function ForgotPasswordPage() {
     return (
       <div className="min-h-screen bg-[#FAFAF7] flex items-center justify-center px-4">
         <div className="w-full max-w-md bg-white rounded-2xl p-8 shadow-sm border border-gray-100 text-center">
-          <p className="text-5xl mb-4">📬</p>
+          <Mail className="w-12 h-12 text-[#C8A96A] mx-auto mb-4" />
           <h1 className="font-[family-name:var(--font-playfair)] text-2xl font-bold mb-2">Check your inbox</h1>
           <p className="text-gray-500 text-sm mb-6">
             We sent a password reset link to <strong>{email}</strong>. Click the link in the email to set a new password.

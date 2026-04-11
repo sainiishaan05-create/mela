@@ -3,21 +3,27 @@
 import { useState, useRef, useEffect, useCallback } from 'react'
 import { useRouter } from 'next/navigation'
 import { ChevronDown, ArrowRight, Sparkles, MapPin, Search } from 'lucide-react'
+import { CATEGORY_ICONS } from '@/lib/category-icons'
 
 const CATEGORIES = [
-  { label: 'Photographers',         slug: 'photographers',         icon: '📸' },
-  { label: 'Videographers',         slug: 'videographers',         icon: '🎥' },
-  { label: 'Content Creators',      slug: 'content-creators',      icon: '🎬' },
-  { label: 'Makeup Artists',        slug: 'makeup-artists',        icon: '💄' },
-  { label: 'Mehndi Artists',        slug: 'mehndi-artists',        icon: '🌿' },
-  { label: 'Catering',              slug: 'catering',              icon: '🍛' },
-  { label: 'Favours & Live Stations', slug: 'favours-live-stations', icon: '🎁' },
-  { label: 'Decorators',            slug: 'decorators',            icon: '💐' },
-  { label: 'DJs & Entertainment',   slug: 'djs-entertainment',     icon: '🎶' },
-  { label: 'Wedding Venues',        slug: 'wedding-venues',        icon: '🏛️' },
-  { label: 'Priest Services',       slug: 'priest-services',       icon: '🕉️' },
-  { label: 'Bridal Wear',           slug: 'bridal-wear',           icon: '👗' },
+  { label: 'Photographers',           slug: 'photographers' },
+  { label: 'Videographers',           slug: 'videographers' },
+  { label: 'Content Creators',        slug: 'content-creators' },
+  { label: 'Makeup Artists',          slug: 'makeup-artists' },
+  { label: 'Mehndi Artists',          slug: 'mehndi-artists' },
+  { label: 'Catering',                slug: 'catering' },
+  { label: 'Favours & Live Stations', slug: 'favours-live-stations' },
+  { label: 'Decorators',              slug: 'decorators' },
+  { label: 'DJs & Entertainment',     slug: 'djs-entertainment' },
+  { label: 'Wedding Venues',          slug: 'wedding-venues' },
+  { label: 'Priest Services',         slug: 'priest-services' },
+  { label: 'Bridal Wear',             slug: 'bridal-wear' },
 ]
+
+function CatIcon({ slug, className }: { slug: string; className?: string }) {
+  const Icon = CATEGORY_ICONS[slug]
+  return Icon ? <Icon className={className ?? 'w-4 h-4'} style={{ color: '#C8A96A' }} /> : null
+}
 
 const CITIES = [
   { name: 'Toronto',       slug: 'toronto' },
@@ -96,7 +102,7 @@ export default function BrowseExplorer() {
             aria-expanded={catOpen}
           >
             <span className="browse-dropdown-icon">
-              {selectedCat ? selectedCat.icon : <Search className="w-4 h-4" style={{ color: 'rgba(200,169,106,0.55)' }} />}
+              {selectedCat ? <CatIcon slug={selectedCat.slug} className="w-4 h-4" /> : <Search className="w-4 h-4" style={{ color: 'rgba(200,169,106,0.55)' }} />}
             </span>
             <span className="browse-dropdown-label">
               {selectedCat ? selectedCat.label : 'All categories'}
@@ -123,7 +129,7 @@ export default function BrowseExplorer() {
                     className={`browse-popover-item ${cat === c.slug ? 'active' : ''}`}
                     onClick={() => { setCat(c.slug); setCatOpen(false) }}
                   >
-                    <span className="text-base leading-none">{c.icon}</span>
+                    <CatIcon slug={c.slug} className="w-4 h-4" />
                     <span>{c.label}</span>
                   </button>
                 ))}
@@ -196,7 +202,7 @@ export default function BrowseExplorer() {
             onClick={() => go(c.slug)}
             className="browse-chip"
           >
-            <span className="text-sm leading-none">{c.icon}</span>
+            <CatIcon slug={c.slug} className="w-4 h-4" />
             {c.label}
           </button>
         ))}

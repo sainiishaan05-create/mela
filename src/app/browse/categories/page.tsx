@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { createClient } from '@/lib/supabase/server'
-import { ArrowRight } from 'lucide-react'
+import { ArrowRight, Sparkles } from 'lucide-react'
 import NewsletterSignup from '@/components/ui/NewsletterSignup'
 
 export const metadata: Metadata = {
@@ -100,7 +100,7 @@ export default async function BrowseCategoriesPage() {
                     border: '1px solid rgba(200,169,106,0.18)',
                   }}
                 >
-                  {cat.icon ?? '✨'}
+                  {cat.icon ? cat.icon : <Sparkles className="w-6 h-6 text-[#C8A96A]" />}
                 </div>
                 <div className="flex-1 min-w-0">
                   <p

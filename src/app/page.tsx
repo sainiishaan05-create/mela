@@ -19,10 +19,10 @@ export const revalidate = 300
 ───────────────────────────────────────────────────────────────────────────── */
 
 const MARQUEE = [
-  '📸 Photographers', '🌆 Brampton', '💄 Makeup Artists', '🏙️ Toronto', '🍛 Caterers',
-  '🌃 Mississauga', '🌿 Mehndi Artists', '🌇 Vaughan', '🎶 DJs', '🏘️ Markham',
-  '💐 Decorators', '🏙️ Scarborough', '🏛️ Venues', '🌆 Richmond Hill', '🎬 Videographers',
-  '💍 Jewellery', '👗 Bridal Wear', '🍮 Mithai', '🕉️ Priests', '🐎 Baraat',
+  'Photographers', 'Brampton', 'Makeup Artists', 'Toronto', 'Caterers',
+  'Mississauga', 'Mehndi Artists', 'Vaughan', 'DJs', 'Markham',
+  'Decorators', 'Scarborough', 'Venues', 'Richmond Hill', 'Videographers',
+  'Jewellery', 'Bridal Wear', 'Mithai', 'Priests', 'Baraat',
 ]
 
 const WHY_MELAA = [
@@ -318,10 +318,7 @@ export default async function HomePage() {
               <img src={src} alt={alt} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" loading="lazy" />
               <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent group-hover:from-black/50 transition-colors duration-500" />
               <div className="absolute bottom-0 left-0 right-0 p-4">
-                <div className="flex items-center gap-2">
-                  <span className="text-base">{icon}</span>
-                  <span className="text-sm font-semibold text-white/90">{label}</span>
-                </div>
+                <span className="text-sm font-semibold text-white/90">{label}</span>
               </div>
             </Link>
           ))}

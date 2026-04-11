@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import { CheckCircle2 } from 'lucide-react'
 import FormSelect from '@/components/ui/FormSelect'
 
 interface LeadFormProps {
@@ -38,7 +39,7 @@ export default function LeadForm({ vendorId, vendorName }: LeadFormProps) {
   if (status === 'success') {
     return (
       <div className="text-center py-4">
-        <p className="text-3xl mb-2">🎉</p>
+        <CheckCircle2 className="w-10 h-10 text-emerald-500 mx-auto mb-2" />
         <p className="font-semibold text-gray-800">Inquiry sent!</p>
         <p className="text-sm text-gray-500 mt-1">{vendorName} will get back to you soon.</p>
       </div>

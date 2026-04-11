@@ -8,7 +8,7 @@ import {
   LayoutDashboard, User, ImageIcon, Mail, BarChart2, CreditCard,
   ExternalLink, BadgeCheck, Upload, X, Loader2, Check,
   ArrowRight, Phone, Globe, AtSign, MapPin, Tag, ChevronRight,
-  AlertCircle, Eye, TrendingUp, Star, Pencil, CheckCircle,
+  AlertCircle, Eye, TrendingUp, Star, Pencil, CheckCircle, CheckCircle2,
 } from 'lucide-react'
 import LogoutButton from '@/components/ui/LogoutButton'
 import type { Vendor, Category, City, Lead } from '@/types'
@@ -99,7 +99,7 @@ export default function DashboardShell({ vendor: initialVendor, leads: initialLe
       {justClaimed && (
         <div className="border-b px-4 py-4" style={{ background: 'linear-gradient(135deg, #FBF6EC 0%, #F5ECD7 100%)', borderColor: '#E8D5A0' }}>
           <div className="max-w-3xl mx-auto flex flex-col sm:flex-row items-center gap-4">
-            <div className="text-4xl shrink-0">🎉</div>
+            <CheckCircle2 className="w-10 h-10 text-emerald-500 shrink-0" />
             <div className="text-center sm:text-left flex-1">
               <p className="font-bold text-[#2B2623]">You&apos;re live on Melaa! Clients can find you right now.</p>
               <p className="text-sm text-gray-500 mt-0.5">Complete your profile to get 3x more inquiries. Add a description, photos, and contact info.</p>

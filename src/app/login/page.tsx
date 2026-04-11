@@ -5,6 +5,7 @@ import Link from 'next/link'
 import { useSearchParams } from 'next/navigation'
 import { createClient } from '@/lib/supabase/client'
 import { Suspense } from 'react'
+import { Sparkles, Store } from 'lucide-react'
 import GoogleSignInButton from '@/components/auth/GoogleSignInButton'
 import AuthSessionBanner from '@/components/auth/AuthSessionBanner'
 
@@ -141,7 +142,7 @@ function LoginForm() {
               href="/signup"
               className="flex flex-col items-center gap-1 px-3 py-3.5 rounded-xl border border-gray-200 hover:border-[#C8A96A] hover:bg-[#F5ECD7]/40 transition-all text-center group"
             >
-              <span className="text-xl">✨</span>
+              <Sparkles className="w-5 h-5 text-[#C8A96A]" />
               <span className="text-xs font-semibold text-gray-700 group-hover:text-[#C8A96A] transition-colors">Planning an Event</span>
               <span className="text-[10px] text-gray-400">Save vendors &amp; leave reviews</span>
             </Link>
@@ -149,7 +150,7 @@ function LoginForm() {
               href="/list-your-business"
               className="flex flex-col items-center gap-1 px-3 py-3.5 rounded-xl border border-gray-200 hover:border-[#C8A96A] hover:bg-[#F5ECD7]/40 transition-all text-center group"
             >
-              <span className="text-xl">🏪</span>
+              <Store className="w-5 h-5 text-[#C8A96A]" />
               <span className="text-xs font-semibold text-gray-700 group-hover:text-[#C8A96A] transition-colors">I&apos;m a Vendor</span>
               <span className="text-[10px] text-gray-400">List &amp; manage my business</span>
             </Link>

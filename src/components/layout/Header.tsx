@@ -2,6 +2,7 @@
 
 import Link from 'next/link'
 import { Menu, X, Sparkles, ChevronDown, MapPin, Search, ArrowRight, User, Grid3X3, ChevronRight, LogOut } from 'lucide-react'
+import { CATEGORY_ICONS } from '@/lib/category-icons'
 import { useState, useEffect, useRef } from 'react'
 import { usePathname, useRouter } from 'next/navigation'
 import { createClient } from '@/lib/supabase/client'
@@ -17,16 +18,16 @@ const NAV_SUGGESTIONS = [
 
 /* Top-level categories shown in the dropdown — the most searched */
 const FEATURED_CATEGORIES = [
-  { label: 'Photographers', href: '/category/photographers', icon: '📸' },
-  { label: 'Videographers', href: '/category/videographers', icon: '🎥' },
-  { label: 'Content Creators', href: '/category/content-creators', icon: '🎬' },
-  { label: 'Makeup Artists', href: '/category/makeup-artists', icon: '💄' },
-  { label: 'Mehndi Artists', href: '/category/mehndi-artists', icon: '🌿' },
-  { label: 'Catering', href: '/category/catering', icon: '🍽️' },
-  { label: 'Favours & Live Stations', href: '/category/favours-live-stations', icon: '🎁' },
-  { label: 'Wedding Venues', href: '/category/wedding-venues', icon: '🏛️' },
-  { label: 'Decorators', href: '/category/decorators', icon: '🌸' },
-  { label: 'DJs & Entertainment', href: '/category/djs-entertainment', icon: '🎵' },
+  { label: 'Photographers', href: '/category/photographers', slug: 'photographers' },
+  { label: 'Videographers', href: '/category/videographers', slug: 'videographers' },
+  { label: 'Content Creators', href: '/category/content-creators', slug: 'content-creators' },
+  { label: 'Makeup Artists', href: '/category/makeup-artists', slug: 'makeup-artists' },
+  { label: 'Mehndi Artists', href: '/category/mehndi-artists', slug: 'mehndi-artists' },
+  { label: 'Catering', href: '/category/catering', slug: 'catering' },
+  { label: 'Favours & Live Stations', href: '/category/favours-live-stations', slug: 'favours-live-stations' },
+  { label: 'Wedding Venues', href: '/category/wedding-venues', slug: 'wedding-venues' },
+  { label: 'Decorators', href: '/category/decorators', slug: 'decorators' },
+  { label: 'DJs & Entertainment', href: '/category/djs-entertainment', slug: 'djs-entertainment' },
 ]
 
 /* Top cities shown in the dropdown */
@@ -194,14 +195,19 @@ export default function Header() {
                   {browseTab === 'categories' ? (
                     <>
                       <div className="grid grid-cols-2 gap-0.5">
-                        {FEATURED_CATEGORIES.map(({ label, href, icon }) => (
-                          <Link key={href} href={href}
-                            className="nav-link flex items-center gap-2.5 py-2.5 px-3 rounded-xl text-sm hover:bg-[#F5ECD7]/50 transition-colors duration-150 group"
-                          >
-                            <span className="text-base leading-none w-6 text-center">{icon}</span>
-                            <span className="text-gray-700 group-hover:text-gray-900 leading-tight">{label}</span>
-                          </Link>
-                        ))}
+                        {FEATURED_CATEGORIES.map(({ label, href, slug }) => {
+                          const Icon = CATEGORY_ICONS[slug]
+                          return (
+                            <Link key={href} href={href}
+                              className="nav-link flex items-center gap-2.5 py-2.5 px-3 rounded-xl text-sm hover:bg-[#F5ECD7]/50 transition-colors duration-150 group"
+                            >
+                              <span className="w-6 text-center flex items-center justify-center">
+                                {Icon ? <Icon className="w-4 h-4 text-[#C8A96A]" /> : null}
+                              </span>
+                              <span className="text-gray-700 group-hover:text-gray-900 leading-tight">{label}</span>
+                            </Link>
+                          )
+                        })}
                       </div>
                       <div className="mt-3 pt-3 border-t flex items-center justify-between" style={{ borderColor: 'var(--color-taupe)' }}>
                         <Link href="/browse/categories" className="text-xs font-semibold flex items-center gap-1 hover:underline" style={{ color: 'var(--color-gold-dark)' }}>

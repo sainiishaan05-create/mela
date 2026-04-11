@@ -1,7 +1,7 @@
 'use client'
 
 import Link from 'next/link'
-import { Search, ArrowUpRight } from 'lucide-react'
+import { Search, ArrowUpRight, Store } from 'lucide-react'
 import LogoutButton from '@/components/ui/LogoutButton'
 
 interface Props {
@@ -15,8 +15,8 @@ export default function NoListingFound({ userEmail }: Props) {
       <div className="w-full max-w-md text-center">
 
         {/* Icon */}
-        <div className="w-20 h-20 rounded-2xl bg-[#C8A96A]/10 flex items-center justify-center text-4xl mx-auto mb-6">
-          🏪
+        <div className="w-20 h-20 rounded-2xl bg-[#C8A96A]/10 flex items-center justify-center mx-auto mb-6">
+          <Store className="w-12 h-12 text-[#C8A96A]" />
         </div>
 
         {/* Heading */}

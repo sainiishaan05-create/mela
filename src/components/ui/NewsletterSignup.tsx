@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import { Flower2, CheckCircle2, Check } from 'lucide-react'
 
 interface NewsletterSignupProps {
   variant?: 'dark' | 'light' | 'card'
@@ -71,7 +72,7 @@ export default function NewsletterSignup({ variant = 'dark' }: NewsletterSignupP
         {/* Header */}
         <div className="mb-6">
           <div className="flex items-center gap-2 mb-3">
-            <span className="text-2xl" role="img" aria-label="hibiscus">🌺</span>
+            <Flower2 className="w-5 h-5 text-[#C8A96A]" />
             <span
               className="text-xs font-semibold uppercase tracking-widest"
               style={{ color: '#C8A96A' }}
@@ -97,7 +98,7 @@ export default function NewsletterSignup({ variant = 'dark' }: NewsletterSignupP
             style={{ background: 'rgba(200,169,106,0.12)', border: '1px solid rgba(200,169,106,0.3)' }}
           >
             <div className="flex items-center gap-3">
-              <span className="text-2xl">🎉</span>
+              <CheckCircle2 className="w-6 h-6 text-emerald-500" />
               <div>
                 <p className="font-semibold" style={{ color: '#C8A96A' }}>
                   You&apos;re in!
@@ -175,14 +176,12 @@ export default function NewsletterSignup({ variant = 'dark' }: NewsletterSignupP
         {/* Trust bullets */}
         <div className={`flex flex-wrap gap-x-5 gap-y-1 text-sm ${subtextClass} mt-4`}>
           {[
-            { icon: '✓', text: 'New vendors added weekly' },
-            { icon: '✓', text: 'Planning tips for Desi weddings' },
-            { icon: '✓', text: 'Unsubscribe anytime' },
-          ].map(({ icon, text }) => (
+            'New vendors added weekly',
+            'Planning tips for Desi weddings',
+            'Unsubscribe anytime',
+          ].map((text) => (
             <span key={text} className="flex items-center gap-1.5">
-              <span style={{ color: '#C8A96A' }} className="font-bold">
-                {icon}
-              </span>
+              <Check className="w-3.5 h-3.5" style={{ color: '#C8A96A' }} />
               {text}
             </span>
           ))}

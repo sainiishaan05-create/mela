@@ -58,7 +58,7 @@ export default function VendorCard({ vendor }: VendorCardProps) {
       style={{ '--tw-ring-color': 'var(--color-gold)' } as React.CSSProperties}
     >
       <article
-        className="card-luxury rounded-2xl border overflow-hidden h-full flex flex-col"
+        className="card-luxury rounded-2xl border overflow-hidden h-full flex flex-col transition-all duration-200 group-hover:shadow-lg group-hover:-translate-y-1"
         style={{ background: 'white', borderColor: 'var(--color-taupe)' }}
       >
         {/* ── Image / Placeholder ── */}

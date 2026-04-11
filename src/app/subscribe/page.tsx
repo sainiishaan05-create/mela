@@ -1,4 +1,6 @@
 import type { Metadata } from 'next'
+import type { LucideIcon } from 'lucide-react'
+import { Camera, ClipboardList, Tag, Flower2 } from 'lucide-react'
 import NewsletterSignup from '@/components/ui/NewsletterSignup'
 import { getSiteStats } from '@/lib/stats'
 
@@ -17,27 +19,27 @@ export const metadata: Metadata = {
   },
 }
 
-const benefits = [
+const benefits: { icon: LucideIcon; title: string; description: string }[] = [
   {
-    icon: '📸',
+    icon: Camera,
     title: 'Vendor Spotlights',
     description:
       'Every week we pick 3 standout vendors (photographers, decorators, caterers) and tell you why GTA families trust them.',
   },
   {
-    icon: '📋',
+    icon: ClipboardList,
     title: 'Planning Tips',
     description:
       'How much to budget for a Desi wedding in Brampton. When to book your mehndi artist. What to ask a caterer. Real answers, not generic advice.',
   },
   {
-    icon: '🏷️',
+    icon: Tag,
     title: 'Subscriber-Only Deals',
     description:
       'Vendors on Melaa sometimes run promotions for couples who found them through us. Subscribers get them first.',
   },
   {
-    icon: '🌺',
+    icon: Flower2,
     title: 'Real Weddings',
     description:
       'See how other South Asian families in the GTA pulled off their weddings. Vendor picks, budgets, what they would do differently.',
@@ -72,7 +74,7 @@ export default async function SubscribePage() {
 
         <div className="relative z-10 max-w-3xl mx-auto px-6 py-20 md:py-28 text-center">
           <div className="inline-flex items-center gap-2 mb-6 px-4 py-2 rounded-full border border-white/10 bg-white/5">
-            <span className="text-base" role="img" aria-label="hibiscus">🌺</span>
+            <Flower2 className="w-4 h-4 text-[#C8A96A]" />
             <span
               className="text-xs font-semibold uppercase tracking-widest"
               style={{ color: '#C8A96A' }}
@@ -120,9 +122,7 @@ export default async function SubscribePage() {
               key={benefit.title}
               className="card-interactive bg-white rounded-2xl border border-gray-100 shadow-premium p-6"
             >
-              <span className="text-3xl mb-4 block" role="img" aria-label={benefit.title}>
-                {benefit.icon}
-              </span>
+              <div className="w-12 h-12 rounded-2xl bg-[#C8A96A]/10 flex items-center justify-center mb-4"><benefit.icon className="w-6 h-6 text-[#C8A96A]" /></div>
               <h3
                 className="text-lg font-bold text-[#1A1A1A] mb-2"
                 style={{ fontFamily: 'var(--font-playfair)' }}

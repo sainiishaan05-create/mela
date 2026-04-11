@@ -2,15 +2,15 @@
 
 import { useState, useRef, useEffect, useCallback } from 'react'
 import { useRouter } from 'next/navigation'
-import { Search, ArrowRight, X, MapPin, Loader2 } from 'lucide-react'
+import { Search, ArrowRight, X, MapPin, Loader2, Camera, UtensilsCrossed, Leaf, Palette, Music, Flower2, type LucideIcon } from 'lucide-react'
 
-const SUGGESTIONS = [
-  { label: 'Photographers in Brampton',   icon: '📸' },
-  { label: 'Caterers Mississauga',         icon: '🍛' },
-  { label: 'Mehndi Artists Toronto',       icon: '🌿' },
-  { label: 'Bridal Makeup & Hair GTA',     icon: '💄' },
-  { label: 'South Asian DJ',               icon: '🎶' },
-  { label: 'Wedding Decorators Vaughan',   icon: '💐' },
+const SUGGESTIONS: { label: string; Icon: LucideIcon }[] = [
+  { label: 'Photographers in Brampton',   Icon: Camera },
+  { label: 'Caterers Mississauga',         Icon: UtensilsCrossed },
+  { label: 'Mehndi Artists Toronto',       Icon: Leaf },
+  { label: 'Bridal Makeup & Hair GTA',     Icon: Palette },
+  { label: 'South Asian DJ',               Icon: Music },
+  { label: 'Wedding Decorators Vaughan',   Icon: Flower2 },
 ]
 
 export default function SearchBar({ dark = false }: { dark?: boolean }) {
@@ -188,13 +188,13 @@ export default function SearchBar({ dark = false }: { dark?: boolean }) {
           <div className="px-4 py-2.5 border-b border-gray-50">
             <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Popular Searches</p>
           </div>
-          {SUGGESTIONS.map(({ label, icon }) => (
+          {SUGGESTIONS.map(({ label, Icon }) => (
             <button
               key={label}
               onClick={() => submit(label)}
               className="group w-full flex items-center gap-3 px-4 py-3 hover:bg-[#F5ECD7]/60 transition-colors duration-150 text-left"
             >
-              <span className="text-sm leading-none">{icon}</span>
+              <Icon className="w-4 h-4 text-[#C8A96A]" />
               <span className="text-sm text-gray-600 group-hover:text-gray-900 transition-colors">{label}</span>
               <ArrowRight className="w-3 h-3 text-gray-300 group-hover:text-[#C8A96A] ml-auto opacity-0 group-hover:opacity-100 transition-all" />
             </button>

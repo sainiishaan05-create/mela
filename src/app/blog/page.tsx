@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { blogPosts } from '@/lib/blog'
-import { Clock, ArrowRight, BookOpen } from 'lucide-react'
+import { Clock, ArrowRight, BookOpen, Flower2 } from 'lucide-react'
 
 export const metadata: Metadata = {
   title: 'South Asian Wedding Planning Blog | Melaa',
@@ -95,9 +95,7 @@ export default function BlogIndexPage() {
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-[cubic-bezier(0.25,0.46,0.45,0.94)]"
                     />
                   ) : (
-                    <div className="w-full h-full bg-gradient-to-br from-[#F5ECD7] to-[#FDF6E9] flex items-center justify-center text-6xl">
-                      📝
-                    </div>
+                    <div className="w-full h-full bg-gradient-to-br from-[#F5ECD7] to-[#FDF6E9] flex items-center justify-center"><BookOpen className="w-16 h-16 text-[#C8A96A]/50" /></div>
                   )}
                   <div className="absolute inset-0 bg-gradient-to-r from-transparent to-black/10 lg:to-transparent" />
                   <span className="absolute top-4 left-4 bg-[#C8A96A] text-white text-xs font-bold px-3 py-1.5 rounded-full uppercase tracking-wider">
@@ -166,9 +164,7 @@ export default function BlogIndexPage() {
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-[cubic-bezier(0.25,0.46,0.45,0.94)]"
                     />
                   ) : (
-                    <div className="w-full h-full bg-gradient-to-br from-[#F5ECD7] to-[#FDF6E9] flex items-center justify-center text-4xl">
-                      📝
-                    </div>
+                    <div className="w-full h-full bg-gradient-to-br from-[#F5ECD7] to-[#FDF6E9] flex items-center justify-center"><BookOpen className="w-10 h-10 text-[#C8A96A]/50" /></div>
                   )}
                   <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
                 </div>
@@ -218,7 +214,7 @@ export default function BlogIndexPage() {
       <section className="bg-[#111111] py-16 px-4">
         <div className="max-w-3xl mx-auto text-center">
           <div className="inline-flex items-center gap-2 mb-5 px-4 py-2 rounded-full border border-white/10 bg-white/5">
-            <span className="text-base">🌺</span>
+            <Flower2 className="w-4 h-4 text-[#C8A96A]" />
             <span className="text-xs font-bold uppercase tracking-widest text-[#C8A96A]">Stay in the loop</span>
           </div>
           <h2 className="font-[family-name:var(--font-playfair)] text-3xl md:text-4xl font-bold text-white mb-4">

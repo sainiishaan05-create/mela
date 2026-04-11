@@ -234,7 +234,7 @@ export default async function PricingPage() {
         <div className="bg-white rounded-3xl border border-gray-100 shadow-premium overflow-hidden">
           <div className="flex flex-col sm:flex-row">
             <div className="bg-[#C8A96A] p-8 flex items-center justify-center sm:w-36 shrink-0">
-              <span className="text-5xl">🛡️</span>
+              <Shield className="w-12 h-12 text-white" />
             </div>
             <div className="p-8">
               <h2 className="font-[family-name:var(--font-playfair)] text-2xl font-bold mb-3">Our Lead Guarantee</h2>

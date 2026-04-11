@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
+import { Mail, Sparkles, Store, Check } from 'lucide-react'
 import GoogleSignInButton from '@/components/auth/GoogleSignInButton'
 import AuthSessionBanner from '@/components/auth/AuthSessionBanner'
 
@@ -52,7 +53,7 @@ export default function SignupPage() {
     return (
       <div className="min-h-screen bg-[#FAFAF7] flex items-center justify-center px-4">
         <div className="w-full max-w-md bg-white rounded-2xl p-10 shadow-[0_4px_24px_rgba(26,26,26,0.08)] text-center">
-          <p className="text-5xl mb-4">📬</p>
+          <Mail className="w-12 h-12 text-[#C8A96A] mx-auto mb-4" />
           <h1 className="font-[family-name:var(--font-playfair)] text-2xl font-bold text-[#1A1A1A] mb-2">
             Check your email
           </h1>
@@ -163,19 +164,19 @@ export default function SignupPage() {
         {/* Two paths */}
         <div className="mt-8 grid grid-cols-2 gap-3">
           <div className="bg-[#F5ECD7]/50 rounded-xl p-4">
-            <p className="text-xs font-bold text-[#C8A96A] uppercase tracking-widest mb-2">✨ Planners</p>
+            <p className="text-xs font-bold text-[#C8A96A] uppercase tracking-widest mb-2 flex items-center gap-1.5"><Sparkles className="w-3 h-3" /> Planners</p>
             <ul className="space-y-1.5 text-xs text-gray-600">
-              <li>✓ Save favourite vendors</li>
-              <li>✓ Leave reviews</li>
-              <li>✓ Private dashboard</li>
+              <li className="flex items-center gap-1.5"><Check className="w-3 h-3 text-emerald-500 shrink-0" /> Save favourite vendors</li>
+              <li className="flex items-center gap-1.5"><Check className="w-3 h-3 text-emerald-500 shrink-0" /> Leave reviews</li>
+              <li className="flex items-center gap-1.5"><Check className="w-3 h-3 text-emerald-500 shrink-0" /> Private dashboard</li>
             </ul>
           </div>
           <div className="bg-[#F5ECD7]/50 rounded-xl p-4">
-            <p className="text-xs font-bold text-[#C8A96A] uppercase tracking-widest mb-2">🏪 Vendors</p>
+            <p className="text-xs font-bold text-[#C8A96A] uppercase tracking-widest mb-2 flex items-center gap-1.5"><Store className="w-3 h-3" /> Vendors</p>
             <ul className="space-y-1.5 text-xs text-gray-600">
-              <li>✓ Claim your listing</li>
-              <li>✓ Manage your profile</li>
-              <li>✓ Receive inquiries</li>
+              <li className="flex items-center gap-1.5"><Check className="w-3 h-3 text-emerald-500 shrink-0" /> Claim your listing</li>
+              <li className="flex items-center gap-1.5"><Check className="w-3 h-3 text-emerald-500 shrink-0" /> Manage your profile</li>
+              <li className="flex items-center gap-1.5"><Check className="w-3 h-3 text-emerald-500 shrink-0" /> Receive inquiries</li>
             </ul>
           </div>
         </div>

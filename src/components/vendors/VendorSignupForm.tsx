@@ -92,7 +92,7 @@ export default function VendorSignupForm({ categories, cities }: Props) {
   if (status === 'success') {
     return (
       <div className="text-center py-8">
-        <p className="text-5xl mb-4">🎉</p>
+        <CheckCircle2 className="w-12 h-12 text-emerald-500 mx-auto mb-4" />
         <h2 className="font-[family-name:var(--font-playfair)] text-2xl font-bold mb-2">You&apos;re listed!</h2>
         <p className="text-gray-500 mb-6">Your business is now live on Melaa. Log in to complete your profile and start getting leads.</p>
         <a

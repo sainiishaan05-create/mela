@@ -8,9 +8,11 @@ import SaveVendorButton from '@/components/vendors/SaveVendorButton'
 import ReviewSection from '@/components/vendors/ReviewSection'
 import VendorMap from '@/components/vendors/VendorMap'
 import Link from 'next/link'
+import type { LucideIcon } from 'lucide-react'
 import {
   MapPin, Globe, BadgeCheck,
   ArrowLeft, ChevronRight, CheckCircle2, ArrowUpRight, Clock,
+  Flower2, CalendarDays, MessageCircle, Sparkles as SparklesIcon, Camera, Star,
 } from 'lucide-react'
 
 interface Props { params: Promise<{ slug: string }> }
@@ -32,13 +34,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   }
 }
 
-const WHAT_TO_EXPECT = [
-  { icon: '🌺', text: 'Knows South Asian wedding traditions' },
-  { icon: '📍', text: 'Based in the GTA, works local events' },
-  { icon: '📅', text: 'Handles multi-day wedding schedules' },
-  { icon: '💬', text: 'You message them directly, no middlemen' },
-  { icon: '🙏', text: 'Sikh, Hindu, Muslim, Ismaili and more' },
-  { icon: '✨', text: 'Flexible packages for your budget' },
+const WHAT_TO_EXPECT: { icon: LucideIcon; text: string }[] = [
+  { icon: Flower2, text: 'Knows South Asian wedding traditions' },
+  { icon: MapPin, text: 'Based in the GTA, works local events' },
+  { icon: CalendarDays, text: 'Handles multi-day wedding schedules' },
+  { icon: MessageCircle, text: 'You message them directly, no middlemen' },
+  { icon: Flower2, text: 'Sikh, Hindu, Muslim, Ismaili and more' },
+  { icon: SparklesIcon, text: 'Flexible packages for your budget' },
 ]
 
 export default async function VendorProfilePage({ params }: Props) {
@@ -149,7 +151,7 @@ export default async function VendorProfilePage({ params }: Props) {
                           ? 'bg-amber-500/90 text-white'
                           : 'bg-blue-500/90 text-white'
                       }`}>
-                        {v.tier === 'premium' ? '⭐ Premium Vendor' : '✓ Verified Vendor'}
+                        {v.tier === 'premium' ? <><Star className="w-3 h-3 inline -mt-0.5" /> Premium Vendor</> : <><BadgeCheck className="w-3 h-3 inline -mt-0.5" /> Verified Vendor</>}
                       </span>
                     </div>
                   )}
@@ -216,7 +218,7 @@ export default async function VendorProfilePage({ params }: Props) {
                   {WHAT_TO_EXPECT.map(item => (
                     <div key={item.text}
                       className="flex items-center gap-3 bg-[#FAFAF7] rounded-2xl px-4 py-3 border border-gray-100">
-                      <span className="text-lg shrink-0">{item.icon}</span>
+                      <div className="w-8 h-8 rounded-full bg-[#C8A96A]/10 flex items-center justify-center shrink-0"><item.icon className="w-4 h-4 text-[#C8A96A]" /></div>
                       <span className="text-sm text-gray-700 font-medium">{item.text}</span>
                     </div>
                   ))}
