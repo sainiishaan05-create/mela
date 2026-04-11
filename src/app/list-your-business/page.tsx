@@ -60,7 +60,7 @@ export default async function ListYourBusinessPage() {
             <span className="gradient-text">Ready to Book</span>
           </h1>
           <p className="text-lg sm:text-xl max-w-2xl mx-auto mb-10" style={{ color: 'rgba(255,255,255,0.6)' }}>
-            South Asian weddings are a <strong className="text-white">$2B+ market in Canada</strong>. Your ideal clients are already searching on Mela. Be where they look.
+            South Asian weddings are a <strong className="text-white">$2B+ market in Canada</strong>. Your ideal clients are already searching on Melaa. Be where they look.
           </p>
 
           {/* Stats */}
@@ -139,7 +139,7 @@ export default async function ListYourBusinessPage() {
               <div className="space-y-5">
                 {[
                   { day: '30 Seconds', Icon: Zap,        text: 'Sign up with name, email, category and city. Your listing goes live instantly.' },
-                  { day: 'Next 5 Min', Icon: Sparkles,   text: 'Complete your profile — description, photos, contact info.' },
+                  { day: 'Next 5 Min', Icon: Sparkles,   text: 'Complete your profile. Add a description, photos, and contact info.' },
                   { day: 'Days 1–90',  Icon: Inbox,      text: 'Receive leads completely free. We prove our value before you pay a cent.' },
                   { day: 'Day 90+',    Icon: TrendingUp, text: 'Founding Members continue at $49/mo. Priority placement, verified badge, full analytics.' },
                 ].map(({ day, Icon, text }) => (
@@ -164,7 +164,7 @@ export default async function ListYourBusinessPage() {
             <div className="mt-8 certificate-frame text-center">
               <div className="monogram-seal">M</div>
               <p className="text-[10px] font-bold uppercase tracking-[0.22em] mb-2" style={{ color: 'var(--color-gold-dark)' }}>Melaa Lead Guarantee</p>
-              <p className="font-[family-name:var(--font-playfair)] text-lg font-bold mb-3" style={{ color: 'var(--color-text)' }}>One inquiry in 90 days — or nothing.</p>
+              <p className="font-[family-name:var(--font-playfair)] text-lg font-bold mb-3" style={{ color: 'var(--color-text)' }}>One inquiry in 90 days or your money back.</p>
               <p className="text-xs leading-relaxed max-w-md mx-auto" style={{ color: 'var(--color-text-muted)' }}>
                 If you don&apos;t receive at least one genuine client inquiry in your first 90 days, we&apos;ll personally optimize your profile until you do. Otherwise, you owe us nothing.
               </p>

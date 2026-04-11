@@ -82,7 +82,7 @@ export default function SignupPage() {
             Create your free account
           </h1>
           <p className="text-gray-500 text-sm mt-1">
-            One click to get started — no password needed
+            One click to get started. No password needed
           </p>
         </div>
 

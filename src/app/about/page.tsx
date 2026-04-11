@@ -55,7 +55,7 @@ export default async function AboutPage() {
             Photographers who have shot a hundred pheras. Caterers who know a Gujarati thali from a Punjabi spread. Decorators who can build a mandap that takes your breath away.
           </p>
           <p>
-            Melaa is the only vendor directory in the Greater Toronto Area built from day one for South Asian weddings and events. Every vendor listed here knows your rituals, your food, your music, and your expectations — because they come from the same community you do.
+            Melaa is the only vendor directory in the Greater Toronto Area built from day one for South Asian weddings and events. Every vendor listed here knows your rituals, your food, your music, and your expectations because they come from the same community you do.
           </p>
         </div>
       </section>

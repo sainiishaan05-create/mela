@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 
 export const metadata: Metadata = {
-  title: 'Privacy Policy | Mela',
+  title: 'Privacy Policy | Melaa',
   description: 'Privacy Policy for Melaa, the South Asian wedding and event vendor directory for the Greater Toronto Area.',
 }
 
@@ -15,7 +15,7 @@ export default function PrivacyPage() {
         <div className="relative z-10 max-w-3xl mx-auto text-center">
           <p className="section-label mb-5 justify-center">Legal</p>
           <h1 className="font-[family-name:var(--font-playfair)] text-3xl sm:text-5xl font-bold text-white mb-3">Privacy Policy</h1>
-          <p className="text-sm" style={{ color: 'rgba(255,255,255,0.5)' }}>Last updated: March 2025</p>
+          <p className="text-sm" style={{ color: 'rgba(255,255,255,0.5)' }}>Last updated: April 2026</p>
         </div>
       </section>
 
@@ -25,7 +25,7 @@ export default function PrivacyPage() {
           <section>
             <h2 className="text-xl font-semibold text-gray-900 mb-3 font-[family-name:var(--font-playfair)]" style={{ color: 'var(--color-gold-dark)' }}>1. Introduction</h2>
             <p className="text-gray-600 leading-relaxed">
-              Mela ("we", "our", "us") operates melaa.ca. This Privacy Policy explains how we collect, use, and protect your personal information when you use our platform. By using Mela, you agree to the collection and use of information in accordance with this policy.
+              Melaa ("we", "our", "us") operates melaa.ca. This Privacy Policy explains how we collect, use, and protect your personal information when you use our platform. By using Melaa, you agree to the collection and use of information in accordance with this policy.
             </p>
           </section>
 
@@ -57,7 +57,7 @@ export default function PrivacyPage() {
           <section>
             <h2 className="text-xl font-semibold text-gray-900 mb-3 font-[family-name:var(--font-playfair)]" style={{ color: 'var(--color-gold-dark)' }}>4. Social Media</h2>
             <p className="text-gray-600 leading-relaxed">
-              Mela maintains business accounts on Instagram and TikTok. We use the TikTok Content Posting API and Instagram Graph API to publish content to our own business accounts. We do not access, store, or post to any user's personal social media accounts. We only post to our own @melaa.ca accounts.
+              Melaa maintains business accounts on Instagram and TikTok. We use the TikTok Content Posting API and Instagram Graph API to publish content to our own business accounts. We do not access, store, or post to any user's personal social media accounts. We only post to our own @melaa.ca accounts.
             </p>
           </section>
 
@@ -108,21 +108,21 @@ export default function PrivacyPage() {
           <section>
             <h2 className="text-xl font-semibold text-gray-900 mb-3 font-[family-name:var(--font-playfair)]" style={{ color: 'var(--color-gold-dark)' }}>10. Children's Privacy</h2>
             <p className="text-gray-600 leading-relaxed">
-              Mela is not directed at children under 13. We do not knowingly collect personal information from children. If you believe a child has provided us with personal information, please contact us.
+              Melaa is not directed at children under 13. We do not knowingly collect personal information from children. If you believe a child has provided us with personal information, please contact us.
             </p>
           </section>
 
           <section>
             <h2 className="text-xl font-semibold text-gray-900 mb-3 font-[family-name:var(--font-playfair)]" style={{ color: 'var(--color-gold-dark)' }}>11. Changes to This Policy</h2>
             <p className="text-gray-600 leading-relaxed">
-              We may update this Privacy Policy from time to time. We will notify you of significant changes by updating the date at the top of this page. Continued use of Mela after changes constitutes acceptance of the updated policy.
+              We may update this Privacy Policy from time to time. We will notify you of significant changes by updating the date at the top of this page. Continued use of Melaa after changes constitutes acceptance of the updated policy.
             </p>
           </section>
 
           <section>
             <h2 className="text-xl font-semibold text-gray-900 mb-3 font-[family-name:var(--font-playfair)]" style={{ color: 'var(--color-gold-dark)' }}>12. Third-Party Transactions</h2>
             <p className="text-gray-600 leading-relaxed">
-              Mela is a directory service that connects clients with vendors. We do not participate in, mediate, or bear any responsibility for transactions, agreements, disputes, or interactions between clients and vendors. Any arrangement between a client and a vendor is solely between those parties. Mela does not endorse, guarantee, or warrant any vendor or their services.
+              Melaa is a directory service that connects clients with vendors. We do not participate in, mediate, or bear any responsibility for transactions, agreements, disputes, or interactions between clients and vendors. Any arrangement between a client and a vendor is solely between those parties. Melaa does not endorse, guarantee, or warrant any vendor or their services.
             </p>
           </section>
 
@@ -132,7 +132,7 @@ export default function PrivacyPage() {
               For privacy-related questions or requests, contact:{' '}
               <a href="mailto:hello@melaa.ca" className="text-rose-600 hover:underline">hello@melaa.ca</a>
               <br />
-              Mela, Toronto, Ontario, Canada
+              Melaa, Toronto, Ontario, Canada
             </p>
           </section>
 

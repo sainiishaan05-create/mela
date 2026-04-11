@@ -33,12 +33,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 const WHAT_TO_EXPECT = [
-  { icon: '🌺', text: 'Cultural understanding of South Asian traditions' },
-  { icon: '📍', text: 'GTA-based, available for local events' },
-  { icon: '📅', text: 'Experience with multi-day weddings' },
-  { icon: '💬', text: 'Direct communication, no middlemen' },
-  { icon: '🙏', text: 'Serving Sikh, Hindu, Muslim & more' },
-  { icon: '✨', text: 'Customizable packages available' },
+  { icon: '🌺', text: 'Knows South Asian wedding traditions' },
+  { icon: '📍', text: 'Based in the GTA, works local events' },
+  { icon: '📅', text: 'Handles multi-day wedding schedules' },
+  { icon: '💬', text: 'You message them directly, no middlemen' },
+  { icon: '🙏', text: 'Sikh, Hindu, Muslim, Ismaili and more' },
+  { icon: '✨', text: 'Flexible packages for your budget' },
 ]
 
 export default async function VendorProfilePage({ params }: Props) {

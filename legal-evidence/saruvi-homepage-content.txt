@@ -1,0 +1,91 @@
+═══════════════════════════════════════════════════════════════════
+EVIDENCE: saruvi.com HOMEPAGE CONTENT
+Captured: 2026-04-07
+URL: https://saruvi.com/
+Title: Home | Saruvi
+Meta Description: Find trusted vendors for weddings, holidays, and cultural events. Every culture. Every celebration.
+═══════════════════════════════════════════════════════════════════
+
+NAVIGATION
+- Browse
+- Explore
+- Blog
+- For Vendors
+- Sign In
+- Get Started
+
+HERO
+Tagline: "Every culture. Every celebration."
+Search placeholder: "Search for 'Music', 'South Asian', or 'Florists'..."
+Browse chips: Categories | Events | Vendors
+
+POPULAR EVENTS
+- South Asian Wedding
+- South Asian Engagement
+- Mehndi / Henna Night
+- Roka Ceremony
+- South Asian Reception
+- Haldi / Manjha Ceremony
+
+TRENDING VENDORS (with Pro badges)
+1. KAT Kreationz — Decor & Design (Arthika Nadarajah, founder)
+2. BeatsByAK — DJ, MC, Music & Entertainment (Akhil)
+3. Ishtar Catering — Catering & Food (Mississauga, Ontario)
+4. 3D Sound & Ent — Lighting & AV (founded Toronto 2005)
+5. Durham Convention Centre — Venues (Durham Region GTA East)
+6. Omani Event Center — Venues
+7. Aditya Gurukkal — Ceremony Officiants
+8. Elegant Decor — Decor & Design
+9. Go Charter GTA — Transportation
+10. Akaram Silk — Attire & Fashion
+
+VENDOR SPOTLIGHT
+DESIGNR — Event and Wedding Signage and Stationery
+
+POPULAR GUIDES (Blog posts)
+- "Tamil Engagement Guide: The Nichayathartham Ceremony" [Event Planning Guides]
+- "Hindu Wedding Guide: Every Ritual Explained (Step-by-Step)" [Event Planning Guides]
+- "Tamil Hindu Wedding Guide: Muhurtham, Rituals & Timeline" [Event Planning Guides]
+
+VALUE PROPS (matches Melaa's messaging almost exactly)
+┌──────────────────────────────────────────────────────────────┐
+│ Saruvi                     │ Melaa                            │
+├────────────────────────────┼──────────────────────────────────┤
+│ "Culturally Focused"       │ "South Asian First"              │
+│ "100% Free to Browse"      │ "Zero Fees. Ever."               │
+│ "Verified Vendors"         │ "Verified & Local"               │
+└──────────────────────────────────────────────────────────────┘
+
+CTA SECTION
+"Ready to start planning?"
+"Create a free account to save favourites, track vendors, and plan your celebration"
+- Sign Up Free
+- Browse Vendors
+
+FOOTER
+Tagline repeated: "Every culture. Every celebration. Find vendors who understand your traditions."
+Instagram: @saruvi_official
+Email: saruvi.business@gmail.com
+
+Footer columns:
+- Browse: Categories, Events, Vendors
+- Explore: Blog
+- Company: [Support, For Vendors]
+- Legal: Privacy Policy, Terms of Service, Legal Disclaimer
+
+Newsletter: "Get updates on new features and vendors — Subscribe"
+
+LEGAL DISCLAIMER (critical evidence they're scraping):
+"Vendor listings are aggregated from publicly available sources for
+informational purposes only. Saruvi does not verify, endorse, or
+guarantee the quality, safety, or legality of services provided by
+listed vendors. A 'Verified' badge indicates only that the business
+owner has claimed the listing, not an endorsement of quality or
+services. Users are responsible for conducting their own due
+diligence before engaging with any vendor."
+
+NOTE: This disclaimer reveals they SCRAPE listings from "publicly
+available sources" — exactly the same business model Melaa uses,
+likely scraped from Melaa itself given identical vendor categories,
+event types, and "Verified" badge terminology.
+═══════════════════════════════════════════════════════════════════

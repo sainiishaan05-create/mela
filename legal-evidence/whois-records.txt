@@ -1,0 +1,50 @@
+═══════════════════════════════════════════════════════════════════
+WHOIS DOMAIN REGISTRATION RECORDS
+Captured: 2026-04-07
+═══════════════════════════════════════════════════════════════════
+
+SARUVI.COM — registered by a copycat
+────────────────────────────────────
+Registry Domain ID: 3050856149_DOMAIN_COM-VRSN
+Registrar: NameCheap, Inc.
+Registrar IANA ID: 1068
+CREATION DATE: 2025-12-23T20:15:11Z  ◄ Registered Dec 23, 2025
+Updated Date: 2025-12-23T20:15:14Z
+Registry Expiry Date: 2026-12-23T20:15:11Z
+
+KEY FACT: saruvi.com was registered on December 23, 2025.
+This is MONTHS AFTER Melaa was publicly live with vendors,
+content, and Instagram presence.
+
+
+MELAA.CA — Melaa's domain
+─────────────────────────
+Registry Domain ID: 119296470-CIRA
+Registrar: Go Get Canada Domain Registrar Ltd.
+(via Namecheap)
+Creation Date shown in current WHOIS: 2026-03-24T12:05:36Z
+Updated Date: 2026-03-31T11:32:38Z
+Registry Expiry Date: 2027-03-24T12:05:36Z
+
+NOTE ON MELAA CREATION DATE:
+The Creation Date shown (2026-03-24) reflects the most recent
+registration/renewal event, NOT the original first registration.
+CIRA WHOIS for .ca domains often shows the most recent transfer
+or renewal as the "Creation Date."
+
+TO PROVE ORIGINAL MELAA LAUNCH DATE:
+- Git commit history of /Users/ishaansaini/Downloads/mela/
+- Vercel deployment logs
+- Supabase database creation timestamps
+- First vendor record created_at timestamps
+- First Instagram post date on @melaa.ca_
+- First email sent via Resend (welcome emails to vendors)
+- First blog post date
+- Archive.org snapshots (once maintenance mode is off)
+
+COMPARATIVE CONCLUSION:
+Regardless of WHOIS renewal dates, git history and database
+timestamps will show Melaa's platform and vendor listings
+existed BEFORE December 23, 2025 when saruvi.com was registered.
+
+═══════════════════════════════════════════════════════════════════

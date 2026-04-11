@@ -1,0 +1,150 @@
+═══════════════════════════════════════════════════════════════════
+EVIDENCE: saruvi.com VENDORS PAGE
+Captured: 2026-04-07
+URL: https://saruvi.com/vendors
+Total vendor count shown: 96 of 96
+═══════════════════════════════════════════════════════════════════
+
+FILTER STRUCTURE (suspiciously similar to Melaa):
+- Location
+- Pricing Tier: Budget-Friendly | Mid-Range | Premium | Contact for Pricing
+- Status: Featured | Pro | Verified
+- Culture: All | South Asian | Middle Eastern & Persian | African & Caribbean | East Asian | Latin American
+- Event Type
+- Category
+
+CATEGORIES ON SARUVI (compare with Melaa's 29 categories):
+- Attire & Fashion
+- Bartenders
+- Beauty & Styling
+- Cakes & Desserts
+- Catering & Food
+- Ceremony Officiants
+- Choreographers
+- Decor & Design
+- DJ, MC, Music & Entertainment
+- Event Content Creator
+- Event Planners
+- Florists
+- Invitations & Favors
+- Jewelers
+- Lighting & AV
+- Makeup & Hair
+- Mehndi/Henna Artists
+- Other Services
+- Photography & Video
+- Rentals & Equipment
+- Transportation
+- Venues
+
+VENDOR LIST (96 total — cross-reference with Melaa database):
+1. BeatsByAK — DJ (Pro tier)
+2. KAT Kreationz — Decor & Design (Pro tier) — Toronto
+3. DESIGNR — Signage/Stationery — Toronto
+4. theweddingfilman — Wedding Photography — Toronto
+5. Fazeel Akhtar Photography
+6. Mostly Handmade Studio — Stationery (Remote)
+7. Masuda Face — Hair — Toronto
+8. RLE SoundCrew — Toronto
+9. Petals And Pearls — Planning — Vaughan
+10. Sharmilaa K Designs — Fashion Designer — Toronto
+11. Crystal Events — Planning — Toronto
+12. theperfectsettinginc — Luxury Decor — Toronto
+13. Ravbbeauty — Bridal Hair/Makeup — Mississauga
+14. In Focus Content — Content Creator (Remote)
+15. Ishtar Catering — Mississauga
+16. Timeless By Vinay — MUAH — Toronto
+17. Treasured Photography — Toronto
+18. Crystal Event Decor — Pickering
+19. MIRU (Remote)
+20. Sastha Express Bus — Transportation — Toronto
+21. Lavish Event Rentals — Toronto
+22. Impressions By Annuj — Photography — Toronto
+23. CrystalFusion Studios — Photography — Toronto
+24. Ideal Wedding Designs & Supplies — Vaughan
+25. Wedding Invitations by VH — Toronto
+26. LEC Digital — Design (Remote)
+27. DJ Clickz (Remote)
+28. withlovenive — Filmmaker — Toronto
+29. The Short Guy Films (Remote)
+30. Elite Event Services — Toronto
+31. Brighton Convention Centre — Toronto
+32. Dolce Vita Cakes — Toronto
+33. Digitals By Vishsri — Toronto (Tamil weddings mentioned)
+34. N M — MC services Tamil/English — Toronto
+35. Art You Can Eat — Toronto
+36. The Signature Event Company — Toronto
+37. Canadian Wall to Wall Draping — Toronto
+38. SnapHaus — Photobooth — Toronto
+39. Akaram Silk — South Asian clothing — Scarborough
+40. Refined Events Co.
+41. Omani Event Center — Venue — Pickering
+42. SAFFRON MEDIA — Films — Toronto
+43. Yasmine Lashkari (Remote)
+44. Durham Convention Centre — Venue — Ajax
+45. Dream Party Decor — Mississauga
+46. Blissful Bites Catering
+47. Aditya Gurukkal — Hindu Priest — Toronto
+48. icapturestudio — Cinematic Filmmaker — Toronto
+49. Kaidy Decor — Toronto
+50. Red Lotus Films — Toronto
+51. MC Suds — Master of Ceremonies — Toronto
+52. Elegant Decor — Toronto
+53. Suits by The Nadu — Toronto
+54. MC Geevez — Toronto
+55. Navs Live Pizza Palazzo Inc — Toronto
+56. The Sonder Booth — Toronto
+57. Jasmine Florists — Scarborough
+58. The Extension Bar — Hair — Toronto
+59. Golden Trunk Stores — Jewelry — Vaughan
+60. JRLens — Photography — Toronto
+61. Fivefeetabove Productions — Photography (Remote)
+62. 3D Sound & Ent — Lighting/AV (Remote, founded Toronto 2005)
+63. DJ Kharish (Remote)
+64. DNR For DJ
+65. Mmistershowbusiness — Wedding MC (Remote)
+66. DJ Incarnation (Remote)
+67. Droppszmedias — Toronto Wedding Filmmakers (Remote)
+68. Beauty Creation — Hair/MUA — Toronto
+69. Pandit Tarun Devgan — Hindu Priest — Toronto
+70. Henna By Deepi — Whitby
+71. The Lavish Event Company — Toronto
+72. Exotica Limousine — Brampton
+73. DJ Kow — Toronto
+74. Divinemethod Photography — Toronto (630+ weddings, top 10 world)
+75. The Social Sage — Lifestyle/Wedding Content (Remote)
+76. Marquee Design (Remote)
+77. Henna Florist — Markham (Hossein Mendoza, from Iran)
+78. Cineveil Films — Toronto
+79. Level Up Events and Decor — Toronto
+80. Cakesbyshivy — Toronto
+81. Spring Florist — Toronto
+82. Durgy Spade — Magic MC — Toronto
+83. SYLVIE — Makeup/Hair — Toronto
+84. Dream Factory — Cinematography — Toronto
+85. Vahini — Wedding Planning — Toronto
+86. Go Charter GTA — Transportation — Mississauga
+87. Kumar Kreations — Decor — Toronto
+88. Mangai — Jewelry — Toronto
+89. Sherin — Choreographer (Canada's Got Talent '22) — Toronto
+90. JNA Media — Toronto
+91. The Perfect Setting Inc — Luxury Weddings — Toronto
+92. Stir N Flair — Mobile Bartending — Toronto
+93. I Capture Studio — Filmmaker (Remote)
+94. Sia Importer — Indian Clothing/Jewelry — Scarborough
+95-96. (Two test/example entries: "EExample", "EExample Vendor")
+
+KEY OBSERVATIONS:
+- 96 vendors total — a tiny fraction of Melaa's 1,200+
+- Multiple vendors appear to overlap with Melaa's database (Toronto/GTA South Asian wedding vendors)
+- Contains TEST ENTRIES ("EExample", "EExample Vendor Starting at $500") — suggests rushed launch/scraping
+- Heavy Tamil wedding focus in several listings (MC N M, Digitals By Vishsri, theweddingfilman)
+- Cross-reference required to determine overlap with Melaa's proprietary vendor database
+
+DISCLAIMER (THEIR OWN WORDS):
+"Vendor listings are aggregated from publicly available sources for
+informational purposes only."
+↑ This is their admission that they scrape. Combined with near-identical
+vendor categories, event types, and "Verified" badge terminology, this
+strongly suggests targeted scraping of Melaa's database.
+═══════════════════════════════════════════════════════════════════

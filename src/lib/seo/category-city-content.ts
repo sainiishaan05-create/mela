@@ -16,54 +16,53 @@ export function getIntroText(catSlug: string, catName: string, cityName: string)
   const lower = catName.toLowerCase()
 
   if (PHOTO_VIDEO.has(catSlug)) {
-    return `Looking for a ${lower} who truly understands South Asian weddings in ${cityName}? From the baraat entrance to the final reception dance, Melaa connects you with experienced ${lower} who know every ritual, every emotion, and every angle. Browse portfolios, compare styles, and send free inquiries — no signup required.`
+    return `Need a ${lower} who actually gets South Asian weddings in ${cityName}? Someone who knows the baraat, the pheras, the reception dances? Melaa has ${lower} across ${cityName} that families in the GTA already trust. Browse their work, compare a few, and message them for free.`
   }
   if (FOOD.has(catSlug)) {
-    return `Food is the heart of every South Asian celebration. Whether you need a full biryani spread, a pani puri live station, or a custom mithai display, Melaa helps you find trusted ${lower} in ${cityName} who specialise in the flavours your family loves. Browse menus, read reviews, and reach out directly.`
+    return `Good food makes or breaks a South Asian wedding. Whether it's biryani for 500 or a live pani puri counter, find ${lower} in ${cityName} who cook the dishes your guests actually want. Check menus, read what other families said, and reach out directly on Melaa.`
   }
   if (BEAUTY.has(catSlug)) {
-    return `Your look sets the tone for the entire celebration. Find experienced ${lower} in ${cityName} who specialise in South Asian bridal and wedding styling — from traditional looks with heavy jewellery and dupatta draping to modern fusion aesthetics. Compare portfolios and book with confidence through Melaa.`
+    return `Find ${lower} in ${cityName} who know South Asian bridal styling inside and out. Heavy jewellery, dupatta draping, traditional or fusion looks. Browse portfolios from real weddings they've done and book with confidence.`
   }
   if (ENTERTAINMENT.has(catSlug)) {
-    return `The right entertainment transforms a wedding from a gathering into a celebration your guests will talk about for years. Melaa connects you with the best ${lower} in ${cityName} who know how to keep a South Asian crowd on the dance floor from the mehndi night to the reception.`
+    return `Good entertainment is what turns a wedding into a night people talk about for years. Find ${lower} in ${cityName} who know how to keep a Desi crowd on the dance floor from mehndi night to the last reception song.`
   }
 
   // Default (venues, planners, decor, florists, etc.)
-  return `Planning a South Asian wedding in ${cityName}? Melaa connects you with trusted, culturally experienced ${lower} serving ${cityName} and the Greater Toronto Area. Browse verified vendors, compare options, and send free inquiries — all in one place.`
+  return `Planning a South Asian wedding in ${cityName}? Find ${lower} here who actually understand the culture and know what families in the GTA need. Browse profiles, compare a few, and reach out for free.`
 }
 
 export function getFaqs(catSlug: string, catName: string, cityName: string): { question: string; answer: string }[] {
   const lower = catName.toLowerCase()
   const faqs = [
     {
-      question: `How much does a South Asian wedding ${lower} in ${cityName} cost?`,
-      answer: `Pricing varies based on the vendor's experience, the scope of your event, and the number of functions (mehndi, sangeet, ceremony, reception). Most ${lower} in ${cityName} offer customisable packages. We recommend reaching out to 2-3 vendors on Melaa to compare quotes — it's free.`,
+      question: `How much do ${lower} in ${cityName} charge for South Asian weddings?`,
+      answer: `It depends on how many functions you're doing (mehndi, sangeet, ceremony, reception) and how experienced the vendor is. Most ${lower} in ${cityName} will put together a custom quote based on your event. Best bet is to message 2-3 on Melaa and compare.`,
     },
     {
       question: `How far in advance should I book a ${lower} in ${cityName}?`,
-      answer: `For peak wedding season (May-October), we recommend booking your ${lower} at least 6-12 months in advance. Popular vendors in ${cityName} fill up quickly, especially for Saturday dates. Send your inquiries early through Melaa to secure your preferred vendor.`,
+      answer: `If you're getting married between May and October, try to book 6 to 12 months out. The good ${lower} in ${cityName} fill up fast, especially for Saturday dates. Start reaching out early so you have options.`,
     },
     {
       question: `What should I look for when hiring a ${lower} for a South Asian wedding?`,
-      answer: `Look for experience with South Asian weddings specifically — the events are multi-day, have unique cultural elements, and require a vendor who understands traditions like the baraat, mehndi, and various ceremony rituals. Check their portfolio for past South Asian weddings, read reviews, and ask about their experience with your specific cultural background (Punjabi, Gujarati, Tamil, Pakistani, etc.).`,
+      answer: `Experience with Desi weddings is the big one. These events are multi-day with specific cultural traditions (baraat, pheras, mehndi, etc.) and not every vendor knows how to handle them. Ask if they've done weddings for your specific background (Punjabi, Gujarati, Tamil, Pakistani) and look at photos from those events.`,
     },
   ]
 
-  // Add a category-specific FAQ
   if (PHOTO_VIDEO.has(catSlug)) {
     faqs.push({
-      question: `Do ${lower} in ${cityName} offer packages for multi-day South Asian weddings?`,
-      answer: `Yes, most experienced South Asian wedding ${lower} in ${cityName} offer multi-day packages covering the mehndi, sangeet, ceremony, and reception. Some include same-day edits, highlight reels, or drone coverage as add-ons. Ask vendors on Melaa about their multi-event pricing.`,
+      question: `Do ${lower} in ${cityName} offer multi-day wedding packages?`,
+      answer: `Most do. A typical package covers the mehndi, sangeet, ceremony, and reception. Some also offer same-day edits, highlight reels, or drone coverage. Just ask when you message them on Melaa.`,
     })
   } else if (FOOD.has(catSlug)) {
     faqs.push({
-      question: `Can ${lower} in ${cityName} accommodate dietary restrictions?`,
-      answer: `Most South Asian wedding ${lower} in ${cityName} are experienced with vegetarian, vegan, Jain, halal, and gluten-free requirements. Discuss your specific needs during the tasting consultation. On Melaa, you can message vendors directly to confirm dietary accommodations.`,
+      question: `Can ${lower} in ${cityName} handle dietary restrictions?`,
+      answer: `Usually yes. Most South Asian wedding ${lower} here are used to vegetarian, vegan, Jain, halal, and gluten-free requirements. Bring it up during the tasting and they'll work with you.`,
     })
   } else {
     faqs.push({
       question: `Are ${lower} on Melaa verified?`,
-      answer: `All vendors on Melaa are reviewed for quality. Verified vendors have confirmed their identity and business details. Featured and Premium vendors have additional trust signals. You can filter by verification status when browsing ${lower} in ${cityName}.`,
+      answer: `We review every vendor for quality. Verified vendors have confirmed their identity and business details. You can also filter by Featured or Premium vendors when browsing ${lower} in ${cityName}.`,
     })
   }
 

@@ -7,7 +7,7 @@ import NewsletterSignup from '@/components/ui/NewsletterSignup'
 export const metadata: Metadata = {
   title: 'Browse by Category | Melaa | Wedding & Event Vendors Ontario',
   description:
-    'Explore every South Asian wedding vendor category on Melaa — photographers, caterers, decorators, DJs, content creators, bridal wear, and more across the GTA.',
+    'Explore every South Asian wedding vendor category on Melaa . Photographers, caterers, decorators, DJs, content creators, bridal wear, and more across the GTA.',
 }
 
 interface CategoryRow {
@@ -60,7 +60,7 @@ export default async function BrowseCategoriesPage() {
             Browse by Category
           </h1>
           <p className="text-base leading-relaxed" style={{ color: '#8A7B74' }}>
-            {list.length} vendor categories covering every moment of a South Asian wedding —
+            {list.length} vendor categories covering every part of a South Asian wedding,
             from the mehndi to the baraat to the reception dance floor.
           </p>
         </div>

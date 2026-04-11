@@ -32,7 +32,7 @@ const PLAN_BASE = [
     name: 'Founding Member',
     price: '$49',
     period: '/month',
-    description: 'Try it free for 90 days, then $49/mo — cancel anytime',
+    description: 'Try it free for 90 days, then $49/mo. Cancel anytime',
     primary: true,
     highlight: '90-day free trial · no card required',
     features: [
@@ -43,7 +43,7 @@ const PLAN_BASE = [
       'Lead notifications by email',
       'AI-drafted reply suggestions',
       'Analytics dashboard',
-      'Direct client inquiries — no middleman',
+      'Direct client inquiries, no middleman',
     ],
     cta: 'Claim Founding Spot',
     href: '/list-your-business',
@@ -114,7 +114,7 @@ export default async function PricingPage() {
                 <span className="italic text-gray-300">Then it doubles.</span>
               </h1>
               <p className="text-gray-400 text-base sm:text-lg max-w-lg mb-6">
-                Every early vendor has locked in $49/mo forever. Once spot 50 is claimed, the rate becomes $99. Free 90-day trial — no card required, cancel anytime.
+                Every early vendor has locked in $49/mo forever. Once spot 50 is claimed, the rate becomes $99. Free 90-day trial. No card required, cancel anytime.
               </p>
               {spotsLeft > 0 && (
                 <div className="inline-flex items-center gap-2.5 text-sm px-5 py-2.5 rounded-full"

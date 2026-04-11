@@ -17,7 +17,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     .eq('is_active', true)
     .single()
   return {
-    title: vendor ? `${vendor.name} — Find us on Melaa` : 'Share | Melaa',
+    title: vendor ? `${vendor.name} | Find us on Melaa` : 'Share | Melaa',
   }
 }
 

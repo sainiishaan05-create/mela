@@ -1,0 +1,43 @@
+═══════════════════════════════════════════════════════════════════
+EVIDENCE: saruvi_official INSTAGRAM PROFILE
+Captured: 2026-04-07
+URL: https://www.instagram.com/saruvi_official/
+═══════════════════════════════════════════════════════════════════
+
+PROFILE INFO
+Handle: @saruvi_official
+Name: Saruvi
+Bio: "Vendor discovery platform for all cultural events.
+     ✨ Every culture. Every celebration. ✨
+     Launching in the GTA first!"
+Website link: saruvi.com
+Posts: 2
+Status: BLOCKED by @melaa.ca_ (shows 0 followers / 0 following from blocker's view)
+UI state: "Unblock" + "Message" buttons visible (confirming account was previously blocked)
+
+NOTE ON FOLLOWER/FOLLOWING COUNTS
+Because @melaa.ca_ has blocked @saruvi_official, the profile displays
+"0 followers / 0 following" from this viewpoint. Instagram hides
+follower counts when viewed through a blocking account. This does
+NOT reflect their actual follower count.
+
+TO CAPTURE REAL NUMBERS: user should briefly unblock, screenshot
+from their logged-out browser window or a different device, then
+re-block. Do NOT engage with the account.
+
+EVIDENCE OF COPYING TAGLINE
+Their bio says: "Every culture. Every celebration."
+Melaa's messaging is: "Built for your culture." / "Every ceremony. Every tradition."
+Both use identical structural phrasing — pairing "every [X]" with "every [Y]".
+
+BUSINESS CONTACT
+Email: saruvi.business@gmail.com (from site footer)
+Handle they used to follow Melaa's followers: @saruvi_official
+
+ACTION ITEM FOR USER
+1. Keep account blocked — do not interact
+2. From a logged-out incognito window, screenshot:
+   - Full profile with real follower count
+   - Each of their 2 posts
+   - Their "following" list (if public) to see who they followed from Melaa's network
+═══════════════════════════════════════════════════════════════════
