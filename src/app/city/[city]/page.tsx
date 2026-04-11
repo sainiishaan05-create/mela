@@ -2,7 +2,7 @@ import { createClient } from '@/lib/supabase/server'
 import { notFound } from 'next/navigation'
 import type { Metadata } from 'next'
 import type { Vendor } from '@/types'
-import VendorCard from '@/components/vendors/VendorCard'
+import VendorCardWithSelect from '@/components/quotes/VendorCardWithSelect'
 import EmptyStateNotify from '@/components/ui/EmptyStateNotify'
 import Link from 'next/link'
 
@@ -62,7 +62,7 @@ export default async function CityPage({ params }: Props) {
         <>
           <p className="text-sm text-gray-400 mb-4">{filtered.length} vendor{filtered.length !== 1 ? 's' : ''}</p>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {filtered.map(v => <VendorCard key={v.id} vendor={v} />)}
+            {filtered.map(v => <VendorCardWithSelect key={v.id} vendor={v} />)}
           </div>
         </>
       )}

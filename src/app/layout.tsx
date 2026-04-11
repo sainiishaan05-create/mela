@@ -5,6 +5,8 @@ import './globals.css'
 import Header from '@/components/layout/Header'
 import Footer from '@/components/layout/Footer'
 import NewsletterTab from '@/components/ui/NewsletterTab'
+import { QuoteSelectionProvider } from '@/components/quotes/QuoteSelectionProvider'
+import FloatingQuoteBar from '@/components/quotes/FloatingQuoteBar'
 
 const playfair = Playfair_Display({
   variable: '--font-playfair',
@@ -66,10 +68,13 @@ export default function RootLayout({
         </Script>
       </head>
       <body className="min-h-screen flex flex-col bg-[#FAFAF7] text-[#1A1A1A] font-[family-name:var(--font-inter)]">
-        <Header />
-        <main className="flex-1">{children}</main>
-        <Footer />
-        <NewsletterTab />
+        <QuoteSelectionProvider>
+          <Header />
+          <main className="flex-1">{children}</main>
+          <Footer />
+          <FloatingQuoteBar />
+          <NewsletterTab />
+        </QuoteSelectionProvider>
       </body>
     </html>
   )

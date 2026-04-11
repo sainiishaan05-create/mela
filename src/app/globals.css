@@ -132,6 +132,11 @@ a { transition: color 0.15s ease; }
 .animate-fade-in    { animation: fadeIn 0.3s var(--ease-apple) both; }
 .animate-scale-in   { animation: scaleIn 0.45s var(--ease-bounce) both; }
 .animate-slide-down { animation: slideDown 0.3s var(--ease-apple) both; }
+.animate-slide-up   { animation: slideUp 0.3s var(--ease-apple) both; }
+@keyframes slideUp {
+  from { transform: translateY(100%); opacity: 0; }
+  to   { transform: translateY(0); opacity: 1; }
+}
 .animate-sheet-up {
   animation: sheetUp 0.32s cubic-bezier(0.22, 1, 0.36, 1) both;
 }

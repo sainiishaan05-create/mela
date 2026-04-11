@@ -2,7 +2,7 @@ import { createClient } from '@/lib/supabase/server'
 import { notFound } from 'next/navigation'
 import type { Metadata } from 'next'
 import type { Vendor, Category, City } from '@/types'
-import VendorCard from '@/components/vendors/VendorCard'
+import VendorCardWithSelect from '@/components/quotes/VendorCardWithSelect'
 import Link from 'next/link'
 import { MapPin, ChevronRight } from 'lucide-react'
 import EmptyStateNotify from '@/components/ui/EmptyStateNotify'
@@ -142,7 +142,7 @@ export default async function CategoryPage({ params, searchParams }: Props) {
                   className="animate-fade-up"
                   style={{ animationDelay: `${Math.min(i * 60, 400)}ms` }}
                 >
-                  <VendorCard vendor={vendor} />
+                  <VendorCardWithSelect vendor={vendor} />
                 </div>
               ))}
             </div>

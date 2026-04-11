@@ -1,5 +1,5 @@
 import { createClient } from '@/lib/supabase/server'
-import VendorCard from '@/components/vendors/VendorCard'
+import VendorCardWithSelect from '@/components/quotes/VendorCardWithSelect'
 import type { Vendor, Category, City } from '@/types'
 import Link from 'next/link'
 import type { Metadata } from 'next'
@@ -257,7 +257,7 @@ export default async function VendorsPage({ searchParams }: Props) {
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-5">
             {filteredVendors.map((vendor) => (
-              <VendorCard key={vendor.id} vendor={vendor} />
+              <VendorCardWithSelect key={vendor.id} vendor={vendor} />
             ))}
           </div>
         )}
